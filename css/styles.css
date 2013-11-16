@@ -1,0 +1,76 @@
+/*****************************************
+	Экран настроек
+	Информационная панель
+******************************************/
+.bg_bibfers_info_box {
+	padding: 1.5em;
+	background-color: #FAFAFA;
+	border: 1px solid #ddd;
+	margin: 1em 0 1em 0;
+	float: right;
+	width: 22em;
+}
+.bg_bibfers_info_box h3:first-of-type {
+	margin-top: 0;
+}
+.bg_bibfers_author {
+	font-style: italic;
+}
+.bg_bibfers_info_box p {
+	margin: 0 0 .5em 0;
+}
+p.bg_bibfers_gravatar {
+	float: right;
+	margin: 0 0 1em 1em;
+}
+.bg_bibfers_info_box ul {
+	list-style-type: disc;
+	margin-left: 20px;
+}
+p.bg_bibfers_close {
+	text-align: right;
+	font-style: italic;
+	font-size: 1.5em;
+	color: darkblue;
+	margin-top: 1.5em;
+	margin-bottom: 0;
+}
+/*****************************************
+	Всплывающие подсказки у ссылок
+******************************************/
+.bg_data_title {
+    position: relative; /* Относительное позиционирование */
+	white-space: nowrap;/* Запрет переноса строк ссылки */
+	z-index:1; 			/* Текст ссылки на первый план */
+}
+.bg_data_title:hover {
+	z-index:2; 			/* Текст ссылки на второй план */
+}
+.bg_data_title span {
+	display: none;
+	white-space: normal;/* В подсказке перенос строк разрешен */
+	overflow-y: auto; 	/* Разрешить при необходимости скроллинг по вертикали */
+	overflow-x: hidden; /* Запретить  скроллинг по горизонтали */
+}
+.bg_data_title:hover  span {
+    display: block; 	/* Строчно-блочный элемент */
+    position: absolute; /* Абсолютное позиционирование */
+    z-index: 1; 		/* Отображаем подсказку поверх других элементов */
+}
+.bg_data_tooltip {
+	display: none;
+	left: 0; top: 105%; 				/* Положение подсказки */
+	width: 240px; 						/* Ширина подсказки */
+	max-height: 240px; 					/* Высота подсказки */
+    border: 1px solid #333; 			/* Параметры рамки */
+    padding: 5px 10px; 					/* Поля */
+	font-family: sans-serif;			/* Вид шрифта */
+	font-size: 12px; 					/* Размер текста стиха */
+	font-style: normal;					/* Стиль текста */
+	font-weight: normal;				/* Толщина шрифта текста */
+	font-stretch: normal;				/* Начертание шрифта текста */
+    color: #000000; 					/* Цвет текста */
+	text-decoration: none; 				/* Без подчеркивания */
+	text-align: start;					/* Прижать текст влево */
+    background-color: rgba(253,253,255,0.99); 	/* Полупрозрачный цвет фона */
+}
