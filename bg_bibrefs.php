@@ -127,4 +127,4 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_submit_hidden');
 }
 
-?>
+

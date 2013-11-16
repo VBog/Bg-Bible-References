@@ -217,4 +217,5 @@ function bg_bibfers_printVerses ($json, $ch1, $ch2, $vr1, $vr2, $type) {
 	}
 	return $verses;
 }
-?>
+
+

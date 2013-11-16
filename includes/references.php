@@ -369,4 +369,5 @@ function bg_bibfers_getTitle($book) {
 	// translators: ch. - is abbr. "chapter"
 	return "<strong>".$title_book."</strong><br>";						
 }
-?>
+
+
