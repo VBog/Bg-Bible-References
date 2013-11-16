@@ -90,7 +90,7 @@ function bg_bibfers_qoutes( $atts ) {
 // Функция действия перед крючком добавления меню
 function bg_bibfers_add_pages() {
     // Добавим новое подменю в раздел Параметры 
-    add_options_page( __('Bible References', 'bg_bibfers' ), __('Bible References', 'bg_bibfers' ), 8, __FILE__, 'bg_bibfers_options_page');
+    add_options_page( __('Bible References', 'bg_bibfers' ), __('Bible References', 'bg_bibfers' ), 'manage_options', __FILE__, 'bg_bibfers_options_page');
 }	
 // Задание параметров по умолчанию
 function bg_bibrefs_options_ini () {
