@@ -39,7 +39,7 @@ if ( !defined('ABSPATH') ) {
 	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_styles' );
 	add_action( 'admin_enqueue_scripts' , 'bg_enqueue_frontend_styles' );
 	function bg_enqueue_frontend_styles () {
-		wp_enqueue_style( "bg_bibfers_styles", plugins_url( '/css/styles.css' , plugin_basename(__FILE__) ) );
+		wp_enqueue_style( "bg_bibfers_styles", plugins_url( '/css/styles.css', plugin_basename(__FILE__) ), array() , BG_BIBREFS_VERSION  );
 	}
 
 // Загрузка интернационализации
