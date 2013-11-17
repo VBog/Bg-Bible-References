@@ -39,34 +39,34 @@ function bg_bibfers_options_page() {
 
 // Проверяем, отправил ли пользователь нам некоторую информацию
 // Если "Да", в это скрытое поле будет установлено значение 'Y'
-    if( $_POST[ $hidden_field_name ] == 'Y' ) {
+    if( isset( $_POST[ $hidden_field_name ] ) && $_POST[ $hidden_field_name ] == 'Y' ) {
 
 	// Сохраняем отправленное значение в БД
-		$c_lang_val = $_POST[$c_lang_name];
+		$c_lang_val = ( isset( $_POST[$c_lang_name] ) && $_POST[$c_lang_name] ) ? $_POST[$c_lang_name] : '' ;
 		update_option( $c_lang_name, $c_lang_val );
 
-		$r_lang_val = $_POST[$r_lang_name];
+		$r_lang_val = ( isset( $_POST[$r_lang_name] ) && $_POST[$r_lang_name] ) ? $_POST[$r_lang_name] : '' ;
 		update_option( $r_lang_name, $r_lang_val );
 
-		$g_lang_val = $_POST[$g_lang_name];
+		$g_lang_val =( isset( $_POST[$g_lang_name] ) && $_POST[$g_lang_name] ) ? $_POST[$g_lang_name] : '' ;
 		update_option( $g_lang_name, $g_lang_val );
 
-		$l_lang_val = $_POST[$l_lang_name];
+		$l_lang_val = ( isset( $_POST[$l_lang_name] ) && $_POST[$l_lang_name] ) ? $_POST[$l_lang_name] : '' ;
 		update_option( $l_lang_name, $l_lang_val );
 
-		$i_lang_val = $_POST[$i_lang_name];
+		$i_lang_val = ( isset( $_POST[$i_lang_name] ) && $_POST[$i_lang_name] ) ? $_POST[$i_lang_name] : '' ;
 		update_option( $i_lang_name, $i_lang_val );
 
-		$font_val = $_POST[$c_font_name];
+		$font_val = ( isset( $_POST[$c_font_name] ) && $_POST[$c_font_name] ) ? $_POST[$c_font_name] : '' ;
 		update_option( $c_font_name, $font_val );
 
-		$target_val = $_POST[$target_window];
+		$target_val = ( isset( $_POST[$target_window] ) && $_POST[$target_window] ) ? $_POST[$target_window] : '' ;
 		update_option( $target_window, $target_val );
 
-		$class_val = $_POST[$links_class];
+		$class_val = ( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '' ;
 		update_option( $links_class, $class_val );
 
-		$bg_verses_val = $_POST[$bg_verses_name];
+		$bg_verses_val = ( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '' ;
 		update_option( $bg_verses_name, $bg_verses_val );
 
         // Вывести сообщение об обновлении параметров на экран
@@ -178,4 +178,5 @@ c_lang_checked();
 <?php 
 
 } 
-?>
+
+
