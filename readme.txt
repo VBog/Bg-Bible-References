@@ -111,9 +111,13 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.3.2 =
+
+* Some PHP E~Notices fixed and some corrections for compliance to Wordpress coding standards (Thanks, versusbassz)
+
 = 2.3.1 =
 
-Allowed point instead of a colon (In.3.16-18) after first chapter number.
+* Allowed point instead of a colon (In.3.16-18) after first chapter number.
 
 = 2.3.0 =
 
@@ -197,6 +201,10 @@ Allowed point instead of a colon (In.3.16-18) after first chapter number.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.3.2 =
+
+* Some PHP E~Notices fixed and some corrections for compliance to Wordpress coding standards (Thanks, versusbassz)
 
 = 2.3.1 =
 
