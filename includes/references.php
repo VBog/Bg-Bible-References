@@ -169,7 +169,7 @@ function bg_bibfers_get_url($title, $chapter) {
 		// translators: abbr. Matthew			
 		'Mt', 		__('Mt', 'bg_bibfers'), 'Mt', 'Мф|Мт|Матф', 						
 		// translators: abbr. Mark					
-		'Mk', 		__('Mk', 'bg_bibfers'), 'Mk', 'Мк|Мр|Mapк|Map', 					
+		'Mk', 		__('Mk', 'bg_bibfers'), 'Mk', 'Мк|Мр|Марк|Мар', 					
 		// translators: abbr. Luke
 		'Lk', 		__('Lk', 'bg_bibfers'), 'Lk', 'Лк|Луки|Лук',						
 		// translators: abbr. John

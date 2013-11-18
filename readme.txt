@@ -111,6 +111,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.3.3 =
+
+* Fixed mp3 eq. [Мр.3] error (Lat/Cyr mixing). 
+* Other minor fixing.(Thanks, versusbassz)
+
 = 2.3.2 =
 
 * Some PHP E~Notices fixed and some corrections for compliance to Wordpress coding standards (Thanks, versusbassz)
@@ -201,6 +206,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.3.3 =
+
+* Fixed some bugs. 
 
 = 2.3.2 =
 
