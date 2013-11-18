@@ -41,10 +41,6 @@ p.bg_bibfers_close {
 .bg_data_title {
     position: relative; /* Относительное позиционирование */
 	white-space: nowrap;/* Запрет переноса строк ссылки */
-	z-index:1; 			/* Текст ссылки на первый план */
-}
-.bg_data_title:hover {
-	z-index:2; 			/* Текст ссылки на второй план */
 }
 .bg_data_title span {
 	display: none;
