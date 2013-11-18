@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
 "POT-Creation-Date: 2013-11-11 00:42+0400\n"
-"PO-Revision-Date: 2013-11-13 22:34+0400\n"
+"PO-Revision-Date: 2013-11-18 20:14+0400\n"
 "Last-Translator: Вадим <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
@@ -232,7 +232,7 @@ msgstr "Мф|Мт|Матф"
 
 #: ../includes/references.php:168
 msgid "Mk"
-msgstr "Мк|Mp|Mapк|Map"
+msgstr "Мк|Мр|Mapк|Map"
 
 #: ../includes/references.php:170
 msgid "Lk"
