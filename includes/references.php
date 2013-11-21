@@ -36,8 +36,8 @@ function bg_bibfers_bible_proc($txt) {
 				$chapter = preg_replace("/—|–/u", '-', $chapter);				// Замена разных вариантов тире на обычный
 				preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
 				if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
-						$chapter = preg_replace("/\,/u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена запятой или точкой, заменяем ее на двоеточие.
-						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена запятой или точкой, заменяем ее на двоеточие.
+						$chapter = preg_replace("/\,/u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена запятой, заменяем ее на двоеточие.
+						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
 				}
 				$addr = bg_bibfers_get_url($title, $chapter);
 				if (strcasecmp($addr, "") != 0) {
@@ -256,7 +256,7 @@ function bg_bibfers_get_url($title, $chapter) {
 				$fullurl = "http://azbyka.ru/biblia/?".$url[$i*2].".". $chapter;// Полный адрес ссылки на azbyka.ru
 				if ($bg_verses_val == 'on') {									// Текст  стихов
 					$the_title = bg_bibfers_getTitle($url[$i*2]);				// Только название книги 	
-					$ajax_url = plugins_url("/bible/?title=".$url[$i*2]."&chapter=".$chapter, dirname(__FILE__));
+					$ajax_url = plugins_url("/bible/?title=".$url[$i*2]."&chapter=".$chapter."&type=verses", dirname(__FILE__));
 				} else {
 				// translators: ch. - is abbr. "chapter"
 					$the_title =  bg_bibfers_getTitle($url[$i*2]).(__('ch. ', 'bg_bibfers' ))." ".$chapter;	// Название книги, номера глав и стихов						

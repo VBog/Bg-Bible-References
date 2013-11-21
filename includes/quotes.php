@@ -100,10 +100,14 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
    чтение и преобразование файла книги
 *******************************************************************************/  
 	if (!$book) return "";
-	$book_file = $pat[$book];																// Имя файла книги
+	$book_file = $pat[$book];																	// Имя файла книги
 	if (!$book_file) return "";
-	$code = file_get_contents(plugins_url( 'bible/'.$book_file , dirname(__FILE__ )));		// Получить данные с сайта
-	$json = json_decode($code, true);														// Преобразовать json в массив
+	if (function_exists(plugins_url))	{														// Получить данные с сайта
+		$code = file_get_contents(plugins_url( 'bible/'.$book_file , dirname(__FILE__ )));
+	} else {
+		$code = file_get_contents( '../bible/'.$book_file );	
+	}
+	$json = json_decode($code, true);															// Преобразовать json в массив
 
 	if ($type == "book") $verses = "<h3>".bg_bibfers_getTitle($book)."</h3>";
 	else $verses = "";
@@ -118,11 +122,9 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 		$jj++;																					// Защита от зацикливания (не более 10 циклов)
 		if ($jj > 10) return "***";
 		$ch1 = (int)$matches[0][0];
-//		echo " -> ".$matches[0][0];
 		$chapter = substr($chapter,(int)$matches[0][1]);
 		if (preg_match("/\\:|\\,|\\-/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {			// Допускается: двоеточие, запятая, тире или <конец строки>
 			$sp = $matches[0][0];
-//			echo " -> ".$matches[0][0];
 			$chapter = substr($chapter,(int)$matches[0][1]);
 		} else $sp = "";
 		
@@ -130,27 +132,23 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 //		Двоеточие - далее стихи
 			$ii = 0;
 			while (preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {			// Должно быть число - номер стиха 
-				$ii++;																		// Защита от зацикливания (не более 10 циклов)
+				$ii++;																			// Защита от зацикливания (не более 10 циклов)
 				if ($ii >10) return "***";
 				$vr1 = (int)$matches[0][0];
-//				echo " -> ".$matches[0][0];
 				$chapter = substr($chapter,(int)$matches[0][1]);
 				if (preg_match("/\\:|\\,|\\-/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается:  двоеточие, запятая, тире или <конец строки>
 					$sp = $matches[0][0];
-//					echo " -> ".$matches[0][0];
 					$chapter = substr($chapter,(int)$matches[0][1]);
 				} else $sp = "";
-				if (strcasecmp ($sp, ":") == 0) {											// Если двоеточие, то не номер стиха, а номер главы и далее стихи
+				if (strcasecmp ($sp, ":") == 0) {												// Если двоеточие, то не номер стиха, а номер главы и далее стихи
 					$ch1 = $vr1;
 				} else {
 					if (strcasecmp ($sp, "-") == 0) {
-						preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);		// Должно быть число - номер стиха 
+						preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);			// Должно быть число - номер стиха 
 						$vr2 = (int)$matches[0][0];
-//						echo " -> ".$matches[0][0];
 						$chapter = substr($chapter,(int)$matches[0][1]);
 						if (preg_match("/\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается: запятая или <конец строки>
 							$sp = $matches[0][0];
-//							echo " -> ".$matches[0][0];
 							$chapter = substr($chapter,(int)$matches[0][1]);
 						} else $sp = "";
 					} else {
@@ -163,13 +161,11 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 		} else {
 //		Далее до двоеточия только главы
 			if (strcasecmp ($sp, "-") == 0) {
-				preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);				// Должно быть число - номер главы 
+				preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);					// Должно быть число - номер главы 
 				$ch2 = (int)$matches[0][0];
-//				echo " -> ".$matches[0][0];
 				$chapter = substr($chapter,(int)$matches[0][1]);
 				if (preg_match("/\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {			// Допускается: запятая или <конец строки>
 					$sp = $matches[0][0];
-//					echo " -> ".$matches[0][0];
 					$chapter = substr($chapter,(int)$matches[0][1]);
 				} else $sp = "";
 			} else {
@@ -186,8 +182,6 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
   
 *******************************************************************************/  
 function bg_bibfers_printVerses ($json, $ch1, $ch2, $vr1, $vr2, $type) {
-    $class_val = get_option( 'bg_bibfers_class' );
-	if ($class_val == "") $class_val = 'bg_bibfers';
 	$verses = "";
 	$chr = 0;
 	$cn_json = count($json);
@@ -196,18 +190,18 @@ function bg_bibfers_printVerses ($json, $ch1, $ch2, $vr1, $vr2, $type) {
 		$vr = (int)$json[$i][stix];
 		if ( $ch >= $ch1 && $ch <= $ch2) {
 			if ( $vr >= $vr1 && $vr <= $vr2) {
-				if ($type == 'book') { 																		// Тип: книга
+				if ($type == 'book') { 																			// Тип: книга
 					if ($chr != $ch) {
-						$verses = $verses."<h4>".__('Chapter', 'bg_bibfers')." ".$ch."</h4>";					// Печатаем номер главы
+						$verses = $verses."<strong>".__('Chapter', 'bg_bibfers')." ".$ch."</strong><br>";		// Печатаем номер главы
 						$chr = $ch;
 					}
-					$pointer = "<span class='".$class_val."_pointer'><em>".$json[$i][stix]."</em></span> ";	// Только номер стиха
-				} else if ($type == 'verses') { 																	// Тип: стихи
-					$pointer = "<span class='".$class_val."_pointer'><em>".$json[$i][part].":".$json[$i][stix]."</em></span> ";	// Номер главы : номер стиха
-				} else if ($type == 'b_verses') { 																	// Тип: стихи
-					$pointer = "<span class='".$class_val."_pointer'><em>".$json[$i][ru_book].".".$json[$i][part].":".$json[$i][stix]."</em></span> ";	// Книга. номер главы : номер стиха
-				} else {																					// Тип: цитата
-					$pointer = "";																			// Ничего
+					$pointer = "<em>".$json[$i][stix]."</em> ";													// Только номер стиха
+				} else if ($type == 'verses') { 																// Тип: стихи
+					$pointer = "<em>".$json[$i][part].":".$json[$i][stix]."</em> ";								// Номер главы : номер стиха
+				} else if ($type == 'b_verses') { 																// Тип: стихи
+					$pointer = "<em>".$json[$i][ru_book].".".$json[$i][part].":".$json[$i][stix]."</em> ";		// Книга. номер главы : номер стиха
+				} else {																						// Тип: цитата
+					$pointer = "";																				// Ничего
 				}
 				$verses = $verses.$pointer.strip_tags($json[$i][text]);
 				if ($type == 'quotes') {$verses = $verses." ";}													// Если цитата, строку не переводим

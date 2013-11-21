@@ -111,6 +111,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.3.4 =
+
+* Algorithm optimization. 
+
 = 2.3.3 =
 
 * Fixed mp3 eq. [Мр.3] error (Lat/Cyr mixing). 
@@ -206,6 +210,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.3.4 =
+
+* Algorithm optimization. 
 
 = 2.3.3 =
 
