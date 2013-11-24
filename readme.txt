@@ -113,9 +113,13 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.4.3 =
+
+* Fixed upload errors. 
+
 = 2.4.0 =
 
-* New algorithm to get and display Bible verses. 
+* New algoritm to get and display Bible verses. 
 * Added type='t_verses' in Short code [bible].
 
 = 2.3.5 =
@@ -222,9 +226,13 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Upgrade Notice ==
 
+= 2.4.3 =
+
+* Fixed upload errors. 
+
 = 2.4.0 =
 
-* New algorithm to get and display Bible verses. 
+* New algoritm to get and display Bible verses. 
 * Added type='t_verses' in Short code [bible].
 
 = 2.3.5 =
