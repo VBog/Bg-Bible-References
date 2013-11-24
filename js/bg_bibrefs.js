@@ -7,23 +7,22 @@ jQuery(document).ready(function(){
 		var el = jQuery(this);
 		if (el.attr('data-title') == "") return;				// Книга не задана
 		var tooltip = el.children('span.bg_data_tooltip');	
-		if (tooltip.html() == '') {								// Подсказка еще пустая заполним
-			jQuery.ajax({
-				type: 'GET',
-				async: true,
-				dataType: 'html',
-				url: '/wp-admin/admin-ajax.php?'+el.attr('data-title'),	// Запрос стихов Библии
-				data: {
-					action: 'bg_bibrefs'
-				},
-				success: function (verses) {
-					tooltip.html(verses);						// Добавляем стихи в подсказку
-				},
-				error:function (XMLHttpRequest, textStatus, errorThrown) {
-					tooltip.append("AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
-				}
-			});
-		}
+		jQuery.ajax({
+			type: 'GET',
+			async: true,
+			dataType: 'html',
+			url: '/wp-admin/admin-ajax.php?'+el.attr('data-title'),	// Запрос стихов Библии
+			data: {
+				action: 'bg_bibrefs'
+			},
+			success: function (verses) {
+				tooltip.html(verses);						// Добавляем стихи в подсказку
+				el.attr('data-title', "");
+			},
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				tooltip.append("AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
+			}
+		});
 	});
 });
 
@@ -35,7 +34,7 @@ jQuery('a.bg_data_title')
 	.mouseenter(function(e){
 		var el = jQuery(this);
 		var tooltip = el.children('span.bg_data_tooltip');	
-		if (tooltip.html() == '' && el.attr('data-title') != "") {		// Подсказка еще пустая заполним
+		if (el.attr('data-title') != "") {		// Книга задана
 			jQuery.ajax({
 				type: 'GET',
 				async: true,
@@ -46,6 +45,7 @@ jQuery('a.bg_data_title')
 				},
 				success: function (verses) {
 					tooltip.html(verses);								// Добавляем стихи в подсказку
+					el.attr('data-title', "");
 				},
 				error:function (XMLHttpRequest, textStatus, errorThrown) {
 					tooltip.append("AJAX error: "+XMLHttpRequest.status+" "+errorThrown);

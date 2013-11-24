@@ -254,12 +254,11 @@ function bg_bibfers_get_url($title, $chapter) {
 		for ($k=0; $k < $cnt; $k++) {														// Из всех вхождений находим точное соответствие указанному наименованию
 			if (strcasecmp($mts[0][$k],  $title) == 0) {						
 				$fullurl = "http://azbyka.ru/biblia/?".$url[$i*2].".". $chapter;			// Полный адрес ссылки на azbyka.ru
-				$the_title ="" ;	// Название книги 	
+				// translators: ch. - is abbr. "chapter"
+				$the_title =  "<strong>".bg_bibfers_getTitle($url[$i*2])."</strong><br>".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
 				if ($bg_verses_val == 'on') {												// Текст  стихов
 					$ajax_url = "title=".$url[$i*2]."&chapter=".$chapter."&type=t_verses";
 				} else {
-				// translators: ch. - is abbr. "chapter"
-					$the_title =  "<strong>".bg_bibfers_getTitle($url[$i*2])."</strong><br>".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
 					$ajax_url = "";
 				}
 				return "<a href='".$fullurl.$opt."' class='bg_data_title ".$class_val."' target='".$target_val."' data-title='".$ajax_url."'><span class='bg_data_tooltip'>".$the_title."</span>"; 
