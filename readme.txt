@@ -115,7 +115,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 = 2.4.0 =
 
-* New algoritm to get and display Bible verses. 
+* New algorithm to get and display Bible verses. 
 * Added type='t_verses' in Short code [bible].
 
 = 2.3.5 =
@@ -224,7 +224,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 = 2.4.0 =
 
-* New algoritm to get and display Bible verses. 
+* New algorithm to get and display Bible verses. 
 * Added type='t_verses' in Short code [bible].
 
 = 2.3.5 =
