@@ -247,19 +247,19 @@ function bg_bibfers_get_url($title, $chapter) {
 	$bg_verses_val = get_option( 'bg_bibfers_show_verses' );	
 	
 	$cn_url = count($url) / 2;
-	for ($i=0; $i < $cn_url; $i++) {											// Просматриваем всю таблицу соответствия сокращений наименований книг
-		$regvar = "/".$url[$i*2+1]."|".$url[$i*2]."/iu";						// Формируем регулярное выражение для поиска обозначения, включая латинское наименование
-		preg_match_all($regvar, $title, $mts);									// Ищем все вхождения указанного наименования
+	for ($i=0; $i < $cn_url; $i++) {														// Просматриваем всю таблицу соответствия сокращений наименований книг
+		$regvar = "/".$url[$i*2+1]."|".$url[$i*2]."/iu";									// Формируем регулярное выражение для поиска обозначения, включая латинское наименование
+		preg_match_all($regvar, $title, $mts);												// Ищем все вхождения указанного наименования
 		$cnt = count($mts[0]);
-		for ($k=0; $k < $cnt; $k++) {											// Из всех вхождений находим точное соответствие указанному наименованию
+		for ($k=0; $k < $cnt; $k++) {														// Из всех вхождений находим точное соответствие указанному наименованию
 			if (strcasecmp($mts[0][$k],  $title) == 0) {						
-				$fullurl = "http://azbyka.ru/biblia/?".$url[$i*2].".". $chapter;// Полный адрес ссылки на azbyka.ru
-				if ($bg_verses_val == 'on') {									// Текст  стихов
-					$the_title = bg_bibfers_getTitle($url[$i*2]);				// Только название книги 	
-					$ajax_url = plugins_url("/bible/?title=".$url[$i*2]."&chapter=".$chapter."&type=verses", dirname(__FILE__));
+				$fullurl = "http://azbyka.ru/biblia/?".$url[$i*2].".". $chapter;			// Полный адрес ссылки на azbyka.ru
+				$the_title ="" ;	// Название книги 	
+				if ($bg_verses_val == 'on') {												// Текст  стихов
+					$ajax_url = "title=".$url[$i*2]."&chapter=".$chapter."&type=t_verses";
 				} else {
 				// translators: ch. - is abbr. "chapter"
-					$the_title =  bg_bibfers_getTitle($url[$i*2]).(__('ch. ', 'bg_bibfers' ))." ".$chapter;	// Название книги, номера глав и стихов						
+					$the_title =  "<strong>".bg_bibfers_getTitle($url[$i*2])."</strong><br>".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
 					$ajax_url = "";
 				}
 				return "<a href='".$fullurl.$opt."' class='bg_data_title ".$class_val."' target='".$target_val."' data-title='".$ajax_url."'><span class='bg_data_tooltip'>".$the_title."</span>"; 
@@ -364,10 +364,8 @@ function bg_bibfers_getTitle($book) {
 		'Hebr'	 	=>__('Hebrews', 'bg_bibfers' ),							//'Послание апостола Павла к Евреям', 
 		'Apok' 		=>__('Revelation', 'bg_bibfers' ));						//'Откровение Иоанна Богослова (Апокалипсис)'
 
-	// Формируем полный текст всплывающей подсказки
-	$title_book = $bookTitle[$book];													// Полное наименование книги Библии
-	// translators: ch. - is abbr. "chapter"
-	return "<strong>".$title_book."</strong><br>";						
+	// Возвражаем полный текст всплывающей подсказки
+	return $bookTitle[$book];													// Полное наименование книги Библии
 }
 
 

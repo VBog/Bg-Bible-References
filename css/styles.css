@@ -44,13 +44,10 @@ p.bg_bibfers_close {
 }
 .bg_data_title span {
 	display: none;
+    position: absolute; /* Абсолютное позиционирование */
 	white-space: normal;/* В подсказке перенос строк разрешен */
 	overflow-y: auto; 	/* Разрешить при необходимости скроллинг по вертикали */
 	overflow-x: hidden; /* Запретить  скроллинг по горизонтали */
-}
-.bg_data_title:hover  span {
-    display: block; 	/* Строчно-блочный элемент */
-    position: absolute; /* Абсолютное позиционирование */
     z-index: 1; 		/* Отображаем подсказку поверх других элементов */
 }
 .bg_data_tooltip {
