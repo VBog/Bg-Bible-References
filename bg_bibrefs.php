@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a>.
     Author: Vadim Bogaiskov
-    Version: 2.4.4
+    Version: 2.4.5
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '2.4.4');
+define('BG_BIBREFS_VERSION', '2.4.5');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -48,7 +48,9 @@ add_action( 'admin_enqueue_scripts' , 'bg_enqueue_frontend_styles' );
 function bg_enqueue_frontend_scripts () {
 	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js' , __FILE__ ), false, BG_BIBREFS_VERSION, true );
 }
-add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' );
+if ( !is_admin() ) {
+	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' );
+}
 
 // Загрузка интернационализации
 load_plugin_textdomain( 'bg_bibfers', false, dirname( plugin_basename( __FILE__ )) . '/languages/' );
@@ -131,9 +133,9 @@ function bg_bibfers_deinstall() {
 	Генератор ответа AJAX
 	
 ******************************************************************************************/
-add_action('wp_ajax_bg_bibrefs', 'bg_bibrefs_callback');
+add_action ('wp_ajax_bg_bibrefs', 'bg_bibrefs_callback');
 add_action ('wp_ajax_nopriv_bg_bibrefs', 'bg_bibrefs_callback');
- 
+
 function bg_bibrefs_callback() {
 	
 	$title = $_GET["title"];

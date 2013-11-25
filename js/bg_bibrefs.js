@@ -55,10 +55,10 @@ jQuery('a.bg_data_title')
 				}
 			}); 
 		}
-		if (tooltip.html() == '') return;					// Подсказка еще пустая, подождем
+		if (tooltip.html() == '') return;						// Подсказка еще пустая, подождем
 	// Определяем положение подсказки на экране
 		var pos = el.offset();									// Позиция родительского элемента
-		var mousex = e.pageX - 24; 								// Получаем координаты по оси X - 20
+		var mousex = e.pageX-12; 								// Получаем координаты по оси X - 20
 		var mousey =  pos.top+el.height(); 						// Получаем координаты по оси Y
 		var tipWidth = tooltip.width(); 						// Вычисляем ширину подсказки
 		var tipHeight = tooltip.height(); 						// Вычисляем высоту подсказки
@@ -73,14 +73,14 @@ jQuery('a.bg_data_title')
 		var tipVisY = jQuery(window).scrollTop()+jQuery(window).height() - (mousey + tipHeight);
 
 		if ( tipVisX < 20 ) { // Если ширина подсказки превышает расстояние от правого края окна браузера до курсора,
-			mousex = e.pageX - tipWidth + 24; // то распологаем область с подсказкой по другую сторону от курсора
+			mousex = e.pageX+12 - tipWidth; // то распологаем область с подсказкой по другую сторону от курсора
 		} 
 		if ( tipVisY < 20 ) { // Если высота подсказки превышает расстояние от нижнего края окна браузера до курсора,
 			mousey = pos.top - tipHeight;  						// то распологаем область с подсказкой над курсором
 		} 
 		else tooltip.css('height', "auto");						// иначе высота определяется автоматически
-		mousex = mousex - pos.left;								// Координаты относительно родительского элемента
-		mousey = mousey - pos.top;
+		mousex = Math.round(mousex);							// Координаты относительно родительского элемента
+		mousey = Math.round(mousey);
 		//Непосредственно присваиваем найденные координаты области, содержащей подсказку
 		tooltip.css('top', mousey+"px");
 		tooltip.css('left', mousex+"px");

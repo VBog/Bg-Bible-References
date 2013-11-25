@@ -39,7 +39,7 @@ p.bg_bibfers_close {
 	Всплывающие подсказки у ссылок
 ******************************************/
 .bg_data_title {
-    position: relative; /* Относительное позиционирование */
+    position: static; /* Относительное позиционирование */
 	white-space: nowrap;/* Запрет переноса строк ссылки */
 }
 .bg_data_title span {

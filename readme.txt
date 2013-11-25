@@ -113,6 +113,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.4.5 =
+
+* Some improvements of tooltip, incl. FireFox bug.
+
 = 2.4.4 =
 
 * Fixed bug. WP didn't allow visitors that are not logged in to see verses in the tooltip.
@@ -229,6 +233,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.4.5 =
+
+* Some improvements of tooltip, incl. FireFox bug.
 
 = 2.4.4 =
 
