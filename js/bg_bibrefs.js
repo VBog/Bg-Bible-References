@@ -9,22 +9,25 @@ jQuery(document).ready(function(){
 		var tooltip = el.children('span.bg_data_tooltip');	
 		jQuery.ajax({
 			type: 'GET',
+			cache: false,
 			async: true,
-			dataType: 'html',
+			dataType: 'text',
 			url: '/wp-admin/admin-ajax.php?'+el.attr('data-title'),	// Запрос стихов Библии
 			data: {
 				action: 'bg_bibrefs'
 			},
-			success: function (verses) {
-				tooltip.html(verses);						// Добавляем стихи в подсказку
-				el.attr('data-title', "");
+			success: function (verses, textStatus) {
+				if (verses != 0) {
+					tooltip.html(verses);						// Добавляем стихи в подсказку
+					el.attr('data-title', "");
+				}
 			},
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				tooltip.append("AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				tooltip.append(" AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
 			}
 		});
 	});
-});
+}); 
 
 /*******************************************************************************
    При наведении мыши на ссылку, если подсказка не пуста, 
@@ -37,20 +40,20 @@ jQuery('a.bg_data_title')
 		if (el.attr('data-title') != "") {		// Книга задана
 			jQuery.ajax({
 				type: 'GET',
+				cache: false,
 				async: true,
-				dataType: 'html',
+				dataType: 'text',
 				url: '/wp-admin/admin-ajax.php?'+el.attr('data-title'),	// Запрос стихов Библии
-				data: {
-					action: 'bg_bibrefs'
+				success: function (verses, textStatus) {
+					if (verses != 0) {
+						tooltip.html(verses);							// Добавляем стихи в подсказку
+						el.attr('data-title', "");
+					}
 				},
-				success: function (verses) {
-					tooltip.html(verses);								// Добавляем стихи в подсказку
-					el.attr('data-title', "");
-				},
-				error:function (XMLHttpRequest, textStatus, errorThrown) {
-					tooltip.append("AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					tooltip.append(" AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
 				}
-			});
+			}); 
 		}
 		if (tooltip.html() == '') return;					// Подсказка еще пустая, подождем
 	// Определяем положение подсказки на экране
