@@ -17,7 +17,7 @@ License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-...will highlight references to the Bible text with links to site "The Alphabet of Faith".
+...will highlight references to Bible text with links to site "The Alphabet of Faith" and to interpretation on site of Optina Pustyn.
 
 
 == Description ==
@@ -26,6 +26,7 @@ Russian:
 
 Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт Православной энциклопедии "Азбука веры" (http://azbyka.ru/biblia). 
 Текст Библии представлен на церковнославянском, русском, греческом, еврейском и латинском языках. 
+А также на толкования Святого Писания Святыми отцами и Учителями Церкви на сайте монастыря Оптина Пустынь (http://bible.optina.ru).
 
 Плагин обрабатывает ссылки следующего формата:
 
@@ -59,7 +60,8 @@ Russian:
 English: 
 
 The plugin will highlight references to the Bible text with links to site of Orthodox encyclopedia "The Alphabet of Faith" (http://azbyka.ru/biblia).
-The Bible is presented in Church, Russian, Greek, Hebrew and Latin. 
+The Bible is presented in Church, Russian, Greek, Hebrew and Latin.
+And also on the interpretation of Holy Scripture by the Holy Fathers and Doctors of the Church on the site of Optina Pustyn monastery (http://bible.optina.ru).
 
 The plugin handles the references with the format:
 
@@ -112,6 +114,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 2. Page of Bible verses
 
 == Changelog ==
+
+= 2.5.0 =
+
+* Added links to the interpretation of Holy Scripture on the site of the monastery Optina Pustyn (http://bible.optina.ru).
+* Allowed use in shortcode any valid (not only Latin) abbreviation of Bible books.
 
 = 2.4.5 =
 
@@ -233,6 +240,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.5.0 =
+
+* Added links to the interpretation of Holy Scripture on the site of the monastery Optina Pustyn (http://bible.optina.ru).
+* Allowed use in shortcode any valid (not only Latin) abbreviation of Bible books.
 
 = 2.4.5 =
 

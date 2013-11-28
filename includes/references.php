@@ -54,9 +54,50 @@ function bg_bibfers_bible_proc($txt) {
 /******************************************************************************************
 	Формирование ссылки на http://azbyka.ru/biblia/
 	Используется в функции bg_bibfers_bible_proc(),
-	для работы требуется bg_bibfers_getЕшеду() - см. ниже
+	для работы требуется bg_bibfers_getTitle() - см. ниже
+	и bg_bibfers_getBook() - см. ниже
 *******************************************************************************************/
 function bg_bibfers_get_url($title, $chapter) {
+		
+// http://azbyka.ru/biblia/?Lk.4:25-5:13,6:1-13&crgli&rus&num=cr 
+	bg_bibrefs_options_ini (); 			// Параметры по умолчанию
+	
+/*******************************************************************************
+   Проверяем настройки
+*******************************************************************************/  
+// Задание языков и шрифтов для отображения на сайте azbyka.ru
+	$opt = "";
+	$c_lang_val = get_option( 'bg_bibfers_c_lang' );
+    $r_lang_val = get_option( 'bg_bibfers_r_lang' );
+    $g_lang_val = get_option( 'bg_bibfers_g_lang' );
+    $l_lang_val = get_option( 'bg_bibfers_l_lang' );
+    $i_lang_val = get_option( 'bg_bibfers_i_lang' );
+	$lang_val = $c_lang_val.$r_lang_val.$g_lang_val.$l_lang_val.$i_lang_val;
+	$font_val = get_option( 'bg_bibfers_c_font' );
+	if ($lang_val) $opt = "&".$lang_val;
+	if ($font_val && $c_lang_val) $opt = $opt."&".$font_val;
+// Общие параметры	отображения ссылок
+    $target_val = get_option( 'bg_bibfers_target' );
+    $class_val = get_option( 'bg_bibfers_class' );
+	if ($class_val == "") $class_val = 'bg_bibfers';
+	$bg_verses_val = get_option( 'bg_bibfers_show_verses' );	
+	
+	$book = bg_bibfers_getBook($title);
+	if ($book != "") {						
+		$fullurl = "http://azbyka.ru/biblia/?".$book.".". $chapter;			// Полный адрес ссылки на azbyka.ru
+		// translators: ch. - is abbr. "chapter"
+		$the_title =  "<strong>".bg_bibfers_getTitle($book)."</strong><br>".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
+		if ($bg_verses_val == 'on') {												// Текст  стихов
+			$ajax_url = "title=".$book."&chapter=".$chapter."&type=t_verses";
+		} else {
+			$ajax_url = "";
+		}
+		return "<a href='".$fullurl.$opt."' class='bg_data_title ".$class_val."' target='".$target_val."' data-title='".$ajax_url."'><span class='bg_data_tooltip'>".$the_title."</span>"; 
+	}
+	else return "";
+}
+
+function bg_bibfers_getBook($title) {
 	$url = array(						// Книги Священного Писания
 		// Ветхий Завет
 		// Пятикнижие Моисея															
@@ -222,30 +263,6 @@ function bg_bibfers_get_url($title, $chapter) {
 		'Hebr', 	__('Hebr', 'bg_bibfers'), 'Hebr', 'Евр', 							
 		// translators: abbr. Revelation
 		'Apok', 	__('Apok', 'bg_bibfers'), 'Apok', 'Откр|Отк|Апок');					
-		
-// http://azbyka.ru/biblia/?Lk.4:25-5:13,6:1-13&crgli&rus&num=cr 
-	bg_bibrefs_options_ini (); 			// Параметры по умолчанию
-	
-/*******************************************************************************
-   Проверяем настройки
-*******************************************************************************/  
-// Задание языков и шрифтов для отображения на сайте azbyka.ru
-	$opt = "";
-	$c_lang_val = get_option( 'bg_bibfers_c_lang' );
-    $r_lang_val = get_option( 'bg_bibfers_r_lang' );
-    $g_lang_val = get_option( 'bg_bibfers_g_lang' );
-    $l_lang_val = get_option( 'bg_bibfers_l_lang' );
-    $i_lang_val = get_option( 'bg_bibfers_i_lang' );
-	$lang_val = $c_lang_val.$r_lang_val.$g_lang_val.$l_lang_val.$i_lang_val;
-	$font_val = get_option( 'bg_bibfers_c_font' );
-	if ($lang_val) $opt = "&".$lang_val;
-	if ($font_val && $c_lang_val) $opt = $opt."&".$font_val;
-// Общие параметры	отображения ссылок
-    $target_val = get_option( 'bg_bibfers_target' );
-    $class_val = get_option( 'bg_bibfers_class' );
-	if ($class_val == "") $class_val = 'bg_bibfers';
-	$bg_verses_val = get_option( 'bg_bibfers_show_verses' );	
-	
 	$cn_url = count($url) / 2;
 	for ($i=0; $i < $cn_url; $i++) {														// Просматриваем всю таблицу соответствия сокращений наименований книг
 		$regvar = "/".$url[$i*2+1]."|".$url[$i*2]."/iu";									// Формируем регулярное выражение для поиска обозначения, включая латинское наименование
@@ -253,22 +270,15 @@ function bg_bibfers_get_url($title, $chapter) {
 		$cnt = count($mts[0]);
 		for ($k=0; $k < $cnt; $k++) {														// Из всех вхождений находим точное соответствие указанному наименованию
 			if (strcasecmp($mts[0][$k],  $title) == 0) {						
-				$fullurl = "http://azbyka.ru/biblia/?".$url[$i*2].".". $chapter;			// Полный адрес ссылки на azbyka.ru
-				// translators: ch. - is abbr. "chapter"
-				$the_title =  "<strong>".bg_bibfers_getTitle($url[$i*2])."</strong><br>".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
-				if ($bg_verses_val == 'on') {												// Текст  стихов
-					$ajax_url = "title=".$url[$i*2]."&chapter=".$chapter."&type=t_verses";
-				} else {
-					$ajax_url = "";
-				}
-				return "<a href='".$fullurl.$opt."' class='bg_data_title ".$class_val."' target='".$target_val."' data-title='".$ajax_url."'><span class='bg_data_tooltip'>".$the_title."</span>"; 
+				return $url[$i*2];															// Обозначение книги латынью
 			}
 		}
 	}
 	return "";
 }
+
 /*******************************************************************************
-   Полное наименование к4ниги Библии
+   Полное наименование книги Библии
    Используется в функции bg_bibfers_get_url()
 *******************************************************************************/  
 

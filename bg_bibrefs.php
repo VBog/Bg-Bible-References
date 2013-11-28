@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a>.
     Author: Vadim Bogaiskov
-    Version: 2.4.5
+    Version: 2.5.0
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '2.4.5');
+define('BG_BIBREFS_VERSION', '2.5.0');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -49,7 +49,8 @@ function bg_enqueue_frontend_scripts () {
 	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js' , __FILE__ ), false, BG_BIBREFS_VERSION, true );
 }
 if ( !is_admin() ) {
-	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' );
+	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' ); 
+
 }
 
 // Загрузка интернационализации
@@ -87,11 +88,13 @@ function bg_bibfers($content) {
 function bg_bibfers_qoutes( $atts ) {
 	extract( shortcode_atts( array(
 		'book' => '',
-		'ch' => '1-99',
+		'ch' => '1-999',
 		'type' => 'verses'
 	), $atts ) );
     $class_val = get_option( 'bg_bibfers_class' );
 	if ($class_val == "") $class_val = 'bg_bibfers';
+	$book = bg_bibfers_getBook($book);
+	if ($book == "") return "";
 	$quote = "<span class='".$class_val."'>".bg_bibfers_getQuotes($book, $ch, $type)."</span>";
 	return "{$quote}";
 }
@@ -100,34 +103,6 @@ function bg_bibfers_add_pages() {
     // Добавим новое подменю в раздел Параметры 
     add_options_page( __('Bible References', 'bg_bibfers' ), __('Bible References', 'bg_bibfers' ), 'manage_options', __FILE__, 'bg_bibfers_options_page');
 }
-// Задание параметров по умолчанию
-function bg_bibrefs_options_ini () {
-	add_option('bg_bibfers_c_lang', "c");
-	add_option('bg_bibfers_r_lang', "r");
-	add_option('bg_bibfers_g_lang');
-	add_option('bg_bibfers_l_lang');
-	add_option('bg_bibfers_i_lang');
-	add_option('bg_bibfers_c_font', "ucs");
-	add_option('bg_bibfers_target', "_blank");
-	add_option('bg_bibfers_class', "bg_bibfers");
-	add_option('bg_bibfers_show_verses', "on");
-}
-
-// Очистка таблицы параметров при удалении плагина
-function bg_bibfers_deinstall() {
-	delete_option('bg_bibfers_c_lang');
-	delete_option('bg_bibfers_r_lang');
-	delete_option('bg_bibfers_g_lang');
-	delete_option('bg_bibfers_l_lang');
-	delete_option('bg_bibfers_i_lang');
-	delete_option('bg_bibfers_c_font');
-	delete_option('bg_bibfers_target');
-	delete_option('bg_bibfers_class');
-	delete_option('bg_bibfers_show_verses');
-
-	delete_option('bg_bibfers_submit_hidden');
-}
-
 
 /*****************************************************************************************
 	Генератор ответа AJAX
@@ -140,7 +115,7 @@ function bg_bibrefs_callback() {
 	
 	$title = $_GET["title"];
 	$chapter = $_GET["chapter"];
-	if (!$chapter) $chapter = '1-99';
+	if (!$chapter) $chapter = '1-999';
 	$type = $_GET["type"];
 	if (!$type) $type = 'verses';
 	echo bg_bibfers_getQuotes($title, $chapter, $type); 

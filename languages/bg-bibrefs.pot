@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/bg-biblie-references\n"
-"POT-Creation-Date: 2013-11-11 06:17:35+00:00\n"
+"POT-Creation-Date: 2013-11-28 18:08:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,834 +12,846 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: bg_bibrefs.php:93
+#: bg_bibrefs.php:104
 msgid "Bible References"
 msgstr ""
 
-#: includes/quotes.php:214
+#: includes/quotes.php:199
 msgid "Chapter"
 msgstr ""
 
+#: includes/quotes.php:322
+msgid "Click to go to interpretation"
+msgstr ""
+
+#. translators: ch. - is abbr. "chapter"
+#: includes/references.php:89
+msgid "ch. "
+msgstr ""
+
 #. translators: abbr. Genesis
-#: includes/references.php:60
+#: includes/references.php:105
 msgid "Gen"
 msgstr ""
 
 #. translators: abbr. Exodus
-#: includes/references.php:62
+#: includes/references.php:107
 msgid "Ex"
 msgstr ""
 
 #. translators: abbr. Leviticus
-#: includes/references.php:64
+#: includes/references.php:109
 msgid "Lev"
 msgstr ""
 
 #. translators: abbr. Numbers
-#: includes/references.php:66
+#: includes/references.php:111
 msgid "Num"
 msgstr ""
 
 #. translators: abbr. Deuteronomy
-#: includes/references.php:68
+#: includes/references.php:113
 msgid "Deut"
 msgstr ""
 
 #. translators: abbr. Joshua (Iesous)
-#: includes/references.php:71
+#: includes/references.php:116
 msgid "Nav"
 msgstr ""
 
 #. translators: abbr. Judges
-#: includes/references.php:73
+#: includes/references.php:118
 msgid "Judg"
 msgstr ""
 
 #. translators: abbr. Ruth
-#: includes/references.php:75
+#: includes/references.php:120
 msgid "Rth"
 msgstr ""
 
 #. translators: abbr. 1 Samuel (1 Kingdoms)
-#: includes/references.php:77
+#: includes/references.php:122
 msgid "1Sam"
 msgstr ""
 
 #. translators: abbr. 2 Samuel (2 Kingdoms)
-#: includes/references.php:79
+#: includes/references.php:124
 msgid "2Sam"
 msgstr ""
 
 #. translators: abbr. 1 Kings (3 Kingdoms)
-#: includes/references.php:81
+#: includes/references.php:126
 msgid "1King"
 msgstr ""
 
 #. translators: abbr. 2 Kings (4 Kingdoms)
-#: includes/references.php:83
+#: includes/references.php:128
 msgid "2King"
 msgstr ""
 
 #. translators: abbr. 1 Chronicles (1 Paralipomenon)
-#: includes/references.php:85
+#: includes/references.php:130
 msgid "1Chron"
 msgstr ""
 
 #. translators: abbr. 2 Chronicles (2 Paralipomenon)
-#: includes/references.php:87
+#: includes/references.php:132
 msgid "2Chron"
 msgstr ""
 
 #. translators: abbr. 1 Esdras
-#: includes/references.php:89
+#: includes/references.php:134
 msgid "Ezr"
 msgstr ""
 
 #. translators: abbr. Nehemiah (2 Esdras)
-#: includes/references.php:91
+#: includes/references.php:136
 msgid "Nehem"
 msgstr ""
 
 #. translators: abbr. Esther
-#: includes/references.php:93
+#: includes/references.php:138
 msgid "Est"
 msgstr ""
 
 #. translators: abbr. Job
-#: includes/references.php:96 includes/references.php:295
+#: includes/references.php:141 includes/references.php:308
 msgid "Job"
 msgstr ""
 
 #. translators: abbr. Psalms
-#: includes/references.php:98
+#: includes/references.php:143
 msgid "Ps"
 msgstr ""
 
 #. translators: abbr. Proverbs
-#: includes/references.php:100
+#: includes/references.php:145
 msgid "Prov"
 msgstr ""
 
 #. translators: abbr. Ecclesiastes
-#: includes/references.php:102
+#: includes/references.php:147
 msgid "Eccl"
 msgstr ""
 
 #. translators: abbr. Song of Songs (Aisma Aismaton)
-#: includes/references.php:104
+#: includes/references.php:149
 msgid "Song"
 msgstr ""
 
 #. translators: abbr. Isaiah
-#: includes/references.php:106
+#: includes/references.php:151
 msgid "Is"
 msgstr ""
 
 #. translators: abbr. Jeremiah
-#: includes/references.php:108
+#: includes/references.php:153
 msgid "Jer"
 msgstr ""
 
 #. translators: abbr. Lamentations
-#: includes/references.php:110
+#: includes/references.php:155
 msgid "Lam"
 msgstr ""
 
 #. translators: abbr. Ezekiel
-#: includes/references.php:112
+#: includes/references.php:157
 msgid "Ezek"
 msgstr ""
 
 #. translators: abbr. Daniel
-#: includes/references.php:114
+#: includes/references.php:159
 msgid "Dan"
 msgstr ""
 
 #. translators: abbr. Hosea
-#: includes/references.php:117
+#: includes/references.php:162
 msgid "Hos"
 msgstr ""
 
 #. translators: abbr. Joel
-#: includes/references.php:119 includes/references.php:308
+#: includes/references.php:164 includes/references.php:321
 msgid "Joel"
 msgstr ""
 
 #. translators: abbr. Amos
-#: includes/references.php:121
+#: includes/references.php:166
 msgid "Am"
 msgstr ""
 
 #. translators: abbr. Obadiah
-#: includes/references.php:123
+#: includes/references.php:168
 msgid "Avd"
 msgstr ""
 
 #. translators: abbr. Jonah
-#: includes/references.php:125
+#: includes/references.php:170
 msgid "Jona"
 msgstr ""
 
 #. translators: abbr. Micah
-#: includes/references.php:127
+#: includes/references.php:172
 msgid "Mic"
 msgstr ""
 
 #. translators: abbr. Nahum
-#: includes/references.php:129
+#: includes/references.php:174
 msgid "Naum"
 msgstr ""
 
 #. translators: abbr. Habakkuk
-#: includes/references.php:131
+#: includes/references.php:176
 msgid "Habak"
 msgstr ""
 
 #. translators: abbr. Zephaniah
-#: includes/references.php:133
+#: includes/references.php:178
 msgid "Sofon"
 msgstr ""
 
 #. translators: abbr. Haggai
-#: includes/references.php:135
+#: includes/references.php:180
 msgid "Hag"
 msgstr ""
 
 #. translators: abbr. Zechariah
-#: includes/references.php:137
+#: includes/references.php:182
 msgid "Zah"
 msgstr ""
 
 #. translators: abbr. Malachi
-#: includes/references.php:139
+#: includes/references.php:184
 msgid "Mal"
 msgstr ""
 
 #. translators: abbr. 1 Maccabees
-#: includes/references.php:142
+#: includes/references.php:187
 msgid "1Mac"
 msgstr ""
 
 #. translators: abbr. 2 Maccabees
-#: includes/references.php:144
+#: includes/references.php:189
 msgid "2Mac"
 msgstr ""
 
 #. translators: abbr. 3 Maccabees
-#: includes/references.php:146
+#: includes/references.php:191
 msgid "3Mac"
 msgstr ""
 
 #. translators: abbr. Baruch
-#: includes/references.php:148
+#: includes/references.php:193
 msgid "Bar"
 msgstr ""
 
 #. translators: abbr. 2 Esdras
-#: includes/references.php:150
+#: includes/references.php:195
 msgid "2Ezr"
 msgstr ""
 
 #. translators: abbr. 3 Esdras
-#: includes/references.php:152
+#: includes/references.php:197
 msgid "3Ezr"
 msgstr ""
 
 #. translators: abbr. Judith
-#: includes/references.php:154
+#: includes/references.php:199
 msgid "Judf"
 msgstr ""
 
 #. translators: abbr. Letter of Jeremiah
-#: includes/references.php:156
+#: includes/references.php:201
 msgid "pJer"
 msgstr ""
 
 #. translators: abbr. Wisdom
-#: includes/references.php:158
+#: includes/references.php:203
 msgid "Solom"
 msgstr ""
 
 #. translators: abbr. Sirach
-#: includes/references.php:160
+#: includes/references.php:205
 msgid "Sir"
 msgstr ""
 
 #. translators: abbr. Tobit (Tobias)
-#: includes/references.php:162
+#: includes/references.php:207
 msgid "Tov"
 msgstr ""
 
 #. translators: abbr. Matthew
-#: includes/references.php:166
+#: includes/references.php:211
 msgid "Mt"
 msgstr ""
 
 #. translators: abbr. Mark
-#: includes/references.php:168
+#: includes/references.php:213
 msgid "Mk"
 msgstr ""
 
 #. translators: abbr. Luke
-#: includes/references.php:170
+#: includes/references.php:215
 msgid "Lk"
 msgstr ""
 
 #. translators: abbr. John
-#: includes/references.php:172
+#: includes/references.php:217
 msgid "Jn"
 msgstr ""
 
 #. translators: abbr. Acts
-#: includes/references.php:175
+#: includes/references.php:220
 msgid "Act"
 msgstr ""
 
 #. translators: abbr. James
-#: includes/references.php:177
+#: includes/references.php:222
 msgid "Jac"
 msgstr ""
 
 #. translators: abbr. 1 Peter
-#: includes/references.php:179
+#: includes/references.php:224
 msgid "1Pet"
 msgstr ""
 
 #. translators: abbr. 2 Peter
-#: includes/references.php:181
+#: includes/references.php:226
 msgid "2Pet"
 msgstr ""
 
 #. translators: abbr. 1 John
-#: includes/references.php:183
+#: includes/references.php:228
 msgid "1Jn"
 msgstr ""
 
 #. translators: abbr. 2 John
-#: includes/references.php:185
+#: includes/references.php:230
 msgid "2Jn"
 msgstr ""
 
 #. translators: abbr. 3 John
-#: includes/references.php:187
+#: includes/references.php:232
 msgid "3Jn"
 msgstr ""
 
 #. translators: abbr. Jude
-#: includes/references.php:189
+#: includes/references.php:234
 msgid "Juda"
 msgstr ""
 
 #. translators: abbr. Romans
-#: includes/references.php:192
+#: includes/references.php:237
 msgid "Rom"
 msgstr ""
 
 #. translators: abbr. 1 Corinthians
-#: includes/references.php:194
+#: includes/references.php:239
 msgid "1Cor"
 msgstr ""
 
 #. translators: abbr. 2 Corinthians
-#: includes/references.php:196
+#: includes/references.php:241
 msgid "2Cor"
 msgstr ""
 
 #. translators: abbr. Galatians
-#: includes/references.php:198
+#: includes/references.php:243
 msgid "Gal"
 msgstr ""
 
 #. translators: abbr. Ephesians
-#: includes/references.php:200
+#: includes/references.php:245
 msgid "Eph"
 msgstr ""
 
 #. translators: abbr. Philippians
-#: includes/references.php:202
+#: includes/references.php:247
 msgid "Phil"
 msgstr ""
 
 #. translators: abbr. Colossians
-#: includes/references.php:204
+#: includes/references.php:249
 msgid "Col"
 msgstr ""
 
 #. translators: abbr. 1 Thessalonians
-#: includes/references.php:206
+#: includes/references.php:251
 msgid "1Thes"
 msgstr ""
 
 #. translators: abbr. 2 Thessalonians
-#: includes/references.php:208
+#: includes/references.php:253
 msgid "2Thes"
 msgstr ""
 
 #. translators: abbr. 1 Timothy
-#: includes/references.php:210
+#: includes/references.php:255
 msgid "1Tim"
 msgstr ""
 
 #. translators: abbr. 2 Timothy
-#: includes/references.php:212
+#: includes/references.php:257
 msgid "2Tim"
 msgstr ""
 
 #. translators: abbr. Titus
-#: includes/references.php:214
+#: includes/references.php:259
 msgid "Tit"
 msgstr ""
 
 #. translators: abbr. Philemon
-#: includes/references.php:216
+#: includes/references.php:261
 msgid "Phlm"
 msgstr ""
 
 #. translators: abbr. Hebrews
-#: includes/references.php:218
+#: includes/references.php:263
 msgid "Hebr"
 msgstr ""
 
 #. translators: abbr. Revelation
-#: includes/references.php:220
+#: includes/references.php:265
 msgid "Apok"
 msgstr ""
 
-#. translators: ch. - is abbr. "chapter"
-#: includes/references.php:258
-msgid "ch. "
-msgstr ""
-
-#: includes/references.php:276
+#: includes/references.php:289
 msgid "Genesis"
 msgstr ""
 
-#: includes/references.php:277
+#: includes/references.php:290
 msgid "Exodus"
 msgstr ""
 
-#: includes/references.php:278
+#: includes/references.php:291
 msgid "Leviticus"
 msgstr ""
 
-#: includes/references.php:279
+#: includes/references.php:292
 msgid "Numbers"
 msgstr ""
 
-#: includes/references.php:280
+#: includes/references.php:293
 msgid "Deuteronomy"
 msgstr ""
 
-#: includes/references.php:282
+#: includes/references.php:295
 msgid "Joshua (Iesous)"
 msgstr ""
 
-#: includes/references.php:283
+#: includes/references.php:296
 msgid "Judges"
 msgstr ""
 
-#: includes/references.php:284
+#: includes/references.php:297
 msgid "Ruth"
 msgstr ""
 
-#: includes/references.php:285
+#: includes/references.php:298
 msgid "1 Samuel (1 Kingdoms)"
 msgstr ""
 
-#: includes/references.php:286
+#: includes/references.php:299
 msgid "2 Samuel (2 Kingdoms)"
 msgstr ""
 
-#: includes/references.php:287
+#: includes/references.php:300
 msgid "1 Kings (3 Kingdoms)"
 msgstr ""
 
-#: includes/references.php:288
+#: includes/references.php:301
 msgid "2 Kings (4 Kingdoms)"
 msgstr ""
 
-#: includes/references.php:289
+#: includes/references.php:302
 msgid "1 Chronicles (1 Paralipomenon)"
 msgstr ""
 
-#: includes/references.php:290
+#: includes/references.php:303
 msgid "2 Chronicles (2 Paralipomenon)"
 msgstr ""
 
-#: includes/references.php:291
+#: includes/references.php:304
 msgid "1 Esdras"
 msgstr ""
 
-#: includes/references.php:292
+#: includes/references.php:305
 msgid "Nehemiah (2 Esdras)"
 msgstr ""
 
-#: includes/references.php:293
+#: includes/references.php:306
 msgid "Esther"
 msgstr ""
 
-#: includes/references.php:296
+#: includes/references.php:309
 msgid "Psalms"
 msgstr ""
 
-#: includes/references.php:297
+#: includes/references.php:310
 msgid "Proverbs"
 msgstr ""
 
-#: includes/references.php:298
+#: includes/references.php:311
 msgid "Ecclesiastes"
 msgstr ""
 
-#: includes/references.php:299
+#: includes/references.php:312
 msgid "Song of Songs (Aisma Aismaton)"
 msgstr ""
 
-#: includes/references.php:301
+#: includes/references.php:314
 msgid "Isaiah"
 msgstr ""
 
-#: includes/references.php:302
+#: includes/references.php:315
 msgid "Jeremiah"
 msgstr ""
 
-#: includes/references.php:303
+#: includes/references.php:316
 msgid "Lamentations"
 msgstr ""
 
-#: includes/references.php:304
+#: includes/references.php:317
 msgid "Ezekiel"
 msgstr ""
 
-#: includes/references.php:305
+#: includes/references.php:318
 msgid "Daniel"
 msgstr ""
 
-#: includes/references.php:307
+#: includes/references.php:320
 msgid "Hosea"
 msgstr ""
 
-#: includes/references.php:309
+#: includes/references.php:322
 msgid "Amos"
 msgstr ""
 
-#: includes/references.php:310
+#: includes/references.php:323
 msgid "Obadiah"
 msgstr ""
 
-#: includes/references.php:311
+#: includes/references.php:324
 msgid "Jonah"
 msgstr ""
 
-#: includes/references.php:312
+#: includes/references.php:325
 msgid "Micah"
 msgstr ""
 
-#: includes/references.php:313
+#: includes/references.php:326
 msgid "Nahum"
 msgstr ""
 
-#: includes/references.php:314
+#: includes/references.php:327
 msgid "Habakkuk"
 msgstr ""
 
-#: includes/references.php:315
+#: includes/references.php:328
 msgid "Zephaniah"
 msgstr ""
 
-#: includes/references.php:316
+#: includes/references.php:329
 msgid "Haggai"
 msgstr ""
 
-#: includes/references.php:317
+#: includes/references.php:330
 msgid "Zechariah"
 msgstr ""
 
-#: includes/references.php:318
+#: includes/references.php:331
 msgid "Malachi"
 msgstr ""
 
-#: includes/references.php:320
+#: includes/references.php:333
 msgid "1 Maccabees"
 msgstr ""
 
-#: includes/references.php:321
+#: includes/references.php:334
 msgid "2 Maccabees"
 msgstr ""
 
-#: includes/references.php:322
+#: includes/references.php:335
 msgid "3 Maccabees"
 msgstr ""
 
-#: includes/references.php:323
+#: includes/references.php:336
 msgid "Baruch"
 msgstr ""
 
-#: includes/references.php:324
+#: includes/references.php:337
 msgid "2 Esdras"
 msgstr ""
 
-#: includes/references.php:325
+#: includes/references.php:338
 msgid "3 Esdras"
 msgstr ""
 
-#: includes/references.php:326
+#: includes/references.php:339
 msgid "Judith"
 msgstr ""
 
-#: includes/references.php:327
+#: includes/references.php:340
 msgid "Letter of Jeremiah"
 msgstr ""
 
-#: includes/references.php:328
+#: includes/references.php:341
 msgid "Wisdom"
 msgstr ""
 
-#: includes/references.php:329
+#: includes/references.php:342
 msgid "Sirach"
 msgstr ""
 
-#: includes/references.php:330
+#: includes/references.php:343
 msgid "Tobit (Tobias)"
 msgstr ""
 
-#: includes/references.php:333
+#: includes/references.php:346
 msgid "Matthew"
 msgstr ""
 
-#: includes/references.php:334
+#: includes/references.php:347
 msgid "Mark"
 msgstr ""
 
-#: includes/references.php:335
+#: includes/references.php:348
 msgid "Luke"
 msgstr ""
 
-#: includes/references.php:336
+#: includes/references.php:349
 msgid "John"
 msgstr ""
 
-#: includes/references.php:338
+#: includes/references.php:351
 msgid "Acts"
 msgstr ""
 
-#: includes/references.php:339
+#: includes/references.php:352
 msgid "James"
 msgstr ""
 
-#: includes/references.php:340
+#: includes/references.php:353
 msgid "1 Peter"
 msgstr ""
 
-#: includes/references.php:341
+#: includes/references.php:354
 msgid "2 Peter"
 msgstr ""
 
-#: includes/references.php:342
+#: includes/references.php:355
 msgid "1 John"
 msgstr ""
 
-#: includes/references.php:343
+#: includes/references.php:356
 msgid "2 John"
 msgstr ""
 
-#: includes/references.php:344
+#: includes/references.php:357
 msgid "3 John"
 msgstr ""
 
-#: includes/references.php:345
+#: includes/references.php:358
 msgid "Jude"
 msgstr ""
 
-#: includes/references.php:347
+#: includes/references.php:360
 msgid "Romans"
 msgstr ""
 
-#: includes/references.php:348
+#: includes/references.php:361
 msgid "1 Corinthians"
 msgstr ""
 
-#: includes/references.php:349
+#: includes/references.php:362
 msgid "2 Corinthians"
 msgstr ""
 
-#: includes/references.php:350
+#: includes/references.php:363
 msgid "Galatians"
 msgstr ""
 
-#: includes/references.php:351
+#: includes/references.php:364
 msgid "Ephesians"
 msgstr ""
 
-#: includes/references.php:352
+#: includes/references.php:365
 msgid "Philippians"
 msgstr ""
 
-#: includes/references.php:353
+#: includes/references.php:366
 msgid "Colossians"
 msgstr ""
 
-#: includes/references.php:354
+#: includes/references.php:367
 msgid "1 Thessalonians"
 msgstr ""
 
-#: includes/references.php:355
+#: includes/references.php:368
 msgid "2 Thessalonians"
 msgstr ""
 
-#: includes/references.php:356
+#: includes/references.php:369
 msgid "1 Timothy"
 msgstr ""
 
-#: includes/references.php:357
+#: includes/references.php:370
 msgid "2 Timothy"
 msgstr ""
 
-#: includes/references.php:358
+#: includes/references.php:371
 msgid "Titus"
 msgstr ""
 
-#: includes/references.php:359
+#: includes/references.php:372
 msgid "Philemon"
 msgstr ""
 
-#: includes/references.php:360
+#: includes/references.php:373
 msgid "Hebrews"
 msgstr ""
 
-#: includes/references.php:361
+#: includes/references.php:374
 msgid "Revelation"
 msgstr ""
 
-#: includes/settings.php:75
+#: includes/settings.php:80
 msgid "Options saved."
 msgstr ""
 
-#: includes/settings.php:86
+#: includes/settings.php:91
 msgid "Bg Bible References Plugin Options"
 msgstr ""
 
-#: includes/settings.php:99
+#: includes/settings.php:104
 msgid "Display text of the Bible in languages:"
 msgstr ""
 
-#: includes/settings.php:103
+#: includes/settings.php:108
 msgid "Church Slavic"
 msgstr ""
 
-#: includes/settings.php:104
+#: includes/settings.php:109
 msgid "Russian"
 msgstr ""
 
-#: includes/settings.php:105
+#: includes/settings.php:110
 msgid "Greek"
 msgstr ""
 
-#: includes/settings.php:106
+#: includes/settings.php:111
 msgid "Latin"
 msgstr ""
 
-#: includes/settings.php:107
+#: includes/settings.php:112
 msgid "Hebrew"
 msgstr ""
 
-#: includes/settings.php:110
+#: includes/settings.php:115
 msgid "Font for Church Slavonic text"
 msgstr ""
 
-#: includes/settings.php:112
+#: includes/settings.php:117
 msgid "Church Slavic font"
 msgstr ""
 
-#: includes/settings.php:113
+#: includes/settings.php:118
 msgid "Russian font (\"Old\" style)"
 msgstr ""
 
-#: includes/settings.php:114
+#: includes/settings.php:119
 msgid "HIP-standard"
 msgstr ""
 
-#: includes/settings.php:127
-msgid "Open page with Bible text"
+#: includes/settings.php:132
+msgid "Open links"
 msgstr ""
 
-#: includes/settings.php:129
+#: includes/settings.php:134
 msgid "in new window"
 msgstr ""
 
-#: includes/settings.php:130
+#: includes/settings.php:135
 msgid "in current window"
 msgstr ""
 
-#: includes/settings.php:133
+#: includes/settings.php:138
 msgid "Reference links CSS class"
 msgstr ""
 
-#: includes/settings.php:138
+#: includes/settings.php:143
 msgid "Show Bible verses in popup"
 msgstr ""
 
-#: includes/settings.php:140
+#: includes/settings.php:145
 msgid ""
 "<br><i>(if this option is disabled or data are not received from the server,"
 "<br>popup showing the chapter number and verse numbers)</i>"
 msgstr ""
 
-#: includes/settings.php:145
+#: includes/settings.php:148
+msgid "Enable links to the interpretation of the Holy Scriptures"
+msgstr ""
+
+#: includes/settings.php:150
+msgid "<br><i>(Tooltips and Short Codes)</i>"
+msgstr ""
+
+#: includes/settings.php:155
 msgid "Update Options"
 msgstr ""
 
-#: includes/settings.php:157
+#: includes/settings.php:167
 msgid "Thanks for using Bg Biblie References"
 msgstr ""
 
-#: includes/settings.php:159
+#: includes/settings.php:169
 msgid ""
 "Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope "
 "it is useful for you."
 msgstr ""
 
-#: includes/settings.php:160
+#: includes/settings.php:170
 msgid "Vadim Bogaiskov"
 msgstr ""
 
-#: includes/settings.php:162
+#: includes/settings.php:172
 msgid "I like this plugin<br>– how can I thank you?"
 msgstr ""
 
-#: includes/settings.php:163
+#: includes/settings.php:173
 msgid "There are several ways for you to say thanks:"
 msgstr ""
 
-#: includes/settings.php:165
+#: includes/settings.php:175
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
 "of the church of Sts. Peter and Fevronia in Marino"
 msgstr ""
 
-#: includes/settings.php:166
+#: includes/settings.php:176
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give it a nice review</a> over at the "
 "WordPress Plugin Directory"
 msgstr ""
 
-#: includes/settings.php:167
+#: includes/settings.php:177
 msgid "Share infotmation or make a nice blog post about the plugin"
 msgstr ""
 
-#: includes/settings.php:169
+#: includes/settings.php:179
 msgid "Bg Bible References really cool plugin for Orthodox WordPress sites"
 msgstr ""
 
-#: includes/settings.php:172
+#: includes/settings.php:182
 msgid "Support"
 msgstr ""
 
-#: includes/settings.php:173
+#: includes/settings.php:183
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
 "href=\"%2$s\" target=\"_blank\">personal site</a> for help."
 msgstr ""
 
-#: includes/settings.php:175
+#: includes/settings.php:185
 msgid "God protect you!"
 msgstr ""
