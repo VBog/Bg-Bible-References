@@ -115,6 +115,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.5.1 =
+
+* Removed debug code AJAX.
+
 = 2.5.0 =
 
 * Added links to the interpretation of Holy Scripture on the site of the monastery Optina Pustyn (http://bible.optina.ru).
@@ -240,6 +244,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.5.1 =
+
+* Removed debug code AJAX.
 
 = 2.5.0 =
 

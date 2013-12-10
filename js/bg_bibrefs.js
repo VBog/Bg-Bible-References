@@ -21,9 +21,6 @@ jQuery(document).ready(function(){
 					tooltip.html(verses);						// Добавляем стихи в подсказку
 					el.attr('data-title', "");
 				}
-			},
-			error: function (XMLHttpRequest, textStatus, errorThrown) {
-				tooltip.append(" AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
 			}
 		});
 	});
@@ -49,9 +46,6 @@ jQuery('a.bg_data_title')
 						tooltip.html(verses);							// Добавляем стихи в подсказку
 						el.attr('data-title', "");
 					}
-				},
-				error: function (XMLHttpRequest, textStatus, errorThrown) {
-					tooltip.append(" AJAX error: "+XMLHttpRequest.status+" "+errorThrown);
 				}
 			}); 
 		}
