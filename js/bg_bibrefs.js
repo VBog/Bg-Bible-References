@@ -3,6 +3,9 @@
    запрашивает текст Библии и заполняет всплывающую подсказку
 *******************************************************************************/  
 jQuery(document).ready(function(){
+	var allParams = parseUrlQuery();
+	if (allParams.preq == '0') return; 
+
 	jQuery('a.bg_data_title').each (function(){
 		var el = jQuery(this);
 		if (el.attr('data-title') == "") return;				// Книга не задана
@@ -12,7 +15,7 @@ jQuery(document).ready(function(){
 			cache: false,
 			async: true,
 			dataType: 'text',
-			url: '/wp-admin/admin-ajax.php?'+el.attr('data-title'),	// Запрос стихов Библии
+			url: el.attr('data-title'),							// Запрос стихов Библии
 			data: {
 				action: 'bg_bibrefs'
 			},
@@ -34,22 +37,25 @@ jQuery('a.bg_data_title')
 	.mouseenter(function(e){
 		var el = jQuery(this);
 		var tooltip = el.children('span.bg_data_tooltip');	
-		if (el.attr('data-title') != "") {		// Книга задана
+		if (el.attr('data-title') != "") {						// Книга задана
 			jQuery.ajax({
 				type: 'GET',
 				cache: false,
-				async: true,
+				async: false,
 				dataType: 'text',
-				url: '/wp-admin/admin-ajax.php?'+el.attr('data-title'),	// Запрос стихов Библии
+				url: el.attr('data-title'),						// Запрос стихов Библии
+				data: {
+					action: 'bg_bibrefs'
+				},
 				success: function (verses, textStatus) {
 					if (verses != 0) {
-						tooltip.html(verses);							// Добавляем стихи в подсказку
+						tooltip.html(verses);					// Добавляем стихи в подсказку
 						el.attr('data-title', "");
 					}
 				}
 			}); 
 		}
-		if (tooltip.html() == '') return;						// Подсказка еще пустая, подождем
+		if (!tooltip.html()) return;							// Подсказка еще пустая, подождем
 	// Определяем положение подсказки на экране
 		var pos = el.position();								// Позиция родительского элемента
 		var mousex = e.pageX-(el.offset().left-pos.left)-12;	// Получаем координаты по оси X - 12
@@ -90,3 +96,26 @@ jQuery('a.bg_data_title')
 		var tooltip = el.children('span.bg_data_tooltip');	
 		tooltip.css('display', "none");							// Скрыть элемент 	
 	});
+
+/*******************************************************************************
+   Получить параметры JS-файла
+*******************************************************************************/  
+function parseUrlQuery() {
+    var data = {}
+        ,   pair = false
+        ,   param = false;
+	var jsfile = '';
+	jQuery('script[src]').each (function(){
+		jsfile = jQuery(this).attr('src');
+		if (jsfile && jsfile.indexOf('bg_bibrefs.js') > -1) {
+			jsfile = jsfile.substr(jsfile.indexOf('?'));
+			pair = (jsfile.substr(1)).split('&');
+			for(var i = 0; i < pair.length; i ++) {
+				param = pair[i].split('=');
+				data[param[0]] = param[1];
+			}
+			return;
+		}
+	});
+    return data;
+}

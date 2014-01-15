@@ -19,6 +19,7 @@ function bg_bibfers_options_page() {
     $links_class = 'bg_bibfers_class';					// CSS класс для ссылок на Библию
 	
 	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
+	$bg_preq = 'bg_bibfers_prereq';						// Предварительно загружать стихи из Библии в всплывающие подсказки
 	$bg_interpret = 'bg_bibfers_interpret';				// Включить ссылки на толкование Священного Писания
 
     $hidden_field_name = 'bg_bibfers_submit_hidden';	// Скрытое пое для проверки обновления информацции в форме
@@ -37,6 +38,7 @@ function bg_bibfers_options_page() {
     $class_val = get_option( $links_class );
 	
     $bg_verses_val = get_option( $bg_verses_name );
+    $bg_preq_val = get_option( $bg_preq );
     $bg_interpret_val = get_option( $bg_interpret );
 
 // Проверяем, отправил ли пользователь нам некоторую информацию
@@ -70,6 +72,9 @@ function bg_bibfers_options_page() {
 
 		$bg_verses_val = ( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '' ;
 		update_option( $bg_verses_name, $bg_verses_val );
+
+		$bg_preq_val = ( isset( $_POST[$bg_preq] ) && $_POST[$bg_preq] ) ? $_POST[$bg_preq] : '' ;
+		update_option( $bg_preq, $bg_preq_val );
 
 		$bg_interpret_val = ( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '' ;
 		update_option( $bg_interpret, $bg_interpret_val );
@@ -142,12 +147,27 @@ c_lang_checked();
 <tr valign="top">
 <th scope="row"><?php _e('Show Bible verses in popup', 'bg_bibfers' ); ?></th>
 <td>
-<input type="checkbox" id="bg_verses" name="<?php echo $bg_verses_name ?>" <?php if($bg_verses_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(if this option is disabled or data are not received from the server,<br>popup showing the chapter number and verse numbers)</i>', 'bg_bibfers' ); ?> <br />
+<input type="checkbox" id="bg_verses" name="<?php echo $bg_verses_name ?>" <?php if($bg_verses_val=="on") echo "checked" ?>  value="on" onclick='bg_verses_checked();'> <?php _e('<br><i>(if this option is disabled or data are not received from the server,<br>popup showing the chapter number and verse numbers)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
+<tr valign="top">
+<th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibfers' ); ?></th>
+<td>
+<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(try this option on a slow server, <br>but can be problem with ajax-requests limiting on the server)</i>', 'bg_bibfers' ); ?> <br />
+</td></tr>
+<script>
+function bg_verses_checked() {
+	if (document.getElementById('bg_verses').checked == true) {document.getElementById('bg_preq').disabled = false;}
+	else {
+		document.getElementById('bg_preq').disabled = true;
+		document.getElementById('bg_preq').checked = false;
+	}
+}
+bg_verses_checked();
+</script>
 <tr valign="top">
 <th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibfers' ); ?></th>
 <td>
-<input type="checkbox" id="bg_verses" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibfers' ); ?> <br />
+<input type="checkbox" id="bg_interpret" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
 <tr valign="top">
 <td>
@@ -200,6 +220,7 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_target', "_blank");
 	add_option('bg_bibfers_class', "bg_bibfers");
 	add_option('bg_bibfers_show_verses', "on");
+	add_option('bg_bibfers_prereq');
 	add_option('bg_bibfers_interpret', "on");
 }
 
@@ -214,6 +235,7 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_target');
 	delete_option('bg_bibfers_class');
 	delete_option('bg_bibfers_show_verses');
+	delete_option('bg_bibfers_prereq');
 	delete_option('bg_bibfers_interpret');
 
 	delete_option('bg_bibfers_submit_hidden');
