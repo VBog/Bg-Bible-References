@@ -6,7 +6,7 @@
 	padding: 1.5em;
 	background-color: #FAFAFA;
 	border: 1px solid #ddd;
-	margin: 1em 0 1em 0;
+	margin: 1em;
 	float: right;
 	width: 22em;
 }
@@ -30,6 +30,7 @@ p.bg_bibfers_gravatar {
 p.bg_bibfers_close {
 	text-align: right;
 	font-style: italic;
+	font-weight: bold;
 	font-size: 1.5em;
 	color: darkblue;
 	margin-top: 1.5em;

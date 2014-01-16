@@ -80,26 +80,19 @@ function bg_bibfers_options_page() {
 		update_option( $bg_interpret, $bg_interpret_val );
 
         // Вывести сообщение об обновлении параметров на экран
-
-?>  
-<div class="updated"><p><strong><?php _e('Options saved.', 'bg_bibfers' ); ?></strong></p></div>
-<?php
-
+		echo '<div class="updated"><p><strong>'.__('Options saved.', 'bg_bibfers' ).'</strong></p></div>';
     }
-
-    // Теперь отобразим опции на экране редактирования
-
-    echo '<div class="wrap">';
-
-    // заголовок
-
-    echo "<h2>" . __( 'Bg Bible References Plugin Options', 'bg_bibfers' ) . "</h2>";
-
-    // форма опций
+?>
+<!--  форма опций -->
     
-    ?>
 <table width="100%">
 <tr><td valign="top">
+<!--  Теперь отобразим опции на экране редактирования -->
+<div class="wrap">
+<!--  Заголовок -->
+<h2><?php _e( 'Bg Bible References Plugin Options', 'bg_bibfers' ); ?></h2>
+
+
 <!-- Форма настроек -->
 <form name="form1" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 
@@ -152,7 +145,7 @@ c_lang_checked();
 <tr valign="top">
 <th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibfers' ); ?></th>
 <td>
-<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(try this option on a slow server, <br>but can be problem with ajax-requests limiting on the server)</i>', 'bg_bibfers' ); ?> <br />
+<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(try this option on a slow server.<br>Warning: can be problem with ajax-requests limiting on the server)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
 <script>
 function bg_verses_checked() {
@@ -180,20 +173,20 @@ bg_verses_checked();
 
 
 <!-- Информация о плагине -->
-</td><td width="25em">
+</td><td valign="top" align="left" width="45em">
 
 <div class="bg_bibfers_info_box">
 
 	<h3><?php _e('Thanks for using Bg Biblie References', 'bg_bibfers') ?></h3>
 	<p class="bg_bibfers_gravatar"><a href="http://bogaiskov.ru" target="_blank"><?php echo get_avatar("vadim.bogaiskov@gmail.com", '64'); ?></a></p>
-	<p><?php _e('Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope it is useful for you.', 'bg_bibfers') ?></p>
+	<p><?php _e('Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope it is useful for your site.', 'bg_bibfers') ?></p>
 	<p class="bg_bibfers_author"><a href="http://bogaiskov.ru" target="_blank"><?php _e('Vadim Bogaiskov', 'bg_bibfers') ?></a></p>
 
 	<h3><?php _e('I like this plugin<br>– how can I thank you?', 'bg_bibfers') ?></h3>
 	<p><?php _e('There are several ways for you to say thanks:', 'bg_bibfers') ?></p>
 	<ul>
 		<li><?php printf(__('<a href="%1$s" target="_blank">Give a donation</a>  for the construction of the church of Sts. Peter and Fevronia in Marino', 'bg_bibfers'), "http://hpf.ru.com/donate/") ?></li>
-		<li><?php printf(__('<a href="%1$s" target="_blank">Give it a nice review</a> over at the WordPress Plugin Directory', 'bg_bibfers'), "http://wordpress.org/support/view/plugin-reviews/bg-biblie-references") ?></li>
+		<li><?php printf(__('<a href="%1$s" target="_blank">Give 5 stars</a> over at the WordPress Plugin Directory', 'bg_bibfers'), "http://wordpress.org/support/view/plugin-reviews/bg-biblie-references") ?></li>
 		<li><?php printf(__('Share infotmation or make a nice blog post about the plugin', 'bg_bibfers')) ?></li>
 	</ul>
 	<div class="share42init" align="center" data-url="http://bogaiskov.ru/bg_bibfers/" data-title="<?php _e('Bg Bible References really cool plugin for Orthodox WordPress sites', 'bg_bibfers') ?>"></div>
