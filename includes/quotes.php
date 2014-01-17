@@ -199,7 +199,7 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 						$verses = $verses."<strong>".__('Chapter', 'bg_bibfers')." ".$ch."</strong><br>";			// Печатаем номер главы
 						$chr = $ch;
 					}
-					$pointer = "<em>".$json[$i][stix]."</em> ";														// Только номер стиха
+					$pointer = "<em>".$json[$i]['stix']."</em> ";														// Только номер стиха
 				} else if ($type == 'verses' || $type == 't_verses') { 												// Тип: стихи или стихи с названием книг
 					$pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix']."</em> ";								// Номер главы : номер стиха
 				} else if ($type == 'b_verses') { 																	// Тип: стихи
