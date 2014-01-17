@@ -102,8 +102,8 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 	if (!$book) return "";
 	$book_file = $pat[$book];																	// Имя файла книги
 	if (!$book_file) return "";
-	if (function_exists(plugins_url))	{														// Получить данные с сайта
-		$code = file_get_contents(plugins_url( 'bible/'.$book_file , dirname(__FILE__ )));
+	if (function_exists('plugins_url'))	{														// Получить данные с сайта
+		$code = file_get_contents(plugins_url( 'bible/'.$book_file , dirname(__FILE__ )));		
 	} else {
 		$code = file_get_contents( '../bible/'.$book_file );	
 	}
@@ -190,27 +190,27 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 	$verses = "";
 	$cn_json = count($json);
 	for ($i=0; $i < $cn_json; $i++) {
-		$ch = (int)$json[$i][part];
-		$vr = (int)$json[$i][stix];
+		$ch = (int)$json[$i]['part'];
+		$vr = (int)$json[$i]['stix'];
 		if ( $ch >= $ch1 && $ch <= $ch2) {
 			if ( $vr >= $vr1 && $vr <= $vr2) {
-				if ($type == 'book') { 																			// Тип: книга
+				if ($type == 'book') { 																				// Тип: книга
 					if ($chr != $ch) {
-						$verses = $verses."<strong>".__('Chapter', 'bg_bibfers')." ".$ch."</strong><br>";		// Печатаем номер главы
+						$verses = $verses."<strong>".__('Chapter', 'bg_bibfers')." ".$ch."</strong><br>";			// Печатаем номер главы
 						$chr = $ch;
 					}
-					$pointer = "<em>".$json[$i][stix]."</em> ";													// Только номер стиха
-				} else if ($type == 'verses' || $type == 't_verses') { 											// Тип: стихи или стихи с названием книг
-					$pointer = "<em>".$json[$i][part].":".$json[$i][stix]."</em> ";								// Номер главы : номер стиха
-				} else if ($type == 'b_verses') { 																// Тип: стихи
-					$pointer = "<em>".$json[$i][ru_book].".".$json[$i][part].":".$json[$i][stix]."</em> ";		// Книга. номер главы : номер стиха
-				} else {																						// Тип: цитата
-					$pointer = "";																				// Ничего
+					$pointer = "<em>".$json[$i][stix]."</em> ";														// Только номер стиха
+				} else if ($type == 'verses' || $type == 't_verses') { 												// Тип: стихи или стихи с названием книг
+					$pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix']."</em> ";								// Номер главы : номер стиха
+				} else if ($type == 'b_verses') { 																	// Тип: стихи
+					$pointer = "<em>".$json[$i]['ru_book'].".".$json[$i]['part'].":".$json[$i]['stix']."</em> ";	// Книга. номер главы : номер стиха
+				} else {																							// Тип: цитата
+					$pointer = "";																					// Ничего
 				}
-				$txt = strip_tags($json[$i][text]);
+				$txt = strip_tags($json[$i]['text']);
 				$txt = bg_bibfers_optina($txt, $book, $ch, $vr);
 				$verses = $verses.$pointer.$txt;
-				if ($type == 'quotes') {$verses = $verses." ";}													// Если цитата, строку не переводим
+				if ($type == 'quotes') {$verses = $verses." ";}														// Если цитата, строку не переводим
 				else {$verses = $verses."<br>";}
 			}
 		}
