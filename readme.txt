@@ -38,6 +38,7 @@ Russian:
 
 Допускается указание ссылок в квадратных скобках и без точки после наименования книги. 
 При указании номера главы (сразу после названия книги) можно использовать запятую вместо двоеточия. 
+Также допускается использовать точку с запятой вместо запятой.
 Пробелы игнорируются.
 
 В настройках плагина Вы можете выбрать языки, на которых будет отображаться текст Библии: церковно-славянский, русский, греческий, латинский и иврит.
@@ -51,7 +52,7 @@ Russian:
 Если Вы разместили свой блог на медленном сервере попробуйте опцию "Предварительная загрузка стихов из Библии во всплывающие подсказки". Предупреждение: Вы можете иметь проблемы с ограничениями Ajax-запросов на сервере.
 
 Шорт-код [bible book='Mt' ch='2:3-6' type='verses'] выводит цитаты из Библии в тексте страницы.
-Здесь: book – обозначение книги (латинскими буквами), ch – номера глав и стихов, type – формат вывода.
+Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода.
 Если  type=’book’, то отображаются наименование книги, заголовки глав и стихи, каждый отдельным абзацем, с указанием его номера.
 Если  type=’verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием номера главы и номера стиха.
 Если  type=’b_verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием короткого названия книги, номера главы и номера стиха.
@@ -74,6 +75,7 @@ The plugin handles the references with the format:
 
 You can specify the reference in brackets and without a point after the title of the book. 
 If you specify a chapter (after the title of the book), you can use comma instead of colon.
+Also allowed to use a semicolon instead of a comma.
 Spaces are ignored.
 
 In the plugin settings you can select the languages ​​in which the text will be displayed Bible: Church Slavic, Russian, Greek, Latin and Hebrew.
@@ -87,7 +89,7 @@ If you disable this option, the number of the chapter and verse numbers will dis
 If you placed your blog on a slow server try the option "Preload Bible verses in tooltips". Warning: you can have problem with ajax-requests limiting on the server.
 
 Short code [bible book = 'Mt' ch = '2 :3-6 'type =' verses'] displays quotes from the Bible in the text of the page.
-Here: book - the designation of the book (Latin letters), ch - numbers of chapters and verses, type - the output format.
+Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format.
 If type = 'book', it displays the name of the book, chapter and verse in separate paragraph with verse number.
 If type = 'verses', it displays only the verses in separate paragraph with chapter number and verse number.
 If type = 'b_verses', it displays only the verses in separate paragraph with short book title, chapter number and verse number.
@@ -116,6 +118,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 2. Page of Bible verses
 
 == Changelog ==
+
+= 2.5.3 =
+
+* Allowed to use a semicolon instead of a comma in references.
+* Added some new abbreviations of the Bible books.
+* Some minor fixing.
 
 = 2.5.2 =
 
@@ -251,6 +259,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.5.3 =
+
+* Allowed to use a semicolon instead of a comma in references.
+* Added some new abbreviations of the Bible books.
+* Some minor fixing.
 
 = 2.5.2 =
 

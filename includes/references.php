@@ -21,7 +21,7 @@ function bg_bibfers_bible_proc($txt) {
 // Ищем все вхождения ссылок на Библию
 //	$template = "/[\\(\\[](см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)]/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
-	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
+	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 	preg_match_all($template, $txt, $matches);
 	
 	$cnt = count($matches[0]);
@@ -34,6 +34,7 @@ function bg_bibfers_bible_proc($txt) {
 				$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 			// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
 				$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);			// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
 				$chapter = preg_replace("/—|–/u", '-', $chapter);				// Замена разных вариантов тире на обычный
+				$chapter = preg_replace("/\\;/u", ',', $chapter);				// Замена точки с запятой на запятую
 				preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
 				if ($mtchs) {
 					if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
@@ -150,7 +151,7 @@ function bg_bibfers_getBook($title) {
 		// translators: abbr. Song of Songs (Aisma Aismaton)
 		'Song', 	__('Song', 'bg_bibfers'), 'Song', 'Песн',							
 		// translators: abbr. Isaiah
-		'Is', 		__('Is', 'bg_bibfers'), 'Is', 'Исаи|Ис', 							
+		'Is', 		__('Is', 'bg_bibfers'), 'Is', 'Исайи|Исаи|Ис', 							
 		// translators: abbr. Jeremiah
 		'Jer', 		__('Jer', 'bg_bibfers'), 'Jer', 'Иер',								
 		// translators: abbr. Lamentations
@@ -216,24 +217,24 @@ function bg_bibfers_getBook($title) {
 		// translators: abbr. Luke
 		'Lk', 		__('Lk', 'bg_bibfers'), 'Lk', 'Лк|Луки|Лук',						
 		// translators: abbr. John
-		'Jn', 		__('Jn', 'bg_bibfers'), 'Jn', 'Ин|Иоан',							
+		'Jn', 		__('Jn', 'bg_bibfers'), 'Jn', 'Ин|Иоанна|Иоан',							
 		// Деяния и послания Апостолов
 		// translators: abbr. Acts
 		'Act', 		__('Act', 'bg_bibfers'), 'Act', 'Деяния|Деян', 						
 		// translators: abbr. James
-		'Jac', 		__('Jac', 'bg_bibfers'), 'Jac', 'Иаков|Иак', 								
+		'Jac', 		__('Jac', 'bg_bibfers'), 'Jac', 'Иакова|Иаков|Иак', 								
 		// translators: abbr. 1 Peter
-		'1Pet', 	__('1Pet', 'bg_bibfers'), '1Pet', '1Петра|1Пет',					
+		'1Pet', 	__('1Pet', 'bg_bibfers'), '1Pet', '1Петра|1Петр|1Пет',					
 		// translators: abbr. 2 Peter
-		'2Pet',		__('2Pet', 'bg_bibfers'), '2Pet', '2Петра|2Пет',					
+		'2Pet',		__('2Pet', 'bg_bibfers'), '2Pet', '2Петра|2Петр|2Пет',					
 		// translators: abbr. 1 John
-		'1Jn', 		__('1Jn', 'bg_bibfers'), '1Jn', '1Ин|1Иоан', 						
+		'1Jn', 		__('1Jn', 'bg_bibfers'), '1Jn', '1Ин|1Иоанна|1Иоан', 						
 		// translators: abbr. 2 John
-		'2Jn', 		__('2Jn', 'bg_bibfers'), '2Jn', '2Ин|2Иоан', 						
+		'2Jn', 		__('2Jn', 'bg_bibfers'), '2Jn', '2Ин|2Иоанна|2Иоан', 						
 		// translators: abbr. 3 John
-		'3Jn', 		__('3Jn', 'bg_bibfers'), '3Jn', '3Ин|3Иоан', 						
+		'3Jn', 		__('3Jn', 'bg_bibfers'), '3Jn', '3Ин|3Иоанна|3Иоан', 						
 		// translators: abbr. Jude
-		'Juda', 	__('Juda', 'bg_bibfers'), 'Juda', 'Иуда|Иуд', 							
+		'Juda', 	__('Juda', 'bg_bibfers'), 'Juda', 'Иуды|Иуда|Иуд', 							
 		// Послания апостола Павла
 		// translators: abbr. Romans
 		'Rom', 		__('Rom', 'bg_bibfers'), 'Rom', 'Римл|Рим', 						
@@ -262,7 +263,7 @@ function bg_bibfers_getBook($title) {
 		// translators: abbr. Philemon
 		'Phlm', 	__('Phlm', 'bg_bibfers'), 'Phlm', 'Флм|Филим', 						
 		// translators: abbr. Hebrews
-		'Hebr', 	__('Hebr', 'bg_bibfers'), 'Hebr', 'Евр', 							
+		'Hebr', 	__('Hebr', 'bg_bibfers'), 'Hebr', 'Евреям|Евр', 							
 		// translators: abbr. Revelation
 		'Apok', 	__('Apok', 'bg_bibfers'), 'Apok', 'Откр|Отк|Апок');					
 	$cn_url = count($url) / 2;

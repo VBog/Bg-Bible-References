@@ -8,24 +8,25 @@ jQuery(document).ready(function(){
 
 	jQuery('a.bg_data_title').each (function(){
 		var el = jQuery(this);
-		if (el.attr('data-title') == "") return;				// Книга не задана
 		var tooltip = el.children('span.bg_data_tooltip');	
-		jQuery.ajax({
-			type: 'GET',
-			cache: false,
-			async: true,
-			dataType: 'text',
-			url: el.attr('data-title'),							// Запрос стихов Библии
-			data: {
-				action: 'bg_bibrefs'
-			},
-			success: function (verses, textStatus) {
-				if (verses != 0) {
-					tooltip.html(verses);						// Добавляем стихи в подсказку
-					el.attr('data-title', "");
+		if (el.attr('data-title') != "") {						// Книга задана
+			jQuery.ajax({
+				type: 'GET',
+				cache: false,
+				async: true,									// Асинхронный запрос
+				dataType: 'text',
+				url: el.attr('data-title'),						// Запрос стихов Библии
+				data: {
+					action: 'bg_bibrefs'
+				},
+				success: function (verses, textStatus) {
+					if (verses != 0) {
+						tooltip.html(verses);					// Добавляем стихи в подсказку
+						el.attr('data-title', "");
+					}
 				}
-			}
-		});
+			});
+		}
 	});
 }); 
 
@@ -41,7 +42,7 @@ jQuery('a.bg_data_title')
 			jQuery.ajax({
 				type: 'GET',
 				cache: false,
-				async: false,
+				async: false,									// Синхронный запрос
 				dataType: 'text',
 				url: el.attr('data-title'),						// Запрос стихов Библии
 				data: {
@@ -55,7 +56,7 @@ jQuery('a.bg_data_title')
 				}
 			}); 
 		}
-		if (!tooltip.html()) return;							// Подсказка еще пустая, подождем
+//		if (!tooltip.html()) return;							// Подсказка еще пустая, подождем
 	// Определяем положение подсказки на экране
 		var pos = el.position();								// Позиция родительского элемента
 		var mousex = e.pageX-(el.offset().left-pos.left)-12;	// Получаем координаты по оси X - 12
