@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 3.6.1
+Tested up to: 3.8.1
 
 Stable tag: trunk
 
@@ -118,6 +118,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 2. Page of Bible verses
 
 == Changelog ==
+
+= 2.5.4 =
+
+* To read Bible files used PHP-functions cURL or file_get_contents(). Check the availability of these features on your server.
 
 = 2.5.3 =
 
@@ -259,6 +263,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.5.4 =
+
+* To read Bible files used PHP-functions cURL or file_get_contents(). Check the availability of these features on your server.
 
 = 2.5.3 =
 

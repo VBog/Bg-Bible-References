@@ -102,12 +102,25 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 	if (!$book) return "";
 	$book_file = $pat[$book];																	// Имя файла книги
 	if (!$book_file) return "";
-	if (function_exists('plugins_url'))	{														// Получить данные с сайта
-		$code = file_get_contents(plugins_url( 'bible/'.$book_file , dirname(__FILE__ )));		
-	} else {
-		$code = file_get_contents( '../bible/'.$book_file );	
+	$url = plugins_url( 'bible/'.$book_file , dirname(__FILE__ ) );								// URL файла
+	
+// Получаем данные из файла	
+	$code = false;
+	if (function_exists('curl_init'))	{													// Если установлен cURL				
+		$ch = curl_init($url);																	// создание нового ресурса cURL
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
+		$code = curl_exec($ch);																	// загрузка текста
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);										
+		if ($httpCode != '200') $code = false;													// Проверка на код http 200
+		curl_close($ch);																		// завершение сеанса и освобождение ресурсов
+	} 
+	if (!$code) {																			// Если данные не получены попробуем применить file_get_contents()
+		$code = file_get_contents($url);		
 	}
-	$json = json_decode($code, true);															// Преобразовать json в массив
+	if (!$code) return "";																		// Файл не прочитан или ошибка
+
+// Преобразовать json в массив
+	$json = json_decode($code, true);															
 
 	if ($type == "book") $verses = "<h3>".bg_bibfers_getTitle($book)."</h3>";
 	else if ($type == "t_verses") $verses = "<strong>".bg_bibfers_getTitle($book)."</strong><br>";
