@@ -16,12 +16,18 @@ function bg_bibfers_options_page() {
 	
     $c_font_name = 'bg_bibfers_c_font';					// Шрифт для церковно-славянского текста
     $target_window = 'bg_bibfers_target';				// Где открыть страницу с текстом Библии
+	
+	$bg_interpret = 'bg_bibfers_interpret';				// Включить ссылки на толкование Священного Писания
+	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
+
+	$bg_curl_name = 'bg_bibfers_curl';					// Чтение файлов Библии с помощью cURL
+	$bg_fgc_name = 'bg_bibfers_fgc';					// Чтение файлов Библии с помощью file_get_contents()
+	$bg_fopen_name = 'bg_bibfers_fopen';				// Чтение файлов Библии с помощью fopen()
+	
+	$bg_preq = 'bg_bibfers_prereq';						// Предварительно загружать стихи из Библии в всплывающие подсказки
+
     $links_class = 'bg_bibfers_class';					// CSS класс для ссылок на Библию
 	
-	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
-	$bg_preq = 'bg_bibfers_prereq';						// Предварительно загружать стихи из Библии в всплывающие подсказки
-	$bg_interpret = 'bg_bibfers_interpret';				// Включить ссылки на толкование Священного Писания
-
     $hidden_field_name = 'bg_bibfers_submit_hidden';	// Скрытое пое для проверки обновления информацции в форме
 	
 	bg_bibrefs_options_ini (); 			// Параметры по умолчанию
@@ -35,12 +41,18 @@ function bg_bibfers_options_page() {
 
     $font_val = get_option( $c_font_name );
     $target_val = get_option( $target_window );
+
+    $bg_interpret_val = get_option( $bg_interpret );
+    $bg_verses_val = get_option( $bg_verses_name );
+
+    $bg_curl_val = get_option( $bg_curl_name );
+    $bg_fgc_val = get_option( $bg_fgc_name );
+    $bg_fopen_val = get_option( $bg_fopen_name );
+
+    $bg_preq_val = get_option( $bg_preq );
+
     $class_val = get_option( $links_class );
 	
-    $bg_verses_val = get_option( $bg_verses_name );
-    $bg_preq_val = get_option( $bg_preq );
-    $bg_interpret_val = get_option( $bg_interpret );
-
 // Проверяем, отправил ли пользователь нам некоторую информацию
 // Если "Да", в это скрытое поле будет установлено значение 'Y'
     if( isset( $_POST[ $hidden_field_name ] ) && $_POST[ $hidden_field_name ] == 'Y' ) {
@@ -67,17 +79,26 @@ function bg_bibfers_options_page() {
 		$target_val = ( isset( $_POST[$target_window] ) && $_POST[$target_window] ) ? $_POST[$target_window] : '' ;
 		update_option( $target_window, $target_val );
 
-		$class_val = ( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '' ;
-		update_option( $links_class, $class_val );
+		$bg_interpret_val = ( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '' ;
+		update_option( $bg_interpret, $bg_interpret_val );
 
 		$bg_verses_val = ( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '' ;
 		update_option( $bg_verses_name, $bg_verses_val );
 
+		$bg_curl_val = ( isset( $_POST[$bg_curl_name] ) && $_POST[$bg_curl_name] ) ? $_POST[$bg_curl_name] : '' ;
+		update_option( $bg_curl_name, $bg_curl_val );
+
+		$bg_fgc_val = ( isset( $_POST[$bg_fgc_name] ) && $_POST[$bg_fgc_name] ) ? $_POST[$bg_fgc_name] : '' ;
+		update_option( $bg_fgc_name, $bg_fgc_val );
+
+		$bg_fopen_val = ( isset( $_POST[$bg_fopen_name] ) && $_POST[$bg_fopen_name] ) ? $_POST[$bg_fopen_name] : '' ;
+		update_option( $bg_fopen_name, $bg_fopen_val );
+
 		$bg_preq_val = ( isset( $_POST[$bg_preq] ) && $_POST[$bg_preq] ) ? $_POST[$bg_preq] : '' ;
 		update_option( $bg_preq, $bg_preq_val );
 
-		$bg_interpret_val = ( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '' ;
-		update_option( $bg_interpret, $bg_interpret_val );
+		$class_val = ( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '' ;
+		update_option( $links_class, $class_val );
 
         // Вывести сообщение об обновлении параметров на экран
 		echo '<div class="updated"><p><strong>'.__('Options saved.', 'bg_bibfers' ).'</strong></p></div>';
@@ -91,6 +112,7 @@ function bg_bibfers_options_page() {
 <div class="wrap">
 <!--  Заголовок -->
 <h2><?php _e( 'Bg Bible References Plugin Options', 'bg_bibfers' ); ?></h2>
+<p><?php printf( __( 'Version', 'bg_bibfers' ).' <b>'.get_plugin_version().'</b>' ); ?></p>
 
 
 <!-- Форма настроек -->
@@ -133,19 +155,42 @@ c_lang_checked();
 <input type="radio" id="self_window" name="<?php echo $target_window ?>" <?php if($target_val=="_self") echo "checked" ?> value="_self"> <?php _e('in current window', 'bg_bibfers' ); ?><br />
 </td></tr>
 <tr valign="top">
-<th scope="row"><?php _e('Reference links CSS class', 'bg_bibfers' ); ?></th>
+<th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibfers' ); ?></th>
 <td>
-<input type="text" id="links_class" name="<?php echo $links_class ?>" size="20" value="<?php echo $class_val ?>"><br />
+<input type="checkbox" id="bg_interpret" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
 <tr valign="top">
 <th scope="row"><?php _e('Show Bible verses in popup', 'bg_bibfers' ); ?></th>
 <td>
-<input type="checkbox" id="bg_verses" name="<?php echo $bg_verses_name ?>" <?php if($bg_verses_val=="on") echo "checked" ?>  value="on" onclick='bg_verses_checked();'> <?php _e('<br><i>(if this option is disabled or data are not received from the server,<br>popup showing the chapter number and verse numbers)</i>', 'bg_bibfers' ); ?> <br />
+<input type="checkbox" id="bg_verses" name="<?php echo $bg_verses_name ?>" <?php if($bg_verses_val=="on") echo "checked" ?>  value="on" onclick='bg_verses_checked();'> <?php _e('<br><i>(If this option is disabled or data are not received from the server,<br>popup showing the chapter number and verse numbers)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Method of reading files', 'bg_bibfers' ); ?></th>
+<td>
+<input type="checkbox" id="bg_curl" name="<?php echo $bg_curl_name ?>" <?php if($bg_curl_val=="on") echo "checked" ?> value="on" onclick='reading_off_checked();'> cURL<br />
+<input type="checkbox" id="bg_fgc" name="<?php echo $bg_fgc_name ?>" <?php if($bg_fgc_val=="on") echo "checked" ?>  value="on" onclick='reading_off_checked();'> file_get_contents()<br />
+<input type="checkbox" id="bg_fopen" name="<?php echo $bg_fopen_name ?>" <?php if($bg_fopen_val=="on") echo "checked" ?>  value="on" onclick='reading_off_checked();'> fopen()<br />
+<?php _e('<i>(Plugin tries to read Bible files with marked methods in the order listed.<br>To do the reading faster, disable unnecessary methods - you need one only. <br><u>Warning:</u> Some methods may not be available on your server.)</i>', 'bg_bibfers' ); ?> <br />
+</td></tr>
+<script>
+function reading_off_checked() {
+	if (document.getElementById('bg_curl').checked == true || document.getElementById('bg_fgc').checked == true || document.getElementById('bg_fopen').checked == true) {
+		document.getElementById('bg_verses').disabled = false;
+	} else {
+		document.getElementById('bg_verses').disabled = true;
+		document.getElementById('bg_verses').checked = false;
+		document.getElementById('bg_preq').disabled = true;
+		document.getElementById('bg_preq').checked = false;
+	}
+}
+reading_off_checked();
+</script>
+
 <tr valign="top">
 <th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibfers' ); ?></th>
 <td>
-<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(try this option on a slow server.<br>Warning: can be problem with ajax-requests limiting on the server)</i>', 'bg_bibfers' ); ?> <br />
+<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a problem with ajax-requests limiting on the server.)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
 <script>
 function bg_verses_checked() {
@@ -158,9 +203,9 @@ function bg_verses_checked() {
 bg_verses_checked();
 </script>
 <tr valign="top">
-<th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibfers' ); ?></th>
+<th scope="row"><?php _e('Reference links CSS class', 'bg_bibfers' ); ?></th>
 <td>
-<input type="checkbox" id="bg_interpret" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibfers' ); ?> <br />
+<input type="text" id="links_class" name="<?php echo $links_class ?>" size="20" value="<?php echo $class_val ?>"><br />
 </td></tr>
 <tr valign="top">
 <td>
@@ -170,10 +215,10 @@ bg_verses_checked();
 </td></tr></table>
 </form>
 </div>
-
+</td>
 
 <!-- Информация о плагине -->
-</td><td valign="top" align="left" width="45em">
+<td valign="top" align="left" width="45em">
 
 <div class="bg_bibfers_info_box">
 
@@ -211,10 +256,13 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_i_lang');
 	add_option('bg_bibfers_c_font', "ucs");
 	add_option('bg_bibfers_target', "_blank");
-	add_option('bg_bibfers_class', "bg_bibfers");
-	add_option('bg_bibfers_show_verses', "on");
-	add_option('bg_bibfers_prereq');
 	add_option('bg_bibfers_interpret', "on");
+	add_option('bg_bibfers_show_verses', "on");
+	add_option('bg_bibfers_curl', "on");
+	add_option('bg_bibfers_fgc', "on");
+	add_option('bg_bibfers_fopen', "on");
+	add_option('bg_bibfers_prereq');
+	add_option('bg_bibfers_class', "bg_bibfers");
 }
 
 // Очистка таблицы параметров при удалении плагина
@@ -226,12 +274,13 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_i_lang');
 	delete_option('bg_bibfers_c_font');
 	delete_option('bg_bibfers_target');
-	delete_option('bg_bibfers_class');
-	delete_option('bg_bibfers_show_verses');
-	delete_option('bg_bibfers_prereq');
 	delete_option('bg_bibfers_interpret');
+	delete_option('bg_bibfers_show_verses');
+	delete_option('bg_bibfers_curl');
+	delete_option('bg_bibfers_fgc');
+	delete_option('bg_bibfers_fopen');
+	delete_option('bg_bibfers_prereq');
+	delete_option('bg_bibfers_class');
 
 	delete_option('bg_bibfers_submit_hidden');
 }
-
-

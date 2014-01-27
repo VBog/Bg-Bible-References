@@ -49,7 +49,12 @@ Russian:
 В версии 2.0 при наведении курсора мыши на ссылку отображается всплывающая подсказка  содержащая стихи Библии (только на русском языке). 
 Файлы книг Библии взяты с сайта patriarchia.ru и теперь поставляется вместе с плагином. 
 При отключении этой опции вместо стихов отображается номер главы и номера стихов.
-Если Вы разместили свой блог на медленном сервере попробуйте опцию "Предварительная загрузка стихов из Библии во всплывающие подсказки". Предупреждение: Вы можете иметь проблемы с ограничениями Ajax-запросов на сервере.
+Для чтения файлов Библии используются PHP cURL или file_get_contents() или fopen(). 
+Плагин пытается загружать файлы Библии этими методами в указанном порядке. 
+Чтобы сделать загрузку более быстрой отключите лишние методы. 
+Предупреждение: Некоторые методы могут быть недоступны на Вашем сервере. 
+Если Вы разместили свой блог на медленном сервере попробуйте опцию "Предварительная загрузка стихов из Библии во всплывающие подсказки". 
+Предупреждение: Вы можете иметь проблемы с ограничениями Ajax-запросов на сервере.
 
 Шорт-код [bible book='Mt' ch='2:3-6' type='verses'] выводит цитаты из Библии в тексте страницы.
 Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода.
@@ -86,7 +91,12 @@ To customize the appearance of reference  links, use class bg_bibrefs. You can c
 In version 2.0, when you hover your mouse over the link displayed tooltip containing the Bible verses (only in Russian).
 Bible E-books are taken from the site patriarchia.ru and now comes with the plugin.
 If you disable this option, the number of the chapter and verse numbers will displayed instead of verses.
-If you placed your blog on a slow server try the option "Preload Bible verses in tooltips". Warning: you can have problem with ajax-requests limiting on the server.
+To read Bible files used PHP-functions cURL or file_get_contents() or fopen(). 
+Plugin tries to read Bible files with one of this methods in the order listed.
+To do the reading faster, disable unnecessary methods in settings - you need one only. 
+Warning: Some methods may not be available on your server.
+If you placed your blog on a slow server try the option "Preload Bible verses in tooltips". 
+Warning: you can have problem with ajax-requests limiting on the server.
 
 Short code [bible book = 'Mt' ch = '2 :3-6 'type =' verses'] displays quotes from the Bible in the text of the page.
 Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format.
@@ -118,6 +128,13 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 2. Page of Bible verses
 
 == Changelog ==
+
+= 2.5.5 =
+
+* To read Bible files used PHP-functions cURL or file_get_contents() or fopen(). 
+Plugin tries to read Bible files with one of this methods in the order listed.
+To do the reading faster, disable unnecessary methods in settings - you need one only. 
+Warning: Some methods may not be available on your server.
 
 = 2.5.4 =
 
@@ -263,6 +280,13 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.5.5 =
+
+* To read Bible files used PHP-functions cURL or file_get_contents() or fopen(). 
+Plugin tries to read Bible files with one of this methods in the order listed.
+To do the reading faster, disable unnecessary methods in settings - you need one only. 
+Warning: Some methods may not be available on your server.
 
 = 2.5.4 =
 

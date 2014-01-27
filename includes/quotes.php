@@ -102,11 +102,15 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 	if (!$book) return "";
 	$book_file = $pat[$book];																	// Имя файла книги
 	if (!$book_file) return "";
-	$url = plugins_url( 'bible/'.$book_file , dirname(__FILE__ ) );								// URL файла
-	
+
+    $bg_curl_val = get_option( 'bg_bibfers_curl' );
+    $bg_fgc_val = get_option( 'bg_bibfers_fgc' );
+    $bg_fopen_val = get_option( 'bg_bibfers_fopen' );
+
 // Получаем данные из файла	
 	$code = false;
-	if (function_exists('curl_init'))	{													// Если установлен cURL				
+	if ($bg_curl_val == 'on' && function_exists('curl_init'))	{							// Попытка1. Если установлен cURL				
+		$url = plugins_url( 'bible/'.$book_file , dirname(__FILE__ ) );							// URL файла
 		$ch = curl_init($url);																	// создание нового ресурса cURL
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
 		$code = curl_exec($ch);																	// загрузка текста
@@ -114,10 +118,24 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 		if ($httpCode != '200') $code = false;													// Проверка на код http 200
 		curl_close($ch);																		// завершение сеанса и освобождение ресурсов
 	} 
-	if (!$code) {																			// Если данные не получены попробуем применить file_get_contents()
+
+	if ($bg_fgc_val == 'on' && !$code) {													// Попытка2. Если данные не получены попробуем применить file_get_contents()
+		$url = dirname(dirname(__FILE__ )).'/bible/'.$book_file;								// Локальный URL файла
 		$code = file_get_contents($url);		
 	}
-	if (!$code) return "";																		// Файл не прочитан или ошибка
+
+	if ($bg_fopen_val == 'on' && !$code) {													// Попытка 3. Если данные опять не получены попробуем применить fopen() 
+		$url = dirname(dirname(__FILE__ )).'/bible/'.$book_file;								// Локальный URL файла
+		$ch=fopen($url, "r" );																	// Открываем файл для чтения
+		if($ch)
+		{
+			while (!feof($ch))	{
+				$code .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
+			}
+			fclose($ch);																		// Закрываем файл
+		}
+	}
+	if (!$code) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
 
 // Преобразовать json в массив
 	$json = json_decode($code, true);															
