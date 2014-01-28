@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2014-01-27 22:59+0400\n"
-"PO-Revision-Date: 2014-01-27 23:05+0400\n"
+"POT-Creation-Date: 2014-01-28 16:30+0400\n"
+"PO-Revision-Date: 2014-01-28 16:30+0400\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
@@ -655,71 +655,75 @@ msgstr "Настройки плагина Ссылки на Библию"
 msgid "Version"
 msgstr "Версия"
 
-#: ../includes/settings.php:124
+#: ../includes/settings.php:125
 msgid "Display text of the Bible in languages:"
 msgstr "Отображать текст Библии на языках:"
 
-#: ../includes/settings.php:128
+#: ../includes/settings.php:129
 msgid "Church Slavic"
 msgstr "Церковно-славянский"
 
-#: ../includes/settings.php:129
+#: ../includes/settings.php:130
 msgid "Russian"
 msgstr "Русский"
 
-#: ../includes/settings.php:130
+#: ../includes/settings.php:131
 msgid "Greek"
 msgstr "Греческий"
 
-#: ../includes/settings.php:131
+#: ../includes/settings.php:132
 msgid "Latin"
 msgstr "Латинский"
 
-#: ../includes/settings.php:132
+#: ../includes/settings.php:133
 msgid "Hebrew"
 msgstr "Иврит"
 
-#: ../includes/settings.php:135
+#: ../includes/settings.php:136
 msgid "Font for Church Slavonic text"
 msgstr "Шрифт для церковно-славянского текста"
 
-#: ../includes/settings.php:137
+#: ../includes/settings.php:138
 msgid "Church Slavic font"
 msgstr "Церковно-славянский шрифт"
 
-#: ../includes/settings.php:138
+#: ../includes/settings.php:139
 msgid "Russian font (\"Old\" style)"
 msgstr "Русские буквы (\"Старый\" стиль)"
 
-#: ../includes/settings.php:139
+#: ../includes/settings.php:140
 msgid "HIP-standard"
 msgstr "HIP-стандарт"
 
-#: ../includes/settings.php:152
+#: ../includes/settings.php:153
 msgid "Open links"
 msgstr "Открывать ссылки"
 
-#: ../includes/settings.php:154
+#: ../includes/settings.php:155
 msgid "in new window"
 msgstr "в новом окне"
 
-#: ../includes/settings.php:155
+#: ../includes/settings.php:156
 msgid "in current window"
 msgstr "в текущем окне"
 
-#: ../includes/settings.php:158
+#: ../includes/settings.php:159
 msgid "Enable links to the interpretation of the Holy Scriptures"
 msgstr "Включить ссылки на толкования Священного Писания"
 
-#: ../includes/settings.php:160
+#: ../includes/settings.php:161
 msgid "<br><i>(Tooltips and Short Codes)</i>"
 msgstr "<br><i>(Всплывающая подсказка и Шорт-коды)</i>"
 
-#: ../includes/settings.php:163
+#: ../includes/settings.php:165
+msgid "Additional options..."
+msgstr "Дополнительные параметры..."
+
+#: ../includes/settings.php:179
 msgid "Show Bible verses in popup"
 msgstr "Отображать стихи из Библии во всплывающей подсказке"
 
-#: ../includes/settings.php:165
+#: ../includes/settings.php:181
 msgid ""
 "<br><i>(If this option is disabled or data are not received from the server,"
 "<br>popup showing the chapter number and verse numbers)</i>"
@@ -727,11 +731,11 @@ msgstr ""
 "<br><i>(Если этот параметр отключен или данные не получены с сервера,<br>во "
 "всплывающей подсказке отображаются номер главы и номера стихов)</i>"
 
-#: ../includes/settings.php:169
+#: ../includes/settings.php:185
 msgid "Method of reading files"
 msgstr "Метод чтения файлов"
 
-#: ../includes/settings.php:174
+#: ../includes/settings.php:190
 msgid ""
 "<i>(Plugin tries to read Bible files with marked methods in the order listed."
 "<br>To do the reading faster, disable unnecessary methods - you need one "
@@ -743,11 +747,11 @@ msgstr ""
 "<br><u>Внимание:</u> Некоторые методы могут быть недоступны на Вашем "
 "сервере.)"
 
-#: ../includes/settings.php:191
+#: ../includes/settings.php:207
 msgid "Preload Bible verses in tooltips"
 msgstr "Предварительно загружать стихи из Библии во всплывающие подсказки"
 
-#: ../includes/settings.php:193
+#: ../includes/settings.php:209
 msgid ""
 "<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a "
 "problem with ajax-requests limiting on the server.)</i>"
@@ -755,19 +759,19 @@ msgstr ""
 "<br><i>(Попробуйте эту опцию на медленном сервере.<br><u>Внимание:</u> Могут "
 "возникнуть проблемы, связанные с ограничением ajax-запросов на сервере.)</i>"
 
-#: ../includes/settings.php:206
+#: ../includes/settings.php:222
 msgid "Reference links CSS class"
 msgstr "CSS класс для ссылок на Библию"
 
-#: ../includes/settings.php:213
+#: ../includes/settings.php:227
 msgid "Update Options"
 msgstr "Обновить настройки"
 
-#: ../includes/settings.php:225
+#: ../includes/settings.php:239
 msgid "Thanks for using Bg Biblie References"
 msgstr "Спасибо за использование плагина Ссылки на Библию"
 
-#: ../includes/settings.php:227
+#: ../includes/settings.php:241
 msgid ""
 "Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope "
 "it is useful for your site."
@@ -775,19 +779,19 @@ msgstr ""
 "Дорогие братия и сестры!<br />Спасибо за использование моего плагина ! Я "
 "надеюсь, что он оказался полезен для Вашего сайта."
 
-#: ../includes/settings.php:228
+#: ../includes/settings.php:242
 msgid "Vadim Bogaiskov"
 msgstr "Вадим Богайсков"
 
-#: ../includes/settings.php:230
+#: ../includes/settings.php:244
 msgid "I like this plugin<br>– how can I thank you?"
 msgstr "Мне нравится этот плагин<br> - как я могу отблагодарить Вас?"
 
-#: ../includes/settings.php:231
+#: ../includes/settings.php:245
 msgid "There are several ways for you to say thanks:"
 msgstr "Есть несколько возможностей, чтобы сказать спасибо:"
 
-#: ../includes/settings.php:233
+#: ../includes/settings.php:247
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
@@ -796,7 +800,7 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Сделать пожертвование</a> на "
 "строительство храма свв. Петра и Февронии в Марьино"
 
-#: ../includes/settings.php:234
+#: ../includes/settings.php:248
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give 5 stars</a> over at the WordPress "
@@ -805,20 +809,20 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Поставьте 5 звезд</a> в каталоге "
 "плагинов  WordPress"
 
-#: ../includes/settings.php:235
+#: ../includes/settings.php:249
 msgid "Share infotmation or make a nice blog post about the plugin"
 msgstr "Распространить информацию или написать заметку в Вашем блоге о плагине"
 
-#: ../includes/settings.php:237
+#: ../includes/settings.php:251
 msgid "Bg Bible References really cool plugin for Orthodox WordPress sites"
 msgstr ""
 "Bg Bible References - отличный плагин для православных сайтов на  WordPress"
 
-#: ../includes/settings.php:240
+#: ../includes/settings.php:254
 msgid "Support"
 msgstr "Поддержка"
 
-#: ../includes/settings.php:241
+#: ../includes/settings.php:255
 #, php-format
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
@@ -827,7 +831,7 @@ msgstr ""
 "См. <a href=\"%1$s\" target=\"_blank\">форум поддержки</a> или мой <a href="
 "\"%2$s\" target=\"_blank\">персональный сайт</a> для получения справки."
 
-#: ../includes/settings.php:243
+#: ../includes/settings.php:257
 msgid "God protect you!"
 msgstr "Храни вас Господи!"
 

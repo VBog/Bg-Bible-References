@@ -118,6 +118,7 @@ function bg_bibfers_options_page() {
 <!-- Форма настроек -->
 <form name="form1" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 
+<!--  Основные параметры -->
 <table class="form-table">
 
 <tr valign="top">
@@ -158,7 +159,22 @@ c_lang_checked();
 <th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibfers' ); ?></th>
 <td>
 <input type="checkbox" id="bg_interpret" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibfers' ); ?> <br />
-</td></tr>
+</td></tr></table>
+
+<!--  Дополнительные параметры -->
+<a href='#' onclick='options_view();'><?php _e( 'Additional options...', 'bg_bibfers' ); ?></a>
+<script>
+function options_view() {
+	var el = document.getElementById('add_options');
+	if (el.style.display == 'none') {
+		el.style.display = '';
+	} else {
+		el.style.display = 'none';
+	}
+}
+</script>
+
+<table id='add_options' class="form-table" style='display: none'>
 <tr valign="top">
 <th scope="row"><?php _e('Show Bible verses in popup', 'bg_bibfers' ); ?></th>
 <td>
@@ -206,13 +222,11 @@ bg_verses_checked();
 <th scope="row"><?php _e('Reference links CSS class', 'bg_bibfers' ); ?></th>
 <td>
 <input type="text" id="links_class" name="<?php echo $links_class ?>" size="20" value="<?php echo $class_val ?>"><br />
-</td></tr>
-<tr valign="top">
-<td>
+</td></tr></table>
 <p class="submit">
 <input type="submit" name="Submit" value="<?php _e('Update Options', 'bg_bibfers' ) ?>" />
 </p>
-</td></tr></table>
+
 </form>
 </div>
 </td>

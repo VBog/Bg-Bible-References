@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/bg-biblie-references\n"
-"POT-Creation-Date: 2014-01-27 19:10:12+00:00\n"
+"POT-Creation-Date: 2014-01-28 12:35:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -726,81 +726,85 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: includes/settings.php:124
+#: includes/settings.php:125
 msgid "Display text of the Bible in languages:"
 msgstr ""
 
-#: includes/settings.php:128
+#: includes/settings.php:129
 msgid "Church Slavic"
 msgstr ""
 
-#: includes/settings.php:129
+#: includes/settings.php:130
 msgid "Russian"
 msgstr ""
 
-#: includes/settings.php:130
+#: includes/settings.php:131
 msgid "Greek"
 msgstr ""
 
-#: includes/settings.php:131
+#: includes/settings.php:132
 msgid "Latin"
 msgstr ""
 
-#: includes/settings.php:132
+#: includes/settings.php:133
 msgid "Hebrew"
 msgstr ""
 
-#: includes/settings.php:135
+#: includes/settings.php:136
 msgid "Font for Church Slavonic text"
 msgstr ""
 
-#: includes/settings.php:137
+#: includes/settings.php:138
 msgid "Church Slavic font"
 msgstr ""
 
-#: includes/settings.php:138
+#: includes/settings.php:139
 msgid "Russian font (\"Old\" style)"
 msgstr ""
 
-#: includes/settings.php:139
+#: includes/settings.php:140
 msgid "HIP-standard"
 msgstr ""
 
-#: includes/settings.php:152
+#: includes/settings.php:153
 msgid "Open links"
 msgstr ""
 
-#: includes/settings.php:154
+#: includes/settings.php:155
 msgid "in new window"
 msgstr ""
 
-#: includes/settings.php:155
+#: includes/settings.php:156
 msgid "in current window"
 msgstr ""
 
-#: includes/settings.php:158
+#: includes/settings.php:159
 msgid "Enable links to the interpretation of the Holy Scriptures"
 msgstr ""
 
-#: includes/settings.php:160
+#: includes/settings.php:161
 msgid "<br><i>(Tooltips and Short Codes)</i>"
 msgstr ""
 
-#: includes/settings.php:163
+#: includes/settings.php:165
+msgid "Additional options..."
+msgstr ""
+
+#: includes/settings.php:179
 msgid "Show Bible verses in popup"
 msgstr ""
 
-#: includes/settings.php:165
+#: includes/settings.php:181
 msgid ""
 "<br><i>(If this option is disabled or data are not received from the server,"
 "<br>popup showing the chapter number and verse numbers)</i>"
 msgstr ""
 
-#: includes/settings.php:169
+#: includes/settings.php:185
 msgid "Method of reading files"
 msgstr ""
 
-#: includes/settings.php:174
+#: includes/settings.php:190
 msgid ""
 "<i>(Plugin tries to read Bible files with marked methods in the order listed."
 "<br>To do the reading faster, disable unnecessary methods - you need one "
@@ -808,76 +812,76 @@ msgid ""
 "</i>"
 msgstr ""
 
-#: includes/settings.php:191
+#: includes/settings.php:207
 msgid "Preload Bible verses in tooltips"
 msgstr ""
 
-#: includes/settings.php:193
+#: includes/settings.php:209
 msgid ""
 "<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a "
 "problem with ajax-requests limiting on the server.)</i>"
 msgstr ""
 
-#: includes/settings.php:206
+#: includes/settings.php:222
 msgid "Reference links CSS class"
 msgstr ""
 
-#: includes/settings.php:213
+#: includes/settings.php:227
 msgid "Update Options"
 msgstr ""
 
-#: includes/settings.php:225
+#: includes/settings.php:239
 msgid "Thanks for using Bg Biblie References"
 msgstr ""
 
-#: includes/settings.php:227
+#: includes/settings.php:241
 msgid ""
 "Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope "
 "it is useful for your site."
 msgstr ""
 
-#: includes/settings.php:228
+#: includes/settings.php:242
 msgid "Vadim Bogaiskov"
 msgstr ""
 
-#: includes/settings.php:230
+#: includes/settings.php:244
 msgid "I like this plugin<br>– how can I thank you?"
 msgstr ""
 
-#: includes/settings.php:231
+#: includes/settings.php:245
 msgid "There are several ways for you to say thanks:"
 msgstr ""
 
-#: includes/settings.php:233
+#: includes/settings.php:247
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
 "of the church of Sts. Peter and Fevronia in Marino"
 msgstr ""
 
-#: includes/settings.php:234
+#: includes/settings.php:248
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give 5 stars</a> over at the WordPress "
 "Plugin Directory"
 msgstr ""
 
-#: includes/settings.php:235
+#: includes/settings.php:249
 msgid "Share infotmation or make a nice blog post about the plugin"
 msgstr ""
 
-#: includes/settings.php:237
+#: includes/settings.php:251
 msgid "Bg Bible References really cool plugin for Orthodox WordPress sites"
 msgstr ""
 
-#: includes/settings.php:240
+#: includes/settings.php:254
 msgid "Support"
 msgstr ""
 
-#: includes/settings.php:241
+#: includes/settings.php:255
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
 "href=\"%2$s\" target=\"_blank\">personal site</a> for help."
 msgstr ""
 
-#: includes/settings.php:243
+#: includes/settings.php:257
 msgid "God protect you!"
 msgstr ""
