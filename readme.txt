@@ -129,6 +129,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.5.6 =
+
+* Fixed a bug where on the page, there are some similar references without brackets, the shortest link was displayed in all places.
+
 = 2.5.5 =
 
 * To read Bible files used PHP-functions cURL or file_get_contents() or fopen(). 
@@ -280,6 +284,10 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.5.6 =
+
+* Fixed a bug where on the page, there are some similar references without brackets, the shortest link was displayed in all places.
 
 = 2.5.5 =
 

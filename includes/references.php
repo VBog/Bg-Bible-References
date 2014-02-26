@@ -22,35 +22,39 @@ function bg_bibfers_bible_proc($txt) {
 //	$template = "/[\\(\\[](см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)]/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
-	preg_match_all($template, $txt, $matches);
+	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
 	
 	$cnt = count($matches[0]);
-	if ($cnt > 0) {
-		for ($i = 0; $i < $cnt; $i++) {
-		// Проверим по каждому паттерну. 
-			preg_match($template, $matches[0][$i], $mt);
-			$cn = count($mt);
-			if ($cn > 0) {
-				$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 			// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
-				$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);			// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
-				$chapter = preg_replace("/—|–/u", '-', $chapter);				// Замена разных вариантов тире на обычный
-				$chapter = preg_replace("/\\;/u", ',', $chapter);				// Замена точки с запятой на запятую
-				preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
-				if ($mtchs) {
-					if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
-							$chapter = preg_replace("/\,/u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена запятой, заменяем ее на двоеточие.
-							$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
-					}
+	$text = "";
+	$start = 0;
+
+	for ($i = 0; $i < $cnt; $i++) {
+		
+	// Проверим по каждому паттерну. 
+		preg_match($template, $matches[0][$i][0], $mt);
+		$cn = count($mt);
+		if ($cn > 0) {
+			$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 			// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
+			$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);			// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
+			$chapter = preg_replace("/—|–/u", '-', $chapter);				// Замена разных вариантов тире на обычный
+			$chapter = preg_replace("/\\;/u", ',', $chapter);				// Замена точки с запятой на запятую
+			preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
+			if ($mtchs) {
+				if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
+						$chapter = preg_replace("/\,/u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена запятой, заменяем ее на двоеточие.
+						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
 				}
-				$addr = bg_bibfers_get_url($title, $chapter);
-				if (strcasecmp($addr, "") != 0) {
-					$ref = trim ( $matches[0][$i], "\x20\f\t\v\n\r\xA0\xC2" );
-					$newmt = $addr .$ref. "</a>";
-					$txt = str_replace($ref, $newmt, $txt);
-				}			
 			}
+			$addr = bg_bibfers_get_url($title, $chapter);
+			if (strcasecmp($addr, "") != 0) {
+				$ref = trim ( $matches[0][$i][0], "\x20\f\t\v\n\r\xA0\xC2" );
+				$newmt = $addr .$ref. "</a>";
+				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
+				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
+			}			
 		}
 	}
+	$txt = $text.substr($txt, $start);
 	return $txt;
 }
 
