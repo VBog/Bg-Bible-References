@@ -17,6 +17,7 @@ function bg_bibfers_options_page() {
     $c_font_name = 'bg_bibfers_c_font';					// Шрифт для церковно-славянского текста
     $target_window = 'bg_bibfers_target';				// Где открыть страницу с текстом Библии
 	
+	$bg_headers = 'bg_bibfers_headers';					// Подсвечивать ссылки в заголовках H1-H6
 	$bg_interpret = 'bg_bibfers_interpret';				// Включить ссылки на толкование Священного Писания
 	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
 
@@ -28,7 +29,7 @@ function bg_bibfers_options_page() {
 
     $links_class = 'bg_bibfers_class';					// CSS класс для ссылок на Библию
 	
-    $hidden_field_name = 'bg_bibfers_submit_hidden';	// Скрытое пое для проверки обновления информацции в форме
+    $hidden_field_name = 'bg_bibfers_submit_hidden';	// Скрытое поле для проверки обновления информацции в форме
 	
 	bg_bibrefs_options_ini (); 			// Параметры по умолчанию
 	
@@ -42,6 +43,7 @@ function bg_bibfers_options_page() {
     $font_val = get_option( $c_font_name );
     $target_val = get_option( $target_window );
 
+    $bg_headers_val = get_option( $bg_headers );
     $bg_interpret_val = get_option( $bg_interpret );
     $bg_verses_val = get_option( $bg_verses_name );
 
@@ -78,6 +80,9 @@ function bg_bibfers_options_page() {
 
 		$target_val = ( isset( $_POST[$target_window] ) && $_POST[$target_window] ) ? $_POST[$target_window] : '' ;
 		update_option( $target_window, $target_val );
+
+		$bg_headers_val = ( isset( $_POST[$bg_headers] ) && $_POST[$bg_headers] ) ? $_POST[$bg_headers] : '' ;
+		update_option( $bg_headers, $bg_headers_val );
 
 		$bg_interpret_val = ( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '' ;
 		update_option( $bg_interpret, $bg_interpret_val );
@@ -154,6 +159,11 @@ c_lang_checked();
 <td>
 <input type="radio" id="blank_window" name="<?php echo $target_window ?>" <?php if($target_val=="_blank") echo "checked" ?> value="_blank"> <?php _e('in new window', 'bg_bibfers' ); ?><br />
 <input type="radio" id="self_window" name="<?php echo $target_window ?>" <?php if($target_val=="_self") echo "checked" ?> value="_self"> <?php _e('in current window', 'bg_bibfers' ); ?><br />
+</td></tr>
+<tr valign="top">
+<th scope="row"><?php _e('Highlight references in the headers H1...H6', 'bg_bibfers' ); ?></th>
+<td>
+<input type="checkbox" id="bg_headers" name="<?php echo $bg_headers ?>" <?php if($bg_headers_val=="on") echo "checked" ?>  value="on"> <br />
 </td></tr>
 <tr valign="top">
 <th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibfers' ); ?></th>
@@ -270,6 +280,7 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_i_lang');
 	add_option('bg_bibfers_c_font', "ucs");
 	add_option('bg_bibfers_target', "_blank");
+	add_option('bg_bibfers_headers', "on");
 	add_option('bg_bibfers_interpret', "on");
 	add_option('bg_bibfers_show_verses', "on");
 	add_option('bg_bibfers_curl', "on");
@@ -288,6 +299,7 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_i_lang');
 	delete_option('bg_bibfers_c_font');
 	delete_option('bg_bibfers_target');
+	delete_option('bg_bibfers_headers');
 	delete_option('bg_bibfers_interpret');
 	delete_option('bg_bibfers_show_verses');
 	delete_option('bg_bibfers_curl');

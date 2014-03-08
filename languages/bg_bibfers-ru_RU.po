@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2014-01-28 16:30+0400\n"
-"PO-Revision-Date: 2014-01-28 16:30+0400\n"
+"POT-Creation-Date: 2014-03-08 20:13+0400\n"
+"PO-Revision-Date: 2014-03-08 20:14+0400\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../bg_bibrefs.php:107
+#: ../bg_bibrefs.php:161
 msgid "Bible References"
 msgstr "Ссылки на Библию"
 
@@ -31,699 +31,781 @@ msgid "Click to go to interpretation"
 msgstr "Щелкните, чтобы перейти к толкованию"
 
 # chapter
-#: ../includes/references.php:92
+#. translators: ch. - is abbr. "chapter"
+#: ../includes/references.php:101
 msgid "ch. "
 msgstr "гл. "
 
-#: ../includes/references.php:108
+#. translators: abbr. Genesis
+#: ../includes/references.php:117
 msgid "Gen"
 msgstr "Быт"
 
-#: ../includes/references.php:110
+#. translators: abbr. Exodus
+#: ../includes/references.php:119
 msgid "Ex"
 msgstr "Исх"
 
-#: ../includes/references.php:112
+#. translators: abbr. Leviticus
+#: ../includes/references.php:121
 msgid "Lev"
 msgstr "Лев"
 
-#: ../includes/references.php:114
+#. translators: abbr. Numbers
+#: ../includes/references.php:123
 msgid "Num"
 msgstr "Числ|Чис"
 
-#: ../includes/references.php:116
+#. translators: abbr. Deuteronomy
+#: ../includes/references.php:125
 msgid "Deut"
 msgstr "Втор"
 
-#: ../includes/references.php:119
+#. translators: abbr. Joshua (Iesous)
+#: ../includes/references.php:128
 msgid "Nav"
 msgstr "Нав|ИсНав"
 
-#: ../includes/references.php:121
+#. translators: abbr. Judges
+#: ../includes/references.php:130
 msgid "Judg"
 msgstr "Судей|Суд"
 
-#: ../includes/references.php:123
+#. translators: abbr. Ruth
+#: ../includes/references.php:132
 msgid "Rth"
 msgstr "Руфь|Руф"
 
-#: ../includes/references.php:125
+#. translators: abbr. 1 Samuel (1 Kingdoms)
+#: ../includes/references.php:134
 msgid "1Sam"
 msgstr "1Цар|1Сам"
 
-#: ../includes/references.php:127
+#. translators: abbr. 2 Samuel (2 Kingdoms)
+#: ../includes/references.php:136
 msgid "2Sam"
 msgstr "2Цар|2Сам"
 
-#: ../includes/references.php:129
+#. translators: abbr. 1 Kings (3 Kingdoms)
+#: ../includes/references.php:138
 msgid "1King"
 msgstr "3Цар|1Царей"
 
-#: ../includes/references.php:131
+#. translators: abbr. 2 Kings (4 Kingdoms)
+#: ../includes/references.php:140
 msgid "2King"
 msgstr "4Цар|2Царей"
 
-#: ../includes/references.php:133
+#. translators: abbr. 1 Chronicles (1 Paralipomenon)
+#: ../includes/references.php:142
 msgid "1Chron"
 msgstr "1Пар|1Хр|1Хрон|1Лет"
 
-#: ../includes/references.php:135
+#. translators: abbr. 2 Chronicles (2 Paralipomenon)
+#: ../includes/references.php:144
 msgid "2Chron"
 msgstr "2Пар|2Хр|2Хрон|2Лет"
 
-#: ../includes/references.php:137
+#. translators: abbr. 1 Esdras
+#: ../includes/references.php:146
 msgid "Ezr"
 msgstr "1Ездр|1Езд|Ездр|Езд"
 
-#: ../includes/references.php:139
+#. translators: abbr. Nehemiah (2 Esdras)
+#: ../includes/references.php:148
 msgid "Nehem"
 msgstr "Неем"
 
-#: ../includes/references.php:141
+#. translators: abbr. Esther
+#: ../includes/references.php:150
 msgid "Est"
 msgstr "Есф|Эсф"
 
-#: ../includes/references.php:144 ../includes/references.php:311
+#. translators: abbr. Job
+#: ../includes/references.php:153 ../includes/references.php:320
 msgid "Job"
 msgstr "Иов"
 
-#: ../includes/references.php:146
+#. translators: abbr. Psalms
+#: ../includes/references.php:155
 msgid "Ps"
 msgstr "Псал|Пс"
 
-#: ../includes/references.php:148
+#. translators: abbr. Proverbs
+#: ../includes/references.php:157
 msgid "Prov"
 msgstr "Притчи|Притч|Прит"
 
-#: ../includes/references.php:150
+#. translators: abbr. Ecclesiastes
+#: ../includes/references.php:159
 msgid "Eccl"
 msgstr "Еккл"
 
-#: ../includes/references.php:152
+#. translators: abbr. Song of Songs (Aisma Aismaton)
+#: ../includes/references.php:161
 msgid "Song"
 msgstr "Песн"
 
-#: ../includes/references.php:154
+#. translators: abbr. Isaiah
+#: ../includes/references.php:163
 msgid "Is"
 msgstr "Исаи|Ис"
 
-#: ../includes/references.php:156
+#. translators: abbr. Jeremiah
+#: ../includes/references.php:165
 msgid "Jer"
 msgstr "Иер"
 
-#: ../includes/references.php:158
+#. translators: abbr. Lamentations
+#: ../includes/references.php:167
 msgid "Lam"
 msgstr "Плч|Плач"
 
-#: ../includes/references.php:160
+#. translators: abbr. Ezekiel
+#: ../includes/references.php:169
 msgid "Ezek"
 msgstr "Иез"
 
-#: ../includes/references.php:162
+#. translators: abbr. Daniel
+#: ../includes/references.php:171
 msgid "Dan"
 msgstr "Дан"
 
-#: ../includes/references.php:165
+#. translators: abbr. Hosea
+#: ../includes/references.php:174
 msgid "Hos"
 msgstr "Осии|Ос"
 
-#: ../includes/references.php:167 ../includes/references.php:324
+#. translators: abbr. Joel
+#: ../includes/references.php:176 ../includes/references.php:333
 msgid "Joel"
 msgstr "Иоиль|Иоил"
 
-#: ../includes/references.php:169
+#. translators: abbr. Amos
+#: ../includes/references.php:178
 msgid "Am"
 msgstr "Амос|Ам"
 
-#: ../includes/references.php:171
+#. translators: abbr. Obadiah
+#: ../includes/references.php:180
 msgid "Avd"
 msgstr "Авд"
 
-#: ../includes/references.php:173
+#. translators: abbr. Jonah
+#: ../includes/references.php:182
 msgid "Jona"
 msgstr "Иона|Ион"
 
-#: ../includes/references.php:175
+#. translators: abbr. Micah
+#: ../includes/references.php:184
 msgid "Mic"
 msgstr "Мих"
 
-#: ../includes/references.php:177
+#. translators: abbr. Nahum
+#: ../includes/references.php:186
 msgid "Naum"
 msgstr "Наум"
 
-#: ../includes/references.php:179
+#. translators: abbr. Habakkuk
+#: ../includes/references.php:188
 msgid "Habak"
 msgstr "Авв"
 
-#: ../includes/references.php:181
+#. translators: abbr. Zephaniah
+#: ../includes/references.php:190
 msgid "Sofon"
 msgstr "Соф"
 
-#: ../includes/references.php:183
+#. translators: abbr. Haggai
+#: ../includes/references.php:192
 msgid "Hag"
 msgstr "Агг|Аг"
 
-#: ../includes/references.php:185
+#. translators: abbr. Zechariah
+#: ../includes/references.php:194
 msgid "Zah"
 msgstr "Зах"
 
-#: ../includes/references.php:187
+#. translators: abbr. Malachi
+#: ../includes/references.php:196
 msgid "Mal"
 msgstr "Мал"
 
-#: ../includes/references.php:190
+#. translators: abbr. 1 Maccabees
+#: ../includes/references.php:199
 msgid "1Mac"
 msgstr "1Мак"
 
-#: ../includes/references.php:192
+#. translators: abbr. 2 Maccabees
+#: ../includes/references.php:201
 msgid "2Mac"
 msgstr "2Мак"
 
-#: ../includes/references.php:194
+#. translators: abbr. 3 Maccabees
+#: ../includes/references.php:203
 msgid "3Mac"
 msgstr "3Мак"
 
-#: ../includes/references.php:196
+#. translators: abbr. Baruch
+#: ../includes/references.php:205
 msgid "Bar"
 msgstr "Вар"
 
-#: ../includes/references.php:198
+#. translators: abbr. 2 Esdras
+#: ../includes/references.php:207
 msgid "2Ezr"
 msgstr "2Ездр|2Езд"
 
-#: ../includes/references.php:200
+#. translators: abbr. 3 Esdras
+#: ../includes/references.php:209
 msgid "3Ezr"
 msgstr "3Ездр|3Езд"
 
-#: ../includes/references.php:202
+#. translators: abbr. Judith
+#: ../includes/references.php:211
 msgid "Judf"
 msgstr "Иудифь|Иудиф"
 
-#: ../includes/references.php:204
+#. translators: abbr. Letter of Jeremiah
+#: ../includes/references.php:213
 msgid "pJer"
 msgstr "ПослИер|Посл\\.Иер"
 
-#: ../includes/references.php:206
+#. translators: abbr. Wisdom
+#: ../includes/references.php:215
 msgid "Solom"
 msgstr "Прем|ПремСол"
 
-#: ../includes/references.php:208
+#. translators: abbr. Sirach
+#: ../includes/references.php:217
 msgid "Sir"
 msgstr "Сирах|Сир"
 
-#: ../includes/references.php:210
+#. translators: abbr. Tobit (Tobias)
+#: ../includes/references.php:219
 msgid "Tov"
 msgstr "Товит|Тов"
 
-#: ../includes/references.php:214
+#. translators: abbr. Matthew
+#: ../includes/references.php:223
 msgid "Mt"
 msgstr "Мф|Мт|Матф"
 
-#: ../includes/references.php:216
+#. translators: abbr. Mark
+#: ../includes/references.php:225
 msgid "Mk"
 msgstr "Мк|Мр|Марк|Мар"
 
-#: ../includes/references.php:218
+#. translators: abbr. Luke
+#: ../includes/references.php:227
 msgid "Lk"
 msgstr "Лк|Луки|Лук"
 
-#: ../includes/references.php:220
+#. translators: abbr. John
+#: ../includes/references.php:229
 msgid "Jn"
 msgstr "Ин|Иоан"
 
-#: ../includes/references.php:223
+#. translators: abbr. Acts
+#: ../includes/references.php:232
 msgid "Act"
 msgstr "Деяния|Деян"
 
-#: ../includes/references.php:225
+#. translators: abbr. James
+#: ../includes/references.php:234
 msgid "Jac"
 msgstr "Иаков|Иак"
 
-#: ../includes/references.php:227
+#. translators: abbr. 1 Peter
+#: ../includes/references.php:236
 msgid "1Pet"
 msgstr "1Петра|1Пет"
 
-#: ../includes/references.php:229
+#. translators: abbr. 2 Peter
+#: ../includes/references.php:238
 msgid "2Pet"
 msgstr "2Петра|2Пет"
 
-#: ../includes/references.php:231
+#. translators: abbr. 1 John
+#: ../includes/references.php:240
 msgid "1Jn"
 msgstr "1Ин|1Иоан"
 
-#: ../includes/references.php:233
+#. translators: abbr. 2 John
+#: ../includes/references.php:242
 msgid "2Jn"
 msgstr "2Ин|2Иоан"
 
-#: ../includes/references.php:235
+#. translators: abbr. 3 John
+#: ../includes/references.php:244
 msgid "3Jn"
 msgstr "3Ин|3Иоан"
 
-#: ../includes/references.php:237
+#. translators: abbr. Jude
+#: ../includes/references.php:246
 msgid "Juda"
 msgstr "Иуда|Иуд"
 
-#: ../includes/references.php:240
+#. translators: abbr. Romans
+#: ../includes/references.php:249
 msgid "Rom"
 msgstr "Римл|Рим"
 
-#: ../includes/references.php:242
+#. translators: abbr. 1 Corinthians
+#: ../includes/references.php:251
 msgid "1Cor"
 msgstr "1Кор"
 
-#: ../includes/references.php:244
+#. translators: abbr. 2 Corinthians
+#: ../includes/references.php:253
 msgid "2Cor"
 msgstr "2Кор"
 
-#: ../includes/references.php:246
+#. translators: abbr. Galatians
+#: ../includes/references.php:255
 msgid "Gal"
 msgstr "Гал"
 
-#: ../includes/references.php:248
+#. translators: abbr. Ephesians
+#: ../includes/references.php:257
 msgid "Eph"
 msgstr "Ефес|Еф"
 
-#: ../includes/references.php:250
+#. translators: abbr. Philippians
+#: ../includes/references.php:259
 msgid "Phil"
 msgstr "Флп|Филип|Фил"
 
-#: ../includes/references.php:252
+#. translators: abbr. Colossians
+#: ../includes/references.php:261
 msgid "Col"
 msgstr "Кол"
 
-#: ../includes/references.php:254
+#. translators: abbr. 1 Thessalonians
+#: ../includes/references.php:263
 msgid "1Thes"
 msgstr "1Сол|1Фес"
 
-#: ../includes/references.php:256
+#. translators: abbr. 2 Thessalonians
+#: ../includes/references.php:265
 msgid "2Thes"
 msgstr "2Сол|2Фес"
 
-#: ../includes/references.php:258
+#. translators: abbr. 1 Timothy
+#: ../includes/references.php:267
 msgid "1Tim"
 msgstr "1Тим"
 
-#: ../includes/references.php:260
+#. translators: abbr. 2 Timothy
+#: ../includes/references.php:269
 msgid "2Tim"
 msgstr "2Тим"
 
-#: ../includes/references.php:262
+#. translators: abbr. Titus
+#: ../includes/references.php:271
 msgid "Tit"
 msgstr "Тит"
 
-#: ../includes/references.php:264
+#. translators: abbr. Philemon
+#: ../includes/references.php:273
 msgid "Phlm"
 msgstr "Флм|Филим"
 
-#: ../includes/references.php:266
+#. translators: abbr. Hebrews
+#: ../includes/references.php:275
 msgid "Hebr"
 msgstr "Евр"
 
-#: ../includes/references.php:268
+#. translators: abbr. Revelation
+#: ../includes/references.php:277
 msgid "Apok"
 msgstr "Откр|Отк|Апок"
 
-#: ../includes/references.php:292
+#: ../includes/references.php:301
 msgid "Genesis"
 msgstr "Книга Бытия"
 
-#: ../includes/references.php:293
+#: ../includes/references.php:302
 msgid "Exodus"
 msgstr "Книга Исход"
 
-#: ../includes/references.php:294
+#: ../includes/references.php:303
 msgid "Leviticus"
 msgstr "Книга Левит"
 
-#: ../includes/references.php:295
+#: ../includes/references.php:304
 msgid "Numbers"
 msgstr "Книга Числа"
 
-#: ../includes/references.php:296
+#: ../includes/references.php:305
 msgid "Deuteronomy"
 msgstr "Второзаконие"
 
-#: ../includes/references.php:298
+#: ../includes/references.php:307
 msgid "Joshua (Iesous)"
 msgstr "Книга Иисуса Навина"
 
-#: ../includes/references.php:299
+#: ../includes/references.php:308
 msgid "Judges"
 msgstr "Книга Судей Израилевых"
 
-#: ../includes/references.php:300
+#: ../includes/references.php:309
 msgid "Ruth"
 msgstr "Книга Руфь"
 
-#: ../includes/references.php:301
+#: ../includes/references.php:310
 msgid "1 Samuel (1 Kingdoms)"
 msgstr "Первая книга Царств (Первая книга Самуила)"
 
-#: ../includes/references.php:302
+#: ../includes/references.php:311
 msgid "2 Samuel (2 Kingdoms)"
 msgstr "Вторая книга Царств (Вторая книга Самуила)"
 
-#: ../includes/references.php:303
+#: ../includes/references.php:312
 msgid "1 Kings (3 Kingdoms)"
 msgstr "Третья книга Царств (Первая книга Царей)"
 
-#: ../includes/references.php:304
+#: ../includes/references.php:313
 msgid "2 Kings (4 Kingdoms)"
 msgstr "Четвёртая книга Царств (Вторая книга Царей)"
 
-#: ../includes/references.php:305
+#: ../includes/references.php:314
 msgid "1 Chronicles (1 Paralipomenon)"
 msgstr "Первая книга Паралипоменон (Первая книга Хроник, Первая Летопись)"
 
-#: ../includes/references.php:306
+#: ../includes/references.php:315
 msgid "2 Chronicles (2 Paralipomenon)"
 msgstr "Вторая книга Паралипоменон (Вторая книга Хроник, Вторая Летопись)"
 
-#: ../includes/references.php:307
+#: ../includes/references.php:316
 msgid "1 Esdras"
 msgstr "Книга Ездры (Первая книга Ездры)"
 
-#: ../includes/references.php:308
+#: ../includes/references.php:317
 msgid "Nehemiah (2 Esdras)"
 msgstr "Книга Неемии"
 
-#: ../includes/references.php:309
+#: ../includes/references.php:318
 msgid "Esther"
 msgstr "Книга Есфири"
 
-#: ../includes/references.php:312
+#: ../includes/references.php:321
 msgid "Psalms"
 msgstr "Псалтирь"
 
-#: ../includes/references.php:313
+#: ../includes/references.php:322
 msgid "Proverbs"
 msgstr "Книга Притчей Соломоновых"
 
-#: ../includes/references.php:314
+#: ../includes/references.php:323
 msgid "Ecclesiastes"
 msgstr "Книга Екклезиаста, или Проповедника"
 
-#: ../includes/references.php:315
+#: ../includes/references.php:324
 msgid "Song of Songs (Aisma Aismaton)"
 msgstr "Песнь песней Соломона"
 
-#: ../includes/references.php:317
+#: ../includes/references.php:326
 msgid "Isaiah"
 msgstr "Книга пророка Исайи"
 
-#: ../includes/references.php:318
+#: ../includes/references.php:327
 msgid "Jeremiah"
 msgstr "Книга пророка Иеремии"
 
-#: ../includes/references.php:319
+#: ../includes/references.php:328
 msgid "Lamentations"
 msgstr "Книга Плач Иеремии"
 
-#: ../includes/references.php:320
+#: ../includes/references.php:329
 msgid "Ezekiel"
 msgstr "Книга пророка Иезекииля"
 
-#: ../includes/references.php:321
+#: ../includes/references.php:330
 msgid "Daniel"
 msgstr "Книга пророка Даниила"
 
-#: ../includes/references.php:323
+#: ../includes/references.php:332
 msgid "Hosea"
 msgstr "Книга пророка Осии"
 
-#: ../includes/references.php:325
+#: ../includes/references.php:334
 msgid "Amos"
 msgstr "Книга пророка Амоса"
 
-#: ../includes/references.php:326
+#: ../includes/references.php:335
 msgid "Obadiah"
 msgstr "Книга пророка Авдия"
 
-#: ../includes/references.php:327
+#: ../includes/references.php:336
 msgid "Jonah"
 msgstr "Книга пророка Ионы"
 
-#: ../includes/references.php:328
+#: ../includes/references.php:337
 msgid "Micah"
 msgstr "Книга пророка Михея"
 
-#: ../includes/references.php:329
+#: ../includes/references.php:338
 msgid "Nahum"
 msgstr "Книга пророка Наума"
 
-#: ../includes/references.php:330
+#: ../includes/references.php:339
 msgid "Habakkuk"
 msgstr "Книга пророка Аввакума"
 
-#: ../includes/references.php:331
+#: ../includes/references.php:340
 msgid "Zephaniah"
 msgstr "Книга пророка Софонии"
 
-#: ../includes/references.php:332
+#: ../includes/references.php:341
 msgid "Haggai"
 msgstr "Книга пророка Аггея"
 
-#: ../includes/references.php:333
+#: ../includes/references.php:342
 msgid "Zechariah"
 msgstr "Книга пророка Захарии"
 
-#: ../includes/references.php:334
+#: ../includes/references.php:343
 msgid "Malachi"
 msgstr "Книга пророка Малахии"
 
-#: ../includes/references.php:336
+#: ../includes/references.php:345
 msgid "1 Maccabees"
 msgstr "Первая книга Маккавейская"
 
-#: ../includes/references.php:337
+#: ../includes/references.php:346
 msgid "2 Maccabees"
 msgstr "Вторая книга Маккавейская"
 
-#: ../includes/references.php:338
+#: ../includes/references.php:347
 msgid "3 Maccabees"
 msgstr "Третья книга Маккавейская"
 
-#: ../includes/references.php:339
+#: ../includes/references.php:348
 msgid "Baruch"
 msgstr "Книга пророка Варуха"
 
-#: ../includes/references.php:340
+#: ../includes/references.php:349
 msgid "2 Esdras"
 msgstr "Вторая книга Ездры"
 
-#: ../includes/references.php:341
+#: ../includes/references.php:350
 msgid "3 Esdras"
 msgstr "Третья книга Ездры"
 
-#: ../includes/references.php:342
+#: ../includes/references.php:351
 msgid "Judith"
 msgstr "Книга Иудифи"
 
-#: ../includes/references.php:343
+#: ../includes/references.php:352
 msgid "Letter of Jeremiah"
 msgstr "Послание Иеремии"
 
-#: ../includes/references.php:344
+#: ../includes/references.php:353
 msgid "Wisdom"
 msgstr "Книга Премудрости Соломона"
 
-#: ../includes/references.php:345
+#: ../includes/references.php:354
 msgid "Sirach"
 msgstr "Книга Премудрости Иисуса, сына Сирахова"
 
-#: ../includes/references.php:346
+#: ../includes/references.php:355
 msgid "Tobit (Tobias)"
 msgstr "Книга Товита"
 
-#: ../includes/references.php:349
+#: ../includes/references.php:358
 msgid "Matthew"
 msgstr "Евангелие от Матфея"
 
-#: ../includes/references.php:350
+#: ../includes/references.php:359
 msgid "Mark"
 msgstr "Евангелие от Марка"
 
-#: ../includes/references.php:351
+#: ../includes/references.php:360
 msgid "Luke"
 msgstr "Евангелие от Луки"
 
-#: ../includes/references.php:352
+#: ../includes/references.php:361
 msgid "John"
 msgstr "Евангелие от Иоанна"
 
-#: ../includes/references.php:354
+#: ../includes/references.php:363
 msgid "Acts"
 msgstr "Деяния святых Апостолов"
 
-#: ../includes/references.php:355
+#: ../includes/references.php:364
 msgid "James"
 msgstr "Послание Иакова"
 
-#: ../includes/references.php:356
+#: ../includes/references.php:365
 msgid "1 Peter"
 msgstr "Первое послание Петра"
 
-#: ../includes/references.php:357
+#: ../includes/references.php:366
 msgid "2 Peter"
 msgstr "Второе послание Петра"
 
-#: ../includes/references.php:358
+#: ../includes/references.php:367
 msgid "1 John"
 msgstr "Первое послание Иоанна"
 
-#: ../includes/references.php:359
+#: ../includes/references.php:368
 msgid "2 John"
 msgstr "Второе послание Иоанна"
 
-#: ../includes/references.php:360
+#: ../includes/references.php:369
 msgid "3 John"
 msgstr "Третье послание Иоанна"
 
-#: ../includes/references.php:361
+#: ../includes/references.php:370
 msgid "Jude"
 msgstr "Послание Иуды"
 
-#: ../includes/references.php:363
+#: ../includes/references.php:372
 msgid "Romans"
 msgstr "Послание апостола Павла к Римлянам"
 
-#: ../includes/references.php:364
+#: ../includes/references.php:373
 msgid "1 Corinthians"
 msgstr "Первое послание апостола Павла к Коринфянам"
 
-#: ../includes/references.php:365
+#: ../includes/references.php:374
 msgid "2 Corinthians"
 msgstr "Второе послание апостола Павла к Коринфянам"
 
-#: ../includes/references.php:366
+#: ../includes/references.php:375
 msgid "Galatians"
 msgstr "Послание апостола Павла к Галатам"
 
-#: ../includes/references.php:367
+#: ../includes/references.php:376
 msgid "Ephesians"
 msgstr "Послание апостола Павла к Ефесянам"
 
-#: ../includes/references.php:368
+#: ../includes/references.php:377
 msgid "Philippians"
 msgstr "Послание апостола Павла к Филиппийцам"
 
-#: ../includes/references.php:369
+#: ../includes/references.php:378
 msgid "Colossians"
 msgstr "Послание апостола Павла к Колоссянам"
 
-#: ../includes/references.php:370
+#: ../includes/references.php:379
 msgid "1 Thessalonians"
 msgstr "Первое послание апостола Павла к Фессалоникийцам (Солунянам)"
 
-#: ../includes/references.php:371
+#: ../includes/references.php:380
 msgid "2 Thessalonians"
 msgstr "Второе послание апостола Павла к Фессалоникийцам (Солунянам)"
 
-#: ../includes/references.php:372
+#: ../includes/references.php:381
 msgid "1 Timothy"
 msgstr "Первое послание апостола Павла к Тимофею"
 
-#: ../includes/references.php:373
+#: ../includes/references.php:382
 msgid "2 Timothy"
 msgstr "Второе послание апостола Павла к Тимофею"
 
-#: ../includes/references.php:374
+#: ../includes/references.php:383
 msgid "Titus"
 msgstr "Послание апостола Павла к Титу"
 
-#: ../includes/references.php:375
+#: ../includes/references.php:384
 msgid "Philemon"
 msgstr "Послание апостола Павла к Филимону"
 
-#: ../includes/references.php:376
+#: ../includes/references.php:385
 msgid "Hebrews"
 msgstr "Послание апостола Павла к Евреям"
 
-#: ../includes/references.php:377
+#: ../includes/references.php:386
 msgid "Revelation"
 msgstr "Откровение Иоанна Богослова (Апокалипсис)"
 
-#: ../includes/settings.php:104
+#: ../includes/settings.php:109
 msgid "Options saved."
 msgstr "Настройки сохранены."
 
-#: ../includes/settings.php:114
+#: ../includes/settings.php:119
 msgid "Bg Bible References Plugin Options"
 msgstr "Настройки плагина Ссылки на Библию"
 
-#: ../includes/settings.php:115
+#: ../includes/settings.php:120
 msgid "Version"
 msgstr "Версия"
 
-#: ../includes/settings.php:125
+#: ../includes/settings.php:130
 msgid "Display text of the Bible in languages:"
 msgstr "Отображать текст Библии на языках:"
 
-#: ../includes/settings.php:129
+#: ../includes/settings.php:134
 msgid "Church Slavic"
 msgstr "Церковно-славянский"
 
-#: ../includes/settings.php:130
+#: ../includes/settings.php:135
 msgid "Russian"
 msgstr "Русский"
 
-#: ../includes/settings.php:131
+#: ../includes/settings.php:136
 msgid "Greek"
 msgstr "Греческий"
 
-#: ../includes/settings.php:132
+#: ../includes/settings.php:137
 msgid "Latin"
 msgstr "Латинский"
 
-#: ../includes/settings.php:133
+#: ../includes/settings.php:138
 msgid "Hebrew"
 msgstr "Иврит"
 
-#: ../includes/settings.php:136
+#: ../includes/settings.php:141
 msgid "Font for Church Slavonic text"
 msgstr "Шрифт для церковно-славянского текста"
 
-#: ../includes/settings.php:138
+#: ../includes/settings.php:143
 msgid "Church Slavic font"
 msgstr "Церковно-славянский шрифт"
 
-#: ../includes/settings.php:139
+#: ../includes/settings.php:144
 msgid "Russian font (\"Old\" style)"
 msgstr "Русские буквы (\"Старый\" стиль)"
 
-#: ../includes/settings.php:140
+#: ../includes/settings.php:145
 msgid "HIP-standard"
 msgstr "HIP-стандарт"
 
-#: ../includes/settings.php:153
+#: ../includes/settings.php:158
 msgid "Open links"
 msgstr "Открывать ссылки"
 
-#: ../includes/settings.php:155
+#: ../includes/settings.php:160
 msgid "in new window"
 msgstr "в новом окне"
 
-#: ../includes/settings.php:156
+#: ../includes/settings.php:161
 msgid "in current window"
 msgstr "в текущем окне"
 
-#: ../includes/settings.php:159
+#: ../includes/settings.php:164
+msgid "Highlight references in the headers H1...H6"
+msgstr "Подсвечивать ссылки в заголовках  H1...H6"
+
+#: ../includes/settings.php:169
 msgid "Enable links to the interpretation of the Holy Scriptures"
 msgstr "Включить ссылки на толкования Священного Писания"
 
-#: ../includes/settings.php:161
+#: ../includes/settings.php:171
 msgid "<br><i>(Tooltips and Short Codes)</i>"
 msgstr "<br><i>(Всплывающая подсказка и Шорт-коды)</i>"
 
-#: ../includes/settings.php:165
+#: ../includes/settings.php:175
 msgid "Additional options..."
 msgstr "Дополнительные параметры..."
 
-#: ../includes/settings.php:179
+#: ../includes/settings.php:189
 msgid "Show Bible verses in popup"
 msgstr "Отображать стихи из Библии во всплывающей подсказке"
 
-#: ../includes/settings.php:181
+#: ../includes/settings.php:191
 msgid ""
 "<br><i>(If this option is disabled or data are not received from the server,"
 "<br>popup showing the chapter number and verse numbers)</i>"
@@ -731,11 +813,11 @@ msgstr ""
 "<br><i>(Если этот параметр отключен или данные не получены с сервера,<br>во "
 "всплывающей подсказке отображаются номер главы и номера стихов)</i>"
 
-#: ../includes/settings.php:185
+#: ../includes/settings.php:195
 msgid "Method of reading files"
 msgstr "Метод чтения файлов"
 
-#: ../includes/settings.php:190
+#: ../includes/settings.php:200
 msgid ""
 "<i>(Plugin tries to read Bible files with marked methods in the order listed."
 "<br>To do the reading faster, disable unnecessary methods - you need one "
@@ -747,11 +829,11 @@ msgstr ""
 "<br><u>Внимание:</u> Некоторые методы могут быть недоступны на Вашем "
 "сервере.)"
 
-#: ../includes/settings.php:207
+#: ../includes/settings.php:217
 msgid "Preload Bible verses in tooltips"
 msgstr "Предварительно загружать стихи из Библии во всплывающие подсказки"
 
-#: ../includes/settings.php:209
+#: ../includes/settings.php:219
 msgid ""
 "<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a "
 "problem with ajax-requests limiting on the server.)</i>"
@@ -759,19 +841,19 @@ msgstr ""
 "<br><i>(Попробуйте эту опцию на медленном сервере.<br><u>Внимание:</u> Могут "
 "возникнуть проблемы, связанные с ограничением ajax-запросов на сервере.)</i>"
 
-#: ../includes/settings.php:222
+#: ../includes/settings.php:232
 msgid "Reference links CSS class"
 msgstr "CSS класс для ссылок на Библию"
 
-#: ../includes/settings.php:227
+#: ../includes/settings.php:237
 msgid "Update Options"
 msgstr "Обновить настройки"
 
-#: ../includes/settings.php:239
+#: ../includes/settings.php:249
 msgid "Thanks for using Bg Biblie References"
 msgstr "Спасибо за использование плагина Ссылки на Библию"
 
-#: ../includes/settings.php:241
+#: ../includes/settings.php:251
 msgid ""
 "Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope "
 "it is useful for your site."
@@ -779,19 +861,19 @@ msgstr ""
 "Дорогие братия и сестры!<br />Спасибо за использование моего плагина ! Я "
 "надеюсь, что он оказался полезен для Вашего сайта."
 
-#: ../includes/settings.php:242
+#: ../includes/settings.php:252
 msgid "Vadim Bogaiskov"
 msgstr "Вадим Богайсков"
 
-#: ../includes/settings.php:244
+#: ../includes/settings.php:254
 msgid "I like this plugin<br>– how can I thank you?"
 msgstr "Мне нравится этот плагин<br> - как я могу отблагодарить Вас?"
 
-#: ../includes/settings.php:245
+#: ../includes/settings.php:255
 msgid "There are several ways for you to say thanks:"
 msgstr "Есть несколько возможностей, чтобы сказать спасибо:"
 
-#: ../includes/settings.php:247
+#: ../includes/settings.php:257
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
@@ -800,7 +882,7 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Сделать пожертвование</a> на "
 "строительство храма свв. Петра и Февронии в Марьино"
 
-#: ../includes/settings.php:248
+#: ../includes/settings.php:258
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give 5 stars</a> over at the WordPress "
@@ -809,20 +891,20 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Поставьте 5 звезд</a> в каталоге "
 "плагинов  WordPress"
 
-#: ../includes/settings.php:249
+#: ../includes/settings.php:259
 msgid "Share infotmation or make a nice blog post about the plugin"
 msgstr "Распространить информацию или написать заметку в Вашем блоге о плагине"
 
-#: ../includes/settings.php:251
+#: ../includes/settings.php:261
 msgid "Bg Bible References really cool plugin for Orthodox WordPress sites"
 msgstr ""
 "Bg Bible References - отличный плагин для православных сайтов на  WordPress"
 
-#: ../includes/settings.php:254
+#: ../includes/settings.php:264
 msgid "Support"
 msgstr "Поддержка"
 
-#: ../includes/settings.php:255
+#: ../includes/settings.php:265
 #, php-format
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
@@ -831,7 +913,7 @@ msgstr ""
 "См. <a href=\"%1$s\" target=\"_blank\">форум поддержки</a> или мой <a href="
 "\"%2$s\" target=\"_blank\">персональный сайт</a> для получения справки."
 
-#: ../includes/settings.php:257
+#: ../includes/settings.php:267
 msgid "God protect you!"
 msgstr "Храни вас Господи!"
 

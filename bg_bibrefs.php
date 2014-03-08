@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: Vadim Bogaiskov
-    Version: 2.5.6
+    Version: 2.6.1
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '2.5.6');
+define('BG_BIBREFS_VERSION', '2.6.1');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -75,6 +75,8 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	}
 // Регистрируем шорт-код bible
 	add_shortcode( 'bible', 'bg_bibfers_qoutes' );
+// Регистрируем шорт-код references
+	add_shortcode( 'references', 'bg_bibfers_references' );
 }
  
 /*****************************************************************************************
@@ -101,6 +103,58 @@ function bg_bibfers_qoutes( $atts ) {
 	$quote = "<span class='".$class_val."'>".bg_bibfers_getQuotes($book, $ch, $type)."</span>";
 	return "{$quote}";
 }
+
+// Функция обработки шорт-кода references
+function bg_bibfers_references( $atts ) {
+	extract( shortcode_atts( array(
+		'type' => 'list',
+		'separator' => ', ',
+		'list' => 'o',		
+		'col' => 1
+	), $atts ) );
+	global $bg_bibfers_all_refs;
+	$references = '<div class="bg_refs_list">';
+	$j=0;
+	
+	$cnt = count($bg_bibfers_all_refs);
+	for ($i = 0; $i < $cnt; $i++) {
+		$ref = $bg_bibfers_all_refs[$i];
+		switch ($type) {
+		case 'string':
+			if ($i == 0) $references .= '<p>';
+			$references .= $ref;
+			if ($i == $cnt-1) $references .= '</p>';
+			else $references .= $separator;
+			break;
+        case 'list': 
+			if ($list == 'u' || $list == 'o') { 
+				if ($i == 0) $references .= '<table><tr valign="top"><td><'.$list.'l>'; 
+				$references .=  '<li>'.$ref.'</li>'; 
+				if (!(($i+1) % ceil($cnt/$col)) && $i+1 < $cnt) $references .= '</'.$list.'l></td><td><'.$list.'l start="'.($i+2).'">';
+				if ($i == $cnt-1) $references .= '</'.$list.'l></td></tr></table>'; 
+			}
+            break;
+		case 'table':
+			if ($i == 0) $references .= '<table>';
+			if ($j == 0) $references .= '<tr>';
+			$references .= '<td>'.$ref.'</td>';
+			if ($j == $col-1) $references .= '</tr>';
+			$j++;
+			if ($j == $col) $j = 0;
+			if ($i == $cnt-1) {
+				while ($j < $col) {
+					$references .= '<td>&nbsp;</td>';
+					$j++;
+				}
+				$references .= '</table>';
+			}
+			break;
+		}
+	}
+	$references .= '</div>';
+	return "{$references}";
+}
+
 // Функция действия перед крючком добавления меню
 function bg_bibfers_add_pages() {
     // Добавим новое подменю в раздел Параметры 

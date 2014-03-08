@@ -64,6 +64,13 @@ Russian:
 Если  type=’t_verses’, то отображаются наименование книги и стихи, каждый отдельным абзацем, с указанием номера главы и номера стиха.
 Если  type=’quote’, то отображаются только стихи без деления их на абзацы.
 
+Шорт-код [references type='list' separator=', ' list='o' col=2] выводит список ссылок на Библию, встречающиеся в статье.
+Здесь: type – формат отображения списка (по умолчанию 'list').
+Если  type=’string’, то список отображается в виде строки в тегах `<p>...</p>`, при этом используется дополнительный параметр 'separator', в котором указывается разделитель между ссылками (по умолчанию запятая и пробел).
+Если  type=’list’, то список отображается в виде списка, при этом если дополнительному параметру 'list' присвоено значение 'u', то это ненумерованный список, а если 'o', то - нумерованный(по умолчанию 'o').
+Если  type=’table’, то список отображается в виде таблицы, в этом случае в дополнительном параметре 'col' указывается количество колонок(по умолчанию 2). Список ссылок выводится в таблице построчно.
+Список ссылок выводится на экран в контейнере `<div class=”bg_refs_list”>…</div>`. Используйте класс bg_refs_list для задания свойств объектов списка.
+
 English: 
 
 The plugin will highlight references to the Bible text with links to site of Orthodox encyclopedia "The Alphabet of Faith" (http://azbyka.ru/biblia).
@@ -106,6 +113,13 @@ If type = 'b_verses', it displays only the verses in separate paragraph with sho
 If type = ’t_verses’, it displays the name of the book and verse in separate paragraph with chapter number and verse number.
 If type = 'quote', it displays only the verses without dividing them into paragraphs.
 
+Short code [references type = 'list' separator = ',' list = 'o' col = 2] displays list of Bible references are finded in the article.
+Here : type - list display format(default 'list').
+If type = 'string', the list is displayed as string in tags `<p>...</p>`, the additional parameter 'separator' contains the separator between the references (default comma and space).
+If type = 'list', the list is displayed as list, if the additional parameter 'list' is set to 'u', then this is an unordered list, and if it is 'o', then - numbered (default 'o').
+If type = 'table', the list is displayed as table, in this case an additional parameter 'col' specifies the number of columns (default 2). List of links displayed in the table by line.
+A list of references displayed in the container `<div class="bg_refs_list"> ... </div>`. Use bg_refs_list class to set the properties of list objects.
+
 == Installation ==
 
 1. Upload 'bg-biblie-references' directory to the '/wp-content/plugins/' directory.
@@ -128,6 +142,14 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 2. Page of Bible verses
 
 == Changelog ==
+
+= 2.7.0 =
+
+* Added option "Highlight references in the headers H1...H6". Thank you very much, Pozharko Andrej, for good idea.
+
+= 2.6.0 =
+
+* Added short code [references] - displays quotes from the Bible in the text of the page. Thanks Pozharko Andrej for idea.
 
 = 2.5.6 =
 
@@ -284,6 +306,14 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.7.0 =
+
+* Added option "Highlight references in the headers H1...H6". Thank you very much, Pozharko Andrej, for good idea.
+
+= 2.6.0 =
+
+* Added short code [references] - displays quotes from the Bible in the text of the page. Thanks Pozharko Andrej for idea.
 
 = 2.5.6 =
 
