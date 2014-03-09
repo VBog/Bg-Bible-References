@@ -19,6 +19,8 @@ function bg_bibfers_options_page() {
 	
 	$bg_headers = 'bg_bibfers_headers';					// Подсвечивать ссылки в заголовках H1-H6
 	$bg_interpret = 'bg_bibfers_interpret';				// Включить ссылки на толкование Священного Писания
+
+	$bg_norm_refs = 'bg_bibfers_norm_refs';				// Преобразовывать ссылки к нормализованному виду
 	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
 
 	$bg_curl_name = 'bg_bibfers_curl';					// Чтение файлов Библии с помощью cURL
@@ -45,6 +47,8 @@ function bg_bibfers_options_page() {
 
     $bg_headers_val = get_option( $bg_headers );
     $bg_interpret_val = get_option( $bg_interpret );
+
+    $bg_norm_refs_val = get_option( $bg_norm_refs );
     $bg_verses_val = get_option( $bg_verses_name );
 
     $bg_curl_val = get_option( $bg_curl_name );
@@ -86,6 +90,9 @@ function bg_bibfers_options_page() {
 
 		$bg_interpret_val = ( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '' ;
 		update_option( $bg_interpret, $bg_interpret_val );
+
+		$bg_norm_refs_val = ( isset( $_POST[$bg_norm_refs] ) && $_POST[$bg_norm_refs] ) ? $_POST[$bg_norm_refs] : '' ;
+		update_option( $bg_norm_refs, $bg_norm_refs_val );
 
 		$bg_verses_val = ( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '' ;
 		update_option( $bg_verses_name, $bg_verses_val );
@@ -186,6 +193,11 @@ function options_view() {
 
 <table id='add_options' class="form-table" style='display: none'>
 <tr valign="top">
+<th scope="row"><?php _e('Convert references to the normalized form', 'bg_bibfers' ); ?></th>
+<td>
+<input type="checkbox" id="bg_norm_refs" name="<?php echo $bg_norm_refs ?>" <?php if($bg_norm_refs_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+<tr valign="top">
 <th scope="row"><?php _e('Show Bible verses in popup', 'bg_bibfers' ); ?></th>
 <td>
 <input type="checkbox" id="bg_verses" name="<?php echo $bg_verses_name ?>" <?php if($bg_verses_val=="on") echo "checked" ?>  value="on" onclick='bg_verses_checked();'> <?php _e('<br><i>(If this option is disabled or data are not received from the server,<br>popup showing the chapter number and verse numbers)</i>', 'bg_bibfers' ); ?> <br />
@@ -282,6 +294,7 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_target', "_blank");
 	add_option('bg_bibfers_headers', "on");
 	add_option('bg_bibfers_interpret', "on");
+	add_option('bg_bibfers_norm_refs');
 	add_option('bg_bibfers_show_verses', "on");
 	add_option('bg_bibfers_curl', "on");
 	add_option('bg_bibfers_fgc', "on");
@@ -301,6 +314,7 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_target');
 	delete_option('bg_bibfers_headers');
 	delete_option('bg_bibfers_interpret');
+	delete_option('bg_bibfers_norm_refs');
 	delete_option('bg_bibfers_show_verses');
 	delete_option('bg_bibfers_curl');
 	delete_option('bg_bibfers_fgc');

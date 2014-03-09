@@ -25,8 +25,8 @@ function bg_bibfers_bible_proc($txt) {
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
-	
 	$cnt = count($matches[0]);
+	
 	$text = "";
 	$start = 0;
 	$j = 0;
@@ -49,9 +49,10 @@ function bg_bibfers_bible_proc($txt) {
 				}
 			}
 			$addr = bg_bibfers_get_url($title, $chapter);
-			if (strcasecmp($addr, "") != 0) {
+			if (strcasecmp($addr, "") != 0 && bg_bibfers_check_headers($txt, $matches[0][$i][1])) {
 				$ref = trim ( $matches[0][$i][0], "\x20\f\t\v\n\r\xA0\xC2" );
-				$newmt = $addr .$ref. "</a>";
+				if (get_option( 'bg_bibfers_norm_refs' )) $newmt = $addr .'('.$title.'. '.$chapter.')'. "</a>";	// Преобразовать ссылку к нормализованному виду
+				else $newmt = $addr .$ref. "</a>";
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
 				$bg_bibfers_all_refs[$j]=$newmt;
@@ -61,6 +62,26 @@ function bg_bibfers_bible_proc($txt) {
 	}
 	$txt = $text.substr($txt, $start);
 	return $txt;
+}
+
+/******************************************************************************************
+	Проверяем находится ли указанная позиция текста в теле заголовка,
+    если "да" - возвращаем false, "нет" - true 
+*******************************************************************************************/
+function bg_bibfers_check_headers($txt, $pos) {
+
+	if (get_option( 'bg_bibfers_headers' )) return true;
+// Ищем все вхождения заголовков h1...h6
+	$headers = "/<h\\d.*?>(.*)<\/h\\d>/ui";
+	preg_match_all($headers, $txt, $hdr, PREG_OFFSET_CAPTURE);
+	$chrd = count($hdr[0]);
+
+	for ($k = 0; $k < $chrd; $k++) {
+		$start = $hdr[0][$k][1];
+		$finish = $start + strlen($hdr[0][$k][0]);
+		if ($pos >= $start && $pos <= $finish) return false;
+	}
+	return true;
 }
 
 /******************************************************************************************
