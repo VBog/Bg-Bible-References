@@ -23,7 +23,8 @@ function bg_bibfers_bible_proc($txt) {
 // Ищем все вхождения ссылок на Библию
 //	$template = "/[\\(\\[](см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)]/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
-	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
+//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
+	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)(\\;|\\.)]?/ui";
 	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
 	$cnt = count($matches[0]);
 	
@@ -40,7 +41,7 @@ function bg_bibfers_bible_proc($txt) {
 			$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 			// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
 			$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);			// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
 			$chapter = preg_replace("/—|–/u", '-', $chapter);				// Замена разных вариантов тире на обычный
-			$chapter = preg_replace("/\\;/u", ',', $chapter);				// Замена точки с запятой на запятую
+//			$chapter = preg_replace("/\\;/u", ',', $chapter);				// Замена точки с запятой на запятую
 			preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
 			if ($mtchs) {
 				if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
@@ -51,7 +52,11 @@ function bg_bibfers_bible_proc($txt) {
 			$addr = bg_bibfers_get_url($title, $chapter);
 			if (strcasecmp($addr, "") != 0 && bg_bibfers_check_headers($txt, $matches[0][$i][1])) {
 				$ref = trim ( $matches[0][$i][0], "\x20\f\t\v\n\r\xA0\xC2" );
-				if (get_option( 'bg_bibfers_norm_refs' )) $newmt = $addr .'('.$title.'. '.$chapter.')'. "</a>";	// Преобразовать ссылку к нормализованному виду
+				if (get_option( 'bg_bibfers_norm_refs' )) {						// Преобразовать ссылку к нормализованному виду
+					$book = bg_bibfers_getBook($title);							// Обозначение книги
+					$book = bg_bibfers_getshortTitle($book);					// Короткое наименование книги
+					$newmt = $addr .'('.$book.' '.$chapter.')'. "</a>";
+				}
 				else $newmt = $addr .$ref. "</a>";
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
@@ -406,8 +411,183 @@ function bg_bibfers_getTitle($book) {
 		'Hebr'	 	=>__('Hebrews', 'bg_bibfers' ),							//'Послание апостола Павла к Евреям', 
 		'Apok' 		=>__('Revelation', 'bg_bibfers' ));						//'Откровение Иоанна Богослова (Апокалипсис)'
 
-	// Возвражаем полный текст всплывающей подсказки
+	// Возвращаем полное наименование книги Библии
 	return $bookTitle[$book];													// Полное наименование книги Библии
 }
 
+/*******************************************************************************
+   Короткое наименование книги Библии
+   Используется в функции bg_bibfers_bible_proc()
+*******************************************************************************/  
+
+function bg_bibfers_getshortTitle($book) {
+	$shortTitle = array(						// Книги Священного Писания
+		// Ветхий Завет
+		// Пятикнижие Моисея															
+		// translators: short title Genesis
+		'Gen'		=>__('Gen.', 'bg_bibfers'), 
+		// translators: short title Exodus
+		'Ex'		=>__('Ex.', 'bg_bibfers'), 
+		// translators: short title Leviticus
+		'Lev'		=>__('Lev.', 'bg_bibfers'),
+		// translators: short title Numbers
+		'Num'		=>__('Num.', 'bg_bibfers'),
+		// translators: short title Deuteronomy
+		'Deut'		=>__('Deut.', 'bg_bibfers'),
+		// «Пророки» (Невиим) 
+		// translators: short title Joshua (Iesous)
+		'Nav'		=>__('Nav.', 'bg_bibfers'),
+		// translators: short title Judges
+		'Judg'		=>__('Judg.', 'bg_bibfers'),
+		// translators: short title Ruth
+		'Rth'		=>__('Rth.', 'bg_bibfers'),
+		// translators: short title 1 Samuel (1 Kingdoms)
+		'1Sam'		=>__('1Sam.', 'bg_bibfers'),
+		// translators: short title 2 Samuel (2 Kingdoms)
+		'2Sam'		=>__('2Sam.', 'bg_bibfers'),
+		// translators: short title 1 Kings (3 Kingdoms)
+		'1King'		=>__('1King.', 'bg_bibfers'),
+		// translators: short title 2 Kings (4 Kingdoms)
+		'2King'		=>__('2King.', 'bg_bibfers'),
+		// translators: short title 1 Chronicles (1 Paralipomenon)
+		'1Chron'		=>__('1Chron.', 'bg_bibfers'),
+		// translators: short title 2 Chronicles (2 Paralipomenon)
+		'2Chron'		=>__('2Chron.', 'bg_bibfers'),
+		// translators: short title 1 Esdras
+		'Ezr'		=>__('Ezr.', 'bg_bibfers'), 'Ezr',
+		// translators: short title Nehemiah (2 Esdras)
+		'Nehem'		=>__('Nehem.', 'bg_bibfers'),
+		// translators: short title Esther
+		'Est'		=>__('Est.', 'bg_bibfers'),
+		// «Писания» (Ктувим)
+		// translators: short title Job
+		'Job'		=>__('Job.', 'bg_bibfers'),
+		// translators: short title Psalms
+		'Ps'		=>__('Ps.', 'bg_bibfers'),
+		// translators: short title Proverbs
+		'Prov'		=>__('Prov.', 'bg_bibfers'), 
+		// translators: short title Ecclesiastes
+		'Eccl'		=>__('Eccl.', 'bg_bibfers'),
+		// translators: short title Song of Songs (Aisma Aismaton)
+		'Song'		=>__('Song.', 'bg_bibfers'),
+		// translators: short title Isaiah
+		'Is'		=>__('Is.', 'bg_bibfers'),
+		// translators: short title Jeremiah
+		'Jer'		=>__('Jer.', 'bg_bibfers'),
+		// translators: short title Lamentations
+		'Lam'		=>__('Lam.', 'bg_bibfers'),
+		// translators: short title Ezekiel
+		'Ezek'		=>__('Ezek.', 'bg_bibfers'),
+		// translators: short title Daniel
+		'Dan'		=>__('Dan.', 'bg_bibfers'),	
+		// Двенадцать малых пророков 
+		// translators: short title Hosea
+		'Hos'		=>__('Hos.', 'bg_bibfers'),
+		// translators: short title Joel
+		'Joel'		=>__('Joel.', 'bg_bibfers'),
+		// translators: short title Amos
+		'Am'		=>__('Am.', 'bg_bibfers'),
+		// translators: short title Obadiah
+		'Avd'		=>__('Avd.', 'bg_bibfers'),
+		// translators: short title Jonah
+		'Jona'		=>__('Jona.', 'bg_bibfers'),
+		// translators: short title Micah
+		'Mic'		=>__('Mic.', 'bg_bibfers'),
+		// translators: short title Nahum
+		'Naum'		=>__('Naum.', 'bg_bibfers'),
+		// translators: short title Habakkuk
+		'Habak'		=>__('Habak.', 'bg_bibfers'),
+		// translators: short title Zephaniah
+		'Sofon'		=>__('Sofon.', 'bg_bibfers'),
+		// translators: short title Haggai
+		'Hag'		=>__('Hag.', 'bg_bibfers'),
+		// translators: short title Zechariah
+		'Zah'		=>__('Zah.', 'bg_bibfers'),
+		// translators: short title Malachi
+		'Mal'		=>__('Mal.', 'bg_bibfers'),
+		// Второканонические книги
+		// translators: short title 1 Maccabees
+		'1Mac'		=>__('1Mac.', 'bg_bibfers'),
+		// translators: short title 2 Maccabees
+		'2Mac'		=>__('2Mac.', 'bg_bibfers'),
+		// translators: short title 3 Maccabees
+		'3Mac'		=>__('3Mac.', 'bg_bibfers'),
+		// translators: short title Baruch
+		'Bar'		=>__('Bar.', 'bg_bibfers'),
+		// translators: short title 2 Esdras
+		'2Ezr'		=>__('2Ezr.', 'bg_bibfers'),
+		// translators: short title 3 Esdras
+		'3Ezr'		=>__('3Ezr.', 'bg_bibfers'),
+		// translators: short title Judith
+		'Judf'		=>__('Judf.', 'bg_bibfers'),
+		// translators: short title Letter of Jeremiah
+		'pJer'		=>__('pJer.', 'bg_bibfers'),
+		// translators: short title Wisdom
+		'Solom'		=>__('Solom.', 'bg_bibfers'),
+		// translators: short title Sirach
+		'Sir'		=>__('Sir.', 'bg_bibfers'),
+		// translators: short title Tobit (Tobias)
+		'Tov'		=>__('Tov.', 'bg_bibfers'),
+		// Новый Завет
+		// Евангилие
+		// translators: short title Matthew			
+		'Mt'		=>__('Mt.', 'bg_bibfers'),
+		// translators: short title Mark					
+		'Mk'		=>__('Mk.', 'bg_bibfers'),
+		// translators: short title Luke
+		'Lk'		=>__('Lk.', 'bg_bibfers'),
+		// translators: short title John
+		'Jn'		=>__('Jn.', 'bg_bibfers'),
+		// Деяния и послания Апостолов
+		// translators: short title Acts
+		'Act'		=>__('Act.', 'bg_bibfers'),
+		// translators: short title James
+		'Jac'		=>__('Jac.', 'bg_bibfers'),
+		// translators: short title 1 Peter
+		'1Pet'		=>__('1Pet.', 'bg_bibfers'),
+		// translators: short title 2 Peter
+		'2Pet',		__('2Pet.', 'bg_bibfers'),
+		// translators: short title 1 John
+		'1Jn'		=>__('1Jn.', 'bg_bibfers'), 
+		// translators: short title 2 John
+		'2Jn'		=>__('2Jn.', 'bg_bibfers'),
+		// translators: short title 3 John
+		'3Jn'		=>__('3Jn.', 'bg_bibfers'),
+		// translators: short title Jude
+		'Juda'		=>__('Juda.', 'bg_bibfers'),
+		// Послания апостола Павла
+		// translators: short title Romans
+		'Rom'		=>__('Rom.', 'bg_bibfers'),
+		// translators: short title 1 Corinthians
+		'1Cor'		=>__('1Cor.', 'bg_bibfers'),
+		// translators: short title 2 Corinthians
+		'2Cor'		=>__('2Cor.', 'bg_bibfers'),
+		// translators: short title Galatians
+		'Gal'		=>__('Gal.', 'bg_bibfers'),
+		// translators: short title Ephesians
+		'Eph'		=>__('Eph.', 'bg_bibfers'),
+		// translators: short title Philippians
+		'Phil'		=>__('Phil.', 'bg_bibfers'),
+		// translators: short title Colossians
+		'Col'		=>__('Col.', 'bg_bibfers'),
+		// translators: short title 1 Thessalonians
+		'1Thes'		=>__('1Thes.', 'bg_bibfers'),
+		// translators: short title 2 Thessalonians
+		'2Thes'		=>__('2Thes.', 'bg_bibfers'),
+		// translators: short title 1 Timothy
+		'1Tim'		=>__('1Tim.', 'bg_bibfers'),
+		// translators: short title 2 Timothy
+		'2Tim'		=>__('2Tim.', 'bg_bibfers'),
+		// translators: short title Titus
+		'Tit'		=>__('Tit.', 'bg_bibfers'),
+		// translators: short title Philemon
+		'Phlm'		=>__('Phlm.', 'bg_bibfers'),
+		// translators: short title Hebrews
+		'Hebr'		=>__('Hebr.', 'bg_bibfers'),
+		// translators: short title Revelation
+		'Apok'		=>__('Apok.', 'bg_bibfers'));
+
+		// Возвращаем короткое наименование книги Библии
+	return $shortTitle[$book];													// Короткое наименование книги Библии
+}
 

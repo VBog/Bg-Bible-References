@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2014-03-09 21:45+0400\n"
-"PO-Revision-Date: 2014-03-09 21:46+0400\n"
+"POT-Creation-Date: 2014-03-12 07:39+0400\n"
+"PO-Revision-Date: 2014-03-12 07:57+0400\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
@@ -32,694 +32,1079 @@ msgstr "Щелкните, чтобы перейти к толкованию"
 
 # chapter
 #. translators: ch. - is abbr. "chapter"
-#: ../includes/references.php:122
+#: ../includes/references.php:127
 msgid "ch. "
 msgstr "гл. "
 
 #. translators: abbr. Genesis
-#: ../includes/references.php:138
+#: ../includes/references.php:143
 msgid "Gen"
 msgstr "Быт"
 
 #. translators: abbr. Exodus
-#: ../includes/references.php:140
+#: ../includes/references.php:145
 msgid "Ex"
 msgstr "Исх"
 
 #. translators: abbr. Leviticus
-#: ../includes/references.php:142
+#: ../includes/references.php:147
 msgid "Lev"
 msgstr "Лев"
 
 #. translators: abbr. Numbers
-#: ../includes/references.php:144
+#: ../includes/references.php:149
 msgid "Num"
 msgstr "Числ|Чис"
 
 #. translators: abbr. Deuteronomy
-#: ../includes/references.php:146
+#: ../includes/references.php:151
 msgid "Deut"
 msgstr "Втор"
 
 #. translators: abbr. Joshua (Iesous)
-#: ../includes/references.php:149
+#: ../includes/references.php:154
 msgid "Nav"
 msgstr "Нав|ИсНав"
 
 #. translators: abbr. Judges
-#: ../includes/references.php:151
+#: ../includes/references.php:156
 msgid "Judg"
 msgstr "Судей|Суд"
 
 #. translators: abbr. Ruth
-#: ../includes/references.php:153
+#: ../includes/references.php:158
 msgid "Rth"
 msgstr "Руфь|Руф"
 
 #. translators: abbr. 1 Samuel (1 Kingdoms)
-#: ../includes/references.php:155
+#: ../includes/references.php:160
 msgid "1Sam"
 msgstr "1Цар|1Сам"
 
 #. translators: abbr. 2 Samuel (2 Kingdoms)
-#: ../includes/references.php:157
+#: ../includes/references.php:162
 msgid "2Sam"
 msgstr "2Цар|2Сам"
 
 #. translators: abbr. 1 Kings (3 Kingdoms)
-#: ../includes/references.php:159
+#: ../includes/references.php:164
 msgid "1King"
 msgstr "3Цар|1Царей"
 
 #. translators: abbr. 2 Kings (4 Kingdoms)
-#: ../includes/references.php:161
+#: ../includes/references.php:166
 msgid "2King"
 msgstr "4Цар|2Царей"
 
 #. translators: abbr. 1 Chronicles (1 Paralipomenon)
-#: ../includes/references.php:163
+#: ../includes/references.php:168
 msgid "1Chron"
 msgstr "1Пар|1Хр|1Хрон|1Лет"
 
 #. translators: abbr. 2 Chronicles (2 Paralipomenon)
-#: ../includes/references.php:165
+#: ../includes/references.php:170
 msgid "2Chron"
 msgstr "2Пар|2Хр|2Хрон|2Лет"
 
 #. translators: abbr. 1 Esdras
-#: ../includes/references.php:167
+#: ../includes/references.php:172
 msgid "Ezr"
 msgstr "1Ездр|1Езд|Ездр|Езд"
 
 #. translators: abbr. Nehemiah (2 Esdras)
-#: ../includes/references.php:169
+#: ../includes/references.php:174
 msgid "Nehem"
 msgstr "Неем"
 
 #. translators: abbr. Esther
-#: ../includes/references.php:171
+#: ../includes/references.php:176
 msgid "Est"
 msgstr "Есф|Эсф"
 
 #. translators: abbr. Job
-#: ../includes/references.php:174 ../includes/references.php:341
+#: ../includes/references.php:179 ../includes/references.php:346
 msgid "Job"
 msgstr "Иов"
 
 #. translators: abbr. Psalms
-#: ../includes/references.php:176
+#: ../includes/references.php:181
 msgid "Ps"
 msgstr "Псал|Пс"
 
 #. translators: abbr. Proverbs
-#: ../includes/references.php:178
+#: ../includes/references.php:183
 msgid "Prov"
 msgstr "Притчи|Притч|Прит"
 
 #. translators: abbr. Ecclesiastes
-#: ../includes/references.php:180
+#: ../includes/references.php:185
 msgid "Eccl"
 msgstr "Еккл"
 
 #. translators: abbr. Song of Songs (Aisma Aismaton)
-#: ../includes/references.php:182
+#: ../includes/references.php:187
 msgid "Song"
 msgstr "Песн"
 
 #. translators: abbr. Isaiah
-#: ../includes/references.php:184
+#: ../includes/references.php:189
 msgid "Is"
 msgstr "Исаи|Ис"
 
 #. translators: abbr. Jeremiah
-#: ../includes/references.php:186
+#: ../includes/references.php:191
 msgid "Jer"
 msgstr "Иер"
 
 #. translators: abbr. Lamentations
-#: ../includes/references.php:188
+#: ../includes/references.php:193
 msgid "Lam"
 msgstr "Плч|Плач"
 
 #. translators: abbr. Ezekiel
-#: ../includes/references.php:190
+#: ../includes/references.php:195
 msgid "Ezek"
 msgstr "Иез"
 
 #. translators: abbr. Daniel
-#: ../includes/references.php:192
+#: ../includes/references.php:197
 msgid "Dan"
 msgstr "Дан"
 
 #. translators: abbr. Hosea
-#: ../includes/references.php:195
+#: ../includes/references.php:200
 msgid "Hos"
 msgstr "Осии|Ос"
 
 #. translators: abbr. Joel
-#: ../includes/references.php:197 ../includes/references.php:354
+#: ../includes/references.php:202 ../includes/references.php:359
 msgid "Joel"
 msgstr "Иоиль|Иоил"
 
 #. translators: abbr. Amos
-#: ../includes/references.php:199
+#: ../includes/references.php:204
 msgid "Am"
 msgstr "Амос|Ам"
 
 #. translators: abbr. Obadiah
-#: ../includes/references.php:201
+#: ../includes/references.php:206
 msgid "Avd"
 msgstr "Авд"
 
 #. translators: abbr. Jonah
-#: ../includes/references.php:203
+#: ../includes/references.php:208
 msgid "Jona"
 msgstr "Иона|Ион"
 
 #. translators: abbr. Micah
-#: ../includes/references.php:205
+#: ../includes/references.php:210
 msgid "Mic"
 msgstr "Мих"
 
 #. translators: abbr. Nahum
-#: ../includes/references.php:207
+#: ../includes/references.php:212
 msgid "Naum"
 msgstr "Наум"
 
 #. translators: abbr. Habakkuk
-#: ../includes/references.php:209
+#: ../includes/references.php:214
 msgid "Habak"
 msgstr "Авв"
 
 #. translators: abbr. Zephaniah
-#: ../includes/references.php:211
+#: ../includes/references.php:216
 msgid "Sofon"
 msgstr "Соф"
 
 #. translators: abbr. Haggai
-#: ../includes/references.php:213
+#: ../includes/references.php:218
 msgid "Hag"
 msgstr "Агг|Аг"
 
 #. translators: abbr. Zechariah
-#: ../includes/references.php:215
+#: ../includes/references.php:220
 msgid "Zah"
 msgstr "Зах"
 
 #. translators: abbr. Malachi
-#: ../includes/references.php:217
+#: ../includes/references.php:222
 msgid "Mal"
 msgstr "Мал"
 
 #. translators: abbr. 1 Maccabees
-#: ../includes/references.php:220
+#: ../includes/references.php:225
 msgid "1Mac"
 msgstr "1Мак"
 
 #. translators: abbr. 2 Maccabees
-#: ../includes/references.php:222
+#: ../includes/references.php:227
 msgid "2Mac"
 msgstr "2Мак"
 
 #. translators: abbr. 3 Maccabees
-#: ../includes/references.php:224
+#: ../includes/references.php:229
 msgid "3Mac"
 msgstr "3Мак"
 
 #. translators: abbr. Baruch
-#: ../includes/references.php:226
+#: ../includes/references.php:231
 msgid "Bar"
 msgstr "Вар"
 
 #. translators: abbr. 2 Esdras
-#: ../includes/references.php:228
+#: ../includes/references.php:233
 msgid "2Ezr"
 msgstr "2Ездр|2Езд"
 
 #. translators: abbr. 3 Esdras
-#: ../includes/references.php:230
+#: ../includes/references.php:235
 msgid "3Ezr"
 msgstr "3Ездр|3Езд"
 
 #. translators: abbr. Judith
-#: ../includes/references.php:232
+#: ../includes/references.php:237
 msgid "Judf"
 msgstr "Иудифь|Иудиф"
 
 #. translators: abbr. Letter of Jeremiah
-#: ../includes/references.php:234
+#: ../includes/references.php:239
 msgid "pJer"
 msgstr "ПослИер|Посл\\.Иер"
 
 #. translators: abbr. Wisdom
-#: ../includes/references.php:236
+#: ../includes/references.php:241
 msgid "Solom"
 msgstr "Прем|ПремСол"
 
 #. translators: abbr. Sirach
-#: ../includes/references.php:238
+#: ../includes/references.php:243
 msgid "Sir"
 msgstr "Сирах|Сир"
 
 #. translators: abbr. Tobit (Tobias)
-#: ../includes/references.php:240
+#: ../includes/references.php:245
 msgid "Tov"
 msgstr "Товит|Тов"
 
 #. translators: abbr. Matthew
-#: ../includes/references.php:244
+#: ../includes/references.php:249
 msgid "Mt"
 msgstr "Мф|Мт|Матф"
 
 #. translators: abbr. Mark
-#: ../includes/references.php:246
+#: ../includes/references.php:251
 msgid "Mk"
 msgstr "Мк|Мр|Марк|Мар"
 
 #. translators: abbr. Luke
-#: ../includes/references.php:248
+#: ../includes/references.php:253
 msgid "Lk"
 msgstr "Лк|Луки|Лук"
 
 #. translators: abbr. John
-#: ../includes/references.php:250
+#: ../includes/references.php:255
 msgid "Jn"
 msgstr "Ин|Иоан"
 
 #. translators: abbr. Acts
-#: ../includes/references.php:253
+#: ../includes/references.php:258
 msgid "Act"
 msgstr "Деяния|Деян"
 
 #. translators: abbr. James
-#: ../includes/references.php:255
+#: ../includes/references.php:260
 msgid "Jac"
 msgstr "Иаков|Иак"
 
 #. translators: abbr. 1 Peter
-#: ../includes/references.php:257
+#: ../includes/references.php:262
 msgid "1Pet"
 msgstr "1Петра|1Пет"
 
 #. translators: abbr. 2 Peter
-#: ../includes/references.php:259
+#: ../includes/references.php:264
 msgid "2Pet"
 msgstr "2Петра|2Пет"
 
 #. translators: abbr. 1 John
-#: ../includes/references.php:261
+#: ../includes/references.php:266
 msgid "1Jn"
 msgstr "1Ин|1Иоан"
 
 #. translators: abbr. 2 John
-#: ../includes/references.php:263
+#: ../includes/references.php:268
 msgid "2Jn"
 msgstr "2Ин|2Иоан"
 
 #. translators: abbr. 3 John
-#: ../includes/references.php:265
+#: ../includes/references.php:270
 msgid "3Jn"
 msgstr "3Ин|3Иоан"
 
 #. translators: abbr. Jude
-#: ../includes/references.php:267
+#: ../includes/references.php:272
 msgid "Juda"
 msgstr "Иуда|Иуд"
 
 #. translators: abbr. Romans
-#: ../includes/references.php:270
+#: ../includes/references.php:275
 msgid "Rom"
 msgstr "Римл|Рим"
 
 #. translators: abbr. 1 Corinthians
-#: ../includes/references.php:272
+#: ../includes/references.php:277
 msgid "1Cor"
 msgstr "1Кор"
 
 #. translators: abbr. 2 Corinthians
-#: ../includes/references.php:274
+#: ../includes/references.php:279
 msgid "2Cor"
 msgstr "2Кор"
 
 #. translators: abbr. Galatians
-#: ../includes/references.php:276
+#: ../includes/references.php:281
 msgid "Gal"
 msgstr "Гал"
 
 #. translators: abbr. Ephesians
-#: ../includes/references.php:278
+#: ../includes/references.php:283
 msgid "Eph"
 msgstr "Ефес|Еф"
 
 #. translators: abbr. Philippians
-#: ../includes/references.php:280
+#: ../includes/references.php:285
 msgid "Phil"
 msgstr "Флп|Филип|Фил"
 
 #. translators: abbr. Colossians
-#: ../includes/references.php:282
+#: ../includes/references.php:287
 msgid "Col"
 msgstr "Кол"
 
 #. translators: abbr. 1 Thessalonians
-#: ../includes/references.php:284
+#: ../includes/references.php:289
 msgid "1Thes"
 msgstr "1Сол|1Фес"
 
 #. translators: abbr. 2 Thessalonians
-#: ../includes/references.php:286
+#: ../includes/references.php:291
 msgid "2Thes"
 msgstr "2Сол|2Фес"
 
 #. translators: abbr. 1 Timothy
-#: ../includes/references.php:288
+#: ../includes/references.php:293
 msgid "1Tim"
 msgstr "1Тим"
 
 #. translators: abbr. 2 Timothy
-#: ../includes/references.php:290
+#: ../includes/references.php:295
 msgid "2Tim"
 msgstr "2Тим"
 
 #. translators: abbr. Titus
-#: ../includes/references.php:292
+#: ../includes/references.php:297
 msgid "Tit"
 msgstr "Тит"
 
 #. translators: abbr. Philemon
-#: ../includes/references.php:294
+#: ../includes/references.php:299
 msgid "Phlm"
 msgstr "Флм|Филим"
 
 #. translators: abbr. Hebrews
-#: ../includes/references.php:296
+#: ../includes/references.php:301
 msgid "Hebr"
 msgstr "Евр"
 
 #. translators: abbr. Revelation
-#: ../includes/references.php:298
+#: ../includes/references.php:303
 msgid "Apok"
 msgstr "Откр|Отк|Апок"
 
-#: ../includes/references.php:322
+#: ../includes/references.php:327
 msgid "Genesis"
 msgstr "Книга Бытия"
 
-#: ../includes/references.php:323
+#: ../includes/references.php:328
 msgid "Exodus"
 msgstr "Книга Исход"
 
-#: ../includes/references.php:324
+#: ../includes/references.php:329
 msgid "Leviticus"
 msgstr "Книга Левит"
 
-#: ../includes/references.php:325
+#: ../includes/references.php:330
 msgid "Numbers"
 msgstr "Книга Числа"
 
-#: ../includes/references.php:326
+#: ../includes/references.php:331
 msgid "Deuteronomy"
 msgstr "Второзаконие"
 
-#: ../includes/references.php:328
+#: ../includes/references.php:333
 msgid "Joshua (Iesous)"
 msgstr "Книга Иисуса Навина"
 
-#: ../includes/references.php:329
+#: ../includes/references.php:334
 msgid "Judges"
 msgstr "Книга Судей Израилевых"
 
-#: ../includes/references.php:330
+#: ../includes/references.php:335
 msgid "Ruth"
 msgstr "Книга Руфь"
 
-#: ../includes/references.php:331
+#: ../includes/references.php:336
 msgid "1 Samuel (1 Kingdoms)"
 msgstr "Первая книга Царств (Первая книга Самуила)"
 
-#: ../includes/references.php:332
+#: ../includes/references.php:337
 msgid "2 Samuel (2 Kingdoms)"
 msgstr "Вторая книга Царств (Вторая книга Самуила)"
 
-#: ../includes/references.php:333
+#: ../includes/references.php:338
 msgid "1 Kings (3 Kingdoms)"
 msgstr "Третья книга Царств (Первая книга Царей)"
 
-#: ../includes/references.php:334
+#: ../includes/references.php:339
 msgid "2 Kings (4 Kingdoms)"
 msgstr "Четвёртая книга Царств (Вторая книга Царей)"
 
-#: ../includes/references.php:335
+#: ../includes/references.php:340
 msgid "1 Chronicles (1 Paralipomenon)"
 msgstr "Первая книга Паралипоменон (Первая книга Хроник, Первая Летопись)"
 
-#: ../includes/references.php:336
+#: ../includes/references.php:341
 msgid "2 Chronicles (2 Paralipomenon)"
 msgstr "Вторая книга Паралипоменон (Вторая книга Хроник, Вторая Летопись)"
 
-#: ../includes/references.php:337
+#: ../includes/references.php:342
 msgid "1 Esdras"
 msgstr "Книга Ездры (Первая книга Ездры)"
 
-#: ../includes/references.php:338
+#: ../includes/references.php:343
 msgid "Nehemiah (2 Esdras)"
 msgstr "Книга Неемии"
 
-#: ../includes/references.php:339
+#: ../includes/references.php:344
 msgid "Esther"
 msgstr "Книга Есфири"
 
-#: ../includes/references.php:342
+#: ../includes/references.php:347
 msgid "Psalms"
 msgstr "Псалтирь"
 
-#: ../includes/references.php:343
+#: ../includes/references.php:348
 msgid "Proverbs"
 msgstr "Книга Притчей Соломоновых"
 
-#: ../includes/references.php:344
+#: ../includes/references.php:349
 msgid "Ecclesiastes"
 msgstr "Книга Екклезиаста, или Проповедника"
 
-#: ../includes/references.php:345
+#: ../includes/references.php:350
 msgid "Song of Songs (Aisma Aismaton)"
 msgstr "Песнь песней Соломона"
 
-#: ../includes/references.php:347
+#: ../includes/references.php:352
 msgid "Isaiah"
 msgstr "Книга пророка Исайи"
 
-#: ../includes/references.php:348
+#: ../includes/references.php:353
 msgid "Jeremiah"
 msgstr "Книга пророка Иеремии"
 
-#: ../includes/references.php:349
+#: ../includes/references.php:354
 msgid "Lamentations"
 msgstr "Книга Плач Иеремии"
 
-#: ../includes/references.php:350
+#: ../includes/references.php:355
 msgid "Ezekiel"
 msgstr "Книга пророка Иезекииля"
 
-#: ../includes/references.php:351
+#: ../includes/references.php:356
 msgid "Daniel"
 msgstr "Книга пророка Даниила"
 
-#: ../includes/references.php:353
+#: ../includes/references.php:358
 msgid "Hosea"
 msgstr "Книга пророка Осии"
 
-#: ../includes/references.php:355
+#: ../includes/references.php:360
 msgid "Amos"
 msgstr "Книга пророка Амоса"
 
-#: ../includes/references.php:356
+#: ../includes/references.php:361
 msgid "Obadiah"
 msgstr "Книга пророка Авдия"
 
-#: ../includes/references.php:357
+#: ../includes/references.php:362
 msgid "Jonah"
 msgstr "Книга пророка Ионы"
 
-#: ../includes/references.php:358
+#: ../includes/references.php:363
 msgid "Micah"
 msgstr "Книга пророка Михея"
 
-#: ../includes/references.php:359
+#: ../includes/references.php:364
 msgid "Nahum"
 msgstr "Книга пророка Наума"
 
-#: ../includes/references.php:360
+#: ../includes/references.php:365
 msgid "Habakkuk"
 msgstr "Книга пророка Аввакума"
 
-#: ../includes/references.php:361
+#: ../includes/references.php:366
 msgid "Zephaniah"
 msgstr "Книга пророка Софонии"
 
-#: ../includes/references.php:362
+#: ../includes/references.php:367
 msgid "Haggai"
 msgstr "Книга пророка Аггея"
 
-#: ../includes/references.php:363
+#: ../includes/references.php:368
 msgid "Zechariah"
 msgstr "Книга пророка Захарии"
 
-#: ../includes/references.php:364
+#: ../includes/references.php:369
 msgid "Malachi"
 msgstr "Книга пророка Малахии"
 
-#: ../includes/references.php:366
+#: ../includes/references.php:371
 msgid "1 Maccabees"
 msgstr "Первая книга Маккавейская"
 
-#: ../includes/references.php:367
+#: ../includes/references.php:372
 msgid "2 Maccabees"
 msgstr "Вторая книга Маккавейская"
 
-#: ../includes/references.php:368
+#: ../includes/references.php:373
 msgid "3 Maccabees"
 msgstr "Третья книга Маккавейская"
 
-#: ../includes/references.php:369
+#: ../includes/references.php:374
 msgid "Baruch"
 msgstr "Книга пророка Варуха"
 
-#: ../includes/references.php:370
+#: ../includes/references.php:375
 msgid "2 Esdras"
 msgstr "Вторая книга Ездры"
 
-#: ../includes/references.php:371
+#: ../includes/references.php:376
 msgid "3 Esdras"
 msgstr "Третья книга Ездры"
 
-#: ../includes/references.php:372
+#: ../includes/references.php:377
 msgid "Judith"
 msgstr "Книга Иудифи"
 
-#: ../includes/references.php:373
+#: ../includes/references.php:378
 msgid "Letter of Jeremiah"
 msgstr "Послание Иеремии"
 
-#: ../includes/references.php:374
+#: ../includes/references.php:379
 msgid "Wisdom"
 msgstr "Книга Премудрости Соломона"
 
-#: ../includes/references.php:375
+#: ../includes/references.php:380
 msgid "Sirach"
 msgstr "Книга Премудрости Иисуса, сына Сирахова"
 
-#: ../includes/references.php:376
+#: ../includes/references.php:381
 msgid "Tobit (Tobias)"
 msgstr "Книга Товита"
 
-#: ../includes/references.php:379
+#: ../includes/references.php:384
 msgid "Matthew"
 msgstr "Евангелие от Матфея"
 
-#: ../includes/references.php:380
+#: ../includes/references.php:385
 msgid "Mark"
 msgstr "Евангелие от Марка"
 
-#: ../includes/references.php:381
+#: ../includes/references.php:386
 msgid "Luke"
 msgstr "Евангелие от Луки"
 
-#: ../includes/references.php:382
+#: ../includes/references.php:387
 msgid "John"
 msgstr "Евангелие от Иоанна"
 
-#: ../includes/references.php:384
+#: ../includes/references.php:389
 msgid "Acts"
 msgstr "Деяния святых Апостолов"
 
-#: ../includes/references.php:385
+#: ../includes/references.php:390
 msgid "James"
 msgstr "Послание Иакова"
 
-#: ../includes/references.php:386
+#: ../includes/references.php:391
 msgid "1 Peter"
 msgstr "Первое послание Петра"
 
-#: ../includes/references.php:387
+#: ../includes/references.php:392
 msgid "2 Peter"
 msgstr "Второе послание Петра"
 
-#: ../includes/references.php:388
+#: ../includes/references.php:393
 msgid "1 John"
 msgstr "Первое послание Иоанна"
 
-#: ../includes/references.php:389
+#: ../includes/references.php:394
 msgid "2 John"
 msgstr "Второе послание Иоанна"
 
-#: ../includes/references.php:390
+#: ../includes/references.php:395
 msgid "3 John"
 msgstr "Третье послание Иоанна"
 
-#: ../includes/references.php:391
+#: ../includes/references.php:396
 msgid "Jude"
 msgstr "Послание Иуды"
 
-#: ../includes/references.php:393
+#: ../includes/references.php:398
 msgid "Romans"
 msgstr "Послание апостола Павла к Римлянам"
 
-#: ../includes/references.php:394
+#: ../includes/references.php:399
 msgid "1 Corinthians"
 msgstr "Первое послание апостола Павла к Коринфянам"
 
-#: ../includes/references.php:395
+#: ../includes/references.php:400
 msgid "2 Corinthians"
 msgstr "Второе послание апостола Павла к Коринфянам"
 
-#: ../includes/references.php:396
+#: ../includes/references.php:401
 msgid "Galatians"
 msgstr "Послание апостола Павла к Галатам"
 
-#: ../includes/references.php:397
+#: ../includes/references.php:402
 msgid "Ephesians"
 msgstr "Послание апостола Павла к Ефесянам"
 
-#: ../includes/references.php:398
+#: ../includes/references.php:403
 msgid "Philippians"
 msgstr "Послание апостола Павла к Филиппийцам"
 
-#: ../includes/references.php:399
+#: ../includes/references.php:404
 msgid "Colossians"
 msgstr "Послание апостола Павла к Колоссянам"
 
-#: ../includes/references.php:400
+#: ../includes/references.php:405
 msgid "1 Thessalonians"
 msgstr "Первое послание апостола Павла к Фессалоникийцам (Солунянам)"
 
-#: ../includes/references.php:401
+#: ../includes/references.php:406
 msgid "2 Thessalonians"
 msgstr "Второе послание апостола Павла к Фессалоникийцам (Солунянам)"
 
-#: ../includes/references.php:402
+#: ../includes/references.php:407
 msgid "1 Timothy"
 msgstr "Первое послание апостола Павла к Тимофею"
 
-#: ../includes/references.php:403
+#: ../includes/references.php:408
 msgid "2 Timothy"
 msgstr "Второе послание апостола Павла к Тимофею"
 
-#: ../includes/references.php:404
+#: ../includes/references.php:409
 msgid "Titus"
 msgstr "Послание апостола Павла к Титу"
 
-#: ../includes/references.php:405
+#: ../includes/references.php:410
 msgid "Philemon"
 msgstr "Послание апостола Павла к Филимону"
 
-#: ../includes/references.php:406
+#: ../includes/references.php:411
 msgid "Hebrews"
 msgstr "Послание апостола Павла к Евреям"
 
-#: ../includes/references.php:407
+#: ../includes/references.php:412
 msgid "Revelation"
 msgstr "Откровение Иоанна Богослова (Апокалипсис)"
+
+#. translators: short title Genesis
+#: ../includes/references.php:428
+msgid "Gen."
+msgstr "Быт."
+
+#. translators: short title Exodus
+#: ../includes/references.php:430
+msgid "Ex."
+msgstr "Исх."
+
+#. translators: short title Leviticus
+#: ../includes/references.php:432
+msgid "Lev."
+msgstr "Лев."
+
+#. translators: short title Numbers
+#: ../includes/references.php:434
+msgid "Num."
+msgstr "Чис."
+
+#. translators: short title Deuteronomy
+#: ../includes/references.php:436
+msgid "Deut."
+msgstr "Втор."
+
+#. translators: short title Joshua (Iesous)
+#: ../includes/references.php:439
+msgid "Nav."
+msgstr "Нав."
+
+#. translators: short title Judges
+#: ../includes/references.php:441
+msgid "Judg."
+msgstr "Суд."
+
+#. translators: short title Ruth
+#: ../includes/references.php:443
+msgid "Rth."
+msgstr "Руф."
+
+#. translators: short title 1 Samuel (1 Kingdoms)
+#: ../includes/references.php:445
+msgid "1Sam."
+msgstr "1Цар."
+
+#. translators: short title 2 Samuel (2 Kingdoms)
+#: ../includes/references.php:447
+msgid "2Sam."
+msgstr "2Цар."
+
+#. translators: short title 1 Kings (3 Kingdoms)
+#: ../includes/references.php:449
+msgid "1King."
+msgstr "3Цар."
+
+#. translators: short title 2 Kings (4 Kingdoms)
+#: ../includes/references.php:451
+msgid "2King."
+msgstr "4Цар."
+
+#. translators: short title 1 Chronicles (1 Paralipomenon)
+#: ../includes/references.php:453
+msgid "1Chron."
+msgstr "1Пар."
+
+#. translators: short title 2 Chronicles (2 Paralipomenon)
+#: ../includes/references.php:455
+msgid "2Chron."
+msgstr "2Пар."
+
+#. translators: short title 1 Esdras
+#: ../includes/references.php:457
+msgid "Ezr."
+msgstr "1Езд."
+
+#. translators: short title Nehemiah (2 Esdras)
+#: ../includes/references.php:459
+msgid "Nehem."
+msgstr "Неем."
+
+#. translators: short title Esther
+#: ../includes/references.php:461
+msgid "Est."
+msgstr "Есф."
+
+#. translators: short title Job
+#: ../includes/references.php:464
+msgid "Job."
+msgstr "Иов."
+
+#. translators: short title Psalms
+#: ../includes/references.php:466
+msgid "Ps."
+msgstr "Пс."
+
+#. translators: short title Proverbs
+#: ../includes/references.php:468
+msgid "Prov."
+msgstr "Прит."
+
+#. translators: short title Ecclesiastes
+#: ../includes/references.php:470
+msgid "Eccl."
+msgstr "Еккл."
+
+#. translators: short title Song of Songs (Aisma Aismaton)
+#: ../includes/references.php:472
+msgid "Song."
+msgstr "Песн."
+
+#. translators: short title Isaiah
+#: ../includes/references.php:474
+msgid "Is."
+msgstr "Ис."
+
+#. translators: short title Jeremiah
+#: ../includes/references.php:476
+msgid "Jer."
+msgstr "Иер."
+
+#. translators: short title Lamentations
+#: ../includes/references.php:478
+msgid "Lam."
+msgstr "Плч."
+
+#. translators: short title Ezekiel
+#: ../includes/references.php:480
+msgid "Ezek."
+msgstr "Иез."
+
+#. translators: short title Daniel
+#: ../includes/references.php:482
+msgid "Dan."
+msgstr "Дан."
+
+#. translators: short title Hosea
+#: ../includes/references.php:485
+msgid "Hos."
+msgstr "Ос."
+
+#. translators: short title Joel
+#: ../includes/references.php:487
+msgid "Joel."
+msgstr "Иоил."
+
+#. translators: short title Amos
+#: ../includes/references.php:489
+msgid "Am."
+msgstr "Ам."
+
+#. translators: short title Obadiah
+#: ../includes/references.php:491
+msgid "Avd."
+msgstr "Авд."
+
+#. translators: short title Jonah
+#: ../includes/references.php:493
+msgid "Jona."
+msgstr "Ион."
+
+#. translators: short title Micah
+#: ../includes/references.php:495
+msgid "Mic."
+msgstr "Мих."
+
+#. translators: short title Nahum
+#: ../includes/references.php:497
+msgid "Naum."
+msgstr "Наум."
+
+#. translators: short title Habakkuk
+#: ../includes/references.php:499
+msgid "Habak."
+msgstr "Авв."
+
+#. translators: short title Zephaniah
+#: ../includes/references.php:501
+msgid "Sofon."
+msgstr "Соф."
+
+#. translators: short title Haggai
+#: ../includes/references.php:503
+msgid "Hag."
+msgstr "Аг."
+
+#. translators: short title Zechariah
+#: ../includes/references.php:505
+msgid "Zah."
+msgstr "Зах."
+
+#. translators: short title Malachi
+#: ../includes/references.php:507
+msgid "Mal."
+msgstr "Мал."
+
+#. translators: short title 1 Maccabees
+#: ../includes/references.php:510
+msgid "1Mac."
+msgstr "1Мак."
+
+#. translators: short title 2 Maccabees
+#: ../includes/references.php:512
+msgid "2Mac."
+msgstr "2Мак."
+
+#. translators: short title 3 Maccabees
+#: ../includes/references.php:514
+msgid "3Mac."
+msgstr "3Мак."
+
+#. translators: short title Baruch
+#: ../includes/references.php:516
+msgid "Bar."
+msgstr "Вар."
+
+#. translators: short title 2 Esdras
+#: ../includes/references.php:518
+msgid "2Ezr."
+msgstr "2Езд."
+
+#. translators: short title 3 Esdras
+#: ../includes/references.php:520
+msgid "3Ezr."
+msgstr "3Езд."
+
+#. translators: short title Judith
+#: ../includes/references.php:522
+msgid "Judf."
+msgstr "Иудиф."
+
+#. translators: short title Letter of Jeremiah
+#: ../includes/references.php:524
+msgid "pJer."
+msgstr "ПослИер."
+
+#. translators: short title Wisdom
+#: ../includes/references.php:526
+msgid "Solom."
+msgstr "Прем."
+
+#. translators: short title Sirach
+#: ../includes/references.php:528
+msgid "Sir."
+msgstr "Сир."
+
+#. translators: short title Tobit (Tobias)
+#: ../includes/references.php:530
+msgid "Tov."
+msgstr "Тов."
+
+#. translators: short title Matthew
+#: ../includes/references.php:534
+msgid "Mt."
+msgstr "Мф."
+
+#. translators: short title Mark
+#: ../includes/references.php:536
+msgid "Mk."
+msgstr "Мк."
+
+#. translators: short title Luke
+#: ../includes/references.php:538
+msgid "Lk."
+msgstr "Лк."
+
+#. translators: short title John
+#: ../includes/references.php:540
+msgid "Jn."
+msgstr "Ин."
+
+#. translators: short title Acts
+#: ../includes/references.php:543
+msgid "Act."
+msgstr "Деян."
+
+#. translators: short title James
+#: ../includes/references.php:545
+msgid "Jac."
+msgstr "Иак."
+
+#. translators: short title 1 Peter
+#: ../includes/references.php:547
+msgid "1Pet."
+msgstr "1Пет."
+
+#. translators: short title 2 Peter
+#: ../includes/references.php:549
+msgid "2Pet."
+msgstr "2Пет."
+
+#. translators: short title 1 John
+#: ../includes/references.php:551
+msgid "1Jn."
+msgstr "1Ин."
+
+#. translators: short title 2 John
+#: ../includes/references.php:553
+msgid "2Jn."
+msgstr "2Ин."
+
+#. translators: short title 3 John
+#: ../includes/references.php:555
+msgid "3Jn."
+msgstr "3Ин."
+
+#. translators: short title Jude
+#: ../includes/references.php:557
+msgid "Juda."
+msgstr "Иуд."
+
+#. translators: short title Romans
+#: ../includes/references.php:560
+msgid "Rom."
+msgstr "Рим."
+
+#. translators: short title 1 Corinthians
+#: ../includes/references.php:562
+msgid "1Cor."
+msgstr "1Кор."
+
+#. translators: short title 2 Corinthians
+#: ../includes/references.php:564
+msgid "2Cor."
+msgstr "2Кор."
+
+#. translators: short title Galatians
+#: ../includes/references.php:566
+msgid "Gal."
+msgstr "Гал."
+
+#. translators: short title Ephesians
+#: ../includes/references.php:568
+msgid "Eph."
+msgstr "Еф."
+
+#. translators: short title Philippians
+#: ../includes/references.php:570
+msgid "Phil."
+msgstr "Флп."
+
+#. translators: short title Colossians
+#: ../includes/references.php:572
+msgid "Col."
+msgstr "Кол."
+
+#. translators: short title 1 Thessalonians
+#: ../includes/references.php:574
+msgid "1Thes."
+msgstr "1Фес."
+
+#. translators: short title 2 Thessalonians
+#: ../includes/references.php:576
+msgid "2Thes."
+msgstr "2Фес."
+
+#. translators: short title 1 Timothy
+#: ../includes/references.php:578
+msgid "1Tim."
+msgstr "1Тим."
+
+#. translators: short title 2 Timothy
+#: ../includes/references.php:580
+msgid "2Tim."
+msgstr "2Тим."
+
+#. translators: short title Titus
+#: ../includes/references.php:582
+msgid "Tit."
+msgstr "Тит."
+
+#. translators: short title Philemon
+#: ../includes/references.php:584
+msgid "Phlm."
+msgstr "Флм."
+
+#. translators: short title Hebrews
+#: ../includes/references.php:586
+msgid "Hebr."
+msgstr "Евр."
+
+#. translators: short title Revelation
+#: ../includes/references.php:588
+msgid "Apok."
+msgstr "Отк."
 
 #: ../includes/settings.php:116
 msgid "Options saved."

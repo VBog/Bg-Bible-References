@@ -38,7 +38,7 @@ Russian:
 
 Допускается указание ссылок в квадратных скобках и без точки после наименования книги. 
 При указании номера главы (сразу после названия книги) можно использовать запятую вместо двоеточия. 
-Также допускается использовать точку с запятой вместо запятой.
+Также допускается указывать несколько книг вподряд,используя точку с запятой в качестве разделителя (см.: Зах.4; 2Кор.1:21; 1Ин.2:27).
 Пробелы игнорируются.
 
 В настройках плагина Вы можете выбрать языки, на которых будет отображаться текст Библии: церковно-славянский, русский, греческий, латинский и иврит.
@@ -55,6 +55,8 @@ Russian:
 Предупреждение: Некоторые методы могут быть недоступны на Вашем сервере. 
 Если Вы разместили свой блог на медленном сервере попробуйте опцию "Предварительная загрузка стихов из Библии во всплывающие подсказки". 
 Предупреждение: Вы можете иметь проблемы с ограничениями Ajax-запросов на сервере.
+
+Если Вы включите опцию 'Преобразовывать ссылки к нормализованному виду', то ссылки на Библию будут заключены в круглые скобки, в них будут удалены лишние пробелы, а названия книг, обозначения глав и стихов будут приведены к стандартному виду, соответствующему восточной традиции.
 
 Шорт-код [bible book='Mt' ch='2:3-6' type='verses'] выводит цитаты из Библии в тексте страницы.
 Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода.
@@ -87,7 +89,7 @@ The plugin handles the references with the format:
 
 You can specify the reference in brackets and without a point after the title of the book. 
 If you specify a chapter (after the title of the book), you can use comma instead of colon.
-Also allowed to use a semicolon instead of a comma.
+Also you can specify a few books in row using semicolon as the separator (см.: Зах.4; 2Кор.1:21; 1Ин.2:27).
 Spaces are ignored.
 
 In the plugin settings you can select the languages ​​in which the text will be displayed Bible: Church Slavic, Russian, Greek, Latin and Hebrew.
@@ -104,6 +106,8 @@ To do the reading faster, disable unnecessary methods in settings - you need one
 Warning: Some methods may not be available on your server.
 If you placed your blog on a slow server try the option "Preload Bible verses in tooltips". 
 Warning: you can have problem with ajax-requests limiting on the server.
+
+If you enable the 'Convert References to the normalized form', the Bible references will within brackets, there are removed extra spaces, and the book titles, chapters and verses will be have the standard form corresponding to the Eastern tradition.
 
 Short code [bible book = 'Mt' ch = '2 :3-6 'type =' verses'] displays quotes from the Bible in the text of the page.
 Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format.
@@ -148,6 +152,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 * Added option "Highlight references in the headers H1...H6". Thank you very much, Pozharko Andrej, for good idea.
 * Added option "Convert references to the normalized form". 
 * For short code [references type="list"] specified additional parameter 'col' - the number of columns.
+* Now you can specify a few books in row using semicolon as the separator (см.: Зах.4; 2Кор.1:21; 1Ин.2:27).
 
 = 2.6.0 =
 
@@ -314,6 +319,7 @@ Warning: Some methods may not be available on your server.
 * Added option "Highlight references in the headers H1...H6". Thank you very much, Pozharko Andrej, for good idea.
 * Added option "Convert references to the normalized form". 
 * For short code [references type="list"] specified additional parameter 'col' - the number of columns.
+* Now you can specify a few books in row using semicolon as the separator (см.: Зах.4; 2Кор.1:21; 1Ин.2:27).
 
 = 2.6.0 =
 
