@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 3.8.1
+Tested up to: 3.9.0
 
 Stable tag: trunk
 
@@ -73,6 +73,9 @@ Russian:
 Если  type=’table’, то список отображается в виде таблицы, в дополнительном параметре 'col' указывается количество колонок(по умолчанию 1). Список ссылок выводится в таблице построчно.
 Список ссылок выводится на экран в контейнере `<div class=”bg_refs_list”>…</div>`. Используйте класс bg_refs_list для задания свойств объектов списка.
 
+Шорт-код [norefs]...[/norefs] запрещает подсветку гиперссылок на Библию в тексте, ограниченном этим шорт-кодом. 
+Если необходимо запретить подсветку в заметке в целом создайте рубрику или метку с ярлыком norefs и поместите заметку в эту рубрику/метку, или создайте для заметки произвольное поле с именем norefs  и присвойте ему произвольное значение.
+
 English: 
 
 The plugin will highlight references to the Bible text with links to site of Orthodox encyclopedia "The Alphabet of Faith" (http://azbyka.ru/biblia).
@@ -124,6 +127,9 @@ If type = 'list', the list is displayed as list, if the additional parameter 'li
 If type = 'table', the list is displayed as table, additional parameter 'col' specifies the number of columns (default 1). List of links displayed in the table by line.
 A list of references displayed in the container `<div class="bg_refs_list"> ... </div>`. Use bg_refs_list class to set the properties of list objects.
 
+Short code [norefs]...[/norefs] prohibits highlighting the Bible references in the text enclosed with this short code.
+If you want to disable highlight of Bible references in the whole post, create a category or tag  with a label norefs and place a post in this category/tag, or create custom field with name norefs for this post and set it any value.
+
 == Installation ==
 
 1. Upload 'bg-biblie-references' directory to the '/wp-content/plugins/' directory.
@@ -146,6 +152,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 2. Page of Bible verses
 
 == Changelog ==
+
+= 2.8.0 =
+
+* Added short-code [norefs]...[/norefs].
+* Option to disable highlighting of Bible references in the whole post.
+* List of Bible references (short code [references]) displays in "normalized form" without repeats. 
 
 = 2.7.0 =
 
@@ -313,6 +325,12 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.8.0 =
+
+* Added short-code [norefs]...[/norefs].
+* Option to disable highlighting of Bible references in the whole post.
+* List of Bible references (short code [references]) displays in "normalized form" without repeats. 
 
 = 2.7.0 =
 
