@@ -24,7 +24,8 @@ function bg_bibfers_bible_proc($txt) {
 //	$template = "/[\\(\\[](см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)]/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
-	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)(\\;|\\.)]?/ui";
+//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)(\\;|\\.)]?/ui";
+	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
 	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
 	$cnt = count($matches[0]);
 	
@@ -38,10 +39,10 @@ function bg_bibfers_bible_proc($txt) {
 		preg_match($template, $matches[0][$i][0], $mt);
 		$cn = count($mt);
 		if ($cn > 0) {
-			$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 			// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
-			$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);			// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
-			$chapter = preg_replace("/—|–/u", '-', $chapter);				// Замена разных вариантов тире на обычный
-//			$chapter = preg_replace("/\\;/u", ',', $chapter);				// Замена точки с запятой на запятую
+			$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 				// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
+			$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);				// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
+			$chapter = preg_replace("/—|–/u", '-', $chapter);					// Замена разных вариантов тире на обычный
+//			$chapter = preg_replace("/\\;/u", ',', $chapter);					// Замена точки с запятой на запятую
 			preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
 			if ($mtchs) {
 				if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
@@ -50,18 +51,28 @@ function bg_bibfers_bible_proc($txt) {
 				}
 			}
 			$addr = bg_bibfers_get_url($title, $chapter);
-			if (strcasecmp($addr, "") != 0 && bg_bibfers_check_headers($txt, $matches[0][$i][1])) {
+			if (strcasecmp($addr, "") != 0 && bg_bibfers_check_headers($txt, $matches[0][$i][1]) && bg_bibfers_check_norefs($txt, $matches[0][$i][1])) {
 				$ref = trim ( $matches[0][$i][0], "\x20\f\t\v\n\r\xA0\xC2" );
+				$book = bg_bibfers_getBook($title);								// Обозначение книги
+				$book = bg_bibfers_getshortTitle($book);						// Короткое наименование книги
 				if (get_option( 'bg_bibfers_norm_refs' )) {						// Преобразовать ссылку к нормализованному виду
-					$book = bg_bibfers_getBook($title);							// Обозначение книги
-					$book = bg_bibfers_getshortTitle($book);					// Короткое наименование книги
-					$newmt = $addr .'('.$book.' '.$chapter.')'. "</a>";
+					$newmt = '('.$addr .$book.' '.$chapter. "</a>".')';
 				}
 				else $newmt = $addr .$ref. "</a>";
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
-				$bg_bibfers_all_refs[$j]=$newmt;
-				$j++;
+				$listmt = $addr .$book.' '.$chapter. "</a>";
+				$double = false;
+				for ($k=0; $k < $j; $k++) {										// Проверяем не совпадают ли ссылки?
+					if ($bg_bibfers_all_refs[$k] == $listmt) {
+						$double = true;
+						break;
+					}
+				}
+				if (!$double) {													// Дубликат не найден
+					$bg_bibfers_all_refs[$j]=$listmt;
+					$j++;
+				}
 			}			
 		}
 	}
@@ -77,7 +88,7 @@ function bg_bibfers_check_headers($txt, $pos) {
 
 	if (get_option( 'bg_bibfers_headers' )) return true;
 // Ищем все вхождения заголовков h1...h6
-	$headers = "/<h\\d.*?>(.*)<\/h\\d>/ui";
+	$headers = "/<h\\d.*?>(.*)<\/h\\d>/sui";
 	preg_match_all($headers, $txt, $hdr, PREG_OFFSET_CAPTURE);
 	$chrd = count($hdr[0]);
 
@@ -89,6 +100,25 @@ function bg_bibfers_check_headers($txt, $pos) {
 	return true;
 }
 
+/******************************************************************************************
+	Проверяем находится ли указанная позиция текста внутри шорт-кода
+	[norefs]...[/norefs],
+    если "да" - возвращаем false, "нет" - true 
+*******************************************************************************************/
+function bg_bibfers_check_norefs($txt, $pos) {
+
+// Ищем все вхождения [norefs]...[/norefs]
+	$norefs = "/\[norefs\](.*)\[\/norefs\]/sui";
+	preg_match_all($norefs, $txt, $hdr, PREG_OFFSET_CAPTURE);
+	$chrd = count($hdr[0]);
+	
+	for ($k = 0; $k < $chrd; $k++) {
+		$start = $hdr[0][$k][1];
+		$finish = $start + strlen($hdr[0][$k][0]);
+		if ($pos >= $start && $pos <= $finish) return false;
+	}
+	return true;
+}
 /******************************************************************************************
 	Формирование ссылки на http://azbyka.ru/biblia/
 	Используется в функции bg_bibfers_bible_proc(),
@@ -546,7 +576,7 @@ function bg_bibfers_getshortTitle($book) {
 		// translators: short title 1 Peter
 		'1Pet'		=>__('1Pet.', 'bg_bibfers'),
 		// translators: short title 2 Peter
-		'2Pet',		__('2Pet.', 'bg_bibfers'),
+		'2Pet'		=>__('2Pet.', 'bg_bibfers'),
 		// translators: short title 1 John
 		'1Jn'		=>__('1Jn.', 'bg_bibfers'), 
 		// translators: short title 2 John
