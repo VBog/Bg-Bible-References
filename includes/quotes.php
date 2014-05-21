@@ -143,7 +143,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 	if ($type == "book") $verses = "<h3>".bg_bibfers_getTitle($book)."</h3>";
 	else if ($type == "t_verses") $verses = "<strong>".bg_bibfers_getTitle($book)."</strong><br>";
 	else $verses = "";
-		
+	if ($type <> "quote") $verses = $verses."<div>";	
 /*******************************************************************************
    Разбор ссылки и формирование текста стихов Библии
   
@@ -211,6 +211,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 		}
 		if ($sp == "") break;
 	}
+	if ($type <> "quote") $verses = $verses."</div>";	
 	return $verses;
 }
 /*******************************************************************************
@@ -241,7 +242,7 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 				$txt = strip_tags($json[$i]['text']);
 				$txt = bg_bibfers_optina($txt, $book, $ch, $vr);
 				$verses = $verses.$pointer.$txt;
-				if ($type == 'quotes') {$verses = $verses." ";}														// Если цитата, строку не переводим
+				if ($type == 'quote') {$verses = $verses." ";}														// Если цитата, строку не переводим
 				else {$verses = $verses."<br>";}
 			}
 		}

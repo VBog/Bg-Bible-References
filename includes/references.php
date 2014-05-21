@@ -25,7 +25,8 @@ function bg_bibfers_bible_proc($txt) {
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)(\\;|\\.)]?/ui";
-	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
+//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
+	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-‐‑‒–——―](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
 	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
 	$cnt = count($matches[0]);
 	
@@ -41,7 +42,7 @@ function bg_bibfers_bible_proc($txt) {
 		if ($cn > 0) {
 			$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 				// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
 			$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);				// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
-			$chapter = preg_replace("/—|–/u", '-', $chapter);					// Замена разных вариантов тире на обычный
+			$chapter = preg_replace("/[‐‑‒–——―]/u", '-', $chapter);				// Замена разных вариантов тире на обычный
 //			$chapter = preg_replace("/\\;/u", ',', $chapter);					// Замена точки с запятой на запятую
 			preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
 			if ($mtchs) {
@@ -56,12 +57,12 @@ function bg_bibfers_bible_proc($txt) {
 				$book = bg_bibfers_getBook($title);								// Обозначение книги
 				$book = bg_bibfers_getshortTitle($book);						// Короткое наименование книги
 				if (get_option( 'bg_bibfers_norm_refs' )) {						// Преобразовать ссылку к нормализованному виду
-					$newmt = '('.$addr .$book.' '.$chapter. "</a>".')';
+					$newmt = '('.$addr .$book.' '.$chapter. "</a></span>".')';
 				}
-				else $newmt = $addr .$ref. "</a>";
+				else $newmt = $addr .$ref. "</a></span>";
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
-				$listmt = $addr .$book.' '.$chapter. "</a>";
+				$listmt = $addr .$book.' '.$chapter. "</a></span>";
 				$double = false;
 				for ($k=0; $k < $j; $k++) {										// Проверяем не совпадают ли ссылки?
 					if ($bg_bibfers_all_refs[$k] == $listmt) {
@@ -160,7 +161,7 @@ function bg_bibfers_get_url($title, $chapter) {
 		} else {
 			$ajax_url = "";
 		}
-		return "<a href='".$fullurl.$opt."' class='bg_data_title ".$class_val."' target='".$target_val."' data-title='".$ajax_url."'><span class='bg_data_tooltip'>".$the_title."</span>"; 
+		return "<span class='bg_data_title ".$class_val."' data-title='".$ajax_url."'><span class='bg_data_tooltip'>".$the_title."</span><a href='".$fullurl.$opt."' target='".$target_val."'>"; 
 	}
 	else return "";
 }
@@ -170,7 +171,7 @@ function bg_bibfers_getBook($title) {
 		// Ветхий Завет
 		// Пятикнижие Моисея															
 		// translators: abbr. Genesis
-		'Gen', 		__('Gen', 'bg_bibfers'), 'Gen', 'Быт', 								
+		'Gen', 		__('Gen', 'bg_bibfers'), 'Gen', 'Бытие|Быт|Буття|Бут|1Моисея|1Мойсея', 								
 		// translators: abbr. Exodus
 		'Ex', 		__('Ex', 'bg_bibfers'), 'Ex', 'Исх',  								
 		// translators: abbr. Leviticus

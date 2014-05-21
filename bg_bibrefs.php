@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: Vadim Bogaiskov
-    Version: 2.8.0
+    Version: 2.9.0
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '2.8.0');
+define('BG_BIBREFS_VERSION', '2.9.0');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -161,7 +161,7 @@ function bg_bibfers_references( $atts ) {
 
 // Функция обработки шорт-кода norefs
 function bg_bibfers_norefs( $atts, $content = null ) {
-	 return   do_shortcode($content);
+	 return do_shortcode($content);
 }
 
 // Функция действия перед крючком добавления меню
@@ -184,7 +184,8 @@ function bg_bibrefs_callback() {
 	if (!$chapter) $chapter = '1-999';
 	$type = $_GET["type"];
 	if (!$type) $type = 'verses';
-	echo bg_bibfers_getQuotes($title, $chapter, $type); 
+	$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer" align="right" width=16 height=16 title1="'.(__('Expand', 'bg_bibfers' )).'" title2="'.(__('Hide', 'bg_bibfers' )).'" />';
+	echo $expand_button.bg_bibfers_getQuotes($title, $chapter, $type); 
 	
 	die();
 }

@@ -43,21 +43,21 @@ p.bg_bibfers_close {
     position: static; /* Относительное позиционирование */
 	white-space: nowrap;/* Запрет переноса строк ссылки */
 }
-.bg_data_title span {
+.bg_data_tooltip {
 	display: none;
     position: absolute; /* Абсолютное позиционирование */
 	white-space: normal;/* В подсказке перенос строк разрешен */
-	overflow-y: auto; 	/* Разрешить при необходимости скроллинг по вертикали */
-	overflow-x: hidden; /* Запретить  скроллинг по горизонтали */
-    z-index: 1; 		/* Отображаем подсказку поверх других элементов */
-}
-.bg_data_tooltip {
-	display: none;
-	left: 0; top: 105%; 				/* Положение подсказки */
-	width: 240px; 						/* Ширина подсказки */
-	max-height: 240px; 					/* Высота подсказки */
+	overflow-y: hidden; 	/* Разрешить при необходимости скроллинг по вертикали */
+	overflow-x: hidden; /* Запретить скроллинг по горизонтали */
+    z-index: 101; 		/* Отображаем подсказку поверх других элементов */
+	left: 0px; 
+	top: 80px; 							/* Вертикальное положение подсказки */
+	width: 240px;						/* Ширина подсказки */
+	max-height: 240px;					/* Максимальная высота подсказки */
+	max-width: 600px;					/* Максимальная ширина подсказки */
+	margin: 0px;						/* Отступ = 0 */
+    padding:  5px 5px 5px 10px; 		/* Поля */
     border: 1px solid #333; 			/* Параметры рамки */
-    padding: 5px 10px; 					/* Поля */
 	font-family: sans-serif;			/* Вид шрифта */
 	font-size: 12px; 					/* Размер текста стиха */
 	font-style: normal;					/* Стиль текста */
@@ -67,4 +67,21 @@ p.bg_bibfers_close {
 	text-decoration: none; 				/* Без подчеркивания */
 	text-align: start;					/* Прижать текст влево */
     background-color: rgba(253,253,255,0.99); 	/* Полупрозрачный цвет фона */
+}
+.bg_data_tooltip  div{
+    margin:  5px -5px -5px -10px;		/* Отступ */
+    padding: 5px 5px 5px 10px;			/* Поля */
+	border-top: 1px solid #aaa; 		/* Параметры рамки */
+	overflow-y: auto; 	/* Разрешить при необходимости скроллинг по вертикали */
+	overflow-x: hidden; /* Запретить скроллинг по горизонтали */
+}
+#bg_BG_overlay {
+  background-color: #000;	/* Чёрный фон */
+  height: 100%;				/* Высота максимальна */
+  left: 0;					/* Нулевой отступ слева */
+  opacity: 0.50;			/* Степень прозрачности */
+  position: fixed;			/* Фиксированное положение */
+  top: 0;					/* Нулевой отступ сверху */
+  width: 100%;				/* Ширина максимальна */
+  z-index: 100;				/* Заведомо быть НАД другими элементами */
 }

@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 3.9.0
+Tested up to: 3.9.1
 
 Stable tag: trunk
 
@@ -76,6 +76,9 @@ Russian:
 Шорт-код [norefs]...[/norefs] запрещает подсветку гиперссылок на Библию в тексте, ограниченном этим шорт-кодом. 
 Если необходимо запретить подсветку в заметке в целом создайте рубрику или метку с ярлыком norefs и поместите заметку в эту рубрику/метку, или создайте для заметки произвольное поле с именем norefs  и присвойте ему произвольное значение.
 
+Чтобы выделить текст стихов в подсказке для последующего копирования в буфер обмена просто щелките мышью в области стихов, например, по номеру стиха. 
+А затем используйте Ctrl+C или контекстное меню для копирования.
+
 English: 
 
 The plugin will highlight references to the Bible text with links to site of Orthodox encyclopedia "The Alphabet of Faith" (http://azbyka.ru/biblia).
@@ -130,6 +133,9 @@ A list of references displayed in the container `<div class="bg_refs_list"> ... 
 Short code [norefs]...[/norefs] prohibits highlighting the Bible references in the text enclosed with this short code.
 If you want to disable highlight of Bible references in the whole post, create a category or tag  with a label norefs and place a post in this category/tag, or create custom field with name norefs for this post and set it any value.
 
+To select verses text in tooltip for later copying to the clipboard click the left mouse button in the verse field, for example, on verse number.
+And then use Ctrl+C or the context menu for copy.
+
 == Installation ==
 
 1. Upload 'bg-biblie-references' directory to the '/wp-content/plugins/' directory.
@@ -149,9 +155,18 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 == Screenshots ==
 
 1. An example work of the plugin - highlight references
-2. Page of Bible verses
+2. Expanded tooltip.
+3. Page of Bible verses
 
 == Changelog ==
+
+= 2.9.0 =
+
+* New view of tooltips.
+* Now you can expand tooltip for easy reading.
+* Selection of text in tooltip for copying to the clipboard.
+* Hyphen and other similar symbols (#8208-#8213) instead of the dash (#45) allowed to use in references.
+* Fixed minor bugs.
 
 = 2.8.0 =
 
@@ -325,6 +340,14 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.9.0 =
+
+* New view of tooltips.
+* Now you can expand tooltip for easy reading.
+* Selection of text in tooltip for copying to the clipboard.
+* Hyphen and other similar symbols (#8208-#8213) instead of the dash (#45) allowed to use in references.
+* Fixed minor bugs.
 
 = 2.8.0 =
 
