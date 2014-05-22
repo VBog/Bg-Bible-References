@@ -160,6 +160,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.9.1 =
+
+* Minor fixings.
+
 = 2.9.0 =
 
 * New view of tooltips.
@@ -340,6 +344,10 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.9.1 =
+
+* Minor fixings.
 
 = 2.9.0 =
 

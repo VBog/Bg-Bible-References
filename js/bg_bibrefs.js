@@ -88,8 +88,8 @@ jQuery('span.bg_data_title')
 function tooltip_mini(tooltip, el, e) {	
 	// Восстанавливаем заданные значения ширины, максимальной высоты и вертикального положения подсказки 
 	tooltip.css({
-		'width': bg_bibrefs_tipWidth,			// Восстанавливаем заданную ширину подсказки
-		'max-height': bg_bibrefs_tipMaxHeight,	// Восстанавливаем заданную максимальную высоту подсказки
+		'width': bg_bibrefs_tipWidth+"px",		// Восстанавливаем заданную ширину подсказки
+		'max-height': bg_bibrefs_tipMaxHeight+"px",	// Восстанавливаем заданную максимальную высоту подсказки
 		'top': bg_bibrefs_tipTop+"px",			// Восстанавливаем вертикальное положение подсказки
 		'position':'absolute',					// Абсолютная позиция
 		'display': "block"						// Строчно-блочный элемент 
@@ -186,12 +186,13 @@ function tooltip_mini(tooltip, el, e) {
 *******************************************************************************/  
 function tooltip_maxi(tooltip) {
 
-	// Создаем блок для затемнения фона
-	jQuery("<div/>", { "id": "bg_BG_overlay" }).appendTo("body");
+	// Создаем блок для затемнения фона в том же контексте, при этом z-index должен быть меньше чем у tooltip
+	var data_title=jQuery(tooltip).parent();
+	jQuery("<div/>", { "id": "bg_BG_overlay" }).appendTo(data_title);
 	// Восстанавливаем заданные значения ширины, максимальной высоты и вертикального положения подсказки 
 	tooltip.css({
-		'width': bg_bibrefs_tipWidth,				// Восстанавливаем заданную ширину подсказки
-		'max-height': bg_bibrefs_tipMaxHeight,		// Восстанавливаем заданную максимальную высоту подсказки
+		'width': bg_bibrefs_tipWidth+"px",			// Восстанавливаем заданную ширину подсказки
+		'max-height': bg_bibrefs_tipMaxHeight+"px",	// Восстанавливаем заданную максимальную высоту подсказки
 		'top': bg_bibrefs_tipTop+"px",				// Восстанавливаем вертикальное положение подсказки
 		'position':'fixed',						// Фиксированная позиция
 		'display': "block"						// Строчно-блочный элемент 
