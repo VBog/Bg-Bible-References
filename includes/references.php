@@ -155,7 +155,7 @@ function bg_bibfers_get_url($title, $chapter) {
 	if ($book != "") {						
 		$fullurl = "http://azbyka.ru/biblia/?".$book.".". $chapter;			// Полный адрес ссылки на azbyka.ru
 		// translators: ch. - is abbr. "chapter"
-		$the_title =  "<strong>".bg_bibfers_getTitle($book)."</strong><br>".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
+		$the_title =  bg_bibfers_getTitle($book)." ".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
 		if ($bg_verses_val == 'on') {												// Текст  стихов
 			$ajax_url = admin_url("admin-ajax.php?title=".$book."&chapter=".$chapter."&type=t_verses");
 		} else {

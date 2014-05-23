@@ -37,7 +37,7 @@ jQuery(document).ready(function(){
 						tooltip.html(verses);					// Добавляем стихи в подсказку
 						el.attr('data-title', "");
 						el.attr('title', "");
-					}
+					} 
 				}
 			});
 		}
@@ -88,6 +88,7 @@ jQuery('span.bg_data_title')
    Отображение подсказки под ссылкой
 *******************************************************************************/  
 function tooltip_mini(tooltip, el, e) {	
+	if (!tooltip.html()) return;
 	// Восстанавливаем заданные значения ширины, максимальной высоты и вертикального положения подсказки 
 	tooltip.css({
 		'width': bg_bibrefs_tipWidth+"px",		// Восстанавливаем заданную ширину подсказки
@@ -202,7 +203,7 @@ function tooltip_maxi(tooltip) {
 	var padding = parseInt(tooltip.css('paddingLeft'))+parseInt(tooltip.css('paddingRight'))+parseInt(tooltip.css('border-Left-Width'))+parseInt(tooltip.css('border-Right-Width'));
 	// Координаты контейнера <div id="content">
 	var content = jQuery('#content');
-	if (content.length < 1) content = jQuery('body');	// Для "кривой" темы определяем положение body
+	if (content.lenght < 1) content = jQuery('body');	// Для "кривой" темы определяем положение body
 	var cc_left = content.offset().left+parseInt(content.css('paddingLeft'))+parseInt(content.css('border-Left-Width'));
 
 	var tipWidth = content.width()-padding-40;
