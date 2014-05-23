@@ -161,7 +161,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
-= 2.9.1, 2.9.2 =
+= 2.9.1-3 =
 
 * Minor bugs fixed.
 
@@ -346,7 +346,7 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 2.9.1, 2.9.2 =
+= 2.9.1-3 =
 
 * Minor bugs fixed.
 
