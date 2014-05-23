@@ -202,7 +202,7 @@ function tooltip_maxi(tooltip) {
 	var padding = parseInt(tooltip.css('paddingLeft'))+parseInt(tooltip.css('paddingRight'))+parseInt(tooltip.css('border-Left-Width'))+parseInt(tooltip.css('border-Right-Width'));
 	// Координаты контейнера <div id="content">
 	var content = jQuery('#content');
-	if (content.lenght < 1) content = jQuery('body');	// Для "кривой" темы определяем положение body
+	if (content.length < 1) content = jQuery('body');	// Для "кривой" темы определяем положение body
 	var cc_left = content.offset().left+parseInt(content.css('paddingLeft'))+parseInt(content.css('border-Left-Width'));
 
 	var tipWidth = content.width()-padding-40;
