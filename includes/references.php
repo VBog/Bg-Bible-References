@@ -161,7 +161,7 @@ function bg_bibfers_get_url($title, $chapter) {
 		} else {
 			$ajax_url = "";
 		}
-		return "<span class='bg_data_title ".$class_val."' data-title='".$ajax_url."'><span class='bg_data_tooltip'>".$the_title."</span><a href='".$fullurl.$opt."' target='".$target_val."'>"; 
+		return "<span class='bg_data_title ".$class_val."' data-title='".$ajax_url."' title='".$the_title."'><span class='bg_data_tooltip'></span><a href='".$fullurl.$opt."' target='".$target_val."'>"; 
 	}
 	else return "";
 }
