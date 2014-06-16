@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: Vadim Bogaiskov
-    Version: 2.9.3
+    Version: 2.10
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '2.9.3');
+define('BG_BIBREFS_VERSION', '2.10');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -94,17 +94,22 @@ function bg_bibfers($content) {
 	return $content;
 }
 // Функция обработки шорт-кода bible
-function bg_bibfers_qoutes( $atts ) {
+function bg_bibfers_qoutes( $atts, $content=null ) {
 	extract( shortcode_atts( array(
 		'book' => '',
 		'ch' => '1-999',
 		'type' => 'verses'
 	), $atts ) );
-    $class_val = get_option( 'bg_bibfers_class' );
-	if ($class_val == "") $class_val = 'bg_bibfers';
+	
 	$book = bg_bibfers_getBook($book);
-	if ($book == "") return "";
-	$quote = "<span class='".$class_val."'>".bg_bibfers_getQuotes($book, $ch, $type)."</span>";
+	if ($content) $quote = bg_bibfers_bible_proc($content, $type);
+	else if ($book != '') $quote = bg_bibfers_getQuotes($book, $ch, $type);
+	else return "";
+	if ($quote != "") {
+		$class_val = get_option( 'bg_bibfers_class' );
+		if ($class_val == "") $class_val = 'bg_bibfers';
+		$quote = "<span class='".$class_val."'>".$quote."</span>";
+	}
 	return "{$quote}";
 }
 

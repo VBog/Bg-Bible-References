@@ -17,7 +17,7 @@ $bg_bibfers_all_refs=array();				// Перечень всех ссылок
 	Основная функция разбора текста и формирования ссылок,
     для работы требуется bg_bibfers_get_url() - см. ниже
 *******************************************************************************************/
-function bg_bibfers_bible_proc($txt) {
+function bg_bibfers_bible_proc($txt, $type='') {
 	global $bg_bibfers_all_refs;
 
 // Ищем все вхождения ссылок на Библию
@@ -55,26 +55,30 @@ function bg_bibfers_bible_proc($txt) {
 			if (strcasecmp($addr, "") != 0 && bg_bibfers_check_headers($txt, $matches[0][$i][1]) && bg_bibfers_check_norefs($txt, $matches[0][$i][1])) {
 				$ref = trim ( $matches[0][$i][0], "\x20\f\t\v\n\r\xA0\xC2" );
 				$book = bg_bibfers_getBook($title);								// Обозначение книги
+				if ($type == '') {
 				$book = bg_bibfers_getshortTitle($book);						// Короткое наименование книги
-				if (get_option( 'bg_bibfers_norm_refs' )) {						// Преобразовать ссылку к нормализованному виду
-					$newmt = '('.$addr .$book.' '.$chapter. "</a></span>".')';
+					if (get_option( 'bg_bibfers_norm_refs' )) {						// Преобразовать ссылку к нормализованному виду
+						$newmt = '('.$addr .$book.' '.$chapter. "</a></span>".')';
+					}
+					else $newmt = $addr .$ref. "</a></span>";
+					$listmt = $addr .$book.' '.$chapter. "</a></span>";
+					$double = false;
+					for ($k=0; $k < $j; $k++) {										// Проверяем не совпадают ли ссылки?
+						if ($bg_bibfers_all_refs[$k] == $listmt) {
+							$double = true;
+							break;
+						}
+					}
+					if (!$double) {													// Дубликат не найден
+						$bg_bibfers_all_refs[$j]=$listmt;
+						$j++;
+					}
+				} else {
+					$newmt = bg_bibfers_getQuotes($book, $chapter, $type);
 				}
-				else $newmt = $addr .$ref. "</a></span>";
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
-				$listmt = $addr .$book.' '.$chapter. "</a></span>";
-				$double = false;
-				for ($k=0; $k < $j; $k++) {										// Проверяем не совпадают ли ссылки?
-					if ($bg_bibfers_all_refs[$k] == $listmt) {
-						$double = true;
-						break;
-					}
-				}
-				if (!$double) {													// Дубликат не найден
-					$bg_bibfers_all_refs[$j]=$listmt;
-					$j++;
-				}
-			}			
+			}
 		}
 	}
 	$txt = $text.substr($txt, $start);
@@ -102,8 +106,8 @@ function bg_bibfers_check_headers($txt, $pos) {
 }
 
 /******************************************************************************************
-	Проверяем находится ли указанная позиция текста внутри шорт-кода
-	[norefs]...[/norefs],
+	Проверяем находится ли указанная позиция текста внутри шорт-кодов
+	[norefs]...[/norefs] и [bible...[/bible],
     если "да" - возвращаем false, "нет" - true 
 *******************************************************************************************/
 function bg_bibfers_check_norefs($txt, $pos) {
@@ -118,6 +122,18 @@ function bg_bibfers_check_norefs($txt, $pos) {
 		$finish = $start + strlen($hdr[0][$k][0]);
 		if ($pos >= $start && $pos <= $finish) return false;
 	}
+	
+// Ищем все вхождения [bible...[/bible]
+	$norefs = "/\[bible(.*)\[\/bible\]/sui";
+	preg_match_all($norefs, $txt, $hdr, PREG_OFFSET_CAPTURE);
+	$chrd = count($hdr[0]);
+	
+	for ($k = 0; $k < $chrd; $k++) {
+		$start = $hdr[0][$k][1];
+		$finish = $start + strlen($hdr[0][$k][0]);
+		if ($pos >= $start && $pos <= $finish) return false;
+	}
+	
 	return true;
 }
 /******************************************************************************************

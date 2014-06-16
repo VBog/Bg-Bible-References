@@ -34,6 +34,7 @@ Russian:
 * (Ин. 3:16—18) (Книга. Глава: с этого [—] по этот стих);
 * (Ин. 3:16—18, 21, 34—36) (Книга. Глава: с этого [—] по этот стих, этот стих, с этого [—] по этот стих);
 * (Ин. 3:16—18, 4:4—6) (Книга. Глава: с этого [—] по этот стих, глава: с этого [—] по этот стих);
+* (Ин. 3:16—4:6) (Книга. Глава: этот стих [—] по глава: этот стих);
 * (Мф. 5—6) (Книга. С этой [—] по эту главу). 
 
 Допускается указание ссылок в квадратных скобках и без точки после наименования книги. 
@@ -58,15 +59,17 @@ Russian:
 
 Если Вы включите опцию 'Преобразовывать ссылки к нормализованному виду', то ссылки на Библию будут заключены в круглые скобки, в них будут удалены лишние пробелы, а названия книг, обозначения глав и стихов будут приведены к стандартному виду, соответствующему восточной традиции.
 
-Шорт-код [bible book='Mt' ch='2:3-6' type='verses'] выводит цитаты из Библии в тексте страницы.
+Самозакрывающийся шорт-код [bible book='Mt' ch='2:3-6' type='verses' /] выводит цитаты из Библии в тексте страницы.
 Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода.
 Если  type=’book’, то отображаются наименование книги, заголовки глав и стихи, каждый отдельным абзацем, с указанием его номера.
 Если  type=’verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием номера главы и номера стиха.
 Если  type=’b_verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием короткого названия книги, номера главы и номера стиха.
 Если  type=’t_verses’, то отображаются наименование книги и стихи, каждый отдельным абзацем, с указанием номера главы и номера стиха.
 Если  type=’quote’, то отображаются только стихи без деления их на абзацы.
+Ограждающий шорт-код [bible type='verses']...[/bible] преобразует все ссылки в содержимом в цитаты из Библии.
+При этом параметры book и ch игнорируются. 
 
-Шорт-код [references type='list' separator=', ' list='o' col=1] выводит список ссылок на Библию, встречающиеся в статье.
+Шорт-код [references type='list' separator=', ' list='o' col=1 /] выводит список ссылок на Библию, встречающиеся в статье.
 Здесь: type – формат отображения списка (по умолчанию 'list').
 Если  type=’string’, то список отображается в виде строки в тегах `<p>...</p>`, при этом используется дополнительный параметр 'separator', в котором указывается разделитель между ссылками (по умолчанию запятая и пробел).
 Если  type=’list’, то список отображается в виде списка, при этом если дополнительному параметру 'list' присвоено значение 'u', то это ненумерованный список, а если 'o', то - нумерованный(по умолчанию 'o'). В дополнительном параметре 'col' указывается количество колонок(по умолчанию 1). 
@@ -91,6 +94,7 @@ The plugin handles the references with the format:
 * (Ин. 3:16—18) (Book. Chapter: from this verse [—] till this verse);
 * (Ин. 3:16—18, 21, 34—36) (Book. Chapter: from this verse [—] till this verse, this verse, from this verse [—] till this verse);
 * (Ин. 3:16—18, 4:4—6) (Book. Chapter: from this verse [—] till this verse, chapter: from this verse [—] till this verse);
+* (Ин. 3:16—4:6) (Book. Chapter: this verse [—] till chapter: this verse);
 * (Мф. 5—6) (Book. From this chapter [—] till this chapter). 
 
 You can specify the reference in brackets and without a point after the title of the book. 
@@ -115,22 +119,24 @@ Warning: you can have problem with ajax-requests limiting on the server.
 
 If you enable the 'Convert References to the normalized form', the Bible references will within brackets, there are removed extra spaces, and the book titles, chapters and verses will be have the standard form corresponding to the Eastern tradition.
 
-Short code [bible book = 'Mt' ch = '2 :3-6 'type =' verses'] displays quotes from the Bible in the text of the page.
+Self-closing shortcode [bible book = 'Mt' ch = '2 :3-6 'type =' verses' /] displays quotes from the Bible in the text of the page.
 Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format.
 If type = 'book', it displays the name of the book, chapter and verse in separate paragraph with verse number.
 If type = 'verses', it displays only the verses in separate paragraph with chapter number and verse number.
 If type = 'b_verses', it displays only the verses in separate paragraph with short book title, chapter number and verse number.
 If type = ’t_verses’, it displays the name of the book and verse in separate paragraph with chapter number and verse number.
 If type = 'quote', it displays only the verses without dividing them into paragraphs.
+Enclosing shortcode [bible type = 'verses'] ... [/ bible] converts all references in content to quotes from the Bible. 
+The parameters of the book and ch ignored.
 
-Short code [references type = 'list' separator = ',' list = 'o' col = 1] displays list of Bible references are finded in the article.
+Shortcode [references type = 'list' separator = ',' list = 'o' col = 1 /] displays list of Bible references are finded in the article.
 Here : type - list display format(default 'list').
 If type = 'string', the list is displayed as string in tags `<p>...</p>`, the additional parameter 'separator' contains the separator between the references (default comma and space).
 If type = 'list', the list is displayed as list, if the additional parameter 'list' is set to 'u', then this is an unordered list, and if it is 'o', then - numbered (default 'o'). Аdditional parameter 'col' specifies the number of columns (default 1).
 If type = 'table', the list is displayed as table, additional parameter 'col' specifies the number of columns (default 1). List of links displayed in the table by line.
 A list of references displayed in the container `<div class="bg_refs_list"> ... </div>`. Use bg_refs_list class to set the properties of list objects.
 
-Short code [norefs]...[/norefs] prohibits highlighting the Bible references in the text enclosed with this short code.
+Shortcode [norefs]...[/norefs] prohibits highlighting the Bible references in the text enclosed with this shortcode.
 If you want to disable highlight of Bible references in the whole post, create a category or tag  with a label norefs and place a post in this category/tag, or create custom field with name norefs for this post and set it any value.
 
 To select verses text in tooltip for later copying to the clipboard click the left mouse button in the verse field, for example, on verse number.
@@ -160,6 +166,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 2.10 =
+
+* Added enclosing shortcode [bible]...[/bible].
+* Allowed references like (Ин. 3:16—4:6).
 
 = 2.9.1-3 =
 
@@ -240,7 +251,7 @@ Warning: Some methods may not be available on your server.
 = 2.4.0 =
 
 * New algoritm to get and display Bible verses. 
-* Added type='t_verses' in Short code [bible].
+* Added type='t_verses' in shortcode [bible].
 
 = 2.3.5 =
 
@@ -345,6 +356,11 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.10 =
+
+* Added enclosing shortcode [bible]...[/bible].
+* Allowed references like (Ин. 3:16—4:6).
 
 = 2.9.1-3 =
 

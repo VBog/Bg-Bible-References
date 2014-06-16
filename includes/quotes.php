@@ -177,18 +177,34 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 				if (strcasecmp ($sp, ":") == 0) {												// Если двоеточие, то не номер стиха, а номер главы и далее стихи
 					$ch1 = $vr1;
 				} else {
+					$ch2 = $ch1;
 					if (strcasecmp ($sp, "-") == 0) {
 						preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);			// Должно быть число - номер стиха 
 						$vr2 = (int)$matches[0][0];
 						$chapter = substr($chapter,(int)$matches[0][1]);
-						if (preg_match("/\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается: запятая или <конец строки>
+
+						if (preg_match("/\\:|\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается: двоеточие, запятая или <конец строки>
 							$sp = $matches[0][0];
 							$chapter = substr($chapter,(int)$matches[0][1]);
+							if (strcasecmp ($sp, ":") == 0) {												// Если двоеточие, то не номер стиха, а номер главы и далее стихи
+								$ch2 = $vr2;
+								preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);				// Должно быть число - номер стиха 
+								$vr2 = (int)$matches[0][0];
+								if (preg_match("/\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается: запятая или <конец строки>
+									$sp = $matches[0][0];
+									$chapter = substr($chapter,(int)$matches[0][1]);
+								} else $sp = "";
+							}
+							else if (strcasecmp ($sp, ",") == 0) {
+								preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);				// Должно быть число - номер стиха 
+								$sp = $matches[0][0];
+								$chapter = substr($chapter,(int)$matches[0][1]);
+							} else $sp = "";
 						} else $sp = "";
 					} else {
 						$vr2 = $vr1;
 					}
-					$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch1, $vr1, $vr2, $type);
+					$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type);
 					$chr = $ch1;
 					if ($sp == "") break;
 				}
@@ -199,14 +215,32 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 				preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);					// Должно быть число - номер главы 
 				$ch2 = (int)$matches[0][0];
 				$chapter = substr($chapter,(int)$matches[0][1]);
-				if (preg_match("/\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {			// Допускается: запятая или <конец строки>
+/*				if (preg_match("/\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {			// Допускается: запятая или <конец строки>
 					$sp = $matches[0][0];
 					$chapter = substr($chapter,(int)$matches[0][1]);
+				} else $sp = ""; */
+				$vr1 = 1;
+				$vr2 = 999;
+				if (preg_match("/\\:|\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается: двоеточие, запятая или <конец строки>
+					$sp = $matches[0][0];
+					$chapter = substr($chapter,(int)$matches[0][1]);
+					if (strcasecmp ($sp, ":") == 0) {												// Если двоеточие, то не номер стиха, а номер главы и далее стихи
+						preg_match("/\\d+/u", $chapter, $matches, PREG_OFFSET_CAPTURE);				// Должно быть число - номер стиха 
+						$vr2 = (int)$matches[0][0];
+						if (preg_match("/\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается: запятая или <конец строки>
+							$sp = $matches[0][0];
+							$chapter = substr($chapter,(int)$matches[0][1]);
+						} else $sp = "";
+					}
+					else if (strcasecmp ($sp, ",") == 0) {
+						$sp = $matches[0][0];
+						$chapter = substr($chapter,(int)$matches[0][1]);
+					} else $sp = "";
 				} else $sp = "";
 			} else {
 				$ch2 = $ch1;
 			}
-			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, 1, 999, $type);
+			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type);
 			$chr = $ch2;
 		}
 		if ($sp == "") break;
@@ -220,12 +254,14 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 *******************************************************************************/  
 function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type) {
 	$verses = "";
+	$cv1 = $ch1 *1000 + $vr1;
+	$cv2 = $ch2 *1000 + $vr2;
 	$cn_json = count($json);
 	for ($i=0; $i < $cn_json; $i++) {
 		$ch = (int)$json[$i]['part'];
 		$vr = (int)$json[$i]['stix'];
-		if ( $ch >= $ch1 && $ch <= $ch2) {
-			if ( $vr >= $vr1 && $vr <= $vr2) {
+		$cv = $ch *1000 + $vr;
+		if ( $cv >= $cv1 && $cv <= $cv2) {
 				if ($type == 'book') { 																				// Тип: книга
 					if ($chr != $ch) {
 						$verses = $verses."<strong>".__('Chapter', 'bg_bibfers')." ".$ch."</strong><br>";			// Печатаем номер главы
@@ -244,7 +280,6 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 				$verses = $verses.$pointer.$txt;
 				if ($type == 'quote') {$verses = $verses." ";}														// Если цитата, строку не переводим
 				else {$verses = $verses."<br>";}
-			}
 		}
 	}
 	return $verses;
