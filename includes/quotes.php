@@ -239,6 +239,8 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 				} else $sp = "";
 			} else {
 				$ch2 = $ch1;
+				$vr1 = 1;
+				$vr2 = 999;
 			}
 			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type);
 			$chr = $ch2;

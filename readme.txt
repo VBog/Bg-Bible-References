@@ -167,6 +167,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 2.10.1 =
+
+* Bug fixed.
+
 = 2.10 =
 
 * Added enclosing shortcode [bible]...[/bible].
@@ -356,6 +360,10 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 2.10.1 =
+
+* Bug fixed.
 
 = 2.10 =
 
