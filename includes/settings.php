@@ -22,6 +22,7 @@ function bg_bibfers_options_page() {
 
 	$bg_norm_refs = 'bg_bibfers_norm_refs';				// Преобразовывать ссылки к нормализованному виду
 	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
+	$bg_verses_lang = 'bg_bibfers_verses_lang';			// Язык стихов из Библии во всплывающей подсказке
 
 	$bg_curl_name = 'bg_bibfers_curl';					// Чтение файлов Библии с помощью cURL
 	$bg_fgc_name = 'bg_bibfers_fgc';					// Чтение файлов Библии с помощью file_get_contents()
@@ -50,6 +51,7 @@ function bg_bibfers_options_page() {
 
     $bg_norm_refs_val = get_option( $bg_norm_refs );
     $bg_verses_val = get_option( $bg_verses_name );
+    $bg_verses_lang_val = get_option( $bg_verses_lang );
 
     $bg_curl_val = get_option( $bg_curl_name );
     $bg_fgc_val = get_option( $bg_fgc_name );
@@ -96,6 +98,9 @@ function bg_bibfers_options_page() {
 
 		$bg_verses_val = ( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '' ;
 		update_option( $bg_verses_name, $bg_verses_val );
+
+		$bg_verses_lang_val = ( isset( $_POST[$bg_verses_lang] ) && $_POST[$bg_verses_lang] ) ? $_POST[$bg_verses_lang] : '' ;
+		update_option( $bg_verses_lang, $bg_verses_lang_val );
 
 		$bg_curl_val = ( isset( $_POST[$bg_curl_name] ) && $_POST[$bg_curl_name] ) ? $_POST[$bg_curl_name] : '' ;
 		update_option( $bg_curl_name, $bg_curl_val );
@@ -162,6 +167,15 @@ c_lang_checked();
 </script>
 </td></tr>
 <tr valign="top">
+<th scope="row"><?php _e('Language of references and tooltips', 'bg_bibfers' ); ?></th>
+<td>
+<select id="bg_verses_lang" name="<?php echo $bg_verses_lang ?>"> 
+	<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibfers' ); ?></option>
+	<option <?php if($bg_verses_lang_val=="ru") echo "selected" ?> value="ru"><?php _e('Russian', 'bg_bibfers' ); ?></option>
+	<option <?php if($bg_verses_lang_val=="uk") echo "selected" ?> value="uk"><?php _e('Ukrainian', 'bg_bibfers' ); ?></option>
+</select>
+</td></tr>
+<tr valign="top">
 <th scope="row"><?php _e('Open links', 'bg_bibfers' ); ?></th>
 <td>
 <input type="radio" id="blank_window" name="<?php echo $target_window ?>" <?php if($target_val=="_blank") echo "checked" ?> value="_blank"> <?php _e('in new window', 'bg_bibfers' ); ?><br />
@@ -204,6 +218,23 @@ function options_view() {
 </td></tr>
 
 <tr valign="top">
+<th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibfers' ); ?></th>
+<td>
+<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a problem with ajax-requests limiting on the server.)</i>', 'bg_bibfers' ); ?> <br />
+</td></tr>
+<script>
+function bg_verses_checked() {
+	if (document.getElementById('bg_verses').checked == true) {
+		document.getElementById('bg_preq').disabled = false;
+	} else {
+		document.getElementById('bg_preq').disabled = true;
+		document.getElementById('bg_preq').checked = false;
+	}
+}
+bg_verses_checked();
+</script>
+
+<tr valign="top">
 <th scope="row"><?php _e('Method of reading files', 'bg_bibfers' ); ?></th>
 <td>
 <input type="checkbox" id="bg_curl" name="<?php echo $bg_curl_name ?>" <?php if($bg_curl_val=="on") echo "checked" ?> value="on" onclick='reading_off_checked();'> cURL<br />
@@ -223,22 +254,6 @@ function reading_off_checked() {
 	}
 }
 reading_off_checked();
-</script>
-
-<tr valign="top">
-<th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibfers' ); ?></th>
-<td>
-<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a problem with ajax-requests limiting on the server.)</i>', 'bg_bibfers' ); ?> <br />
-</td></tr>
-<script>
-function bg_verses_checked() {
-	if (document.getElementById('bg_verses').checked == true) {document.getElementById('bg_preq').disabled = false;}
-	else {
-		document.getElementById('bg_preq').disabled = true;
-		document.getElementById('bg_preq').checked = false;
-	}
-}
-bg_verses_checked();
 </script>
 <tr valign="top">
 <th scope="row"><?php _e('Reference links CSS class', 'bg_bibfers' ); ?></th>
@@ -296,6 +311,7 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_interpret', "on");
 	add_option('bg_bibfers_norm_refs');
 	add_option('bg_bibfers_show_verses', "on");
+	add_option('bg_bibfers_verses_lang', "");
 	add_option('bg_bibfers_curl', "on");
 	add_option('bg_bibfers_fgc', "on");
 	add_option('bg_bibfers_fopen', "on");
@@ -316,6 +332,7 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_interpret');
 	delete_option('bg_bibfers_norm_refs');
 	delete_option('bg_bibfers_show_verses');
+	delete_option('bg_bibfers_verses_lang');
 	delete_option('bg_bibfers_curl');
 	delete_option('bg_bibfers_fgc');
 	delete_option('bg_bibfers_fopen');

@@ -100,7 +100,9 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
    чтение и преобразование файла книги
 *******************************************************************************/  
 	if (!$book) return "";
-	$book_file = $pat[$book];																	// Имя файла книги
+    $bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );
+	$bible_lang = (($bg_verses_lang_val=="")?__('ru', 'bg_bibfers' ):$bg_verses_lang_val);
+	$book_file = $bible_lang."/".$pat[$book];		// Имя файла книги
 	if (!$book_file) return "";
 
     $bg_curl_val = get_option( 'bg_bibfers_curl' );
