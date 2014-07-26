@@ -48,7 +48,8 @@ Russian:
 Для настройки вида ссылок используйте класс bg_bibrefs. Вы можете изменить имя класса в настройках.
 
 При наведении курсора мыши на ссылку отображается всплывающая подсказка  содержащая стихи Библии (на русском или украинском языке). 
-Файлы книг Библии взяты с сайта patriarchia.ru и теперь поставляется вместе с плагином. 
+Вы можете выбрать язык отображения стихов Библии в настройках, по умолчанию устанавливается язык WP. 
+Если Вам необходимо переопределить язык для отдельной заметки, создайте для заметки произвольное поле с именем bible_lang  и присвойте ему двухбуквенное обозначение языка (ru - русский, uk - украинский). 
 При отключении этой опции вместо стихов отображается номер главы и номера стихов.
 Для чтения файлов Библии используются PHP cURL или file_get_contents() или fopen(). 
 Плагин пытается загружать файлы Библии этими методами в указанном порядке. 
@@ -59,14 +60,15 @@ Russian:
 
 Если Вы включите опцию 'Преобразовывать ссылки к нормализованному виду', то ссылки на Библию будут заключены в круглые скобки, в них будут удалены лишние пробелы, а названия книг, обозначения глав и стихов будут приведены к стандартному виду, соответствующему восточной традиции.
 
-Самозакрывающийся шорт-код [bible book='Mt' ch='2:3-6' type='verses' /] выводит цитаты из Библии в тексте страницы.
-Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода.
+Самозакрывающийся шорт-код [bible book='Mt' ch='2:3-6' type='verses' lang='ru' /] выводит цитаты из Библии в тексте страницы.
+Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода, lang - язык текста Библии (по умолчанию, язык Библии поста).
 Если  type=’book’, то отображаются наименование книги, заголовки глав и стихи, каждый отдельным абзацем, с указанием его номера.
 Если  type=’verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием номера главы и номера стиха.
 Если  type=’b_verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием короткого названия книги, номера главы и номера стиха.
 Если  type=’t_verses’, то отображаются наименование книги и стихи, каждый отдельным абзацем, с указанием номера главы и номера стиха.
 Если  type=’quote’, то отображаются только стихи без деления их на абзацы.
-Ограждающий шорт-код [bible type='verses']...[/bible] преобразует все ссылки в содержимом в цитаты из Библии.
+Если  type=’link’, то отображается ссылка на Библию.
+Ограждающий шорт-код [bible type='verses' lang='ru']...[/bible] преобразует все ссылки в содержимом в цитаты из Библии.
 При этом параметры book и ch игнорируются. 
 
 Шорт-код [references type='list' separator=', ' list='o' col=1 /] выводит список ссылок на Библию, встречающиеся в статье.
@@ -110,7 +112,8 @@ You can also specify where to open a page with the Bible text  - in new or curre
 To customize the appearance of reference  links, use class bg_bibrefs. You can change the class name in the settings.
 
 When you hover your mouse over the link displayed tooltip containing the Bible verses (in Russian or Ukrainian).
-Bible E-books are taken from the site patriarchia.ru and now comes with the plugin.
+You can change the language for display of the Bible verses in the settings (default - language WP). 
+If you need to override the language for a single post, create a custom field for the post with a name bible_lang  and set it two-letter language code (ru - Russian, uk - Ukrainian).
 If you disable this option, the number of the chapter and verse numbers will displayed instead of verses.
 To read Bible files used PHP-functions cURL or file_get_contents() or fopen(). 
 Plugin tries to read Bible files with one of this methods in the order listed.
@@ -121,14 +124,15 @@ Warning: you can have problem with ajax-requests limiting on the server.
 
 If you enable the 'Convert References to the normalized form', the Bible references will within brackets, there are removed extra spaces, and the book titles, chapters and verses will be have the standard form corresponding to the Eastern tradition.
 
-Self-closing shortcode [bible book = 'Mt' ch = '2 :3-6 'type =' verses' /] displays quotes from the Bible in the text of the page.
+Self-closing shortcode [bible book = 'Mt' ch = '2 :3-6 'type =' verses' lang='ru' /] displays quotes from the Bible in the text of the page.
 Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format.
 If type = 'book', it displays the name of the book, chapter and verse in separate paragraph with verse number.
 If type = 'verses', it displays only the verses in separate paragraph with chapter number and verse number.
 If type = 'b_verses', it displays only the verses in separate paragraph with short book title, chapter number and verse number.
 If type = ’t_verses’, it displays the name of the book and verse in separate paragraph with chapter number and verse number.
 If type = 'quote', it displays only the verses without dividing them into paragraphs.
-Enclosing shortcode [bible type = 'verses'] ... [/ bible] converts all references in content to quotes from the Bible. 
+If type=’link’, it displays Bible reference.
+Enclosing shortcode [bible type = 'verses' lang='ru'] ... [/ bible] converts all references in content to quotes from the Bible. 
 The parameters of the book and ch ignored.
 
 Shortcode [references type = 'list' separator = ',' list = 'o' col = 1 /] displays list of Bible references are finded in the article.
@@ -170,6 +174,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.1 =
+
+* Bible in multiple languages in  blog and posts. 
+* Button expand/hide now at left.
+* Minor bugs fixed.
 
 = 3.0 =
 
@@ -369,6 +379,12 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.1 =
+
+* Bible in multiple languages in  blog and posts. 
+* Button expand/hide now at left.
+* Minor bugs fixed.
 
 = 3.0 =
 

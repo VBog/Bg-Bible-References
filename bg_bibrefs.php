@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: Vadim Bogaiskov
-    Version: 3.0
+    Version: 3.1
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.0');
+define('BG_BIBREFS_VERSION', '3.1');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -53,7 +53,6 @@ function bg_enqueue_frontend_scripts () {
 }
 if ( !is_admin() ) {
 	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' ); 
-
 }
 
 // Загрузка интернационализации
@@ -63,9 +62,7 @@ load_plugin_textdomain( 'bg_bibfers', false, dirname( plugin_basename( __FILE__ 
 include_once('includes/settings.php');
 include_once('includes/references.php');
 include_once('includes/quotes.php');
-$bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );
-$bible_lang = (($bg_verses_lang_val=="")?__('ru', 'bg_bibfers' ):$bg_verses_lang_val);
-include_once('bible/'.$bible_lang.'/books.php');
+
 
 if ( defined('ABSPATH') && defined('WPINC') ) {
 // Регистрируем крючок для обработки контента при его загрузке
@@ -83,7 +80,23 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 // Регистрируем шорт-код no_refs
 	add_shortcode( 'norefs', 'bg_bibfers_norefs' );
 }
- 
+
+/*****************************************************************************************
+	Функции установки языка Библии 
+	
+******************************************************************************************/
+function set_bible_lang() {
+	global $post;
+	$bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );
+	$bible_lang = (($bg_verses_lang_val=="")?__('ru', 'bg_bibfers' ):$bg_verses_lang_val);
+
+	$bible_lang_posts_val = ($post)?get_post_meta($post->ID, 'bible_lang', true):"";
+	if ($bible_lang_posts_val) {
+		$bible_lang = $bible_lang_posts_val;
+	}
+	return $bible_lang;
+}
+
 /*****************************************************************************************
 	Функции запуска плагина
 	
@@ -92,6 +105,7 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 // Функция обработки ссылок на Библию 
 function bg_bibfers($content) {
 	global $post;
+
 	$norefs_posts_val = get_post_meta($post->ID, 'norefs', true);
 	if (!$norefs_posts_val && !in_category( 'norefs' ) && !has_tag( 'norefs' )) $content = bg_bibfers_bible_proc($content);
 	return $content;
@@ -101,12 +115,20 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 	extract( shortcode_atts( array(
 		'book' => '',
 		'ch' => '1-999',
-		'type' => 'verses'
+		'type' => 'verses',
+		'lang' => ''
 	), $atts ) );
 	
 	$book = bg_bibfers_getBook($book);
-	if ($content) $quote = bg_bibfers_bible_proc($content, $type);
-	else if ($book != '') $quote = bg_bibfers_getQuotes($book, $ch, $type);
+	if (!$lang) $lang = set_bible_lang();
+	if ($content) $quote = bg_bibfers_bible_proc($content, $type, $lang);
+	else if ($book != '') {
+		if ($type == 'link') {
+			$addr = bg_bibfers_get_url($book, $ch, $lang);
+			if (strcasecmp($addr, "") != 0) $quote = '('.$addr .bg_bibfers_getshortTitle($book).' '.$ch. "</a></span>".')';
+			else return "";
+		} else $quote = bg_bibfers_getQuotes($book, $ch, $type, $lang);
+	}
 	else return "";
 	if ($quote != "") {
 		$class_val = get_option( 'bg_bibfers_class' );
@@ -191,9 +213,10 @@ function bg_bibrefs_callback() {
 	$chapter = $_GET["chapter"];
 	if (!$chapter) $chapter = '1-999';
 	$type = $_GET["type"];
+	$lang = $_GET["lang"];
 	if (!$type) $type = 'verses';
-	$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer" align="right" width=16 height=16 title1="'.(__('Expand', 'bg_bibfers' )).'" title2="'.(__('Hide', 'bg_bibfers' )).'" />';
-	echo $expand_button.bg_bibfers_getQuotes($title, $chapter, $type); 
+	$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer; margin-right: 8px;" align="left" width=16 height=16 title1="'.(__('Expand', 'bg_bibfers' )).'" title2="'.(__('Hide', 'bg_bibfers' )).'" />';
+	echo $expand_button.bg_bibfers_getQuotes($title, $chapter, $type, $lang); 
 	
 	die();
 }

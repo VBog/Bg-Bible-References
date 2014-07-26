@@ -3,7 +3,7 @@
    Создание контента цитаты 
    Вызывает bg_bibfers_printVerses() - см. ниже
 *******************************************************************************/  
-function bg_bibfers_getQuotes($book, $chapter, $type) {
+function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 
 		$pat = array(						// Таблица соответствия azbyka.ru и patriarhia.ru
 		// Ветхий Завет
@@ -95,15 +95,15 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 		'Hebr'	 	=>'heb',							//'Послание апостола Павла к Евреям', 
 		'Apok'	 	=>'rev');							//'Откровение Иоанна Богослова (Апокалипсис)'
 
+	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle;
+	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 /*******************************************************************************
    Преобразование обозначения книги из формата azbyka.ru в формат patriarhia.ru
    чтение и преобразование файла книги
 *******************************************************************************/  
 	if (!$book) return "";
-    $bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );
-	$bible_lang = (($bg_verses_lang_val=="")?__('ru', 'bg_bibfers' ):$bg_verses_lang_val);
-	$book_file = $bible_lang."/".$pat[$book];		// Имя файла книги
-	if (!$book_file) return "";
+	if (!$pat[$book]) return "";
+	$book_file = 'bible/'.$lang."/".$pat[$book];		// Имя файла книги
 
     $bg_curl_val = get_option( 'bg_bibfers_curl' );
     $bg_fgc_val = get_option( 'bg_bibfers_fgc' );
@@ -112,7 +112,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 // Получаем данные из файла	
 	$code = false;
 	if ($bg_curl_val == 'on' && function_exists('curl_init'))	{							// Попытка1. Если установлен cURL				
-		$url = plugins_url( 'bible/'.$book_file , dirname(__FILE__ ) );							// URL файла
+		$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
 		$ch = curl_init($url);																	// создание нового ресурса cURL
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
 		$code = curl_exec($ch);																	// загрузка текста
@@ -122,12 +122,12 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 	} 
 
 	if ($bg_fgc_val == 'on' && !$code) {													// Попытка2. Если данные не получены попробуем применить file_get_contents()
-		$url = dirname(dirname(__FILE__ )).'/bible/'.$book_file;								// Локальный URL файла
+		$url = dirname(dirname(__FILE__ )).$book_file;											// Локальный URL файла
 		$code = file_get_contents($url);		
 	}
 
 	if ($bg_fopen_val == 'on' && !$code) {													// Попытка 3. Если данные опять не получены попробуем применить fopen() 
-		$url = dirname(dirname(__FILE__ )).'/bible/'.$book_file;								// Локальный URL файла
+		$url = dirname(dirname(__FILE__ )).$book_file;											// Локальный URL файла
 		$ch=fopen($url, "r" );																	// Открываем файл для чтения
 		if($ch)
 		{
@@ -221,7 +221,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 					$sp = $matches[0][0];
 					$chapter = substr($chapter,(int)$matches[0][1]);
 				} else $sp = ""; */
-				$vr1 = 1;
+				$vr1 = 0;
 				$vr2 = 999;
 				if (preg_match("/\\:|\\,/u", $chapter, $matches, PREG_OFFSET_CAPTURE)) {	// Допускается: двоеточие, запятая или <конец строки>
 					$sp = $matches[0][0];
@@ -241,7 +241,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type) {
 				} else $sp = "";
 			} else {
 				$ch2 = $ch1;
-				$vr1 = 1;
+				$vr1 = 0;
 				$vr2 = 999;
 			}
 			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type);
@@ -271,19 +271,26 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 						$verses = $verses."<strong>".__('Chapter', 'bg_bibfers')." ".$ch."</strong><br>";			// Печатаем номер главы
 						$chr = $ch;
 					}
-					$pointer = "<em>".$json[$i]['stix']."</em> ";														// Только номер стиха
+					if ($json[$i]['stix'] == 0) $pointer = "";
+					else $pointer = "<em>".$json[$i]['stix']."</em> ";												// Только номер стиха
 				} else if ($type == 'verses' || $type == 't_verses') { 												// Тип: стихи или стихи с названием книг
-					$pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix']."</em> ";								// Номер главы : номер стиха
+					if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['part']."</em>   ";
+					else $pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix']."</em> ";						// Номер главы : номер стиха
 				} else if ($type == 'b_verses') { 																	// Тип: стихи
-					$pointer = "<em>".$json[$i]['ru_book'].".".$json[$i]['part'].":".$json[$i]['stix']."</em> ";	// Книга. номер главы : номер стиха
+					if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['ru_book'].".".$json[$i]['part']."</em>   ";
+					else $pointer = "<em>".$json[$i]['ru_book'].".".$json[$i]['part'].":".$json[$i]['stix']."</em> ";// Книга. номер главы : номер стиха
 				} else {																							// Тип: цитата
 					$pointer = "";																					// Ничего
 				}
-				$txt = strip_tags($json[$i]['text']);
-				$txt = bg_bibfers_optina($txt, $book, $ch, $vr);
-				$verses = $verses.$pointer.$txt;
-				if ($type == 'quote') {$verses = $verses." ";}														// Если цитата, строку не переводим
-				else {$verses = $verses."<br>";}
+				$txt = trim(strip_tags($json[$i]['text']));
+				if ($txt) {
+					if ($json[$i]['stix'] == 0) $txt = "<strong>".$pointer.$txt."</strong>";
+					else  $txt = $pointer.bg_bibfers_optina($txt, $book, $ch, $vr);
+
+					$verses = $verses.$txt;
+					if ($type == 'quote') {$verses = $verses." ";}													// Если цитата, строку не переводим
+					else {$verses = $verses."<br>";}
+				} 
 		}
 	}
 	return $verses;
