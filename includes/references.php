@@ -55,7 +55,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 				}
 			}
 			$addr = bg_bibfers_get_url($title, $chapter, $lang);
-			if (strcasecmp($addr, "") != 0 && bg_bibfers_check_headers($txt, $matches[0][$i][1]) && bg_bibfers_check_norefs($txt, $matches[0][$i][1])) {
+			if (strcasecmp($addr, "") != 0 && bg_bibfers_check_links($txt, $matches[0][$i][1]) && bg_bibfers_check_headers($txt, $matches[0][$i][1]) && bg_bibfers_check_norefs($txt, $matches[0][$i][1])) {
 				$ref = trim ( $matches[0][$i][0], "\x20\f\t\v\n\r\xA0\xC2" );
 				$book = bg_bibfers_getBook($title);								// Обозначение книги
 				if ($type == '' || $type == 'link') {
@@ -86,6 +86,24 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	}
 	$txt = $text.substr($txt, $start);
 	return $txt;
+}
+/******************************************************************************************
+	Проверяем находится ли указанная позиция текста внутри тега ссылки <a ...</a>,
+    если "да" - возвращаем false, "нет" - true 
+*******************************************************************************************/
+function bg_bibfers_check_links($txt, $pos) {
+
+// Ищем все вхождения ссылок <a ...</a>
+	$headers = "/<a\\s.*?<\/a>/sui";
+	preg_match_all($headers, $txt, $hdr, PREG_OFFSET_CAPTURE);
+	$chrd = count($hdr[0]);
+
+	for ($k = 0; $k < $chrd; $k++) {
+		$start = $hdr[0][$k][1];
+		$finish = $start + strlen($hdr[0][$k][0]);
+		if ($pos >= $start && $pos <= $finish) return false;
+	}
+	return true;
 }
 
 /******************************************************************************************

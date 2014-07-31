@@ -48,9 +48,12 @@ Russian:
 Для настройки вида ссылок используйте класс bg_bibrefs. Вы можете изменить имя класса в настройках.
 
 При наведении курсора мыши на ссылку отображается всплывающая подсказка  содержащая стихи Библии (на русском или украинском языке). 
+При отключении этой опции вместо стихов отображается номер главы и номера стихов.
 Вы можете выбрать язык отображения стихов Библии в настройках, по умолчанию устанавливается язык WP. 
 Если Вам необходимо переопределить язык для отдельной заметки, создайте для заметки произвольное поле с именем bible_lang  и присвойте ему двухбуквенное обозначение языка (ru - русский, uk - украинский). 
-При отключении этой опции вместо стихов отображается номер главы и номера стихов.
+В настройках можно включить опцию позволяющую показывать оригинальные номера стихов в скобках после номера стихов русского Синодального перевода в подсказках и цитатах.
+Стихи, помеченные звездочкой * отсутствуют в оригинальном переводе. * - отображаются всегда!
+
 Для чтения файлов Библии используются PHP cURL или file_get_contents() или fopen(). 
 Плагин пытается загружать файлы Библии этими методами в указанном порядке. 
 Чтобы сделать загрузку более быстрой отключите лишние методы. 
@@ -112,9 +115,12 @@ You can also specify where to open a page with the Bible text  - in new or curre
 To customize the appearance of reference  links, use class bg_bibrefs. You can change the class name in the settings.
 
 When you hover your mouse over the link displayed tooltip containing the Bible verses (in Russian or Ukrainian).
+If you disable this option, the number of the chapter and verse numbers will displayed instead of verses.
 You can change the language for display of the Bible verses in the settings (default - language WP). 
 If you need to override the language for a single post, create a custom field for the post with a name bible_lang  and set it two-letter language code (ru - Russian, uk - Ukrainian).
-If you disable this option, the number of the chapter and verse numbers will displayed instead of verses.
+In the settings you can turn on the option allows you to show the original verse numbers in parentheses after the verse numbers of Russian Synodal Translation in the tooltips and quotes.
+Verses marked with asterisk '*' are absent in the original translation. '*' - always visible!
+
 To read Bible files used PHP-functions cURL or file_get_contents() or fopen(). 
 Plugin tries to read Bible files with one of this methods in the order listed.
 To do the reading faster, disable unnecessary methods in settings - you need one only. 
@@ -174,6 +180,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.2 =
+
+* Added option "Show original verse numbers". 
+* Now disabled highlighting of Bible references in links (tag <a>).
 
 = 3.1 =
 
@@ -379,6 +390,11 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.2 =
+
+* Added option "Show original verse numbers". 
+* Now disabled highlighting of Bible references in links (tag <a>).
 
 = 3.1 =
 

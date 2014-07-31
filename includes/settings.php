@@ -13,16 +13,17 @@ function bg_bibfers_options_page() {
     $g_lang_name = 'bg_bibfers_g_lang';					// Греческий
     $l_lang_name = 'bg_bibfers_l_lang';					// Латинский
     $i_lang_name = 'bg_bibfers_i_lang';					// Иврит
-	
     $c_font_name = 'bg_bibfers_c_font';					// Шрифт для церковно-славянского текста
+
+	$bg_verses_lang = 'bg_bibfers_verses_lang';			// Язык стихов из Библии во всплывающей подсказке
+    $bg_show_fn = 'bg_bibfers_show_fn';					// Отображать оригинальные номера стихов
+
     $target_window = 'bg_bibfers_target';				// Где открыть страницу с текстом Библии
-	
 	$bg_headers = 'bg_bibfers_headers';					// Подсвечивать ссылки в заголовках H1-H6
 	$bg_interpret = 'bg_bibfers_interpret';				// Включить ссылки на толкование Священного Писания
 
 	$bg_norm_refs = 'bg_bibfers_norm_refs';				// Преобразовывать ссылки к нормализованному виду
 	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
-	$bg_verses_lang = 'bg_bibfers_verses_lang';			// Язык стихов из Библии во всплывающей подсказке
 
 	$bg_curl_name = 'bg_bibfers_curl';					// Чтение файлов Библии с помощью cURL
 	$bg_fgc_name = 'bg_bibfers_fgc';					// Чтение файлов Библии с помощью file_get_contents()
@@ -42,16 +43,17 @@ function bg_bibfers_options_page() {
     $g_lang_val = get_option( $g_lang_name );
     $l_lang_val = get_option( $l_lang_name );
     $i_lang_val = get_option( $i_lang_name );
-
     $font_val = get_option( $c_font_name );
-    $target_val = get_option( $target_window );
 
+    $bg_verses_lang_val = get_option( $bg_verses_lang );
+    $bg_show_fn_val = get_option( $bg_show_fn );
+
+    $target_val = get_option( $target_window );
     $bg_headers_val = get_option( $bg_headers );
     $bg_interpret_val = get_option( $bg_interpret );
 
     $bg_norm_refs_val = get_option( $bg_norm_refs );
     $bg_verses_val = get_option( $bg_verses_name );
-    $bg_verses_lang_val = get_option( $bg_verses_lang );
 
     $bg_curl_val = get_option( $bg_curl_name );
     $bg_fgc_val = get_option( $bg_fgc_name );
@@ -84,6 +86,12 @@ function bg_bibfers_options_page() {
 		$font_val = ( isset( $_POST[$c_font_name] ) && $_POST[$c_font_name] ) ? $_POST[$c_font_name] : '' ;
 		update_option( $c_font_name, $font_val );
 
+		$bg_verses_lang_val = ( isset( $_POST[$bg_verses_lang] ) && $_POST[$bg_verses_lang] ) ? $_POST[$bg_verses_lang] : '' ;
+		update_option( $bg_verses_lang, $bg_verses_lang_val );
+
+		$bg_show_fn_val = ( isset( $_POST[$bg_show_fn] ) && $_POST[$bg_show_fn] ) ? $_POST[$bg_show_fn] : '' ;
+		update_option( $bg_show_fn, $bg_show_fn_val );
+
 		$target_val = ( isset( $_POST[$target_window] ) && $_POST[$target_window] ) ? $_POST[$target_window] : '' ;
 		update_option( $target_window, $target_val );
 
@@ -98,9 +106,6 @@ function bg_bibfers_options_page() {
 
 		$bg_verses_val = ( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '' ;
 		update_option( $bg_verses_name, $bg_verses_val );
-
-		$bg_verses_lang_val = ( isset( $_POST[$bg_verses_lang] ) && $_POST[$bg_verses_lang] ) ? $_POST[$bg_verses_lang] : '' ;
-		update_option( $bg_verses_lang, $bg_verses_lang_val );
 
 		$bg_curl_val = ( isset( $_POST[$bg_curl_name] ) && $_POST[$bg_curl_name] ) ? $_POST[$bg_curl_name] : '' ;
 		update_option( $bg_curl_name, $bg_curl_val );
@@ -174,6 +179,11 @@ c_lang_checked();
 	<option <?php if($bg_verses_lang_val=="ru") echo "selected" ?> value="ru"><?php _e('Russian', 'bg_bibfers' ); ?></option>
 	<option <?php if($bg_verses_lang_val=="uk") echo "selected" ?> value="uk"><?php _e('Ukrainian', 'bg_bibfers' ); ?></option>
 </select>
+</td></tr>
+<tr valign="top">
+<th scope="row"><?php _e('Show original verse numbers', 'bg_bibfers' ); ?></th>
+<td>
+<input type="checkbox" id="bg_show_fn" name="<?php echo $bg_show_fn ?>" <?php if($bg_show_fn_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Show the original verse numbers in parentheses after the verse numbers of Russian Synodal Translation in the tooltips and quotes.<br>Verses marked with asterisk * are absent in the original translation. * - always visible!)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
 <tr valign="top">
 <th scope="row"><?php _e('Open links', 'bg_bibfers' ); ?></th>
@@ -306,12 +316,13 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_l_lang');
 	add_option('bg_bibfers_i_lang');
 	add_option('bg_bibfers_c_font', "ucs");
+	add_option('bg_bibfers_verses_lang', "");
+	add_option('bg_bibfers_show_fn', "");
 	add_option('bg_bibfers_target', "_blank");
 	add_option('bg_bibfers_headers', "on");
 	add_option('bg_bibfers_interpret', "on");
 	add_option('bg_bibfers_norm_refs');
 	add_option('bg_bibfers_show_verses', "on");
-	add_option('bg_bibfers_verses_lang', "");
 	add_option('bg_bibfers_curl', "on");
 	add_option('bg_bibfers_fgc', "on");
 	add_option('bg_bibfers_fopen', "on");
@@ -327,12 +338,13 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_l_lang');
 	delete_option('bg_bibfers_i_lang');
 	delete_option('bg_bibfers_c_font');
+	delete_option('bg_bibfers_verses_lang');
+	delete_option('bg_bibfers_show_fn');
 	delete_option('bg_bibfers_target');
 	delete_option('bg_bibfers_headers');
 	delete_option('bg_bibfers_interpret');
 	delete_option('bg_bibfers_norm_refs');
 	delete_option('bg_bibfers_show_verses');
-	delete_option('bg_bibfers_verses_lang');
 	delete_option('bg_bibfers_curl');
 	delete_option('bg_bibfers_fgc');
 	delete_option('bg_bibfers_fopen');
