@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
 "POT-Creation-Date: 2014-08-01 11:32+0400\n"
-"PO-Revision-Date: 2014-08-01 11:33+0400\n"
+"PO-Revision-Date: 2014-08-01 12:11+0400\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
-"Language: ru\n"
+"Language: be_BY\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../bg_bibrefs.php:91
 msgid "ru"
-msgstr "ru"
+msgstr "be"
 
 #: ../bg_bibrefs.php:200
 msgid "Bible References"
@@ -65,23 +65,23 @@ msgstr "Отображать текст Библии на языках:"
 
 #: ../includes/settings.php:151
 msgid "Church Slavic"
-msgstr "Церковно-славянский"
+msgstr "Царкоўна-славянская"
 
 #: ../includes/settings.php:152 ../includes/settings.php:179
 msgid "Russian"
-msgstr "Русский"
+msgstr "Расейская"
 
 #: ../includes/settings.php:153
 msgid "Greek"
-msgstr "Греческий"
+msgstr "Грэчаская"
 
 #: ../includes/settings.php:154
 msgid "Latin"
-msgstr "Латинский"
+msgstr "Лацінская"
 
 #: ../includes/settings.php:155
 msgid "Hebrew"
-msgstr "Иврит"
+msgstr "Iўрыт"
 
 #: ../includes/settings.php:158
 msgid "Font for Church Slavonic text"
@@ -105,15 +105,15 @@ msgstr "Язык ссылок и подсказок"
 
 #: ../includes/settings.php:178
 msgid "Default"
-msgstr "По умолчанию"
+msgstr "Па змаўчанні"
 
 #: ../includes/settings.php:180
 msgid "Ukrainian"
-msgstr "Украинский"
+msgstr "Украінская"
 
 #: ../includes/settings.php:181
 msgid "Belarusian"
-msgstr "Белорусский"
+msgstr "Беларуская"
 
 #: ../includes/settings.php:185
 msgid "Show original verse numbers"

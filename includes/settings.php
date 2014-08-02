@@ -178,6 +178,7 @@ c_lang_checked();
 	<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibfers' ); ?></option>
 	<option <?php if($bg_verses_lang_val=="ru") echo "selected" ?> value="ru"><?php _e('Russian', 'bg_bibfers' ); ?></option>
 	<option <?php if($bg_verses_lang_val=="uk") echo "selected" ?> value="uk"><?php _e('Ukrainian', 'bg_bibfers' ); ?></option>
+	<option <?php if($bg_verses_lang_val=="be") echo "selected" ?> value="be"><?php _e('Belarusian', 'bg_bibfers' ); ?></option>
 </select>
 </td></tr>
 <tr valign="top">

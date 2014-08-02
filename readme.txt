@@ -181,6 +181,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.3 =
+
+* Added Four Gospels in the Belarusian language.
+
 = 3.2 =
 
 * Added option "Show original verse numbers". 
@@ -390,6 +394,10 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.3 =
+
+* Added Four Gospels in the Belarusian language.
 
 = 3.2 =
 
