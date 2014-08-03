@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: Vadim Bogaiskov
-    Version: 3.3
+    Version: 3.3.1
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.3');
+define('BG_BIBREFS_VERSION', '3.3.1');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -87,8 +87,12 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 ******************************************************************************************/
 function set_bible_lang() {
 	global $post;
+	$blog_lang = substr(get_bloginfo('language'), 0, 2);
+	$file_books = dirname( __FILE__ ).'/bible/'.$blog_lang.'/books.php';
+	if (!file_exists($file_books)) $blog_lang = 'ru';	// По умолчанию русский язык
+
 	$bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );
-	$bible_lang = (($bg_verses_lang_val=="")?__('ru', 'bg_bibfers' ):$bg_verses_lang_val);
+	$bible_lang = (($bg_verses_lang_val=="")?$blog_lang:$bg_verses_lang_val);
 	
 	$bible_lang_posts_val = ($post)?get_post_meta($post->ID, 'bible_lang', true):"";
 	if ($bible_lang_posts_val) {
@@ -223,4 +227,65 @@ function bg_bibrefs_callback() {
 function get_plugin_version() {
 	$plugin_data = get_plugin_data( __FILE__  );
 	return $plugin_data['Version'];
+}
+
+/*****************************************************************************************
+	Добавляем блок в основную колонку на страницах постов и пост. страниц 
+	
+******************************************************************************************/
+add_action('admin_init', 'bg_bibfers_extra_fields', 1);
+// Создание блока
+function bg_bibfers_extra_fields() {
+    add_meta_box( 'bg_bibfers_extra_fields', __('Bible References', 'bg_bibfers'), 'bg_bibfers_extra_fields_box_func', 'post', 'normal', 'high'  );
+}
+// Добавление полей
+function bg_bibfers_extra_fields_box_func( $post ){
+?>
+	<label for="bg_verses_lang">'<?php _e("Language of references and tooltips", 'bg_bibfers' ); ?></label>
+		<select id="bg_verses_lang" name="bg_bibfers_extra[bible_lang]" />
+		<?php $bg_verses_lang_val = get_post_meta($post->ID, 'bible_lang', 1); ?>
+			<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibfers' ); ?></option>
+			<?php $path = dirname( __FILE__ ).'/bible/';
+			if ($handle = opendir($path)) {
+				while (false !== ($dir = readdir($handle))) { 
+					if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+						include ($path.$dir.'/books.php');
+						echo "<option ";
+						if($bg_verses_lang_val==$dir) echo "selected";
+						echo " value=".$dir.">".$bg_bibfers_lang_name."</option>\n";
+					}
+				}
+				closedir($handle); 
+			} ?>
+		</select>
+	&nbsp;
+	<label for="bg_verses_lang">'<?php _e("Ban to highlight references", 'bg_bibfers' ); ?></label>
+		<select id="bg_norefs" name="bg_bibfers_extra[norefs]" />
+		<?php $bg_norefs_val = get_post_meta($post->ID, 'norefs', 1); ?>
+			<option <?php if($bg_norefs_val=="") echo "selected" ?> value=""><?php _e('Off', 'bg_bibfers' ); ?></option>
+			<option <?php if($bg_norefs_val=="on") echo "selected" ?> value="on"><?php _e('On', 'bg_bibfers' ); ?></option>
+		</select>
+	
+    <input type="hidden" name="bg_bibfers_extra_fields_nonce" value="<?php echo wp_create_nonce(__FILE__); ?>" />
+<?php
+}
+// Сохранение значений произвольных полей при автосохранении поста
+add_action('save_post', 'bg_bibfers_extra_fields_update', 0);
+
+// Сохранение значений произвольных полей при сохранении поста
+function bg_bibfers_extra_fields_update( $post_id ){
+    if ( !wp_verify_nonce($_POST['bg_bibfers_extra_fields_nonce'], __FILE__) ) return false;
+    if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE  ) return false;
+    if ( !current_user_can('edit_post', $post_id) ) return false;
+
+    if( !isset($_POST['bg_bibfers_extra']) ) return false; 
+
+    $_POST['bg_bibfers_extra'] = array_map('trim', $_POST['bg_bibfers_extra']);
+    foreach( $_POST['bg_bibfers_extra'] as $key=>$value ){
+        if( empty($value) )
+            continue delete_post_meta($post_id, $key);
+
+        update_post_meta($post_id, $key, $value);
+    }
+    return $post_id;
 }
