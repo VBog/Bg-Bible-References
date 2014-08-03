@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
 "POT-Creation-Date: 2014-08-03 19:21+0400\n"
-"PO-Revision-Date: 2014-08-03 19:26+0400\n"
+"PO-Revision-Date: 2014-08-03 22:59+0400\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: uk_UA\n"
@@ -44,11 +44,11 @@ msgstr "Заборона підсвічування посилань"
 
 #: ../bg_bibrefs.php:265
 msgid "Off"
-msgstr "Вимкнути"
+msgstr "Відкл."
 
 #: ../bg_bibrefs.php:266
 msgid "On"
-msgstr "Увімкнути"
+msgstr "Вкл."
 
 #: ../includes/quotes.php:319
 msgid "Click to go to interpretation"
