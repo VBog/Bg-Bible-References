@@ -241,7 +241,7 @@ function bg_bibfers_extra_fields() {
 // Добавление полей
 function bg_bibfers_extra_fields_box_func( $post ){
 ?>
-	<label for="bg_verses_lang">'<?php _e("Language of references and tooltips", 'bg_bibfers' ); ?></label>
+	<label for="bg_verses_lang">'<?php _e('Language of references and tooltips', 'bg_bibfers' ); ?></label>
 		<select id="bg_verses_lang" name="bg_bibfers_extra[bible_lang]" />
 		<?php $bg_verses_lang_val = get_post_meta($post->ID, 'bible_lang', 1); ?>
 			<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibfers' ); ?></option>
@@ -259,7 +259,7 @@ function bg_bibfers_extra_fields_box_func( $post ){
 			} ?>
 		</select>
 	&nbsp;
-	<label for="bg_verses_lang">'<?php _e("Ban to highlight references", 'bg_bibfers' ); ?></label>
+	<label for="bg_norefs">'<?php _e('Ban to highlight references', 'bg_bibfers' ); ?></label>
 		<select id="bg_norefs" name="bg_bibfers_extra[norefs]" />
 		<?php $bg_norefs_val = get_post_meta($post->ID, 'norefs', 1); ?>
 			<option <?php if($bg_norefs_val=="") echo "selected" ?> value=""><?php _e('Off', 'bg_bibfers' ); ?></option>
@@ -274,6 +274,8 @@ add_action('save_post', 'bg_bibfers_extra_fields_update', 0);
 
 // Сохранение значений произвольных полей при сохранении поста
 function bg_bibfers_extra_fields_update( $post_id ){
+
+	if (!isset ($_POST['bg_bibfers_extra_fields_nonce']) ) return false;
     if ( !wp_verify_nonce($_POST['bg_bibfers_extra_fields_nonce'], __FILE__) ) return false;
     if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE  ) return false;
     if ( !current_user_can('edit_post', $post_id) ) return false;
@@ -282,9 +284,10 @@ function bg_bibfers_extra_fields_update( $post_id ){
 
     $_POST['bg_bibfers_extra'] = array_map('trim', $_POST['bg_bibfers_extra']);
     foreach( $_POST['bg_bibfers_extra'] as $key=>$value ){
-        if( empty($value) )
-            continue delete_post_meta($post_id, $key);
-
+        if( empty($value) ) {
+            delete_post_meta($post_id, $key);
+			continue;
+		}
         update_post_meta($post_id, $key, $value);
     }
     return $post_id;
