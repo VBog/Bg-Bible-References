@@ -144,7 +144,7 @@ function bg_bibfers_options_page() {
 <table class="form-table">
 
 <tr valign="top">
-<th scope="row"><?php printf(__('Languages of the Bible text on', 'bg_bibfers' ).' <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>'); ?></th>
+<th scope="row"><?php _e('Display text of the Bible in languages:', 'bg_bibfers' ); ?></th>
 <td>
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
@@ -176,20 +176,9 @@ c_lang_checked();
 <td>
 <select id="bg_verses_lang" name="<?php echo $bg_verses_lang ?>"> 
 	<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibfers' ); ?></option>
-	<?php
-		$path = dirname(dirname( __FILE__ )).'/bible/';
-		if ($handle = opendir($path)) {
-			while (false !== ($dir = readdir($handle))) { 
-				if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
-					include ($path.$dir.'/books.php');
-					echo "<option ";
-					if($bg_verses_lang_val==$dir) echo "selected";
-					echo " value=".$dir.">".$bg_bibfers_lang_name."</option>\n";
-				}
-			}
-			closedir($handle); 
-		}
-	?>
+	<option <?php if($bg_verses_lang_val=="ru") echo "selected" ?> value="ru"><?php _e('Russian', 'bg_bibfers' ); ?></option>
+	<option <?php if($bg_verses_lang_val=="uk") echo "selected" ?> value="uk"><?php _e('Ukrainian', 'bg_bibfers' ); ?></option>
+	<option <?php if($bg_verses_lang_val=="be") echo "selected" ?> value="be"><?php _e('Belarusian', 'bg_bibfers' ); ?></option>
 </select>
 </td></tr>
 <tr valign="top">

@@ -8,7 +8,7 @@
 	if (!$type) $type = 'verses';
 // Подключаем WP и данные плагина	
 	include_once (realpath (substr(__FILE__, 0, strpos(__FILE__, 'wp-content')).'wp-blog-header.php'));
-	include_once ('../../includes/quotes.php');
+	include_once ('../includes/quotes.php');
     $class_val = get_option( 'bg_bibfers_class' );
 	if ($class_val == "") $class_val = 'bg_bibfers';
 // Формируем страницу

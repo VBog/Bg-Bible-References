@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2014-08-03 19:17+0400\n"
-"PO-Revision-Date: 2014-08-03 19:18+0400\n"
+"POT-Creation-Date: 2014-08-01 11:32+0400\n"
+"PO-Revision-Date: 2014-08-01 12:11+0400\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: be_BY\n"
@@ -18,41 +18,34 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../bg_bibrefs.php:204 ../bg_bibrefs.php:239
+#: ../bg_bibrefs.php:91
+msgid "ru"
+msgstr "be"
+
+#: ../bg_bibrefs.php:200
 msgid "Bible References"
 msgstr "Ссылки на Библию"
 
-#: ../bg_bibrefs.php:222
+#: ../bg_bibrefs.php:218
 msgid "Expand"
 msgstr "Развернуть"
 
-#: ../bg_bibrefs.php:222
+#: ../bg_bibrefs.php:218
 msgid "Hide"
 msgstr "Скрыть"
 
-#: ../bg_bibrefs.php:244 ../includes/settings.php:175
-msgid "Language of references and tooltips"
-msgstr "Язык ссылок и подсказок"
+#: ../includes/quotes.php:277
+msgid "Chapter"
+msgstr "Глава"
 
-#: ../bg_bibrefs.php:247 ../includes/settings.php:178
-msgid "Default"
-msgstr "Па змаўчанні"
-
-#: ../bg_bibrefs.php:262
-msgid "Ban to highlight references"
-msgstr "Запрет подсветки ссылок"
-
-#: ../bg_bibrefs.php:265
-msgid "Off"
-msgstr "Откл."
-
-#: ../bg_bibrefs.php:266
-msgid "On"
-msgstr "Вкл."
-
-#: ../includes/quotes.php:319
+#: ../includes/quotes.php:406
 msgid "Click to go to interpretation"
 msgstr "Щелкните, чтобы перейти к толкованию"
+
+# chapter
+#: ../includes/references.php:195
+msgid "ch. "
+msgstr "гл. "
 
 #: ../includes/settings.php:126
 msgid "Options saved."
@@ -67,14 +60,14 @@ msgid "Version"
 msgstr "Версия"
 
 #: ../includes/settings.php:147
-msgid "Languages of the Bible text on"
-msgstr "Языки текста Библии на "
+msgid "Display text of the Bible in languages:"
+msgstr "Отображать текст Библии на языках:"
 
 #: ../includes/settings.php:151
 msgid "Church Slavic"
 msgstr "Царкоўна-славянская"
 
-#: ../includes/settings.php:152
+#: ../includes/settings.php:152 ../includes/settings.php:179
 msgid "Russian"
 msgstr "Расейская"
 
@@ -106,11 +99,27 @@ msgstr "Русские буквы (\"Старый\" стиль)"
 msgid "HIP-standard"
 msgstr "HIP-стандарт"
 
-#: ../includes/settings.php:196
+#: ../includes/settings.php:175
+msgid "Language of references and tooltips"
+msgstr "Язык ссылок и подсказок"
+
+#: ../includes/settings.php:178
+msgid "Default"
+msgstr "Па змаўчанні"
+
+#: ../includes/settings.php:180
+msgid "Ukrainian"
+msgstr "Украінская"
+
+#: ../includes/settings.php:181
+msgid "Belarusian"
+msgstr "Беларуская"
+
+#: ../includes/settings.php:185
 msgid "Show original verse numbers"
 msgstr "Отображать оригинальные номера стихов"
 
-#: ../includes/settings.php:198
+#: ../includes/settings.php:187
 msgid ""
 "<br><i>(Show the original verse numbers in parentheses after the verse "
 "numbers of Russian Synodal Translation in the tooltips and quotes.<br>Verses "
@@ -122,43 +131,43 @@ msgstr ""
 "звездочкой * отсутствуют в оригинальном переводе. * - отображаются всегда!)</"
 "i>"
 
-#: ../includes/settings.php:201
+#: ../includes/settings.php:190
 msgid "Open links"
 msgstr "Открывать ссылки"
 
-#: ../includes/settings.php:203
+#: ../includes/settings.php:192
 msgid "in new window"
 msgstr "в новом окне"
 
-#: ../includes/settings.php:204
+#: ../includes/settings.php:193
 msgid "in current window"
 msgstr "в текущем окне"
 
-#: ../includes/settings.php:207
+#: ../includes/settings.php:196
 msgid "Highlight references in the headers H1...H6"
 msgstr "Подсвечивать ссылки в заголовках  H1...H6"
 
-#: ../includes/settings.php:212
+#: ../includes/settings.php:201
 msgid "Enable links to the interpretation of the Holy Scriptures"
 msgstr "Включить ссылки на толкования Священного Писания"
 
-#: ../includes/settings.php:214
+#: ../includes/settings.php:203
 msgid "<br><i>(Tooltips and Short Codes)</i>"
 msgstr "<br><i>(Всплывающая подсказка и Шорт-коды)</i>"
 
-#: ../includes/settings.php:218
+#: ../includes/settings.php:207
 msgid "Additional options..."
 msgstr "Дополнительные параметры..."
 
-#: ../includes/settings.php:232
+#: ../includes/settings.php:221
 msgid "Convert references to the normalized form"
 msgstr "Преобразовывать ссылки к нормализованному виду"
 
-#: ../includes/settings.php:237
+#: ../includes/settings.php:226
 msgid "Show Bible verses in popup"
 msgstr "Отображать стихи из Библии во всплывающей подсказке"
 
-#: ../includes/settings.php:239
+#: ../includes/settings.php:228
 msgid ""
 "<br><i>(If this option is disabled or data are not received from the server,"
 "<br>popup showing the Bible book title, chapter number and verse numbers)</i>"
@@ -167,11 +176,11 @@ msgstr ""
 "всплывающей подсказке отображаются название книги Библии, номер главы и "
 "номера стихов)</i>"
 
-#: ../includes/settings.php:243
+#: ../includes/settings.php:232
 msgid "Preload Bible verses in tooltips"
 msgstr "Предварительно загружать стихи из Библии во всплывающие подсказки"
 
-#: ../includes/settings.php:245
+#: ../includes/settings.php:234
 msgid ""
 "<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a "
 "problem with ajax-requests limiting on the server.)</i>"
@@ -179,11 +188,11 @@ msgstr ""
 "<br><i>(Попробуйте эту опцию на медленном сервере.<br><u>Внимание:</u> Могут "
 "возникнуть проблемы, связанные с ограничением ajax-запросов на сервере.)</i>"
 
-#: ../includes/settings.php:260
+#: ../includes/settings.php:249
 msgid "Method of reading files"
 msgstr "Метод чтения файлов"
 
-#: ../includes/settings.php:265
+#: ../includes/settings.php:254
 msgid ""
 "<i>(Plugin tries to read Bible files with marked methods in the order listed."
 "<br>To do the reading faster, disable unnecessary methods - you need one "
@@ -195,19 +204,19 @@ msgstr ""
 "<br><u>Внимание:</u> Некоторые методы могут быть недоступны на Вашем "
 "сервере.)"
 
-#: ../includes/settings.php:281
+#: ../includes/settings.php:270
 msgid "Reference links CSS class"
 msgstr "CSS класс для ссылок на Библию"
 
-#: ../includes/settings.php:286
+#: ../includes/settings.php:275
 msgid "Update Options"
 msgstr "Обновить настройки"
 
-#: ../includes/settings.php:298
+#: ../includes/settings.php:287
 msgid "Thanks for using Bg Biblie References"
 msgstr "Спасибо за использование плагина Ссылки на Библию"
 
-#: ../includes/settings.php:300
+#: ../includes/settings.php:289
 msgid ""
 "Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope "
 "it is useful for your site."
@@ -215,19 +224,19 @@ msgstr ""
 "Дорогие братия и сестры!<br />Спасибо за использование моего плагина ! Я "
 "надеюсь, что он оказался полезен для Вашего сайта."
 
-#: ../includes/settings.php:301
+#: ../includes/settings.php:290
 msgid "Vadim Bogaiskov"
 msgstr "Вадим Богайсков"
 
-#: ../includes/settings.php:303
+#: ../includes/settings.php:292
 msgid "I like this plugin<br>– how can I thank you?"
 msgstr "Мне нравится этот плагин<br> - как я могу отблагодарить Вас?"
 
-#: ../includes/settings.php:304
+#: ../includes/settings.php:293
 msgid "There are several ways for you to say thanks:"
 msgstr "Есть несколько возможностей, чтобы сказать спасибо:"
 
-#: ../includes/settings.php:306
+#: ../includes/settings.php:295
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
@@ -236,7 +245,7 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Сделать пожертвование</a> на "
 "строительство храма свв. Петра и Февронии в Марьино"
 
-#: ../includes/settings.php:307
+#: ../includes/settings.php:296
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give 5 stars</a> over at the WordPress "
@@ -245,20 +254,20 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Поставьте 5 звезд</a> в каталоге "
 "плагинов  WordPress"
 
-#: ../includes/settings.php:308
+#: ../includes/settings.php:297
 msgid "Share infotmation or make a nice blog post about the plugin"
 msgstr "Распространить информацию или написать заметку в Вашем блоге о плагине"
 
-#: ../includes/settings.php:310
+#: ../includes/settings.php:299
 msgid "Bg Bible References really cool plugin for Orthodox WordPress sites"
 msgstr ""
 "Bg Bible References - отличный плагин для православных сайтов на  WordPress"
 
-#: ../includes/settings.php:313
+#: ../includes/settings.php:302
 msgid "Support"
 msgstr "Поддержка"
 
-#: ../includes/settings.php:314
+#: ../includes/settings.php:303
 #, php-format
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
@@ -267,15 +276,721 @@ msgstr ""
 "См. <a href=\"%1$s\" target=\"_blank\">форум поддержки</a> или мой <a href="
 "\"%2$s\" target=\"_blank\">персональный сайт</a> для получения справки."
 
-#: ../includes/settings.php:316
+#: ../includes/settings.php:305
 msgid "God protect you!"
 msgstr "Храни вас Господи!"
 
-#~ msgid "Display text of the Bible in languages:"
-#~ msgstr "Отображать текст Библии на языках:"
+#~ msgid "Gen"
+#~ msgstr "Быт"
 
-#~ msgid "ru"
-#~ msgstr "be"
+#~ msgid "Ex"
+#~ msgstr "Исх"
 
-#~ msgid "Chapter"
-#~ msgstr "Глава"
+#~ msgid "Lev"
+#~ msgstr "Лев"
+
+#~ msgid "Num"
+#~ msgstr "Числ|Чис"
+
+#~ msgid "Deut"
+#~ msgstr "Втор"
+
+#~ msgid "Nav"
+#~ msgstr "Нав|ИсНав"
+
+#~ msgid "Judg"
+#~ msgstr "Судей|Суд"
+
+#~ msgid "Rth"
+#~ msgstr "Руфь|Руф"
+
+#~ msgid "1Sam"
+#~ msgstr "1Цар|1Сам"
+
+#~ msgid "2Sam"
+#~ msgstr "2Цар|2Сам"
+
+#~ msgid "1King"
+#~ msgstr "3Цар|1Царей"
+
+#~ msgid "2King"
+#~ msgstr "4Цар|2Царей"
+
+#~ msgid "1Chron"
+#~ msgstr "1Пар|1Хр|1Хрон|1Лет"
+
+#~ msgid "2Chron"
+#~ msgstr "2Пар|2Хр|2Хрон|2Лет"
+
+#~ msgid "Ezr"
+#~ msgstr "1Ездр|1Езд|Ездр|Езд"
+
+#~ msgid "Nehem"
+#~ msgstr "Неем"
+
+#~ msgid "Est"
+#~ msgstr "Есф|Эсф"
+
+#~ msgid "Job"
+#~ msgstr "Иов"
+
+#~ msgid "Ps"
+#~ msgstr "Псал|Пс"
+
+#~ msgid "Prov"
+#~ msgstr "Притчи|Притч|Прит"
+
+#~ msgid "Eccl"
+#~ msgstr "Еккл"
+
+#~ msgid "Song"
+#~ msgstr "Песн"
+
+#~ msgid "Is"
+#~ msgstr "Исаи|Ис"
+
+#~ msgid "Jer"
+#~ msgstr "Иер"
+
+#~ msgid "Lam"
+#~ msgstr "Плч|Плач"
+
+#~ msgid "Ezek"
+#~ msgstr "Иез"
+
+#~ msgid "Dan"
+#~ msgstr "Дан"
+
+#~ msgid "Hos"
+#~ msgstr "Осии|Ос"
+
+#~ msgid "Joel"
+#~ msgstr "Иоиль|Иоил"
+
+#~ msgid "Am"
+#~ msgstr "Амос|Ам"
+
+#~ msgid "Avd"
+#~ msgstr "Авд"
+
+#~ msgid "Jona"
+#~ msgstr "Иона|Ион"
+
+#~ msgid "Mic"
+#~ msgstr "Мих"
+
+#~ msgid "Naum"
+#~ msgstr "Наум"
+
+#~ msgid "Habak"
+#~ msgstr "Авв"
+
+#~ msgid "Sofon"
+#~ msgstr "Соф"
+
+#~ msgid "Hag"
+#~ msgstr "Агг|Аг"
+
+#~ msgid "Zah"
+#~ msgstr "Зах"
+
+#~ msgid "Mal"
+#~ msgstr "Мал"
+
+#~ msgid "1Mac"
+#~ msgstr "1Мак"
+
+#~ msgid "2Mac"
+#~ msgstr "2Мак"
+
+#~ msgid "3Mac"
+#~ msgstr "3Мак"
+
+#~ msgid "Bar"
+#~ msgstr "Вар"
+
+#~ msgid "2Ezr"
+#~ msgstr "2Ездр|2Езд"
+
+#~ msgid "3Ezr"
+#~ msgstr "3Ездр|3Езд"
+
+#~ msgid "Judf"
+#~ msgstr "Иудифь|Иудиф"
+
+#~ msgid "pJer"
+#~ msgstr "ПослИер|Посл\\.Иер"
+
+#~ msgid "Solom"
+#~ msgstr "Прем|ПремСол"
+
+#~ msgid "Sir"
+#~ msgstr "Сирах|Сир"
+
+#~ msgid "Tov"
+#~ msgstr "Товит|Тов"
+
+#~ msgid "Mt"
+#~ msgstr "Мф|Мт|Матф"
+
+#~ msgid "Mk"
+#~ msgstr "Мк|Мр|Марк|Мар"
+
+#~ msgid "Lk"
+#~ msgstr "Лк|Луки|Лук"
+
+#~ msgid "Jn"
+#~ msgstr "Ин|Иоан"
+
+#~ msgid "Act"
+#~ msgstr "Деяния|Деян"
+
+#~ msgid "Jac"
+#~ msgstr "Иаков|Иак"
+
+#~ msgid "1Pet"
+#~ msgstr "1Петра|1Пет"
+
+#~ msgid "2Pet"
+#~ msgstr "2Петра|2Пет"
+
+#~ msgid "1Jn"
+#~ msgstr "1Ин|1Иоан"
+
+#~ msgid "2Jn"
+#~ msgstr "2Ин|2Иоан"
+
+#~ msgid "3Jn"
+#~ msgstr "3Ин|3Иоан"
+
+#~ msgid "Juda"
+#~ msgstr "Иуда|Иуд"
+
+#~ msgid "Rom"
+#~ msgstr "Римл|Рим"
+
+#~ msgid "1Cor"
+#~ msgstr "1Кор"
+
+#~ msgid "2Cor"
+#~ msgstr "2Кор"
+
+#~ msgid "Gal"
+#~ msgstr "Гал"
+
+#~ msgid "Eph"
+#~ msgstr "Ефес|Еф"
+
+#~ msgid "Phil"
+#~ msgstr "Флп|Филип|Фил"
+
+#~ msgid "Col"
+#~ msgstr "Кол"
+
+#~ msgid "1Thes"
+#~ msgstr "1Сол|1Фес"
+
+#~ msgid "2Thes"
+#~ msgstr "2Сол|2Фес"
+
+#~ msgid "1Tim"
+#~ msgstr "1Тим"
+
+#~ msgid "2Tim"
+#~ msgstr "2Тим"
+
+#~ msgid "Tit"
+#~ msgstr "Тит"
+
+#~ msgid "Phlm"
+#~ msgstr "Флм|Филим"
+
+#~ msgid "Hebr"
+#~ msgstr "Евр"
+
+#~ msgid "Apok"
+#~ msgstr "Откр|Отк|Апок"
+
+#~ msgid "Genesis"
+#~ msgstr "Книга Бытия"
+
+#~ msgid "Exodus"
+#~ msgstr "Книга Исход"
+
+#~ msgid "Leviticus"
+#~ msgstr "Книга Левит"
+
+#~ msgid "Numbers"
+#~ msgstr "Книга Числа"
+
+#~ msgid "Deuteronomy"
+#~ msgstr "Второзаконие"
+
+#~ msgid "Joshua (Iesous)"
+#~ msgstr "Книга Иисуса Навина"
+
+#~ msgid "Judges"
+#~ msgstr "Книга Судей Израилевых"
+
+#~ msgid "Ruth"
+#~ msgstr "Книга Руфь"
+
+#~ msgid "1 Samuel (1 Kingdoms)"
+#~ msgstr "Первая книга Царств (Первая книга Самуила)"
+
+#~ msgid "2 Samuel (2 Kingdoms)"
+#~ msgstr "Вторая книга Царств (Вторая книга Самуила)"
+
+#~ msgid "1 Kings (3 Kingdoms)"
+#~ msgstr "Третья книга Царств (Первая книга Царей)"
+
+#~ msgid "2 Kings (4 Kingdoms)"
+#~ msgstr "Четвёртая книга Царств (Вторая книга Царей)"
+
+#~ msgid "1 Chronicles (1 Paralipomenon)"
+#~ msgstr "Первая книга Паралипоменон (Первая книга Хроник, Первая Летопись)"
+
+#~ msgid "2 Chronicles (2 Paralipomenon)"
+#~ msgstr "Вторая книга Паралипоменон (Вторая книга Хроник, Вторая Летопись)"
+
+#~ msgid "1 Esdras"
+#~ msgstr "Книга Ездры (Первая книга Ездры)"
+
+#~ msgid "Nehemiah (2 Esdras)"
+#~ msgstr "Книга Неемии"
+
+#~ msgid "Esther"
+#~ msgstr "Книга Есфири"
+
+#~ msgid "Job "
+#~ msgstr "Книга Иова"
+
+#~ msgid "Psalms"
+#~ msgstr "Псалтирь"
+
+#~ msgid "Proverbs"
+#~ msgstr "Книга Притчей Соломоновых"
+
+#~ msgid "Ecclesiastes"
+#~ msgstr "Книга Екклезиаста, или Проповедника"
+
+#~ msgid "Song of Songs (Aisma Aismaton)"
+#~ msgstr "Песнь песней Соломона"
+
+#~ msgid "Isaiah"
+#~ msgstr "Книга пророка Исайи"
+
+#~ msgid "Jeremiah"
+#~ msgstr "Книга пророка Иеремии"
+
+#~ msgid "Lamentations"
+#~ msgstr "Книга Плач Иеремии"
+
+#~ msgid "Ezekiel"
+#~ msgstr "Книга пророка Иезекииля"
+
+#~ msgid "Daniel"
+#~ msgstr "Книга пророка Даниила"
+
+#~ msgid "Hosea"
+#~ msgstr "Книга пророка Осии"
+
+#~ msgid "Joel "
+#~ msgstr "Книга пророка Иоиля"
+
+#~ msgid "Amos"
+#~ msgstr "Книга пророка Амоса"
+
+#~ msgid "Obadiah"
+#~ msgstr "Книга пророка Авдия"
+
+#~ msgid "Jonah"
+#~ msgstr "Книга пророка Ионы"
+
+#~ msgid "Micah"
+#~ msgstr "Книга пророка Михея"
+
+#~ msgid "Nahum"
+#~ msgstr "Книга пророка Наума"
+
+#~ msgid "Habakkuk"
+#~ msgstr "Книга пророка Аввакума"
+
+#~ msgid "Zephaniah"
+#~ msgstr "Книга пророка Софонии"
+
+#~ msgid "Haggai"
+#~ msgstr "Книга пророка Аггея"
+
+#~ msgid "Zechariah"
+#~ msgstr "Книга пророка Захарии"
+
+#~ msgid "Malachi"
+#~ msgstr "Книга пророка Малахии"
+
+#~ msgid "1 Maccabees"
+#~ msgstr "Первая книга Маккавейская"
+
+#~ msgid "2 Maccabees"
+#~ msgstr "Вторая книга Маккавейская"
+
+#~ msgid "3 Maccabees"
+#~ msgstr "Третья книга Маккавейская"
+
+#~ msgid "Baruch"
+#~ msgstr "Книга пророка Варуха"
+
+#~ msgid "2 Esdras"
+#~ msgstr "Вторая книга Ездры"
+
+#~ msgid "3 Esdras"
+#~ msgstr "Третья книга Ездры"
+
+#~ msgid "Judith"
+#~ msgstr "Книга Иудифи"
+
+#~ msgid "Letter of Jeremiah"
+#~ msgstr "Послание Иеремии"
+
+#~ msgid "Wisdom"
+#~ msgstr "Книга Премудрости Соломона"
+
+#~ msgid "Sirach"
+#~ msgstr "Книга Премудрости Иисуса, сына Сирахова"
+
+#~ msgid "Tobit (Tobias)"
+#~ msgstr "Книга Товита"
+
+#~ msgid "Matthew"
+#~ msgstr "Евангелие от Матфея"
+
+#~ msgid "Mark"
+#~ msgstr "Евангелие от Марка"
+
+#~ msgid "Luke"
+#~ msgstr "Евангелие от Луки"
+
+#~ msgid "John"
+#~ msgstr "Евангелие от Иоанна"
+
+#~ msgid "Acts"
+#~ msgstr "Деяния святых Апостолов"
+
+#~ msgid "James"
+#~ msgstr "Послание Иакова"
+
+#~ msgid "1 Peter"
+#~ msgstr "Первое послание Петра"
+
+#~ msgid "2 Peter"
+#~ msgstr "Второе послание Петра"
+
+#~ msgid "1 John"
+#~ msgstr "Первое послание Иоанна"
+
+#~ msgid "2 John"
+#~ msgstr "Второе послание Иоанна"
+
+#~ msgid "3 John"
+#~ msgstr "Третье послание Иоанна"
+
+#~ msgid "Jude"
+#~ msgstr "Послание Иуды"
+
+#~ msgid "Romans"
+#~ msgstr "Послание апостола Павла к Римлянам"
+
+#~ msgid "1 Corinthians"
+#~ msgstr "Первое послание апостола Павла к Коринфянам"
+
+#~ msgid "2 Corinthians"
+#~ msgstr "Второе послание апостола Павла к Коринфянам"
+
+#~ msgid "Galatians"
+#~ msgstr "Послание апостола Павла к Галатам"
+
+#~ msgid "Ephesians"
+#~ msgstr "Послание апостола Павла к Ефесянам"
+
+#~ msgid "Philippians"
+#~ msgstr "Послание апостола Павла к Филиппийцам"
+
+#~ msgid "Colossians"
+#~ msgstr "Послание апостола Павла к Колоссянам"
+
+#~ msgid "1 Thessalonians"
+#~ msgstr "Первое послание апостола Павла к Фессалоникийцам (Солунянам)"
+
+#~ msgid "2 Thessalonians"
+#~ msgstr "Второе послание апостола Павла к Фессалоникийцам (Солунянам)"
+
+#~ msgid "1 Timothy"
+#~ msgstr "Первое послание апостола Павла к Тимофею"
+
+#~ msgid "2 Timothy"
+#~ msgstr "Второе послание апостола Павла к Тимофею"
+
+#~ msgid "Titus"
+#~ msgstr "Послание апостола Павла к Титу"
+
+#~ msgid "Philemon"
+#~ msgstr "Послание апостола Павла к Филимону"
+
+#~ msgid "Hebrews"
+#~ msgstr "Послание апостола Павла к Евреям"
+
+#~ msgid "Revelation"
+#~ msgstr "Откровение Иоанна Богослова (Апокалипсис)"
+
+#~ msgid "Gen."
+#~ msgstr "Быт."
+
+#~ msgid "Ex."
+#~ msgstr "Исх."
+
+#~ msgid "Lev."
+#~ msgstr "Лев."
+
+#~ msgid "Num."
+#~ msgstr "Чис."
+
+#~ msgid "Deut."
+#~ msgstr "Втор."
+
+#~ msgid "Nav."
+#~ msgstr "Нав."
+
+#~ msgid "Judg."
+#~ msgstr "Суд."
+
+#~ msgid "Rth."
+#~ msgstr "Руф."
+
+#~ msgid "1Sam."
+#~ msgstr "1Цар."
+
+#~ msgid "2Sam."
+#~ msgstr "2Цар."
+
+#~ msgid "1King."
+#~ msgstr "3Цар."
+
+#~ msgid "2King."
+#~ msgstr "4Цар."
+
+#~ msgid "1Chron."
+#~ msgstr "1Пар."
+
+#~ msgid "2Chron."
+#~ msgstr "2Пар."
+
+#~ msgid "Ezr."
+#~ msgstr "1Езд."
+
+#~ msgid "Nehem."
+#~ msgstr "Неем."
+
+#~ msgid "Est."
+#~ msgstr "Есф."
+
+#~ msgid "Job."
+#~ msgstr "Иов."
+
+#~ msgid "Ps."
+#~ msgstr "Пс."
+
+#~ msgid "Prov."
+#~ msgstr "Прит."
+
+#~ msgid "Eccl."
+#~ msgstr "Еккл."
+
+#~ msgid "Song."
+#~ msgstr "Песн."
+
+#~ msgid "Is."
+#~ msgstr "Ис."
+
+#~ msgid "Jer."
+#~ msgstr "Иер."
+
+#~ msgid "Lam."
+#~ msgstr "Плч."
+
+#~ msgid "Ezek."
+#~ msgstr "Иез."
+
+#~ msgid "Dan."
+#~ msgstr "Дан."
+
+#~ msgid "Hos."
+#~ msgstr "Ос."
+
+#~ msgid "Joel."
+#~ msgstr "Иоил."
+
+#~ msgid "Am."
+#~ msgstr "Ам."
+
+#~ msgid "Avd."
+#~ msgstr "Авд."
+
+#~ msgid "Jona."
+#~ msgstr "Ион."
+
+#~ msgid "Mic."
+#~ msgstr "Мих."
+
+#~ msgid "Naum."
+#~ msgstr "Наум."
+
+#~ msgid "Habak."
+#~ msgstr "Авв."
+
+#~ msgid "Sofon."
+#~ msgstr "Соф."
+
+#~ msgid "Hag."
+#~ msgstr "Аг."
+
+#~ msgid "Zah."
+#~ msgstr "Зах."
+
+#~ msgid "Mal."
+#~ msgstr "Мал."
+
+#~ msgid "1Mac."
+#~ msgstr "1Мак."
+
+#~ msgid "2Mac."
+#~ msgstr "2Мак."
+
+#~ msgid "3Mac."
+#~ msgstr "3Мак."
+
+#~ msgid "Bar."
+#~ msgstr "Вар."
+
+#~ msgid "2Ezr."
+#~ msgstr "2Езд."
+
+#~ msgid "3Ezr."
+#~ msgstr "3Езд."
+
+#~ msgid "Judf."
+#~ msgstr "Иудиф."
+
+#~ msgid "pJer."
+#~ msgstr "ПослИер."
+
+#~ msgid "Solom."
+#~ msgstr "Прем."
+
+#~ msgid "Sir."
+#~ msgstr "Сир."
+
+#~ msgid "Tov."
+#~ msgstr "Тов."
+
+#~ msgid "Mt."
+#~ msgstr "Мф."
+
+#~ msgid "Mk."
+#~ msgstr "Мк."
+
+#~ msgid "Lk."
+#~ msgstr "Лк."
+
+#~ msgid "Jn."
+#~ msgstr "Ин."
+
+#~ msgid "Act."
+#~ msgstr "Деян."
+
+#~ msgid "Jac."
+#~ msgstr "Иак."
+
+#~ msgid "1Pet."
+#~ msgstr "1Пет."
+
+#~ msgid "2Pet."
+#~ msgstr "2Пет."
+
+#~ msgid "1Jn."
+#~ msgstr "1Ин."
+
+#~ msgid "2Jn."
+#~ msgstr "2Ин."
+
+#~ msgid "3Jn."
+#~ msgstr "3Ин."
+
+#~ msgid "Juda."
+#~ msgstr "Иуд."
+
+#~ msgid "Rom."
+#~ msgstr "Рим."
+
+#~ msgid "1Cor."
+#~ msgstr "1Кор."
+
+#~ msgid "2Cor."
+#~ msgstr "2Кор."
+
+#~ msgid "Gal."
+#~ msgstr "Гал."
+
+#~ msgid "Eph."
+#~ msgstr "Еф."
+
+#~ msgid "Phil."
+#~ msgstr "Флп."
+
+#~ msgid "Col."
+#~ msgstr "Кол."
+
+#~ msgid "1Thes."
+#~ msgstr "1Фес."
+
+#~ msgid "2Thes."
+#~ msgstr "2Фес."
+
+#~ msgid "1Tim."
+#~ msgstr "1Тим."
+
+#~ msgid "2Tim."
+#~ msgstr "2Тим."
+
+#~ msgid "Tit."
+#~ msgstr "Тит."
+
+#~ msgid "Phlm."
+#~ msgstr "Флм."
+
+#~ msgid "Hebr."
+#~ msgstr "Евр."
+
+#~ msgid "Apok."
+#~ msgstr "Отк."
+
+#~ msgid "Bible verses language in tooltip"
+#~ msgstr "Язык стихов из Библии в подсказке"
+
+#~ msgid ""
+#~ "<br><i>(Select the language which will be used for display Bible verses "
+#~ "in the tooltip.)</i>"
+#~ msgstr ""
+#~ "<br><i>(Выберите язык, который будет использоваться для отображения "
+#~ "стихов из Библии в всплывающей подсказке.)</i>"
+
+#~ msgid "Open page with Bible text"
+#~ msgstr "Открыть страницу с текстом Библии"
+
+#~ msgid "pr. Joel"
+#~ msgstr "Книга пророка Иоиля"
+
+#~ msgid "ch."
+#~ msgstr "гл."
+
+#~ msgid "Thanks for using my plugin"
+#~ msgstr "Спасибо за использование моего плагина"
