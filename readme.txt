@@ -181,6 +181,13 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.4 =
+
+* To add a language, you can add a folder with the books into directory  'bible' of the plugin.
+* Added support for Cyrillic characters ёіїєґўЁІЇЄҐЎ.
+* Values ​​of custom fields 'bible_lang' and 'norefs' you can select on edit page of posts and pages.
+* Added Bible in Church Slavonic language.
+
 = 3.3 =
 
 * Added Four Gospels in the Belarusian language.
@@ -394,6 +401,13 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.4 =
+
+* To add a language, you can add a folder with the books into directory  'bible' of the plugin.
+* Added support for Cyrillic characters ёіїєґўЁІЇЄҐЎ.
+* Values ​​of custom fields 'bible_lang' and 'norefs' you can select on edit page of posts and pages.
+* Added Bible in Church Slavonic language.
 
 = 3.3 =
 

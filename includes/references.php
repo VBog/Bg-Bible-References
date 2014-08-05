@@ -19,7 +19,8 @@ $bg_bibfers_all_refs=array();				// Перечень всех ссылок
 *******************************************************************************************/
 function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	global $bg_bibfers_all_refs;
-	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle;
+	global $bg_bibfers_chapter, $bg_bibfers_ch;
+	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 	if (!$lang) $lang = set_bible_lang();
 	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 
@@ -29,10 +30,10 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)(\\;|\\.)]?/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
-	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-‐‑‒–——―](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
+	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яёіїєґўЁІЇЄҐЎA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-‐‑‒–——―](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
 	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
 	$cnt = count($matches[0]);
-	
+
 	$text = "";
 	$start = 0;
 	$j = 0;
@@ -164,6 +165,7 @@ function bg_bibfers_check_norefs($txt, $pos) {
 	и bg_bibfers_getBook() - см. ниже
 *******************************************************************************************/
 function bg_bibfers_get_url($title, $chapter, $lang) {
+	global $bg_bibfers_ch;
 		
 // http://azbyka.ru/biblia/?Lk.4:25-5:13,6:1-13&crgli&rus&num=cr 
 	bg_bibrefs_options_ini (); 			// Параметры по умолчанию
@@ -190,9 +192,8 @@ function bg_bibfers_get_url($title, $chapter, $lang) {
 	
 	$book = bg_bibfers_getBook($title);
 	if ($book != "") {						
-		$fullurl = "http://azbyka.ru/biblia/?".$book.".". $chapter;			// Полный адрес ссылки на azbyka.ru
-		// translators: ch. - is abbr. "chapter"
-		$the_title =  bg_bibfers_getTitle($book)." ".(__('ch. ', 'bg_bibfers' ))." ".$chapter;		// Название книги, номера глав и стихов						
+		$fullurl = "http://azbyka.ru/biblia/?".$book.".". $chapter;					// Полный адрес ссылки на azbyka.ru
+		$the_title =  bg_bibfers_getTitle($book)." ".$bg_bibfers_ch." ".$chapter;	// Название книги, номера глав и стихов						
 		if ($bg_verses_val == 'on') {												// Текст  стихов
 			$ajax_url = admin_url("admin-ajax.php?title=".$book."&chapter=".$chapter."&type=t_verses&lang=".$lang);
 		} else {
