@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: Vadim Bogaiskov
-    Version: 3.4
+    Version: 3.3.1
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.4');
+define('BG_BIBREFS_VERSION', '3.3.1');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -263,7 +263,7 @@ function bg_bibfers_extra_fields_box_func( $post ){
 		<select id="bg_norefs" name="bg_bibfers_extra[norefs]" />
 		<?php $bg_norefs_val = get_post_meta($post->ID, 'norefs', 1); ?>
 			<option <?php if($bg_norefs_val=="") echo "selected" ?> value=""><?php _e('Off', 'bg_bibfers' ); ?></option>
-			<option <?php if($bg_norefs_val) echo "selected" ?> value="on"><?php _e('On', 'bg_bibfers' ); ?></option>
+			<option <?php if($bg_norefs_val=="on") echo "selected" ?> value="on"><?php _e('On', 'bg_bibfers' ); ?></option>
 		</select>
 	
     <input type="hidden" name="bg_bibfers_extra_fields_nonce" value="<?php echo wp_create_nonce(__FILE__); ?>" />
