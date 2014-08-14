@@ -33,8 +33,6 @@ function bg_bibfers_options_page() {
 
     $links_class = 'bg_bibfers_class';					// CSS класс для ссылок на Библию
 	
-	$bg_bibfers_debug_name = 'bg_bibfers_debug';		// Включить запись в лог
-	
     $hidden_field_name = 'bg_bibfers_submit_hidden';	// Скрытое поле для проверки обновления информацции в форме
 	
 	bg_bibrefs_options_ini (); 			// Параметры по умолчанию
@@ -64,8 +62,6 @@ function bg_bibfers_options_page() {
     $bg_preq_val = get_option( $bg_preq );
 
     $class_val = get_option( $links_class );
-	
-    $bg_bibfers_debug_val = get_option( $bg_bibfers_debug_name );
 	
 // Проверяем, отправил ли пользователь нам некоторую информацию
 // Если "Да", в это скрытое поле будет установлено значение 'Y'
@@ -126,10 +122,7 @@ function bg_bibfers_options_page() {
 		$class_val = ( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '' ;
 		update_option( $links_class, $class_val );
 
- 		$bg_bibfers_debug_val = ( isset( $_POST[$bg_bibfers_debug_name] ) && $_POST[$bg_bibfers_debug_name] ) ? $_POST[$bg_bibfers_debug_name] : '' ;
-		update_option( $bg_bibfers_debug_name, $bg_bibfers_debug_val );
-
-       // Вывести сообщение об обновлении параметров на экран
+        // Вывести сообщение об обновлении параметров на экран
 		echo '<div class="updated"><p><strong>'.__('Options saved.', 'bg_bibfers' ).'</strong></p></div>';
     }
 ?>
@@ -266,9 +259,9 @@ bg_verses_checked();
 <tr valign="top">
 <th scope="row"><?php _e('Method of reading files', 'bg_bibfers' ); ?></th>
 <td>
-<input type="checkbox" id="bg_fgc" name="<?php echo $bg_fgc_name ?>" <?php if($bg_fgc_val=="on") echo "checked" ?>  value="on" onclick='reading_off_checked();'> file_get_contents()<br />
-<input type="checkbox" id="bg_fopen" name="<?php echo $bg_fopen_name ?>" <?php if($bg_fopen_val=="on") echo "checked" ?>  value="on" onclick='reading_off_checked();'> fopen() - fread() - fclose()<br />
 <input type="checkbox" id="bg_curl" name="<?php echo $bg_curl_name ?>" <?php if($bg_curl_val=="on") echo "checked" ?> value="on" onclick='reading_off_checked();'> cURL<br />
+<input type="checkbox" id="bg_fgc" name="<?php echo $bg_fgc_name ?>" <?php if($bg_fgc_val=="on") echo "checked" ?>  value="on" onclick='reading_off_checked();'> file_get_contents()<br />
+<input type="checkbox" id="bg_fopen" name="<?php echo $bg_fopen_name ?>" <?php if($bg_fopen_val=="on") echo "checked" ?>  value="on" onclick='reading_off_checked();'> fopen()<br />
 <?php _e('<i>(Plugin tries to read Bible files with marked methods in the order listed.<br>To do the reading faster, disable unnecessary methods - you need one only. <br><u>Warning:</u> Some methods may not be available on your server.)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
 <script>
@@ -288,15 +281,7 @@ reading_off_checked();
 <th scope="row"><?php _e('Reference links CSS class', 'bg_bibfers' ); ?></th>
 <td>
 <input type="text" id="links_class" name="<?php echo $links_class ?>" size="20" value="<?php echo $class_val ?>"><br />
-</td></tr>
-
-<tr valign="top">
-<th scope="row"><?php _e('Debug', 'bg_bibfers' ); ?></th>
-<td>
-<input type="checkbox" id="bg_bibfers_debug" name="<?php echo $bg_bibfers_debug_name ?>" <?php if($bg_bibfers_debug_val=="on") echo "checked" ?>  value="on"'> <?php _e('<br><i>(If you enable this option the debug information will written to the file "debug.log" in the plugin directory.<br>The file will be updated in 30 minutes after the last record, or the filesize exceed 2 Mb.<br><font color="red"><b>Disable this option after the end of debugging!</b></font>)</i>', 'bg_bibfers' ); ?> <br />
-</td></tr>
-
-</table>
+</td></tr></table>
 <p class="submit">
 <input type="submit" name="Submit" value="<?php _e('Update Options', 'bg_bibfers' ) ?>" />
 </p>
@@ -355,7 +340,6 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_fopen', "on");
 	add_option('bg_bibfers_prereq');
 	add_option('bg_bibfers_class', "bg_bibfers");
-	add_option('bg_bibfers_debug', "");
 }
 
 // Очистка таблицы параметров при удалении плагина
@@ -378,46 +362,6 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_fopen');
 	delete_option('bg_bibfers_prereq');
 	delete_option('bg_bibfers_class');
-	delete_option('bg_bibfers_debug');
 
 	delete_option('bg_bibfers_submit_hidden');
-}
-
-function bg_bibfers_get_options () {
-	global $bg_bibfers_option;
-
-// Читаем существующие значения опций из базы данных
-	$opt = "";
-	$c_lang_val = get_option( 'bg_bibfers_c_lang' );
-    $r_lang_val = get_option( 'bg_bibfers_r_lang' );
-    $g_lang_val = get_option( 'bg_bibfers_g_lang' );
-    $l_lang_val = get_option( 'bg_bibfers_l_lang' );
-    $i_lang_val = get_option( 'bg_bibfers_i_lang' );
-	$lang_val = $c_lang_val.$r_lang_val.$g_lang_val.$l_lang_val.$i_lang_val;
-	$font_val = get_option( 'bg_bibfers_c_font' );
-	if ($lang_val) $opt = "&".$lang_val;
-	if ($font_val && $c_lang_val) $opt = $opt."&".$font_val;
-	$bg_bibfers_option['azbyka'] = $opt;
-	
-// Общие параметры	отображения ссылок
-    $bg_bibfers_option['target'] = get_option( 'bg_bibfers_target' );
-    $bg_bibfers_option['class'] = get_option( 'bg_bibfers_class' );
-	if ($bg_bibfers_option['class'] == "") $bg_bibfers_option['class'] = 'bg_bibfers';
-	$bg_bibfers_option['show_verses'] = get_option( 'bg_bibfers_show_verses' );	
-
-    $bg_bibfers_option['verses_lang'] = get_option( 'bg_bibfers_verses_lang' );
-    $bg_bibfers_option['show_fn'] = get_option( 'bg_bibfers_show_fn' );
-
-    $bg_bibfers_option['headers'] = get_option( 'bg_bibfers_headers' );
-    $bg_bibfers_option['interpret'] = get_option( 'bg_bibfers_interpret' );
-
-    $bg_bibfers_option['norm_refs'] = get_option( 'bg_bibfers_norm_refs' );
-
-    $bg_bibfers_option['curl'] = get_option( 'bg_bibfers_curl' );
-    $bg_bibfers_option['fgc'] = get_option( 'bg_bibfers_fgc' );
-    $bg_bibfers_option['fopen'] = get_option( 'bg_bibfers_fopen' );
-
-    $bg_bibfers_option['preq'] = get_option('bg_bibfers_prereq' );
-	
-    $bg_bibfers_option['debug'] = get_option('bg_bibfers_debug' );
 }
