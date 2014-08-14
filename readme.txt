@@ -181,12 +181,6 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
-= 3.4.1 =
-
-* Optimized algorithm of main loop. Parsing of posts became faster.
-* Bugs fixed.
-* Debug option.
-
 = 3.4 =
 
 * To add a language, you can add a folder with the books into directory  'bible' of the plugin.
@@ -408,12 +402,6 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 3.4.1 =
-
-* Optimized algorithm of main loop. Parsing of posts became faster.
-* Bugs fixed.
-* Debug option.
-
 = 3.4 =
 
 * To add a language, you can add a folder with the books into directory  'bible' of the plugin.
@@ -630,6 +618,17 @@ I'm afraid that is incomplete solution, and in other cases the conflict may emer
 
 You can translate this plugin using POT-file in languages folder with program PoEdit (http://www.poedit.net/). 
 More in detail about translation WordPress plugins, see "Translating WordPress" (http://codex.wordpress.org/Translating_WordPress).
+
+Note on the translation abbreviations of the books of the Bible:
+
+* You can specify multiple alternatives of the abbreviations. To do this, separate them using the symbol |, for example: Mt|Mtw|Matth (Gospel of Matthew).
+
+* If the abbreviation include the punctuation marks (point, comma, dash, etc.) escape them using a double slash (Let.Jer => Let\\\\.Jer). 
+There are rules for PHP regular expressions (http://en.wikipedia.org/wiki/Regular_expression).
+
+* Abbreviation should not contain spaces.
+
+* Note that in the English language abbreviation and title of the books "Jab" and "Joel" are the same. Translate them according to the context (an abbreviation first, then the title).
 
 Send me your PO-files. I will insert them in plugin in next version.
 
