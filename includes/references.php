@@ -54,6 +54,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)(\\;|\\.)]?/ui";
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
+<<<<<<< HEAD
 
 //	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?([1-4]?(\\s|&nbsp\\;)*[А-яёіїєґўЁІЇЄҐЎA-z\']{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-‐‑‒–——―](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/uxi";
 
@@ -61,6 +62,9 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	$dashes = "(?:[\x{2010}-\x{2015}]|(&#820[8-9];)|(&#821[0-3];))";
 	$template = "/(?<!\w)((?:[1-4]|I{1,3}|IV)?".$sps."*['A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ]{2,8})".$sps."*\.?".$sps."*((\d+|[IVXLC]+)(".$sps."*([\.;:,-]|".$dashes.")".$sps."*(\d+|[IVXLC]+))*)(?!\w)/u";
 
+=======
+	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?([1-4]?(\\s|&nbsp\\;)*[А-яёіїєґўЁІЇЄҐЎA-z\']{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-‐‑‒–——―](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
 	$cnt = count($matches[0]);
 
@@ -72,7 +76,11 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	if ($bg_bibfers_option['debug']) {
 		$this_time = microtime(true)*1000;
 		$time = ($this_time- $start_time);
+<<<<<<< HEAD
 		error_log("  Начальная обработка: ". round($time, 2)." мсек.\n", 3, $debug_file);
+=======
+		error_log(" Начало цикла проверки патернов: ". round($time, 2) ." мсек.\n", 3, $debug_file);
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 		$start_time = $this_time;
 	}
 /*******************************************************************/	
@@ -81,6 +89,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 		
 	// Проверим по каждому паттерну. 
 		preg_match($template, $matches[0][$i][0], $mt);
+<<<<<<< HEAD
 		
 		
 		
@@ -92,10 +101,13 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 		}	
 		echo "<br>";
 /*******************************************************************/	
+=======
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 			
 		$cn = count($mt);
 		if ($cn > 0) {
 
+<<<<<<< HEAD
 			$title = preg_replace("/".$sps."/u", '',$mt[1]); 					// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
 			$chapter = preg_replace("/".$sps."/u", '', $mt[2]);					// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
 			$chapter = preg_replace("/".$dashes."/u", '-', $chapter);			// Замена разных вариантов тире на обычный
@@ -113,6 +125,12 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 				$chapter = preg_replace("/".$rome[0][$r][0]."/u", rome_to_arab($rome[0][$r][0]), $chapter, 1);
 			}
 
+=======
+			$title = preg_replace("/\\s|&nbsp\\;/u", '',$mt[5]); 				// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
+			$chapter = preg_replace("/\\s|&nbsp\\;/u", '', $mt[9]);				// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
+			$chapter = preg_replace("/[‐‑‒–——―]/u", '-', $chapter);				// Замена разных вариантов тире на обычный
+			$chapter = preg_replace("/\\;/u", ',', $chapter);					// Замена точки с запятой на запятую
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 			preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
 			if ($mtchs) {
 				if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
@@ -120,6 +138,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
 				}
 			}
+
 			$addr = bg_bibfers_get_url($title, $chapter, $lang);
 
 			if (strcasecmp($addr, "") != 0 
@@ -127,14 +146,22 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 				&& (($bg_bibfers_option['headers']=='on') || bg_bibfers_check_tag($hdr_h, $matches[0][$i][1])) 
 				&&  bg_bibfers_check_tag($hdr_norefs, $matches[0][$i][1])
 				&&  bg_bibfers_check_tag($hdr_bible, $matches[0][$i][1])) {
+<<<<<<< HEAD
 				$ref = $matches[0][$i][0];
 //				$ref = substr($ref, 1, strlen($ref)-2);							//Обрезаем первый и последний символы
 				$ref = trim ( $ref, "\x20\f\t\v\n\r\xA0\xC2" );
+=======
+				$ref = trim ( $matches[0][$i][0], "\x20\f\t\v\n\r\xA0\xC2" );
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 				$book = bg_bibfers_getBook($title);								// Обозначение книги
 				if ($type == '' || $type == 'link') {
 					$book = bg_bibfers_getshortTitle($book);					// Короткое наименование книги
 					if ($bg_bibfers_option['norm_refs']) {						// Преобразовать ссылку к нормализованному виду
+<<<<<<< HEAD
 						$newmt = $addr .$book.' '.$chapter. "</a></span>";
+=======
+						$newmt = '('.$addr .$book.' '.$chapter. "</a></span>".')';
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 					}
 					else $newmt = $addr .$ref. "</a></span>";
 					$listmt = $addr .$book.' '.$chapter. "</a></span>";
@@ -220,7 +247,11 @@ function bg_bibfers_get_url($title, $chapter, $lang) {
 function bg_bibfers_getBook($title) {
 
 	global $bg_bibfers_url;
+<<<<<<< HEAD
 	if (isset ($bg_bibfers_url[$title])) return $bg_bibfers_url[$title];// Обозначение книги Библии
+=======
+	if (isset ($bg_bibfers_url[$title])) return $bg_bibfers_url[$title];		// Обозначение книги Библии
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 	else return "";
 }
 

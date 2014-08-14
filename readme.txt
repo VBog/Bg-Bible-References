@@ -183,12 +183,15 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+<<<<<<< HEAD
 = 3.5 =
 
 * The plugin supports the old notation with Roman numerals in naming books and in chapters.
 * Allow semicolons in the numbering of the chapters and verses.
 * Minor bugs fixed.
 
+=======
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 = 3.4.1 =
 
 * Optimized algorithm of main loop. Parsing of posts became faster.
@@ -416,12 +419,15 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
+<<<<<<< HEAD
 = 3.5 =
 
 * The plugin supports the old notation with Roman numerals in naming books and in chapters.
 * Allow semicolons in the numbering of the chapters and verses.
 * Minor bugs fixed.
 
+=======
+>>>>>>> parent of bf1e3d9... Revert "Version 3.4.1"
 = 3.4.1 =
 
 * Optimized algorithm of main loop. Parsing of posts became faster.
