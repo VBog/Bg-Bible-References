@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: Vadim Bogaiskov
-    Version: 3.5
+    Version: 3.5.2
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.5');
+define('BG_BIBREFS_VERSION', '3.5.2');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -89,10 +89,10 @@ function set_bible_lang() {
 	global $post;
 	$blog_lang = substr(get_bloginfo('language'), 0, 2);
 	$file_books = dirname( __FILE__ ).'/bible/'.$blog_lang.'/books.php';
-	if (!file_exists($file_books)) $blog_lang = 'ru';	// По умолчанию русский язык
+	if (!file_exists($file_books)) $blog_lang = 'en';	// По умолчанию русский язык
 
 	$bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );
-	$bible_lang = (($bg_verses_lang_val=="")?$blog_lang:$bg_verses_lang_val);
+	$bible_lang = ((!$bg_verses_lang_val)?$blog_lang:$bg_verses_lang_val);
 	
 	$bible_lang_posts_val = ($post)?get_post_meta($post->ID, 'bible_lang', true):"";
 	if ($bible_lang_posts_val) {

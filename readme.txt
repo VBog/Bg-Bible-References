@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 3.9.1
+Tested up to: 4.0
 
 Stable tag: trunk
 
@@ -48,14 +48,21 @@ Russian:
 Вы также можете указать, где открывать страницу с текстом Библии - в новом или текущем окне.
 Для настройки вида ссылок используйте класс bg_bibrefs. Вы можете изменить имя класса в настройках.
 
-При наведении курсора мыши на ссылку отображается всплывающая подсказка  содержащая стихи Библии (на русском или украинском языке). 
+При наведении курсора мыши на ссылку отображается всплывающая подсказка содержащая стихи Библии. Вы можете выбрать язык отображения подсказки: 
+
+* церковно-славянский (Елизаветинская Библия)
+* русский (Синодальный перевод)
+* украинский (перевод И.И.Огиенко)
+* белорусский (Новый Завет в переводе Библейской Комиссии при Белорусском Экзархате)
+* английский (King James Version)
+
 При отключении этой опции вместо стихов отображается номер главы и номера стихов.
 Вы можете выбрать язык отображения стихов Библии в настройках, по умолчанию устанавливается язык WP. 
-Если Вам необходимо переопределить язык для отдельной заметки, создайте для заметки произвольное поле с именем bible_lang  и присвойте ему двухбуквенное обозначение языка (ru - русский, uk - украинский). 
+Если Вам необходимо переопределить язык для отдельной заметки, создайте для заметки произвольное поле с именем bible_lang  и присвойте ему двухбуквенное обозначение языка. 
 В настройках можно включить опцию позволяющую показывать оригинальные номера стихов в скобках после номера стихов русского Синодального перевода в подсказках и цитатах.
 Стихи, помеченные звездочкой * отсутствуют в оригинальном переводе. * - отображаются всегда!
 
-Для чтения файлов Библии используются PHP cURL или file_get_contents() или fopen(). 
+Для чтения файлов Библии используются PHP  file_get_contents() или fopen() или cURL. 
 Плагин пытается загружать файлы Библии этими методами в указанном порядке. 
 Чтобы сделать загрузку более быстрой отключите лишние методы. 
 Предупреждение: Некоторые методы могут быть недоступны на Вашем сервере. 
@@ -116,10 +123,17 @@ For the Church Slavonic language, you can also select a font: Church Slavic font
 You can also specify where to open a page with the Bible text  - in new or current window.
 To customize the appearance of reference  links, use class bg_bibrefs. You can change the class name in the settings.
 
-When you hover your mouse over the link displayed tooltip containing the Bible verses (in Russian or Ukrainian).
+When you hover your mouse over the link displayed tooltip containing the Bible verses. You can select the language for tooltip: 
+
+* Church Slavic (Elizabeth Bible) 
+* Russian (Synodal translation) 
+* Ukrainian (translation by I.I.Ogienko) 
+* Belarusian (New Testament translated by Biblical Commission of the Belarusian Exarchate) 
+* English (King James Version)
+
 If you disable this option, the number of the chapter and verse numbers will displayed instead of verses.
 You can change the language for display of the Bible verses in the settings (default - language WP). 
-If you need to override the language for a single post, create a custom field for the post with a name bible_lang  and set it two-letter language code (ru - Russian, uk - Ukrainian).
+If you need to override the language for a single post, create a custom field for the post with a name bible_lang  and set it two-letter language code.
 In the settings you can turn on the option allows you to show the original verse numbers in parentheses after the verse numbers of Russian Synodal Translation in the tooltips and quotes.
 Verses marked with asterisk '*' are absent in the original translation. '*' - always visible!
 
@@ -182,6 +196,14 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.5.2 =
+
+* Added books of New Testament in Belarusian language.
+
+= 3.5.1 =
+
+* Added Kihg James Bible (English language).
 
 = 3.5 =
 
@@ -415,6 +437,14 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.5.2 =
+
+* Added books of New Testament in Belarusian language.
+
+= 3.5.1 =
+
+* Added Kihg James Bible (English language).
 
 = 3.5 =
 
