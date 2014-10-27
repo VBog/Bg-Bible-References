@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2014-08-08 13:32+0400\n"
-"PO-Revision-Date: 2014-08-08 13:46+0400\n"
+"POT-Creation-Date: 2014-10-27 12:01+0400\n"
+"PO-Revision-Date: 2014-10-27 12:02+0400\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.7\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
@@ -18,35 +18,35 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../bg_bibrefs.php:204 ../bg_bibrefs.php:239
+#: ../bg_bibrefs.php:212 ../bg_bibrefs.php:247
 msgid "Bible References"
 msgstr "Ссылки на Библию"
 
-#: ../bg_bibrefs.php:222
+#: ../bg_bibrefs.php:230
 msgid "Expand"
 msgstr "Развернуть"
 
-#: ../bg_bibrefs.php:222
+#: ../bg_bibrefs.php:230
 msgid "Hide"
 msgstr "Скрыть"
 
-#: ../bg_bibrefs.php:244 ../includes/settings.php:182
+#: ../bg_bibrefs.php:252 ../includes/settings.php:187
 msgid "Language of references and tooltips"
 msgstr "Язык ссылок и подсказок"
 
-#: ../bg_bibrefs.php:247 ../includes/settings.php:185
+#: ../bg_bibrefs.php:255 ../includes/settings.php:190
 msgid "Default"
 msgstr "По умолчанию"
 
-#: ../bg_bibrefs.php:262
+#: ../bg_bibrefs.php:270
 msgid "Ban to highlight references"
 msgstr "Запрет подсветки ссылок"
 
-#: ../bg_bibrefs.php:265
+#: ../bg_bibrefs.php:273
 msgid "Off"
 msgstr "Откл."
 
-#: ../bg_bibrefs.php:266
+#: ../bg_bibrefs.php:274
 msgid "On"
 msgstr "Вкл."
 
@@ -54,63 +54,63 @@ msgstr "Вкл."
 msgid "Click to go to interpretation"
 msgstr "Щелкните, чтобы перейти к толкованию"
 
-#: ../includes/settings.php:133
+#: ../includes/settings.php:138
 msgid "Options saved."
 msgstr "Настройки сохранены."
 
-#: ../includes/settings.php:143
+#: ../includes/settings.php:148
 msgid "Bg Bible References Plugin Options"
 msgstr "Настройки плагина Ссылки на Библию"
 
-#: ../includes/settings.php:144
+#: ../includes/settings.php:149
 msgid "Version"
 msgstr "Версия"
 
-#: ../includes/settings.php:154
+#: ../includes/settings.php:159
 msgid "Languages of the Bible text on"
 msgstr "Языки текста Библии на"
 
-#: ../includes/settings.php:158
+#: ../includes/settings.php:163
 msgid "Church Slavic"
 msgstr "Церковно-славянский"
 
-#: ../includes/settings.php:159
+#: ../includes/settings.php:164
 msgid "Russian"
 msgstr "Русский"
 
-#: ../includes/settings.php:160
+#: ../includes/settings.php:165
 msgid "Greek"
 msgstr "Греческий"
 
-#: ../includes/settings.php:161
+#: ../includes/settings.php:166
 msgid "Latin"
 msgstr "Латинский"
 
-#: ../includes/settings.php:162
+#: ../includes/settings.php:167
 msgid "Hebrew"
 msgstr "Иврит"
 
-#: ../includes/settings.php:165
+#: ../includes/settings.php:170
 msgid "Font for Church Slavonic text"
 msgstr "Шрифт для церковно-славянского текста"
 
-#: ../includes/settings.php:167
+#: ../includes/settings.php:172
 msgid "Church Slavic font"
 msgstr "Церковно-славянский шрифт"
 
-#: ../includes/settings.php:168
+#: ../includes/settings.php:173
 msgid "Russian font (\"Old\" style)"
 msgstr "Русские буквы (\"Старый\" стиль)"
 
-#: ../includes/settings.php:169
+#: ../includes/settings.php:174
 msgid "HIP-standard"
 msgstr "HIP-стандарт"
 
-#: ../includes/settings.php:203
+#: ../includes/settings.php:208
 msgid "Show original verse numbers"
 msgstr "Отображать оригинальные номера стихов"
 
-#: ../includes/settings.php:205
+#: ../includes/settings.php:210
 msgid ""
 "<br><i>(Show the original verse numbers in parentheses after the verse "
 "numbers of Russian Synodal Translation in the tooltips and quotes.<br>Verses "
@@ -122,43 +122,43 @@ msgstr ""
 "звездочкой * отсутствуют в оригинальном переводе. * - отображаются всегда!)</"
 "i>"
 
-#: ../includes/settings.php:208
+#: ../includes/settings.php:213
 msgid "Open links"
 msgstr "Открывать ссылки"
 
-#: ../includes/settings.php:210
+#: ../includes/settings.php:215
 msgid "in new window"
 msgstr "в новом окне"
 
-#: ../includes/settings.php:211
+#: ../includes/settings.php:216
 msgid "in current window"
 msgstr "в текущем окне"
 
-#: ../includes/settings.php:214
+#: ../includes/settings.php:219
 msgid "Highlight references in the headers H1...H6"
 msgstr "Подсвечивать ссылки в заголовках  H1...H6"
 
-#: ../includes/settings.php:219
+#: ../includes/settings.php:224
 msgid "Enable links to the interpretation of the Holy Scriptures"
 msgstr "Включить ссылки на толкования Священного Писания"
 
-#: ../includes/settings.php:221
+#: ../includes/settings.php:226
 msgid "<br><i>(Tooltips and Short Codes)</i>"
 msgstr "<br><i>(Всплывающая подсказка и Шорт-коды)</i>"
 
-#: ../includes/settings.php:225
+#: ../includes/settings.php:230
 msgid "Additional options..."
 msgstr "Дополнительные параметры..."
 
-#: ../includes/settings.php:239
+#: ../includes/settings.php:244
 msgid "Convert references to the normalized form"
 msgstr "Преобразовывать ссылки к нормализованному виду"
 
-#: ../includes/settings.php:244
+#: ../includes/settings.php:249
 msgid "Show Bible verses in popup"
 msgstr "Отображать стихи из Библии во всплывающей подсказке"
 
-#: ../includes/settings.php:246
+#: ../includes/settings.php:251
 msgid ""
 "<br><i>(If this option is disabled or data are not received from the server,"
 "<br>popup showing the Bible book title, chapter number and verse numbers)</i>"
@@ -167,11 +167,11 @@ msgstr ""
 "всплывающей подсказке отображаются название книги Библии, номер главы и "
 "номера стихов)</i>"
 
-#: ../includes/settings.php:250
+#: ../includes/settings.php:255
 msgid "Preload Bible verses in tooltips"
 msgstr "Предварительно загружать стихи из Библии во всплывающие подсказки"
 
-#: ../includes/settings.php:252
+#: ../includes/settings.php:257
 msgid ""
 "<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a "
 "problem with ajax-requests limiting on the server.)</i>"
@@ -179,11 +179,11 @@ msgstr ""
 "<br><i>(Попробуйте эту опцию на медленном сервере.<br><u>Внимание:</u> Могут "
 "возникнуть проблемы, связанные с ограничением ajax-запросов на сервере.)</i>"
 
-#: ../includes/settings.php:267
+#: ../includes/settings.php:272
 msgid "Method of reading files"
 msgstr "Метод чтения файлов"
 
-#: ../includes/settings.php:272
+#: ../includes/settings.php:277
 msgid ""
 "<i>(Plugin tries to read Bible files with marked methods in the order listed."
 "<br>To do the reading faster, disable unnecessary methods - you need one "
@@ -195,15 +195,19 @@ msgstr ""
 "<br><u>Внимание:</u> Некоторые методы могут быть недоступны на Вашем "
 "сервере.)"
 
-#: ../includes/settings.php:288
+#: ../includes/settings.php:293
+msgid "Container, inside which will display tooltips"
+msgstr "Контейнер, внутри которого будут отображаться подсказки"
+
+#: ../includes/settings.php:299
 msgid "Reference links CSS class"
 msgstr "CSS класс для ссылок на Библию"
 
-#: ../includes/settings.php:294
+#: ../includes/settings.php:305
 msgid "Debug"
 msgstr "Отладка"
 
-#: ../includes/settings.php:296
+#: ../includes/settings.php:307
 msgid ""
 "<br><i>(If you enable this option the debug information will written to the "
 "file \"debug.log\" in the plugin directory.<br>The file will be updated in "
@@ -216,15 +220,15 @@ msgstr ""
 "после последней записи, или если его размер превысит 2 Mb.<br><font color="
 "\"red\"><b>Отключите эту опцию по окончаннии отладки!</b></font>)</i>"
 
-#: ../includes/settings.php:301
+#: ../includes/settings.php:312
 msgid "Update Options"
 msgstr "Обновить настройки"
 
-#: ../includes/settings.php:313
+#: ../includes/settings.php:324
 msgid "Thanks for using Bg Biblie References"
 msgstr "Спасибо за использование плагина Ссылки на Библию"
 
-#: ../includes/settings.php:315
+#: ../includes/settings.php:326
 msgid ""
 "Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope "
 "it is useful for your site."
@@ -232,19 +236,19 @@ msgstr ""
 "Дорогие братия и сестры!<br />Спасибо за использование моего плагина ! Я "
 "надеюсь, что он оказался полезен для Вашего сайта."
 
-#: ../includes/settings.php:316
+#: ../includes/settings.php:327
 msgid "Vadim Bogaiskov"
 msgstr "Вадим Богайсков"
 
-#: ../includes/settings.php:318
+#: ../includes/settings.php:329
 msgid "I like this plugin<br>– how can I thank you?"
 msgstr "Мне нравится этот плагин<br> - как я могу отблагодарить Вас?"
 
-#: ../includes/settings.php:319
+#: ../includes/settings.php:330
 msgid "There are several ways for you to say thanks:"
 msgstr "Есть несколько возможностей, чтобы сказать спасибо:"
 
-#: ../includes/settings.php:321
+#: ../includes/settings.php:332
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
@@ -253,7 +257,7 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Сделать пожертвование</a> на "
 "строительство храма свв. Петра и Февронии в Марьино"
 
-#: ../includes/settings.php:322
+#: ../includes/settings.php:333
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give 5 stars</a> over at the WordPress "
@@ -262,20 +266,20 @@ msgstr ""
 "<a href=\"%1$s\" target=\"_blank\">Поставьте 5 звезд</a> в каталоге "
 "плагинов  WordPress"
 
-#: ../includes/settings.php:323
+#: ../includes/settings.php:334
 msgid "Share infotmation or make a nice blog post about the plugin"
 msgstr "Распространить информацию или написать заметку в Вашем блоге о плагине"
 
-#: ../includes/settings.php:325
+#: ../includes/settings.php:336
 msgid "Bg Bible References really cool plugin for Orthodox WordPress sites"
 msgstr ""
 "Bg Bible References - отличный плагин для православных сайтов на  WordPress"
 
-#: ../includes/settings.php:328
+#: ../includes/settings.php:339
 msgid "Support"
 msgstr "Поддержка"
 
-#: ../includes/settings.php:329
+#: ../includes/settings.php:340
 #, php-format
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
@@ -284,7 +288,7 @@ msgstr ""
 "См. <a href=\"%1$s\" target=\"_blank\">форум поддержки</a> или мой <a href="
 "\"%2$s\" target=\"_blank\">персональный сайт</a> для получения справки."
 
-#: ../includes/settings.php:331
+#: ../includes/settings.php:342
 msgid "God protect you!"
 msgstr "Храни вас Господи!"
 

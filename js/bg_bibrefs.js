@@ -99,11 +99,12 @@ function tooltip_mini(tooltip, el, e) {
 	});
 
 	var padding = parseInt(tooltip.css('paddingLeft'))+parseInt(tooltip.css('paddingRight'))+parseInt(tooltip.css('border-Left-Width'))+parseInt(tooltip.css('border-Right-Width'));
-	// Координаты контейнера <div id="content">
-	var content = jQuery('#content');
-	if (content.length < 1) content = jQuery('body');	// Для "кривой" темы определяем положение body
+	// Координаты контейнера, внутри которого будут отображаться подсказки. Например для <div id="content">, это "#content"
+	var content = jQuery(bg_bibrefs_content);
+	if (content.length < 1) content = jQuery('body');	// Если тема не содержит, указанный контейнер, то определяем положение body
 	var c_left = content.position().left+parseInt(content.css('paddingLeft'))+parseInt(content.css('marginLeft'))+parseInt(content.css('border-Left-Width'));
 	var c_right =c_left+content.width();
+//	alert(c_left+" "+c_right);
 	
 	var tipWidth = parseInt(tooltip.css('width'));	// Заданная ширина подсказки
 
@@ -201,9 +202,8 @@ function tooltip_maxi(tooltip) {
 		'display': "block"						// Строчно-блочный элемент 
 	});
 	var padding = parseInt(tooltip.css('paddingLeft'))+parseInt(tooltip.css('paddingRight'))+parseInt(tooltip.css('border-Left-Width'))+parseInt(tooltip.css('border-Right-Width'));
-	// Координаты контейнера <div id="content">
-	var content = jQuery('#content');
-	if (content.length < 1) content = jQuery('body');	// Для "кривой" темы определяем положение body
+	// Координаты body (размещаем по центру экрана)
+	var content = jQuery('body');
 	var cc_left = content.offset().left+parseInt(content.css('paddingLeft'))+parseInt(content.css('border-Left-Width'));
 
 	var tipWidth = content.width()-padding-40;

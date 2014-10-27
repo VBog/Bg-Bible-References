@@ -31,7 +31,8 @@ function bg_bibfers_options_page() {
 	
 	$bg_preq = 'bg_bibfers_prereq';						// Предварительно загружать стихи из Библии в всплывающие подсказки
 
-    $links_class = 'bg_bibfers_class';					// CSS класс для ссылок на Библию
+    $bg_content = 'bg_bibfers_content';					// Контейнер, внутри которого будут отображаться подсказки
+	$links_class = 'bg_bibfers_class';					// CSS класс для ссылок на Библию
 	
 	$bg_bibfers_debug_name = 'bg_bibfers_debug';		// Включить запись в лог
 	
@@ -63,6 +64,7 @@ function bg_bibfers_options_page() {
 
     $bg_preq_val = get_option( $bg_preq );
 
+    $bg_content_val = get_option( $bg_content );
     $class_val = get_option( $links_class );
 	
     $bg_bibfers_debug_val = get_option( $bg_bibfers_debug_name );
@@ -122,6 +124,9 @@ function bg_bibfers_options_page() {
 
 		$bg_preq_val = ( isset( $_POST[$bg_preq] ) && $_POST[$bg_preq] ) ? $_POST[$bg_preq] : '' ;
 		update_option( $bg_preq, $bg_preq_val );
+
+		$bg_content_val = ( isset( $_POST[$bg_content] ) && $_POST[$bg_content] ) ? $_POST[$bg_content] : '' ;
+		update_option( $bg_content, $bg_content_val );
 
 		$class_val = ( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '' ;
 		update_option( $links_class, $class_val );
@@ -285,6 +290,12 @@ function reading_off_checked() {
 reading_off_checked();
 </script>
 <tr valign="top">
+<th scope="row"><?php _e('Container, inside which will display tooltips', 'bg_bibfers' ); ?></th>
+<td>
+<input type="text" id="bg_content" name="<?php echo $bg_content ?>" size="20" value="<?php echo $bg_content_val ?>"><br />
+</td></tr>
+
+<tr valign="top">
 <th scope="row"><?php _e('Reference links CSS class', 'bg_bibfers' ); ?></th>
 <td>
 <input type="text" id="links_class" name="<?php echo $links_class ?>" size="20" value="<?php echo $class_val ?>"><br />
@@ -354,6 +365,7 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_fgc', "on");
 	add_option('bg_bibfers_fopen', "on");
 	add_option('bg_bibfers_prereq');
+	add_option('bg_bibfers_content', "#content");
 	add_option('bg_bibfers_class', "bg_bibfers");
 	add_option('bg_bibfers_debug', "");
 }
@@ -377,6 +389,7 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_fgc');
 	delete_option('bg_bibfers_fopen');
 	delete_option('bg_bibfers_prereq');
+	delete_option('bg_bibfers_content');
 	delete_option('bg_bibfers_class');
 	delete_option('bg_bibfers_debug');
 
@@ -401,6 +414,8 @@ function bg_bibfers_get_options () {
 	
 // Общие параметры	отображения ссылок
     $bg_bibfers_option['target'] = get_option( 'bg_bibfers_target' );
+    $bg_bibfers_option['content'] = get_option( 'bg_bibfers_content' );
+	if ($bg_bibfers_option['content'] == "") $bg_bibfers_option['content'] = 'body';
     $bg_bibfers_option['class'] = get_option( 'bg_bibfers_class' );
 	if ($bg_bibfers_option['class'] == "") $bg_bibfers_option['class'] = 'bg_bibfers';
 	$bg_bibfers_option['show_verses'] = get_option( 'bg_bibfers_show_verses' );	
