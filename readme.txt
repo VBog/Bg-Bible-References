@@ -199,7 +199,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 = 3.5.3 =
 
-* Now you can define container (div ID or <body>), inside which will display tooltips.
+* Now you can define container (div ID or body tag), inside which will display tooltips.
 
 = 3.5.2 =
 
@@ -444,7 +444,7 @@ Warning: Some methods may not be available on your server.
 
 = 3.5.3 =
 
-* Now you can define container (div ID or <body>), inside which will display tooltips.
+* Now you can define container (div ID or body tag), inside which will display tooltips.
 
 = 3.5.2 =
 
