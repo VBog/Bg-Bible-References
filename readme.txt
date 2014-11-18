@@ -211,6 +211,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.6.1 =
+
+* Bug fixed.
+
 = 3.6.0 =
 
 * A random quote and quote of day.
@@ -461,6 +465,10 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.6.1 =
+
+* Bug fixed.
 
 = 3.6.0 =
 

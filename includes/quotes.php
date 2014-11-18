@@ -324,7 +324,7 @@ function bg_bibfers_bible_quote_refs($ref) {
 	
 	$refs_file = $bg_bibfers_option['refs_file'];
 	$url = dirname(dirname(__FILE__ )).'/'.$refs_file;										// Локальный URL файла
-	if (!file_exists ( $url )) {															// Если пользовательский файл не существует, то файл по умолчанию
+	if (!is_file ( $url )) {																// Если пользовательский файл не существует, то файл по умолчанию
 		$refs_file = 'quotes.txt';
 		$url = dirname(dirname(__FILE__ )).'/'.$refs_file;									
 	}
