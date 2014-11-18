@@ -242,7 +242,7 @@ function bg_bibfers_optina($txt, $book, $chapter, $verse) {
 		'Job'	 	=>'old:iov:',		//'Книга Иова',
 		'Ps' 		=>'old:ps:',		//'Псалтирь', 
 		'Prov'	 	=>'old:pr:',		//'Книга Притчей Соломоновых', 
-		'Eccl'	 	=>'old:elk:',		//'Книга Екклезиаста, или Проповедника', 
+		'Eccl'	 	=>'old:ekl:',		//'Книга Екклезиаста, или Проповедника', 
 		'Song'	 	=>'old:pp:',		//'Песнь песней Соломона',
 						
 		'Is' 		=>'old:is:',		//'Книга пророка Исайи', 
@@ -313,4 +313,64 @@ function bg_bibfers_optina($txt, $book, $chapter, $verse) {
 	$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
 	$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
 	return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation', 'bg_bibfers' ))."' target='".$target_val."'>".$txt."</a>");
+}
+
+/*******************************************************************************
+	Возвращает ссылку цитаты из Библии из файла quotes.txt
+  
+*******************************************************************************/  
+function bg_bibfers_bible_quote_refs($ref) {
+	global $bg_bibfers_option;
+	
+	$refs_file = $bg_bibfers_option['refs_file'];
+	$url = dirname(dirname(__FILE__ )).'/'.$refs_file;										// Локальный URL файла
+	if (!file_exists ( $url )) {															// Если пользовательский файл не существует, то файл по умолчанию
+		$refs_file = 'quotes.txt';
+		$url = dirname(dirname(__FILE__ )).'/'.$refs_file;									
+	}
+// Получаем данные из файла	
+	$text = false;
+	if ($bg_bibfers_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
+		$text = file_get_contents($url);		
+	}
+	if ($bg_bibfers_option['fopen'] == 'on' && !$text) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
+		$ch=fopen($url, "r" );																	// Открываем файл для чтения
+		if($ch)	{
+			while (!feof($ch))	{
+				$text .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
+			}
+			fclose($ch);																		// Закрываем файл
+		}
+	}
+	if ($bg_bibfers_option['curl'] == 'on' && function_exists('curl_init') && !$text) {		// Попытка3. Если установлен cURL				
+		$url = plugins_url( $refs_file , dirname(__FILE__ ) );
+		$ch = curl_init($url);																	// создание нового ресурса cURL
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
+		$text = curl_exec($ch);																	// загрузка текста
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);										
+		if ($httpCode != '200') $text = false;													// Проверка на код http 200
+		curl_close($ch);																		// завершение сеанса и освобождение ресурсов
+	} 
+	if (!$text) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
+	$text= trim($text);												// Удаляем пробелы (или другие символы) из начала и конца текста
+
+	$refs = preg_split ("/\s+/sui", $text);							// Разделим текст на ссылки
+	$cnt = count($refs);											// Количество ссылок
+	if ($ref == 'rnd') $z = rand(0, $cnt-1);							// Случайная ссылка
+	else if ($ref == 'days') {
+		$z = date('z');													// Порядковый номер дня в году
+		if ($cnt < $z) $z = $z%$cnt;
+	}
+	else {
+		$z = $ref - 1;													// Номер записи (отсчет от нуля)
+		if ($z < 0) $z = 0;
+		else if ($z > $cnt-1) $z = $cnt-1;
+	}
+	$ref = $refs[$z];												
+	$ref= trim($ref);												// Удаляем пробелы (или другие символы) из начала и конца строки
+	$part=explode(".", $ref);
+	$book = bg_bibfers_getBook($part[0]);							// Обозначение книги
+	if (!$book) return "";											// Если нет такой книги, то возвращаем пустое значение
+
+	return bg_bibfers_getshortTitle($book).$part[1];
 }

@@ -1,6 +1,6 @@
 ﻿=== Bg Bible References ===
 
-Contributors: Vadim Bogaiskov
+Contributors: VBog
 
 Donate link: http://bogaiskov.ru/about-me/donate/
 
@@ -73,6 +73,11 @@ Russian:
 
 Самозакрывающийся шорт-код [bible book='Mt' ch='2:3-6' type='verses' lang='ru' /] выводит цитаты из Библии в тексте страницы.
 Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода, lang - язык текста Библии (по умолчанию, язык Библии поста).
+Допускается вместо book и ch указать полную ссылку в параметре ref. В этом случае параметры book и ch игнорируются. 
+Если ref='rnd', то выводится случайная цитата из перечня, представленного в файле quotes.txt. 
+Если ref='days', то выводится цитата дня в соответствии с порядковым номером дня в текущем году. 
+Если ref - любое целое число, то выводится цитата, с соответствующим порядковым номером. 
+Вы можете также создать свой собственный перечень цитат в отдельном текстовом файле, разделяя ссылки любыми пробельными символами (пробел, табуляция, перевод строки и т.д.) и указать имя этого файла в настройках плагина.
 Если  type=’book’, то отображаются наименование книги, заголовки глав и стихи, каждый отдельным абзацем, с указанием его номера.
 Если  type=’verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием номера главы и номера стиха.
 Если  type=’b_verses’, то отображаются только стихи, каждый отдельным абзацем, с указанием короткого названия книги, номера главы и номера стиха.
@@ -81,6 +86,8 @@ Russian:
 Если  type=’link’, то отображается ссылка на Библию.
 Ограждающий шорт-код [bible type='verses' lang='ru']...[/bible] преобразует все ссылки в содержимом в цитаты из Библии.
 При этом параметры book и ch игнорируются. 
+
+Шорт-код [bible_epigraph ref='rnd' lang='ru'] выводит на экран цитату в форме эпиграфа. 
 
 Шорт-код [references type='list' separator=', ' list='o' col=1 /] выводит список ссылок на Библию, встречающиеся в статье.
 Здесь: type – формат отображения списка (по умолчанию 'list').
@@ -148,6 +155,11 @@ If you enable the 'Convert References to the normalized form', the Bible referen
 
 Self-closing shortcode [bible book = 'Mt' ch = '2 :3-6 'type =' verses' lang='ru' /] displays quotes from the Bible in the text of the page.
 Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format.
+Allowed instead of 'book' and 'ch' specify the full reference  in the parameter 'ref'. In this case, the parameters 'book' and 'ch' are ignored.
+If ref = 'rnd', it displays a random quote from the list in the file quotes.txt.
+If ref = 'days', it displays the quote of the day according with the serial number of the day in the current year.
+If ref - any integer, it displays a quote with the appropriate serial number.
+Also you can create your own list of quotes in a text file, by separating references with any white spaces (space, tab, newline, etc.), and then specify filename in the plugin settings.
 If type = 'book', it displays the name of the book, chapter and verse in separate paragraph with verse number.
 If type = 'verses', it displays only the verses in separate paragraph with chapter number and verse number.
 If type = 'b_verses', it displays only the verses in separate paragraph with short book title, chapter number and verse number.
@@ -156,6 +168,8 @@ If type = 'quote', it displays only the verses without dividing them into paragr
 If type=’link’, it displays Bible reference.
 Enclosing shortcode [bible type = 'verses' lang='ru'] ... [/ bible] converts all references in content to quotes from the Bible. 
 The parameters of the book and ch ignored.
+
+Shortcode [bible_epigraph ref = 'rnd' lang = 'ru'] displays the quote in the format of epigraph.
 
 Shortcode [references type = 'list' separator = ',' list = 'o' col = 1 /] displays list of Bible references are finded in the article.
 Here : type - list display format(default 'list').
@@ -196,6 +210,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.6.0 =
+
+* A random quote and quote of day.
+* Added shortcode [bible_epigraph].
+* Added three books of the New Testament in the Belarusian language.
 
 = 3.5.3 =
 
@@ -441,6 +461,12 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.6.0 =
+
+* A random quote and quote of day.
+* Added shortcode [bible_epigraph].
+* Added three books of the New Testament in the Belarusian language.
 
 = 3.5.3 =
 

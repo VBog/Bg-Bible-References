@@ -33,6 +33,7 @@ function bg_bibfers_options_page() {
 
     $bg_content = 'bg_bibfers_content';					// Контейнер, внутри которого будут отображаться подсказки
 	$links_class = 'bg_bibfers_class';					// CSS класс для ссылок на Библию
+	$bg_refs_file = 'bg_bibfers_refs_file';				// Пользовательский файл цитат из Библии
 	
 	$bg_bibfers_debug_name = 'bg_bibfers_debug';		// Включить запись в лог
 	
@@ -66,6 +67,7 @@ function bg_bibfers_options_page() {
 
     $bg_content_val = get_option( $bg_content );
     $class_val = get_option( $links_class );
+    $bg_refs_file_val = get_option( $bg_refs_file );
 	
     $bg_bibfers_debug_val = get_option( $bg_bibfers_debug_name );
 	
@@ -130,6 +132,9 @@ function bg_bibfers_options_page() {
 
 		$class_val = ( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '' ;
 		update_option( $links_class, $class_val );
+
+		$bg_refs_file_val = ( isset( $_POST[$bg_refs_file] ) && $_POST[$bg_refs_file] ) ? $_POST[$bg_refs_file] : '' ;
+		update_option( $bg_refs_file, $bg_refs_file_val );
 
  		$bg_bibfers_debug_val = ( isset( $_POST[$bg_bibfers_debug_name] ) && $_POST[$bg_bibfers_debug_name] ) ? $_POST[$bg_bibfers_debug_name] : '' ;
 		update_option( $bg_bibfers_debug_name, $bg_bibfers_debug_val );
@@ -302,6 +307,12 @@ reading_off_checked();
 </td></tr>
 
 <tr valign="top">
+<th scope="row"><?php _e('Custom file of Bible quotes', 'bg_bibfers' ); ?></th>
+<td>
+<input type="text" id="bg_refs_file" name="<?php echo $bg_refs_file ?>" size="60" value="<?php echo $bg_refs_file_val ?>"><br />
+</td></tr>
+
+<tr valign="top">
 <th scope="row"><?php _e('Debug', 'bg_bibfers' ); ?></th>
 <td>
 <input type="checkbox" id="bg_bibfers_debug" name="<?php echo $bg_bibfers_debug_name ?>" <?php if($bg_bibfers_debug_val=="on") echo "checked" ?>  value="on"'> <?php _e('<br><i>(If you enable this option the debug information will written to the file "debug.log" in the plugin directory.<br>The file will be updated in 30 minutes after the last record, or the filesize exceed 2 Mb.<br><font color="red"><b>Disable this option after the end of debugging!</b></font>)</i>', 'bg_bibfers' ); ?> <br />
@@ -367,6 +378,7 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibfers_prereq');
 	add_option('bg_bibfers_content', "#content");
 	add_option('bg_bibfers_class', "bg_bibfers");
+	add_option('bg_bibfers_refs_file', "");
 	add_option('bg_bibfers_debug', "");
 }
 
@@ -391,6 +403,7 @@ function bg_bibfers_deinstall() {
 	delete_option('bg_bibfers_prereq');
 	delete_option('bg_bibfers_content');
 	delete_option('bg_bibfers_class');
+	delete_option('bg_bibfers_refs_file');
 	delete_option('bg_bibfers_debug');
 
 	delete_option('bg_bibfers_submit_hidden');
@@ -433,6 +446,8 @@ function bg_bibfers_get_options () {
     $bg_bibfers_option['fopen'] = get_option( 'bg_bibfers_fopen' );
 
     $bg_bibfers_option['preq'] = get_option('bg_bibfers_prereq' );
+	
+    $bg_bibfers_option['refs_file'] = get_option( 'bg_bibfers_refs_file' );
 	
     $bg_bibfers_option['debug'] = get_option('bg_bibfers_debug' );
 }

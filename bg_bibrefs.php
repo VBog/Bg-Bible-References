@@ -3,8 +3,8 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
-    Author: Vadim Bogaiskov
-    Version: 3.5.3
+    Author: VBog
+    Version: 3.6.0
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.5.3');
+define('BG_BIBREFS_VERSION', '3.6.0');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -71,7 +71,6 @@ include_once('includes/settings.php');
 include_once('includes/references.php');
 include_once('includes/quotes.php');
 
-
 if ( defined('ABSPATH') && defined('WPINC') ) {
 // Регистрируем крючок для обработки контента при его загрузке
 	add_filter( 'the_content', 'bg_bibfers' );
@@ -83,6 +82,8 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	}
 // Регистрируем шорт-код bible
 	add_shortcode( 'bible', 'bg_bibfers_qoutes' );
+// Регистрируем шорт-код bible_epigraph
+	add_shortcode( 'bible_epigraph', 'bg_bibfers_bible_epigraph' );
 // Регистрируем шорт-код references
 	add_shortcode( 'references', 'bg_bibfers_references' );
 // Регистрируем шорт-код no_refs
@@ -125,6 +126,7 @@ function bg_bibfers($content) {
 // Функция обработки шорт-кода bible
 function bg_bibfers_qoutes( $atts, $content=null ) {
 	extract( shortcode_atts( array(
+		'ref' => '',
 		'book' => '',
 		'ch' => '1-999',
 		'type' => 'verses',
@@ -133,7 +135,10 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 	
 	$book = bg_bibfers_getBook($book);
 	if (!$lang) $lang = set_bible_lang();
+	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibfers_bible_quote_refs($ref);
+
 	if ($content) $quote = bg_bibfers_bible_proc($content, $type, $lang);
+	else if ($ref) $quote = bg_bibfers_bible_proc($ref, $type, $lang);
 	else if ($book != '') {
 		if ($type == 'link') {
 			$addr = bg_bibfers_get_url($book, $ch, $lang);
@@ -146,6 +151,24 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 		$class_val = get_option( 'bg_bibfers_class' );
 		if ($class_val == "") $class_val = 'bg_bibfers';
 		$quote = "<span class='".$class_val."'>".$quote."</span>";
+	}
+	return "{$quote}";
+}
+
+// Функция обработки шорт-кода bible_epigraph
+function bg_bibfers_bible_epigraph( $atts ) {
+	extract( shortcode_atts( array(
+		'ref' => 'rnd',
+		'lang' => ''
+	), $atts ) );
+	
+	if (!$lang) $lang = set_bible_lang();
+	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibfers_bible_quote_refs($ref);
+	if ($ref != "") $quote = bg_bibfers_bible_proc($ref, 'quote', $lang);
+	if ($quote != "") {
+		$class_val = get_option( 'bg_bibfers_class' );
+		if ($class_val == "") $class_val = 'bg_bibfers';
+		$quote = "<span class='".$class_val."'>&laquo;".$quote."...&raquo; (".$ref.")</span>";
 	}
 	return "{$quote}";
 }
