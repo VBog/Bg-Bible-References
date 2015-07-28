@@ -18,6 +18,7 @@ $bg_bibfers_all_refs=array();				// Перечень всех ссылок
     для работы требуется bg_bibfers_get_url() - см. ниже
 *******************************************************************************************/
 function bg_bibfers_bible_proc($txt, $type='', $lang='') {
+	global $post;
 	global $bg_bibfers_option;
 	global $bg_bibfers_all_refs;
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
@@ -38,8 +39,12 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	}
 /*******************************************************************/	
 	if (!$lang) $lang = set_bible_lang();
-	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
+	
+	$lang = include_books($lang);
+//	include_once(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 
+	$norefs_posts_val = get_post_meta($post->ID, 'norefs', true);
+	if ($norefs_posts_val || in_category( 'norefs' ) || has_tag( 'norefs' )) return $txt;
 	
 // Ищем все вхождения ссылок <a ...</a>, заголовков <h. ... </h.> и шорт-кодов [norefs]...[/norefs] и [bible]...[/bible]
 	preg_match_all("/<a\\s.*?<\/a>/sui", $txt, $hdr_a, PREG_OFFSET_CAPTURE);

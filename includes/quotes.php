@@ -7,7 +7,8 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 	global $bg_bibfers_option;
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
 	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
-	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
+	$lang = include_books($lang);
+//	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 	bg_bibfers_get_options ();
 /*******************************************************************************
    Преобразование обозначения книги из формата azbyka.ru в формат patriarhia.ru
@@ -319,8 +320,11 @@ function bg_bibfers_optina($txt, $book, $chapter, $verse) {
 	Возвращает ссылку цитаты из Библии из файла quotes.txt
   
 *******************************************************************************/  
-function bg_bibfers_bible_quote_refs($ref) {
+function bg_bibfers_bible_quote_refs($ref, $lang) {
 	global $bg_bibfers_option;
+	global $bg_bibfers_shortTitle;
+	$lang = include_books($lang);
+//	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 	
 	$refs_file = $bg_bibfers_option['refs_file'];
 	$url = dirname(dirname(__FILE__ )).'/'.$refs_file;										// Локальный URL файла
@@ -369,8 +373,10 @@ function bg_bibfers_bible_quote_refs($ref) {
 	$ref = $refs[$z];												
 	$ref= trim($ref);												// Удаляем пробелы (или другие символы) из начала и конца строки
 	$part=explode(".", $ref);
-	$book = bg_bibfers_getBook($part[0]);							// Обозначение книги
+	if (isset ($bg_bibfers_url[$part[0]])) $book = $bg_bibfers_url[$part[0]];	// Обозначение книги
+	else return "";
+	$book = $bg_bibfers_shortTitle[$book];
 	if (!$book) return "";											// Если нет такой книги, то возвращаем пустое значение
 
-	return bg_bibfers_getshortTitle($book).$part[1];
+	return $book.$part[1];
 }

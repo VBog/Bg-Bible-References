@@ -1,47 +1,113 @@
 # Copyright (C) 2014 
 # This file is distributed under the same license as the  package.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
+"Project-Id-Version: Bg Bibble References\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/bg-biblie-references\n"
-"POT-Creation-Date: 2014-11-18 11:33:49+00:00\n"
+"POT-Creation-Date: 2015-07-28 08:18+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: bg_bibrefs.php:235 bg_bibrefs.php:270
+#: bg_bibrefs.php:245 bg_bibrefs.php:280
 msgid "Bible References"
 msgstr ""
 
-#: bg_bibrefs.php:253
+#: bg_bibrefs.php:263
 msgid "Expand"
 msgstr ""
 
-#: bg_bibrefs.php:253
+#: bg_bibrefs.php:263
 msgid "Hide"
 msgstr ""
 
-#: bg_bibrefs.php:275 includes/settings.php:192
+#: bg_bibrefs.php:285 includes/settings.php:192
 msgid "Language of references and tooltips"
 msgstr ""
 
-#: bg_bibrefs.php:278 includes/settings.php:195
+#: bg_bibrefs.php:288 includes/settings.php:195
 msgid "Default"
 msgstr ""
 
-#: bg_bibrefs.php:293
+#: bg_bibrefs.php:303
 msgid "Ban to highlight references"
 msgstr ""
 
-#: bg_bibrefs.php:296
+#: bg_bibrefs.php:306
 msgid "Off"
 msgstr ""
 
-#: bg_bibrefs.php:297
+#: bg_bibrefs.php:307
 msgid "On"
+msgstr ""
+
+#: bg_bibrefs.php:345
+msgid "Bible References Widget"
+msgstr ""
+
+#: bg_bibrefs.php:346
+msgid "Create reference to the Bible"
+msgstr ""
+
+#: bg_bibrefs.php:361 bg_bibrefs.php:488
+msgid "Title:"
+msgstr ""
+
+#: bg_bibrefs.php:366
+msgid "Permalink to page:"
+msgstr ""
+
+#: bg_bibrefs.php:373
+msgid "Save selected options (on user side only)"
+msgstr ""
+
+#: bg_bibrefs.php:403
+msgid "Book"
+msgstr ""
+
+#: bg_bibrefs.php:410
+msgid "Chapter"
+msgstr ""
+
+#: bg_bibrefs.php:413
+msgid "Language"
+msgstr ""
+
+#: bg_bibrefs.php:428
+msgid "Go"
+msgstr ""
+
+#: bg_bibrefs.php:471
+msgid "Bible Quote Widget"
+msgstr ""
+
+#: bg_bibrefs.php:472
+msgid "Display Random Quote or Day's Quote from the Bible"
+msgstr ""
+
+#: bg_bibrefs.php:493
+msgid "Type of quote:"
+msgstr ""
+
+#: bg_bibrefs.php:496
+msgid "Day's Quote"
+msgstr ""
+
+#: bg_bibrefs.php:499
+msgid "Random Quote"
+msgstr ""
+
+#: bg_bibrefs.php:504
+msgid "Language of the Bible:"
 msgstr ""
 
 #: includes/quotes.php:315
@@ -172,8 +238,8 @@ msgstr ""
 msgid ""
 "<i>(Plugin tries to read Bible files with marked methods in the order listed."
 "<br>To do the reading faster, disable unnecessary methods - you need one "
-"only. <br><u>Warning:</u> Some methods may not be available on your server.)"
-"</i>"
+"only. <br><u>Warning:</u> Some methods may not be available on your "
+"server.)</i>"
 msgstr ""
 
 #: includes/settings.php:298
@@ -197,8 +263,8 @@ msgid ""
 "<br><i>(If you enable this option the debug information will written to the "
 "file \"debug.log\" in the plugin directory.<br>The file will be updated in "
 "30 minutes after the last record, or the filesize exceed 2 Mb.<br><font "
-"color=\"red\"><b>Disable this option after the end of debugging!</b></font>)"
-"</i>"
+"color=\"red\"><b>Disable this option after the end of debugging!</b></"
+"font>)</i>"
 msgstr ""
 
 #: includes/settings.php:323
@@ -228,12 +294,14 @@ msgid "There are several ways for you to say thanks:"
 msgstr ""
 
 #: includes/settings.php:343
+#, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
 "of the church of Sts. Peter and Fevronia in Marino"
 msgstr ""
 
 #: includes/settings.php:344
+#, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give 5 stars</a> over at the WordPress "
 "Plugin Directory"
@@ -252,6 +320,7 @@ msgid "Support"
 msgstr ""
 
 #: includes/settings.php:351
+#, php-format
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
 "href=\"%2$s\" target=\"_blank\">personal site</a> for help."

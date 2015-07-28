@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 4.0
+Tested up to: 4.2.3
 
 Stable tag: trunk
 
@@ -102,7 +102,7 @@ Russian:
 Чтобы выделить текст стихов в подсказке для последующего копирования в буфер обмена просто щелките мышью в области стихов, например, по номеру стиха. 
 А затем используйте Ctrl+C или контекстное меню для копирования.
 
-Тепер Плагін підтримує і українську мову: текст Біблії (переклад Огієнка), назви Книг, посилання, інтерфейс.
+Плагин содержит 2 виджета. Виджет "Ссылки на Библию" позволяет разместить в сайдбаре форму для вывода текста цитат из Библии на странице Вашего сайта. Виджет "Цитата из Библии" выводит в сайдбаре Случайную Цитату или Цитату Дня из Библии, аналогично тому, как это делает шорт-код [bible_epigraph].
 
 English: 
 
@@ -184,7 +184,7 @@ If you want to disable highlight of Bible references in the whole post, create a
 To select verses text in tooltip for later copying to the clipboard click the left mouse button in the verse field, for example, on verse number.
 And then use Ctrl+C or the context menu for copy.
 
-Now the plugin supports Ukrainian language: the Bible text(translated Ogienko), book title, links, interface.
+The plugin contains two widget. Widget "Bible References" allows you to place the form in the sidebar to display Bible quotes on the page of your site. Widget "Bible Quote" in the sidebar displays a Random Quote or Day's Quote from the Bible the same way as it makes the shortcode [bible_epigraph].
 
 == Installation ==
 
@@ -210,6 +210,14 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.7.0 =
+
+* Важно! Если Вы используете на сайте ссылки на церковнославянском языке, замените в шорт-кодах значение параметра lang с "sc" на "cu".
+* Added "Bible References" widget and "Bible Quote" widget.
+* New plugin's site http://wp-bible.info .
+* Fixed code of Church Slavonic language from "sc" to "cu" (in according with ISO 639-1). Please make the changes to your website!
+* Bug fixed.
 
 = 3.6.1 =
 
@@ -465,6 +473,14 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.7.0 =
+
+* Важно! Если Вы используете на сайте ссылки на церковнославянском языке, замените в шорт-кодах значение параметра lang с "sc" на "cu".
+* Added "Bible References" widget and "Bible Quote" widget.
+* New plugin's site http://wp-bible.info
+* Fixed code of Church Slavonic language from "sc" to "cu" (in according with ISO 639-1). Please make the changes to your website!
+* Bug fixed.
 
 = 3.6.1 =
 

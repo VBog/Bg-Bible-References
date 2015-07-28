@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2014-11-18 08:01+0300\n"
-"PO-Revision-Date: 2014-11-18 08:01+0300\n"
+"POT-Creation-Date: 2015-07-27 09:49+0300\n"
+"PO-Revision-Date: 2015-07-27 23:00+0300\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.8.3\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
@@ -18,37 +18,97 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../bg_bibrefs.php:235 ../bg_bibrefs.php:270
+#: ../bg_bibrefs.php:245 ../bg_bibrefs.php:280
 msgid "Bible References"
 msgstr "Посилання на Біблію"
 
-#: ../bg_bibrefs.php:253
+#: ../bg_bibrefs.php:263
 msgid "Expand"
 msgstr "Розгорнути"
 
-#: ../bg_bibrefs.php:253
+#: ../bg_bibrefs.php:263
 msgid "Hide"
 msgstr "Приховати"
 
-#: ../bg_bibrefs.php:275 ../includes/settings.php:192
+#: ../bg_bibrefs.php:285 ../includes/settings.php:192
 msgid "Language of references and tooltips"
 msgstr "Мова посилань і підказок"
 
-#: ../bg_bibrefs.php:278 ../includes/settings.php:195
+#: ../bg_bibrefs.php:288 ../includes/settings.php:195
 msgid "Default"
 msgstr "За замовчуванням"
 
-#: ../bg_bibrefs.php:293
+#: ../bg_bibrefs.php:303
 msgid "Ban to highlight references"
 msgstr "Заборона підсвічування посилань"
 
-#: ../bg_bibrefs.php:296
+#: ../bg_bibrefs.php:306
 msgid "Off"
 msgstr "Відкл."
 
-#: ../bg_bibrefs.php:297
+#: ../bg_bibrefs.php:307
 msgid "On"
 msgstr "Вкл."
+
+#: ../bg_bibrefs.php:345
+msgid "Bible References Widget"
+msgstr "Віджет \"Посилання на Біблію\""
+
+#: ../bg_bibrefs.php:346
+msgid "Create reference to the Bible"
+msgstr "Створення посилання на Біблію"
+
+#: ../bg_bibrefs.php:361 ../bg_bibrefs.php:488
+msgid "Title:"
+msgstr "Назва:"
+
+#: ../bg_bibrefs.php:366
+msgid "Permalink to page:"
+msgstr "Постійне посилання на сторінку:"
+
+#: ../bg_bibrefs.php:373
+msgid "Save selected options (on user side only)"
+msgstr "Зберігати вибрані параметри (тільки на стороні користувача)"
+
+#: ../bg_bibrefs.php:403
+msgid "Book"
+msgstr "Книга"
+
+#: ../bg_bibrefs.php:410
+msgid "Chapter"
+msgstr "Розділ"
+
+#: ../bg_bibrefs.php:413
+msgid "Language"
+msgstr "Мова"
+
+#: ../bg_bibrefs.php:428
+msgid "Go"
+msgstr "Перейти"
+
+#: ../bg_bibrefs.php:471
+msgid "Bible Quote Widget"
+msgstr "Віджет \"Цитата з Біблії\""
+
+#: ../bg_bibrefs.php:472
+msgid "Display Random Quote or Day's Quote from the Bible"
+msgstr "Показує на экране Випадкову Цитату або Цитату Дня з Біблії"
+
+#: ../bg_bibrefs.php:493
+msgid "Type of quote:"
+msgstr "Вид цитати:"
+
+#: ../bg_bibrefs.php:496
+msgid "Day's Quote"
+msgstr "Цитата Дня"
+
+#: ../bg_bibrefs.php:499
+msgid "Random Quote"
+msgstr "Випадкова Цитата"
+
+#: ../bg_bibrefs.php:504
+msgid "Language of the Bible:"
+msgstr "Мова Біблії:"
 
 #: ../includes/quotes.php:315
 msgid "Click to go to interpretation"
@@ -302,6 +362,3 @@ msgstr "Хай збереже Вас Господь!"
 
 #~ msgid "ru"
 #~ msgstr "uk"
-
-#~ msgid "Chapter"
-#~ msgstr "Розділ"
