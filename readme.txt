@@ -211,9 +211,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.7.1 =
+
+* Bug fixed.
+
 = 3.7.0 =
 
-* Важно! Если Вы используете на сайте ссылки на церковнославянском языке, замените в шорт-кодах значение параметра lang с "sc" на "cu".
 * Added "Bible References" widget and "Bible Quote" widget.
 * New plugin's site http://wp-bible.info .
 * Fixed code of Church Slavonic language from "sc" to "cu" (in according with ISO 639-1). Please make the changes to your website!
@@ -474,9 +477,13 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 3.7.0 =
+= 3.7.1 =
 
 * Важно! Если Вы используете на сайте ссылки на церковнославянском языке, замените в шорт-кодах значение параметра lang с "sc" на "cu".
+* Bug fixed.
+
+= 3.7.0 =
+
 * Added "Bible References" widget and "Bible Quote" widget.
 * New plugin's site http://wp-bible.info
 * Fixed code of Church Slavonic language from "sc" to "cu" (in according with ISO 639-1). Please make the changes to your website!

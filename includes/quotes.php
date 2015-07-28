@@ -8,7 +8,6 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
 	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 	$lang = include_books($lang);
-//	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 	bg_bibfers_get_options ();
 /*******************************************************************************
    Преобразование обозначения книги из формата azbyka.ru в формат patriarhia.ru
@@ -322,11 +321,11 @@ function bg_bibfers_optina($txt, $book, $chapter, $verse) {
 *******************************************************************************/  
 function bg_bibfers_bible_quote_refs($ref, $lang) {
 	global $bg_bibfers_option;
-	global $bg_bibfers_shortTitle;
+	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 	$lang = include_books($lang);
-//	include(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 	
 	$refs_file = $bg_bibfers_option['refs_file'];
+
 	$url = dirname(dirname(__FILE__ )).'/'.$refs_file;										// Локальный URL файла
 	if (!is_file ( $url )) {																// Если пользовательский файл не существует, то файл по умолчанию
 		$refs_file = 'quotes.txt';

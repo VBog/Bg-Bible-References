@@ -41,7 +41,6 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	if (!$lang) $lang = set_bible_lang();
 	
 	$lang = include_books($lang);
-//	include_once(dirname(dirname(__FILE__ )).'/bible/'.$lang.'/books.php');
 
 	$norefs_posts_val = get_post_meta($post->ID, 'norefs', true);
 	if ($norefs_posts_val || in_category( 'norefs' ) || has_tag( 'norefs' )) return $txt;

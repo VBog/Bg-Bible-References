@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: VBog
-    Version: 3.7.0
+    Version: 3.7.1
     Author URI: http://bogaiskov.ru 
 */
 
@@ -396,13 +396,12 @@ class BibleWidget extends WP_Widget
 	}
 	// Отображение виджета непосредственно в сайдбаре на сайте
 	public function widget($args, $instance) {
-		global $bg_bibfers_bookTitle;
+		global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 
 		$lang = get_option( $bg_verses_lang );
 		if (!$lang) $lang = set_bible_lang();
-		
 		$lang = include_books($lang);
-//		include(dirname(__FILE__ ).'/bible/'.$lang.'/books.php');
+
 		$num_books = count($bg_bibfers_bookTitle);
 		$books = array_keys ( $bg_bibfers_bookTitle);
 		$title = $instance["title"];
@@ -542,13 +541,12 @@ class QuotesWidget extends WP_Widget
 	}
 	// Отображение виджета непосредственно в сайдбаре на сайте
 	public function widget($args, $instance) {
-		global $bg_bibfers_bookTitle;
+		global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 
 		$lang = get_option( $bg_verses_lang );
 		if (!$lang) $lang = set_bible_lang();
-		
 		$lang = include_books($lang);
-//		include(dirname(__FILE__ ).'/bible/'.$lang.'/books.php');
+		
 		$num_books = count($bg_bibfers_bookTitle);
 		$books = array_keys ( $bg_bibfers_bookTitle);
 		$title = $instance["title"];
