@@ -297,7 +297,7 @@ function bg_bibfers_extra_fields() {
 function bg_bibfers_extra_fields_box_func( $post ){
 ?>
 	<label for="bg_verses_lang"><?php _e('Language of references and tooltips', 'bg_bibfers' ); ?></label>
-		<select id="bg_verses_lang" name="bg_bibfers_extra[bible_lang]" />
+		<select id="bg_verses_lang" name="bg_bibfers_extra[bible_lang]">
 		<?php $bg_verses_lang_val = get_post_meta($post->ID, 'bible_lang', 1); ?>
 			<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibfers' ); ?></option>
 			<?php $path = dirname( __FILE__ ).'/bible/';
@@ -315,7 +315,7 @@ function bg_bibfers_extra_fields_box_func( $post ){
 		</select>
 	&nbsp;
 	<label for="bg_norefs"><?php _e('Ban to highlight references', 'bg_bibfers' ); ?></label>
-		<select id="bg_norefs" name="bg_bibfers_extra[norefs]" />
+		<select id="bg_norefs" name="bg_bibfers_extra[norefs]">
 		<?php $bg_norefs_val = get_post_meta($post->ID, 'norefs', 1); ?>
 			<option <?php if($bg_norefs_val=="") echo "selected" ?> value=""><?php _e('Off', 'bg_bibfers' ); ?></option>
 			<option <?php if($bg_norefs_val) echo "selected" ?> value="on"><?php _e('On', 'bg_bibfers' ); ?></option>
@@ -415,7 +415,7 @@ class BibleWidget extends WP_Widget
 		
 <!--	Список книг Библии			-->
 			<p><label class="widget-title" for="bg_quote_bookId"><?php _e('Book', 'bg_bibfers' ); ?></label><br>
-			<select class="required" id="bg_quote_bookId" />
+			<select class="required" id="bg_quote_bookId">
 				<?php for ($i = 0; $i< $num_books; $i++) { 
 					echo "<option value=".$books[$i].">".$bg_bibfers_bookTitle[$books[$i]]."</option>\n";
 				} ?>
@@ -425,7 +425,7 @@ class BibleWidget extends WP_Widget
 			<input class="required" id="bg_quote_chId" type="text" value=""><br>		
 <!--	Язык Библии					-->
 			<label class="widget-title" for="bg_quote_langId"><?php _e('Language', 'bg_bibfers' ); ?></label><br>
-			<select class="required" id="bg_quote_langId" />
+			<select class="required" id="bg_quote_langId">
 				<?php $path = dirname( __FILE__ ).'/bible/';
 				if ($handle = opendir($path)) {
 					while (false !== ($dir = readdir($handle))) { 
