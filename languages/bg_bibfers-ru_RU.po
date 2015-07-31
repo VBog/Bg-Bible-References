@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2015-07-26 21:37+0300\n"
-"PO-Revision-Date: 2015-07-26 21:37+0300\n"
+"POT-Creation-Date: 2015-07-30 22:28+0300\n"
+"PO-Revision-Date: 2015-07-30 22:28+0300\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
@@ -18,101 +18,121 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../bg_bibrefs.php:245 ../bg_bibrefs.php:280
+#: ../bg_bibrefs.php:144 ../bg_bibrefs.php:323
 msgid "Bible References"
 msgstr "Ссылки на Библию"
 
-#: ../bg_bibrefs.php:263
+#: ../bg_bibrefs.php:306
 msgid "Expand"
 msgstr "Развернуть"
 
-#: ../bg_bibrefs.php:263
+#: ../bg_bibrefs.php:306
 msgid "Hide"
 msgstr "Скрыть"
 
-#: ../bg_bibrefs.php:285 ../includes/settings.php:192
+#: ../bg_bibrefs.php:328 ../includes/settings.php:192
 msgid "Language of references and tooltips"
 msgstr "Язык ссылок и подсказок"
 
-#: ../bg_bibrefs.php:288 ../includes/settings.php:195
+#: ../bg_bibrefs.php:331 ../includes/settings.php:195
 msgid "Default"
 msgstr "По умолчанию"
 
-#: ../bg_bibrefs.php:303
+#: ../bg_bibrefs.php:346
 msgid "Ban to highlight references"
 msgstr "Запрет подсветки ссылок"
 
-#: ../bg_bibrefs.php:306
+#: ../bg_bibrefs.php:349
 msgid "Off"
 msgstr "Откл."
 
-#: ../bg_bibrefs.php:307
+#: ../bg_bibrefs.php:350
 msgid "On"
 msgstr "Вкл."
 
-#: ../bg_bibrefs.php:345
+#: ../bg_bibrefs.php:388
 msgid "Bible References Widget"
 msgstr "Виджет Ссылки на Библию"
 
-#: ../bg_bibrefs.php:346
+#: ../bg_bibrefs.php:389
 msgid "Create reference to the Bible"
 msgstr "Создание ссылок на Библию"
 
-#: ../bg_bibrefs.php:361 ../bg_bibrefs.php:488
+#: ../bg_bibrefs.php:404 ../bg_bibrefs.php:526 ../bg_bibrefs.php:634
 msgid "Title:"
 msgstr "Заголовок:"
 
-#: ../bg_bibrefs.php:366
+#: ../bg_bibrefs.php:409 ../bg_bibrefs.php:531
 msgid "Permalink to page:"
 msgstr "Постоянная ссылка на страницу:"
 
-#: ../bg_bibrefs.php:373
+#: ../bg_bibrefs.php:416 ../bg_bibrefs.php:538
 msgid "Save selected options (on user side only)"
 msgstr "Сохранять выбранные параметры (только на стороне пользователя)"
 
-#: ../bg_bibrefs.php:403
+#: ../bg_bibrefs.php:446
 msgid "Book"
 msgstr "Книга"
 
-#: ../bg_bibrefs.php:410
+#: ../bg_bibrefs.php:453
 msgid "Chapter"
 msgstr "Глава"
 
-#: ../bg_bibrefs.php:413
+#: ../bg_bibrefs.php:456 ../bg_bibrefs.php:570
 msgid "Language"
 msgstr "Язык"
 
-#: ../bg_bibrefs.php:428
+#: ../bg_bibrefs.php:471
 msgid "Go"
 msgstr "Перейти"
 
-#: ../bg_bibrefs.php:471
+#: ../bg_bibrefs.php:510
+msgid "Bible Search Widget"
+msgstr "Виджет \"Поиск в Библии\""
+
+#: ../bg_bibrefs.php:511
+msgid "Finds words or phrases in the Bible"
+msgstr "Находит слова и фразы в Библии"
+
+#: ../bg_bibrefs.php:585
+msgid "Search"
+msgstr "Найти"
+
+#: ../bg_bibrefs.php:617
 msgid "Bible Quote Widget"
 msgstr "Виджет цитата из Библии"
 
-#: ../bg_bibrefs.php:472
+#: ../bg_bibrefs.php:618
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr "Выводит на экран Случайную Цитату или Цитату Дня из Библии"
 
-#: ../bg_bibrefs.php:493
+#: ../bg_bibrefs.php:639
 msgid "Type of quote:"
 msgstr "Тип цитаты:"
 
-#: ../bg_bibrefs.php:496
+#: ../bg_bibrefs.php:642
 msgid "Day's Quote"
 msgstr "Цитата Дня"
 
-#: ../bg_bibrefs.php:499
+#: ../bg_bibrefs.php:645
 msgid "Random Quote"
 msgstr "Случайная Цитата"
 
-#: ../bg_bibrefs.php:504
+#: ../bg_bibrefs.php:650
 msgid "Language of the Bible:"
 msgstr "Язык Библии:"
 
 #: ../includes/quotes.php:315
 msgid "Click to go to interpretation"
 msgstr "Щелкните, чтобы перейти к толкованию"
+
+#: ../includes/search.php:106
+msgid ""
+"sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+"извините, по вашему запросу ничего не найдено. Попробуйте другие ключевые "
+"слова."
 
 #: ../includes/settings.php:143
 msgid "Options saved."
@@ -355,6 +375,13 @@ msgstr ""
 #: ../includes/settings.php:353
 msgid "God protect you!"
 msgstr "Храни вас Господи!"
+
+#~ msgid ""
+#~ "Sorry, but nothing matched your search terms. Please try again with some "
+#~ "different keywords."
+#~ msgstr ""
+#~ "Извините, по вашему запросу ничего не найдено. Попробуйте другие ключевые "
+#~ "слова."
 
 #~ msgid "Title"
 #~ msgstr "Заголовок"

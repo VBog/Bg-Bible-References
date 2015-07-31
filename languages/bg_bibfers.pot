@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bg Bibble References\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/bg-biblie-references\n"
-"POT-Creation-Date: 2015-07-28 08:18+0300\n"
+"POT-Creation-Date: 2015-07-30 22:31+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,100 +18,118 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: bg_bibrefs.php:245 bg_bibrefs.php:280
+#: bg_bibrefs.php:144 bg_bibrefs.php:323
 msgid "Bible References"
 msgstr ""
 
-#: bg_bibrefs.php:263
+#: bg_bibrefs.php:306
 msgid "Expand"
 msgstr ""
 
-#: bg_bibrefs.php:263
+#: bg_bibrefs.php:306
 msgid "Hide"
 msgstr ""
 
-#: bg_bibrefs.php:285 includes/settings.php:192
+#: bg_bibrefs.php:328 includes/settings.php:192
 msgid "Language of references and tooltips"
 msgstr ""
 
-#: bg_bibrefs.php:288 includes/settings.php:195
+#: bg_bibrefs.php:331 includes/settings.php:195
 msgid "Default"
 msgstr ""
 
-#: bg_bibrefs.php:303
+#: bg_bibrefs.php:346
 msgid "Ban to highlight references"
 msgstr ""
 
-#: bg_bibrefs.php:306
+#: bg_bibrefs.php:349
 msgid "Off"
 msgstr ""
 
-#: bg_bibrefs.php:307
+#: bg_bibrefs.php:350
 msgid "On"
 msgstr ""
 
-#: bg_bibrefs.php:345
+#: bg_bibrefs.php:388
 msgid "Bible References Widget"
 msgstr ""
 
-#: bg_bibrefs.php:346
+#: bg_bibrefs.php:389
 msgid "Create reference to the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:361 bg_bibrefs.php:488
+#: bg_bibrefs.php:404 bg_bibrefs.php:526 bg_bibrefs.php:634
 msgid "Title:"
 msgstr ""
 
-#: bg_bibrefs.php:366
+#: bg_bibrefs.php:409 bg_bibrefs.php:531
 msgid "Permalink to page:"
 msgstr ""
 
-#: bg_bibrefs.php:373
+#: bg_bibrefs.php:416 bg_bibrefs.php:538
 msgid "Save selected options (on user side only)"
 msgstr ""
 
-#: bg_bibrefs.php:403
+#: bg_bibrefs.php:446
 msgid "Book"
 msgstr ""
 
-#: bg_bibrefs.php:410
+#: bg_bibrefs.php:453
 msgid "Chapter"
 msgstr ""
 
-#: bg_bibrefs.php:413
+#: bg_bibrefs.php:456 bg_bibrefs.php:570
 msgid "Language"
 msgstr ""
 
-#: bg_bibrefs.php:428
+#: bg_bibrefs.php:471
 msgid "Go"
 msgstr ""
 
-#: bg_bibrefs.php:471
+#: bg_bibrefs.php:510
+msgid "Bible Search Widget"
+msgstr ""
+
+#: bg_bibrefs.php:511
+msgid "Finds words or phrases in the Bible"
+msgstr ""
+
+#: bg_bibrefs.php:585
+msgid "Search"
+msgstr ""
+
+#: bg_bibrefs.php:617
 msgid "Bible Quote Widget"
 msgstr ""
 
-#: bg_bibrefs.php:472
+#: bg_bibrefs.php:618
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:493
+#: bg_bibrefs.php:639
 msgid "Type of quote:"
 msgstr ""
 
-#: bg_bibrefs.php:496
+#: bg_bibrefs.php:642
 msgid "Day's Quote"
 msgstr ""
 
-#: bg_bibrefs.php:499
+#: bg_bibrefs.php:645
 msgid "Random Quote"
 msgstr ""
 
-#: bg_bibrefs.php:504
+#: bg_bibrefs.php:650
 msgid "Language of the Bible:"
 msgstr ""
 
 #: includes/quotes.php:315
 msgid "Click to go to interpretation"
+msgstr ""
+
+#: includes/search.php:106
+msgid ""
+"sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
 msgstr ""
 
 #: includes/settings.php:143

@@ -4,7 +4,7 @@
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
     Author: VBog
-    Version: 3.7.1
+    Version: 3.8.0
     Author URI: http://bogaiskov.ru 
 */
 
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.7.0');
+define('BG_BIBREFS_VERSION', '3.8.0');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -70,6 +70,7 @@ load_plugin_textdomain( 'bg_bibfers', false, dirname( plugin_basename( __FILE__ 
 include_once('includes/settings.php');
 include_once('includes/references.php');
 include_once('includes/quotes.php');
+include_once('includes/search.php');
 
 if ( defined('ABSPATH') && defined('WPINC') ) {
 // Регистрируем крючок для обработки контента при его загрузке
@@ -86,8 +87,10 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	add_shortcode( 'bible_epigraph', 'bg_bibfers_bible_epigraph' );
 // Регистрируем шорт-код references
 	add_shortcode( 'references', 'bg_bibfers_references' );
-// Регистрируем шорт-код no_refs
+// Регистрируем шорт-код norefs
 	add_shortcode( 'norefs', 'bg_bibfers_norefs' );
+// Регистрируем шорт-код bible_search
+	add_shortcode( 'bible_search', 'bg_bibfers_bible_search' );
 }
 
 /*****************************************************************************************
@@ -134,7 +137,18 @@ function bg_bibfers($content) {
 	$content = bg_bibfers_bible_proc($content);
 	return $content;
 }
-// Функция обработки шорт-кода bible
+
+// Функция действия перед крючком добавления меню
+function bg_bibfers_add_pages() {
+    // Добавим новое подменю в раздел Параметры 
+    add_options_page( __('Bible References', 'bg_bibfers' ), __('Bible References', 'bg_bibfers' ), 'manage_options', __FILE__, 'bg_bibfers_options_page');
+}
+
+/*****************************************************************************************
+	Шорт-коды
+	Функции обработки шорт-кода
+******************************************************************************************/
+//  [bible]
 function bg_bibfers_qoutes( $atts, $content=null ) {
 	extract( shortcode_atts( array(
 		'ref' => '',
@@ -176,7 +190,7 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 	return "{$quote}";
 }
 
-// Функция обработки шорт-кода bible_epigraph
+// [bible_epigraph]
 function bg_bibfers_bible_epigraph( $atts ) {
 	extract( shortcode_atts( array(
 		'ref' => 'rnd',
@@ -197,7 +211,7 @@ function bg_bibfers_get_bible_epigraph( $ref, $lang ) {
 	return $quote;
 }
 
-// Функция обработки шорт-кода references
+// [references]
 function bg_bibfers_references( $atts ) {
 	extract( shortcode_atts( array(
 		'type' => 'list',
@@ -248,15 +262,30 @@ function bg_bibfers_references( $atts ) {
 	return "{$references}";
 }
 
-// Функция обработки шорт-кода norefs
+// [norefs]
 function bg_bibfers_norefs( $atts, $content = null ) {
 	 return do_shortcode($content);
 }
 
-// Функция действия перед крючком добавления меню
-function bg_bibfers_add_pages() {
-    // Добавим новое подменю в раздел Параметры 
-    add_options_page( __('Bible References', 'bg_bibfers' ), __('Bible References', 'bg_bibfers' ), 'manage_options', __FILE__, 'bg_bibfers_options_page');
+//  [bible_search]
+function bg_bibfers_bible_search( $atts, $content=null ) {
+	extract( shortcode_atts( array(
+		'context' => '',
+		'type' => 'verses',
+		'lang' => ''
+	), $atts ) );
+// Если $context задано значение "get", то получаем $context из ссылки	
+	if ($context == "get") {
+		$context = $_GET["bs"];
+		$l = $_GET["lang"];
+		if ($l != "") $lang = $l;
+	}
+	$context = trim($context);
+	if (!$context) return "";
+	
+	$quote = bg_bibfers_search_result($context, $type, $lang);
+	
+	return "{$quote}";
 }
 
 /*****************************************************************************************
@@ -408,7 +437,7 @@ class BibleWidget extends WP_Widget
 		$page = $instance["page"];
 		$storage = $instance["storage"];
 ?>
-		<aside id="bg-bibrefs-2" class="widget widget_bg-bibrefs">
+		<aside id="bg-bibrefs-1" class="widget widget_bg-bibrefs">
 			<h2 class="widget-title"><?php echo $title; ?></h2>
 <!--	Ссылка на страницу в шорт-кодом			-->
 			<input id="bg_quote_pageId" type="hidden" value="<?php echo $page; ?>">
@@ -422,7 +451,7 @@ class BibleWidget extends WP_Widget
 			</select><br>
 <!--	Номера глав и стихов		-->
 			<label class="widget-title" for="bg_quote_chId"><?php _e('Chapter', 'bg_bibfers' ); ?></label><br>
-			<input class="required" id="bg_quote_chId" type="text" value=""><br>		
+			<input class="required" id="bg_quote_chId" type="text" value="" onkeypress="return bg_quote_testKey(event)"><br>		
 <!--	Язык Библии					-->
 			<label class="widget-title" for="bg_quote_langId"><?php _e('Language', 'bg_bibfers' ); ?></label><br>
 			<select class="required" id="bg_quote_langId">
@@ -460,20 +489,135 @@ class BibleWidget extends WP_Widget
 				var bg_quote_book = document.getElementById('bg_quote_bookId').value;
 				var bg_quote_ch = document.getElementById('bg_quote_chId').value;
 				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
-				document.location.href = bg_quote_page + "?book=" + bg_quote_book + ((bg_quote_ch!="")?"&ch=":"") + bg_quote_ch + "&lang=" + bg_quote_lang;
+				document.location.href = encodeURI(bg_quote_page + "?book=" + bg_quote_book + ((bg_quote_ch!="")?"&ch=":"") + bg_quote_ch + "&lang=" + bg_quote_lang);
 				window.localStorage['bg_quote_page'] = bg_quote_page;
 				window.localStorage['bg_quote_book'] = bg_quote_book;
 				window.localStorage['bg_quote_ch'] = bg_quote_ch;
 				window.localStorage['bg_quote_lang'] = bg_quote_lang;
+			}
+			function bg_quote_testKey(e)
+			{
+			  // Make sure to use event.charCode if available
+			  var key = (typeof e.charCode == 'undefined' ? e.keyCode : e.charCode);
+
+			  // Ignore special keys
+			  if (e.ctrlKey || e.altKey || key < 32)
+				return true;
+
+			  key = String.fromCharCode(key);
+			  return /[\d\,\:\-]/.test(key);
 			}
 		</script>
 <?php
 	}	
 }
 
-function  register_biblewidget () {
-    register_widget("BibleWidget");
-};
+/*****************************************************************************************
+	Виджет для поиска в Библии
+	
+******************************************************************************************/
+class BibleSearchWidget extends WP_Widget
+{
+    public function __construct() {
+        parent::__construct("bg_bibfers_bible_search_widget", __('Bible Search Widget', 'bg_bibfers' ),
+            array("description" =>  __('Finds words or phrases in the Bible', 'bg_bibfers' )));
+    }
+	// Создаем форму для ввода данных на странице виджетов
+	public function form($instance) {
+		$title = "";
+		$page = "";
+		// если instance не пустой, достанем значения
+		if (!empty($instance)) {
+			$title = $instance["title"];
+			$page = $instance["page"];
+			$storage = $instance["storage"];
+		}
+		// Заголовок виджета в сайдбаре
+		$titleId = $this->get_field_id("title");
+		$titleName = $this->get_field_name("title");
+		echo '<p><label for="' . $titleId . '">' . __('Title:', 'bg_bibfers' ) . '</label><br>';
+		echo '<input id="' . $titleId . '" type="text" name="' . $titleName . '" value="' . $title . '" size="50"></p>';
+		// Ссылка на предварительно созданную страницу для вывода результатов поиска
+		$pageId = $this->get_field_id("page");
+		$pageName = $this->get_field_name("page");
+		echo '<p><label for="' . $pageId . '">' . __('Permalink to page:', 'bg_bibfers' ) . '</label><br>';
+		echo '<input id="' . $pageId . '" type="text" name="' . $pageName . '" value="' . $page . '" size="50"></p>';
+		// Сохранять параметры выбора (на стороне пользователя)
+		$storageId = $this->get_field_id("storage");
+		$storageName = $this->get_field_name("storage");
+		echo '<p><input id="' . $storageId . '" type="checkbox" name="' . $storageName. '"'; 
+		if ($storage) echo " checked";
+		echo '>' . __('Save selected options (on user side only)', 'bg_bibfers' ) . '</p>';
+	}
+	// Сохранение настроек
+	public function update($newInstance, $oldInstance) {
+		$values = array();
+		$values["title"] = htmlentities($newInstance["title"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		$values["page"] = htmlentities($newInstance["page"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		$values["storage"] = htmlentities($newInstance["storage"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		return $values;
+	}
+	// Отображение виджета непосредственно в сайдбаре на сайте
+	public function widget($args, $instance) {
+		global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+
+		$lang = get_option( $bg_verses_lang );
+		if (!$lang) $lang = set_bible_lang();
+		$lang = include_books($lang);
+
+		$num_books = count($bg_bibfers_bookTitle);
+		$books = array_keys ( $bg_bibfers_bookTitle);
+		$title = $instance["title"];
+		$page = $instance["page"];
+		$storage = $instance["storage"];
+?>
+		<aside id="bg-bibrefs-2" class="widget widget_bg-bibrefs">
+			<h2 class="widget-title"><?php echo $title; ?></h2>
+<!--	Ссылка на страницу в шорт-кодом			-->
+			<input id="bg_search_pageId" type="hidden" value="<?php echo $page; ?>">
+		
+<!--	Искомое слово или фраза		-->
+			<input class="required" id="bg_search_ptrnId" type="text" placeholder="<?php _e('Search', 'bg_bibfers' ); ?>&hellip;" value=""><br>		
+<!--	Язык Библии					-->
+			<label class="widget-title" for="bg_search_langId"><?php _e('Language', 'bg_bibfers' ); ?></label><br>
+			<select class="required" id="bg_search_langId">
+				<?php $path = dirname( __FILE__ ).'/bible/';
+				if ($handle = opendir($path)) {
+					while (false !== ($dir = readdir($handle))) { 
+						if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+							include ($path.$dir.'/books.php');
+							echo "<option ";
+							if($lang==$dir) echo "selected";
+							echo " value=".$dir.">".$bg_bibfers_lang_name."</option>\n";
+						}
+					}
+					closedir($handle); 
+				} ?>
+			</select></p>
+			<p><input type="submit" value="<?php _e('Search', 'bg_bibfers' ); ?>" onclick="bg_search_goToPage()"></p>
+		</aside>
+		<?php if ($storage) { ?>
+		<script>
+			if (window.localStorage['bg_search_ptrn'])
+				document.getElementById('bg_search_ptrnId').value = window.localStorage['bg_search_ptrn'];
+			if (window.localStorage['bg_quote_lang'])
+				document.getElementById('bg_search_langId').value = window.localStorage['bg_search_lang'];
+		</script>
+	<?php } ?>
+		<script>
+			function bg_search_goToPage()
+			{
+				var bg_search_page = document.getElementById('bg_search_pageId').value;
+				var bg_search_ptrn = document.getElementById('bg_search_ptrnId').value;
+				var bg_search_lang = document.getElementById('bg_search_langId').value;
+				document.location.href = encodeURI(bg_search_page + "?bs=" + bg_search_ptrn + "&lang=" + bg_search_lang);
+				window.localStorage['bg_search_ptrn'] = bg_search_ptrn;
+				window.localStorage['bg_search_lang'] = bg_search_lang;
+			}
+		</script>
+<?php
+	}	
+}
 
 /*****************************************************************************************
 	Виджет выводит на экран цитату дня из Библии
@@ -562,11 +706,12 @@ class QuotesWidget extends WP_Widget
 <?php
 	}	
 }
-function  register_quoteswidget() {
+
+// Регистрируем виджеты
+function  register_widgets() {
     register_widget("BibleWidget");
+    register_widget("BibleSearchWidget");
     register_widget("QuotesWidget");
 };
-
-// Регистрируем виджет
-add_action("widgets_init", "register_quoteswidget");
+add_action("widgets_init", "register_widgets");
 

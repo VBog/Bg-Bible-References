@@ -89,6 +89,8 @@ Russian:
 
 Шорт-код [bible_epigraph ref='rnd' lang='ru'] выводит на экран цитату в форме эпиграфа. 
 
+Шорт-код [bible_search context='Отче наш' type='verses' lang='ru' /] выводит на экран результаты поиска указанной в параметре 'context' фразы. В поисковом запросе можно использовать специальные символы: "$" - 1 любая буква, "%" - 0 или 1 любая буква, "*" - несколько любых букв.
+
 Шорт-код [references type='list' separator=', ' list='o' col=1 /] выводит список ссылок на Библию, встречающиеся в статье.
 Здесь: type – формат отображения списка (по умолчанию 'list').
 Если  type=’string’, то список отображается в виде строки в тегах `<p>...</p>`, при этом используется дополнительный параметр 'separator', в котором указывается разделитель между ссылками (по умолчанию запятая и пробел).
@@ -102,7 +104,10 @@ Russian:
 Чтобы выделить текст стихов в подсказке для последующего копирования в буфер обмена просто щелките мышью в области стихов, например, по номеру стиха. 
 А затем используйте Ctrl+C или контекстное меню для копирования.
 
-Плагин содержит 2 виджета. Виджет "Ссылки на Библию" позволяет разместить в сайдбаре форму для вывода текста цитат из Библии на странице Вашего сайта. Виджет "Цитата из Библии" выводит в сайдбаре Случайную Цитату или Цитату Дня из Библии, аналогично тому, как это делает шорт-код [bible_epigraph].
+Плагин содержит 3 виджета: 
+* Виджет "Ссылки на Библию" позволяет разместить в сайдбаре форму для вывода текста цитат из Библии на странице Вашего сайта.
+* Виджет "Поиск в Библии" позволяет разместить в сайдбаре форму для поиска слова или фразы Библии. 
+* Виджет "Цитата из Библии" выводит в сайдбаре Случайную Цитату или Цитату Дня из Библии, аналогично тому, как это делает шорт-код [bible_epigraph].
 
 English: 
 
@@ -171,6 +176,8 @@ The parameters of the book and ch ignored.
 
 Shortcode [bible_epigraph ref = 'rnd' lang = 'ru'] displays the quote in the format of epigraph.
 
+Short-code [bible_search context = 'Our Father' type = 'verses' lang = 'ru' /] displays the search results of phrase (parameter 'context'). In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аny letter, "*" - more any letters.
+
 Shortcode [references type = 'list' separator = ',' list = 'o' col = 1 /] displays list of Bible references are finded in the article.
 Here : type - list display format(default 'list').
 If type = 'string', the list is displayed as string in tags `<p>...</p>`, the additional parameter 'separator' contains the separator between the references (default comma and space).
@@ -184,7 +191,10 @@ If you want to disable highlight of Bible references in the whole post, create a
 To select verses text in tooltip for later copying to the clipboard click the left mouse button in the verse field, for example, on verse number.
 And then use Ctrl+C or the context menu for copy.
 
-The plugin contains two widget. Widget "Bible References" allows you to place the form in the sidebar to display Bible quotes on the page of your site. Widget "Bible Quote" in the sidebar displays a Random Quote or Day's Quote from the Bible the same way as it makes the shortcode [bible_epigraph].
+The plugin contains 3 widgets:
+* Bible References Widget allows you to place the form in the sidebar to display Bible quotes on the page of your site. 
+* Bible Search Widget allows you to place the form in the sidebar to search for words or phrases in the Bible.
+* Bible Quote Widget in the sidebar displays a Random Quote or Day's Quote from the Bible the same way as it makes the shortcode [bible_epigraph].
 
 == Installation ==
 
@@ -210,6 +220,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.8.0 =
+
+* Added "Bible Search" widget and shortcode [bible_search].
 
 = 3.7.1 =
 
@@ -476,6 +490,10 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.8.0 =
+
+* Added "Bible Search" widget and shortcode [bible_search].
 
 = 3.7.1 =
 
