@@ -5,14 +5,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bg Bibble References\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/bg-biblie-references\n"
-"POT-Creation-Date: 2015-07-30 22:31+0300\n"
+"POT-Creation-Date: 2015-08-03 10:37+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_n\n"
@@ -58,15 +58,15 @@ msgstr ""
 msgid "Create reference to the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:404 bg_bibrefs.php:526 bg_bibrefs.php:634
+#: bg_bibrefs.php:404 bg_bibrefs.php:538 bg_bibrefs.php:646
 msgid "Title:"
 msgstr ""
 
-#: bg_bibrefs.php:409 bg_bibrefs.php:531
+#: bg_bibrefs.php:409 bg_bibrefs.php:543
 msgid "Permalink to page:"
 msgstr ""
 
-#: bg_bibrefs.php:416 bg_bibrefs.php:538
+#: bg_bibrefs.php:416 bg_bibrefs.php:550
 msgid "Save selected options (on user side only)"
 msgstr ""
 
@@ -78,7 +78,11 @@ msgstr ""
 msgid "Chapter"
 msgstr ""
 
-#: bg_bibrefs.php:456 bg_bibrefs.php:570
+#: bg_bibrefs.php:454
+msgid "Chapters and verses"
+msgstr ""
+
+#: bg_bibrefs.php:456 bg_bibrefs.php:582
 msgid "Language"
 msgstr ""
 
@@ -86,39 +90,39 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
-#: bg_bibrefs.php:510
+#: bg_bibrefs.php:522
 msgid "Bible Search Widget"
 msgstr ""
 
-#: bg_bibrefs.php:511
+#: bg_bibrefs.php:523
 msgid "Finds words or phrases in the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:585
+#: bg_bibrefs.php:580 bg_bibrefs.php:597
 msgid "Search"
 msgstr ""
 
-#: bg_bibrefs.php:617
+#: bg_bibrefs.php:629
 msgid "Bible Quote Widget"
 msgstr ""
 
-#: bg_bibrefs.php:618
+#: bg_bibrefs.php:630
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:639
+#: bg_bibrefs.php:651
 msgid "Type of quote:"
 msgstr ""
 
-#: bg_bibrefs.php:642
+#: bg_bibrefs.php:654
 msgid "Day's Quote"
 msgstr ""
 
-#: bg_bibrefs.php:645
+#: bg_bibrefs.php:657
 msgid "Random Quote"
 msgstr ""
 
-#: bg_bibrefs.php:650
+#: bg_bibrefs.php:662
 msgid "Language of the Bible:"
 msgstr ""
 
@@ -126,7 +130,7 @@ msgstr ""
 msgid "Click to go to interpretation"
 msgstr ""
 
-#: includes/search.php:106
+#: includes/search.php:112
 msgid ""
 "sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2015-07-30 22:30+0300\n"
-"PO-Revision-Date: 2015-07-30 22:30+0300\n"
+"POT-Creation-Date: 2015-08-03 10:32+0300\n"
+"PO-Revision-Date: 2015-08-03 10:36+0300\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
@@ -58,15 +58,15 @@ msgstr "Віджет \"Посилання на Біблію\""
 msgid "Create reference to the Bible"
 msgstr "Створення посилання на Біблію"
 
-#: ../bg_bibrefs.php:404 ../bg_bibrefs.php:526 ../bg_bibrefs.php:634
+#: ../bg_bibrefs.php:404 ../bg_bibrefs.php:538 ../bg_bibrefs.php:646
 msgid "Title:"
 msgstr "Назва:"
 
-#: ../bg_bibrefs.php:409 ../bg_bibrefs.php:531
+#: ../bg_bibrefs.php:409 ../bg_bibrefs.php:543
 msgid "Permalink to page:"
 msgstr "Постійне посилання на сторінку:"
 
-#: ../bg_bibrefs.php:416 ../bg_bibrefs.php:538
+#: ../bg_bibrefs.php:416 ../bg_bibrefs.php:550
 msgid "Save selected options (on user side only)"
 msgstr "Зберігати вибрані параметри (тільки на стороні користувача)"
 
@@ -78,7 +78,11 @@ msgstr "Книга"
 msgid "Chapter"
 msgstr "Розділ"
 
-#: ../bg_bibrefs.php:456 ../bg_bibrefs.php:570
+#: ../bg_bibrefs.php:454
+msgid "Chapters and verses"
+msgstr "Розділи і вірші"
+
+#: ../bg_bibrefs.php:456 ../bg_bibrefs.php:582
 msgid "Language"
 msgstr "Мова"
 
@@ -86,39 +90,39 @@ msgstr "Мова"
 msgid "Go"
 msgstr "Перейти"
 
-#: ../bg_bibrefs.php:510
+#: ../bg_bibrefs.php:522
 msgid "Bible Search Widget"
 msgstr "Віджет \"Пошук в Біблії\""
 
-#: ../bg_bibrefs.php:511
+#: ../bg_bibrefs.php:523
 msgid "Finds words or phrases in the Bible"
 msgstr "Пошук слова або фрази в Біблії"
 
-#: ../bg_bibrefs.php:585
+#: ../bg_bibrefs.php:580 ../bg_bibrefs.php:597
 msgid "Search"
 msgstr "Шукати"
 
-#: ../bg_bibrefs.php:617
+#: ../bg_bibrefs.php:629
 msgid "Bible Quote Widget"
 msgstr "Віджет \"Цитата з Біблії\""
 
-#: ../bg_bibrefs.php:618
+#: ../bg_bibrefs.php:630
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr "Показує на экране Випадкову Цитату або Цитату Дня з Біблії"
 
-#: ../bg_bibrefs.php:639
+#: ../bg_bibrefs.php:651
 msgid "Type of quote:"
 msgstr "Вид цитати:"
 
-#: ../bg_bibrefs.php:642
+#: ../bg_bibrefs.php:654
 msgid "Day's Quote"
 msgstr "Цитата Дня"
 
-#: ../bg_bibrefs.php:645
+#: ../bg_bibrefs.php:657
 msgid "Random Quote"
 msgstr "Випадкова Цитата"
 
-#: ../bg_bibrefs.php:650
+#: ../bg_bibrefs.php:662
 msgid "Language of the Bible:"
 msgstr "Мова Біблії:"
 
@@ -126,7 +130,7 @@ msgstr "Мова Біблії:"
 msgid "Click to go to interpretation"
 msgstr "Клацніть, щоб перейти до тлумачення"
 
-#: ../includes/search.php:106
+#: ../includes/search.php:112
 msgid ""
 "sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."

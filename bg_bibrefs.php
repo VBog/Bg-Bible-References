@@ -451,7 +451,7 @@ class BibleWidget extends WP_Widget
 			</select><br>
 <!--	Номера глав и стихов		-->
 			<label class="widget-title" for="bg_quote_chId"><?php _e('Chapter', 'bg_bibfers' ); ?></label><br>
-			<input class="required" id="bg_quote_chId" type="text" value="" onkeypress="return bg_quote_testKey(event)"><br>		
+			<input class="required" id="bg_quote_chId" type="text" value="" onkeypress="return bg_quote_testKey(event)" placeholder="<?php _e('Chapters and verses', 'bg_bibfers' ); ?>&hellip;"><br>		
 <!--	Язык Библии					-->
 			<label class="widget-title" for="bg_quote_langId"><?php _e('Language', 'bg_bibfers' ); ?></label><br>
 			<select class="required" id="bg_quote_langId">
