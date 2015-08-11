@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bg Bibble References\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/bg-biblie-references\n"
-"POT-Creation-Date: 2015-08-03 10:37+0300\n"
+"POT-Creation-Date: 2015-08-06 23:49+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,119 +18,123 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: bg_bibrefs.php:144 bg_bibrefs.php:323
+#: bg_bibrefs.php:167 bg_bibrefs.php:397
 msgid "Bible References"
 msgstr ""
 
-#: bg_bibrefs.php:306
-msgid "Expand"
-msgstr ""
-
-#: bg_bibrefs.php:306
-msgid "Hide"
-msgstr ""
-
-#: bg_bibrefs.php:328 includes/settings.php:192
-msgid "Language of references and tooltips"
-msgstr ""
-
-#: bg_bibrefs.php:331 includes/settings.php:195
-msgid "Default"
-msgstr ""
-
-#: bg_bibrefs.php:346
-msgid "Ban to highlight references"
-msgstr ""
-
-#: bg_bibrefs.php:349
-msgid "Off"
-msgstr ""
-
-#: bg_bibrefs.php:350
-msgid "On"
-msgstr ""
-
-#: bg_bibrefs.php:388
-msgid "Bible References Widget"
-msgstr ""
-
-#: bg_bibrefs.php:389
-msgid "Create reference to the Bible"
-msgstr ""
-
-#: bg_bibrefs.php:404 bg_bibrefs.php:538 bg_bibrefs.php:646
-msgid "Title:"
-msgstr ""
-
-#: bg_bibrefs.php:409 bg_bibrefs.php:543
-msgid "Permalink to page:"
-msgstr ""
-
-#: bg_bibrefs.php:416 bg_bibrefs.php:550
-msgid "Save selected options (on user side only)"
-msgstr ""
-
-#: bg_bibrefs.php:446
-msgid "Book"
-msgstr ""
-
-#: bg_bibrefs.php:453
-msgid "Chapter"
-msgstr ""
-
-#: bg_bibrefs.php:454
-msgid "Chapters and verses"
-msgstr ""
-
-#: bg_bibrefs.php:456 bg_bibrefs.php:582
-msgid "Language"
-msgstr ""
-
-#: bg_bibrefs.php:471
-msgid "Go"
-msgstr ""
-
-#: bg_bibrefs.php:522
-msgid "Bible Search Widget"
-msgstr ""
-
-#: bg_bibrefs.php:523
-msgid "Finds words or phrases in the Bible"
-msgstr ""
-
-#: bg_bibrefs.php:580 bg_bibrefs.php:597
+#: bg_bibrefs.php:333 bg_bibrefs.php:669 bg_bibrefs.php:691
 msgid "Search"
 msgstr ""
 
-#: bg_bibrefs.php:629
+#: bg_bibrefs.php:380
+msgid "Expand"
+msgstr ""
+
+#: bg_bibrefs.php:380
+msgid "Hide"
+msgstr ""
+
+#: bg_bibrefs.php:402 includes/settings.php:192
+msgid "Language of references and tooltips"
+msgstr ""
+
+#: bg_bibrefs.php:405 bg_bibrefs.php:761 includes/settings.php:195
+msgid "Default"
+msgstr ""
+
+#: bg_bibrefs.php:420
+msgid "Ban to highlight references"
+msgstr ""
+
+#: bg_bibrefs.php:423
+msgid "Off"
+msgstr ""
+
+#: bg_bibrefs.php:424
+msgid "On"
+msgstr ""
+
+#: bg_bibrefs.php:462
+msgid "Bible References Widget"
+msgstr ""
+
+#: bg_bibrefs.php:463
+msgid "Create reference to the Bible"
+msgstr ""
+
+#: bg_bibrefs.php:479 bg_bibrefs.php:621 bg_bibrefs.php:740
+msgid "Title:"
+msgstr ""
+
+#: bg_bibrefs.php:484 bg_bibrefs.php:626
+msgid "Permalink to page:"
+msgstr ""
+
+#: bg_bibrefs.php:491 bg_bibrefs.php:633
+msgid "Default language"
+msgstr ""
+
+#: bg_bibrefs.php:497 bg_bibrefs.php:639
+msgid "Save selected options (on user side only)"
+msgstr ""
+
+#: bg_bibrefs.php:528
+msgid "Book"
+msgstr ""
+
+#: bg_bibrefs.php:535
+msgid "Chapter"
+msgstr ""
+
+#: bg_bibrefs.php:536
+msgid "Chapters and verses"
+msgstr ""
+
+#: bg_bibrefs.php:539 bg_bibrefs.php:672
+msgid "Language"
+msgstr ""
+
+#: bg_bibrefs.php:558
+msgid "Go"
+msgstr ""
+
+#: bg_bibrefs.php:605
+msgid "Bible Search Widget"
+msgstr ""
+
+#: bg_bibrefs.php:606
+msgid "Finds words or phrases in the Bible"
+msgstr ""
+
+#: bg_bibrefs.php:723
 msgid "Bible Quote Widget"
 msgstr ""
 
-#: bg_bibrefs.php:630
+#: bg_bibrefs.php:724
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:651
+#: bg_bibrefs.php:745
 msgid "Type of quote:"
 msgstr ""
 
-#: bg_bibrefs.php:654
+#: bg_bibrefs.php:748
 msgid "Day's Quote"
 msgstr ""
 
-#: bg_bibrefs.php:657
+#: bg_bibrefs.php:751
 msgid "Random Quote"
 msgstr ""
 
-#: bg_bibrefs.php:662
+#: bg_bibrefs.php:756
 msgid "Language of the Bible:"
 msgstr ""
 
-#: includes/quotes.php:315
+#: includes/quotes.php:318
 msgid "Click to go to interpretation"
 msgstr ""
 
-#: includes/search.php:112
+#: includes/search.php:111
 msgid ""
 "sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."

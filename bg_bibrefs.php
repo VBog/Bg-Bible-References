@@ -3,9 +3,12 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://bogaiskov.ru/bg_bibfers/
     Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
+    Version: 3.9.0
     Author: VBog
-    Version: 3.8.0
     Author URI: http://bogaiskov.ru 
+	License:     GPL2
+	Text Domain: bg_bibfers
+	Domain Path: /languages/
 */
 
 /*  Copyright 2015  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
@@ -35,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.8.0');
+define('BG_BIBREFS_VERSION', '3.9.0');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -64,7 +67,10 @@ if ( !is_admin() ) {
 }
 
 // Загрузка интернационализации
-load_plugin_textdomain( 'bg_bibfers', false, dirname( plugin_basename( __FILE__ )) . '/languages/' );
+add_action( 'plugins_loaded', 'bg_bibfers_load_textdomain' );
+function bg_bibfers_load_textdomain() {
+  load_plugin_textdomain( 'bg_bibfers', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' ); 
+}
 
 // Подключаем дополнительные модули
 include_once('includes/settings.php');
@@ -91,6 +97,8 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	add_shortcode( 'norefs', 'bg_bibfers_norefs' );
 // Регистрируем шорт-код bible_search
 	add_shortcode( 'bible_search', 'bg_bibfers_bible_search' );
+// Регистрируем шорт-код bible_omnisearch
+	add_shortcode( 'bible_omnisearch', 'bg_bibfers_bible_omnisearch' );
 }
 
 /*****************************************************************************************
@@ -99,17 +107,21 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 ******************************************************************************************/
 function set_bible_lang() {
 	global $post;
-	$blog_lang = substr(get_bloginfo('language'), 0, 2);
-	$file_books = dirname( __FILE__ ).'/bible/'.$blog_lang.'/books.php';
-	if (!file_exists($file_books)) $blog_lang = 'en';	// По умолчанию английский язык
+	
+	if (function_exists ( 'bg_custom_lang' )) $blog_lang = bg_custom_lang();	// Если определена внешняя функция определения языка, то используем ее
+	if (!$blog_lang) $blog_lang = get_bloginfo('language');						// Если язык не задан, берем язык блога
+	 $blog_lang = substr($blog_lang, 0, 2);
 
-	$bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );
+	$bg_verses_lang_val = get_option( 'bg_bibfers_verses_lang' );						// Задан язык Библии в настройках плагина
 	$bible_lang = ((!$bg_verses_lang_val)?$blog_lang:$bg_verses_lang_val);
 	
-	$bible_lang_posts_val = ($post)?get_post_meta($post->ID, 'bible_lang', true):"";
+	$bible_lang_posts_val = ($post)?get_post_meta($post->ID, 'bible_lang', true):"";	// Задан язык Библии для поста
 	if ($bible_lang_posts_val) {
 		$bible_lang = $bible_lang_posts_val;
 	}
+	$file_books = dirname( __FILE__ ).'/bible/'.$blog_lang.'/books.php';		// Если для этого языка отсутствует каталог с Библией
+	if (!file_exists($file_books)) $blog_lang = 'en';							// По умолчанию английский язык
+
 	return $bible_lang;
 }
 
@@ -268,10 +280,10 @@ function bg_bibfers_norefs( $atts, $content = null ) {
 }
 
 //  [bible_search]
-function bg_bibfers_bible_search( $atts, $content=null ) {
+function bg_bibfers_bible_search( $atts ) {
 	extract( shortcode_atts( array(
 		'context' => '',
-		'type' => 'verses',
+		'type' => 'b_verses',
 		'lang' => ''
 	), $atts ) );
 // Если $context задано значение "get", то получаем $context из ссылки	
@@ -280,13 +292,64 @@ function bg_bibfers_bible_search( $atts, $content=null ) {
 		$l = $_GET["lang"];
 		if ($l != "") $lang = $l;
 	}
+	
 	$context = trim($context);
 	if (!$context) return "";
+	$quote = bg_bibfers_bible_proc($context, $type, $lang);
 	
-	$quote = bg_bibfers_search_result($context, $type, $lang);
+	if (!$quote || $quote == $context) $quote = bg_bibfers_search_result($context, $type, $lang);
 	
 	return "{$quote}";
 }
+
+//  [bible_omnisearch]
+function bg_bibfers_bible_omnisearch( $atts ) {
+	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+	extract( shortcode_atts( array(
+		'lang' => '',
+		'page' => ''
+	), $atts ) );
+	
+	$quote = '';
+
+	if (!$lang) $lang = set_bible_lang();
+	$lang = include_books($lang);
+	
+	if (!$page)	$page = get_permalink(); 
+
+
+//	Искомое слово или фраза	
+	$quote .= '<input class="required" id="bg_omnisearch_ptrnId" type="search" placeholder="'.__('Search', 'bg_bibfers' ).'&hellip;" value="" style="width:100%" onblur= "bg_omnisearch_goToPage()" onkeypress="return bg_omnisearch_testKey(event)">';
+//	Ссылка на страницу в шорт-кодом			
+	$quote .= '<input id="bg_omnisearch_pageId" type="hidden" value="'. $page .'">';
+//	Язык Библии					
+	$quote .= '<input id="bg_omnisearch_langId" type="hidden" value="'. $lang. '">';
+
+	$quote .= '<script>
+		if (window.localStorage["bg_omnisearch_ptrn"]) {
+			document.getElementById("bg_omnisearch_ptrnId").value = window.localStorage["bg_omnisearch_ptrn"];
+		}
+
+		function bg_omnisearch_goToPage() {
+			var bg_omnisearch_page = document.getElementById("bg_omnisearch_pageId").value;
+			var bg_omnisearch_lang = document.getElementById("bg_omnisearch_langId").value;
+			var bg_omnisearch_ptrn = document.getElementById("bg_omnisearch_ptrnId").value;
+			document.location.href = encodeURI(bg_omnisearch_page + "?bs=" + bg_omnisearch_ptrn + "&lang=" + bg_omnisearch_lang);
+			window.localStorage["bg_omnisearch_ptrn"] = bg_omnisearch_ptrn;
+		}
+		function bg_omnisearch_testKey(e) {
+			// Проверяем доступность event.charCode
+			var key = (typeof e.charCode == "undefined" ? e.keyCode : e.charCode);
+			// Нажата клавиша Enter ?
+			if (key == 13) {bg_omnisearch_goToPage(); return false;}
+			else return true;
+		}
+
+	</script>';
+
+	return "{$quote}";
+}
+
 
 /*****************************************************************************************
 	Генератор ответа AJAX
@@ -396,6 +459,7 @@ class BibleWidget extends WP_Widget
 		if (!empty($instance)) {
 			$title = $instance["title"];
 			$page = $instance["page"];
+			$dlang = $instance["dlang"];
 			$storage = $instance["storage"];
 		}
 		// Заголовок виджета в сайдбаре
@@ -408,6 +472,12 @@ class BibleWidget extends WP_Widget
 		$pageName = $this->get_field_name("page");
 		echo '<p><label for="' . $pageId . '">' . __('Permalink to page:', 'bg_bibfers' ) . '</label><br>';
 		echo '<input id="' . $pageId . '" type="text" name="' . $pageName . '" value="' . $page . '" size="50"></p>';
+		// Язык Библии по-умолчанию
+		$dlangId = $this->get_field_id("dlang");
+		$dlangName = $this->get_field_name("dlang");
+		echo '<p><input id="' . $dlangId . '" type="checkbox" name="' . $dlangName. '"'; 
+		if ($dlang) echo " checked";
+		echo '>' . __('Default language', 'bg_bibfers' ) . '</p>';
 		// Сохранять параметры выбора (на стороне пользователя)
 		$storageId = $this->get_field_id("storage");
 		$storageName = $this->get_field_name("storage");
@@ -420,6 +490,7 @@ class BibleWidget extends WP_Widget
 		$values = array();
 		$values["title"] = htmlentities($newInstance["title"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		$values["page"] = htmlentities($newInstance["page"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		$values["dlang"] = htmlentities($newInstance["dlang"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		$values["storage"] = htmlentities($newInstance["storage"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		return $values;
 	}
@@ -427,7 +498,6 @@ class BibleWidget extends WP_Widget
 	public function widget($args, $instance) {
 		global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 
-		$lang = get_option( $bg_verses_lang );
 		if (!$lang) $lang = set_bible_lang();
 		$lang = include_books($lang);
 
@@ -435,6 +505,7 @@ class BibleWidget extends WP_Widget
 		$books = array_keys ( $bg_bibfers_bookTitle);
 		$title = $instance["title"];
 		$page = $instance["page"];
+		$dlang = $instance["dlang"];
 		$storage = $instance["storage"];
 ?>
 		<aside id="bg-bibrefs-1" class="widget widget_bg-bibrefs">
@@ -453,6 +524,7 @@ class BibleWidget extends WP_Widget
 			<label class="widget-title" for="bg_quote_chId"><?php _e('Chapter', 'bg_bibfers' ); ?></label><br>
 			<input class="required" id="bg_quote_chId" type="text" value="" onkeypress="return bg_quote_testKey(event)" placeholder="<?php _e('Chapters and verses', 'bg_bibfers' ); ?>&hellip;"><br>		
 <!--	Язык Библии					-->
+		<?php if (!$dlang) { ?>
 			<label class="widget-title" for="bg_quote_langId"><?php _e('Language', 'bg_bibfers' ); ?></label><br>
 			<select class="required" id="bg_quote_langId">
 				<?php $path = dirname( __FILE__ ).'/bible/';
@@ -467,13 +539,15 @@ class BibleWidget extends WP_Widget
 					}
 					closedir($handle); 
 				} ?>
-			</select></p>
+			</select>
+		<?php } else { ?>
+			<input id="bg_quote_langId" type="hidden" value="">
+		<?php } ?>		
+			</p>
 			<p><input type="submit" value="<?php _e('Go', 'bg_bibfers' ); ?>" onclick="bg_quote_goToPage()"></p>
 		</aside>
 		<?php if ($storage) { ?>
 		<script>
-			if (window.localStorage['bg_quote_page'])
-				document.getElementById('bg_quote_pageId').value = window.localStorage['bg_quote_page'];
 			if (window.localStorage['bg_quote_book'])
 				document.getElementById('bg_quote_bookId').value = window.localStorage['bg_quote_book'];
 			if (window.localStorage['bg_quote_ch'])
@@ -483,29 +557,24 @@ class BibleWidget extends WP_Widget
 		</script>
 	<?php } ?>
 		<script>
-			function bg_quote_goToPage()
-			{
+			function bg_quote_goToPage() {
 				var bg_quote_page = document.getElementById('bg_quote_pageId').value;
 				var bg_quote_book = document.getElementById('bg_quote_bookId').value;
 				var bg_quote_ch = document.getElementById('bg_quote_chId').value;
 				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
-				document.location.href = encodeURI(bg_quote_page + "?book=" + bg_quote_book + ((bg_quote_ch!="")?"&ch=":"") + bg_quote_ch + "&lang=" + bg_quote_lang);
-				window.localStorage['bg_quote_page'] = bg_quote_page;
+				document.location.href = encodeURI(bg_quote_page + "?book=" + bg_quote_book + ((bg_quote_ch!="")?"&ch=":"") + bg_quote_ch + ((bg_quote_lang!="")?"&lang=":"") + bg_quote_lang);
 				window.localStorage['bg_quote_book'] = bg_quote_book;
 				window.localStorage['bg_quote_ch'] = bg_quote_ch;
 				window.localStorage['bg_quote_lang'] = bg_quote_lang;
 			}
-			function bg_quote_testKey(e)
-			{
-			  // Make sure to use event.charCode if available
-			  var key = (typeof e.charCode == 'undefined' ? e.keyCode : e.charCode);
-
-			  // Ignore special keys
-			  if (e.ctrlKey || e.altKey || key < 32)
-				return true;
-
-			  key = String.fromCharCode(key);
-			  return /[\d\,\:\-]/.test(key);
+			function bg_quote_testKey(e) {
+				// Проверяем доступность event.charCode
+				var key = (typeof e.charCode == 'undefined' ? e.keyCode : e.charCode);
+				// Игнорируем специальные кнопки
+				if (e.ctrlKey || e.altKey || key < 32) return true;
+				key = String.fromCharCode(key);
+				// Допустимы цифры, запятая, двоеточие и тире
+				return /[\d\,\:\-]/.test(key);
 			}
 		</script>
 <?php
@@ -542,6 +611,12 @@ class BibleSearchWidget extends WP_Widget
 		$pageName = $this->get_field_name("page");
 		echo '<p><label for="' . $pageId . '">' . __('Permalink to page:', 'bg_bibfers' ) . '</label><br>';
 		echo '<input id="' . $pageId . '" type="text" name="' . $pageName . '" value="' . $page . '" size="50"></p>';
+		// Язык Библии по-умолчанию
+		$dlangId = $this->get_field_id("dlang");
+		$dlangName = $this->get_field_name("dlang");
+		echo '<p><input id="' . $dlangId . '" type="checkbox" name="' . $dlangName. '"'; 
+		if ($dlang) echo " checked";
+		echo '>' . __('Default language', 'bg_bibfers' ) . '</p>';
 		// Сохранять параметры выбора (на стороне пользователя)
 		$storageId = $this->get_field_id("storage");
 		$storageName = $this->get_field_name("storage");
@@ -554,6 +629,7 @@ class BibleSearchWidget extends WP_Widget
 		$values = array();
 		$values["title"] = htmlentities($newInstance["title"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		$values["page"] = htmlentities($newInstance["page"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		$values["dlang"] = htmlentities($newInstance["dlang"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		$values["storage"] = htmlentities($newInstance["storage"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		return $values;
 	}
@@ -561,7 +637,6 @@ class BibleSearchWidget extends WP_Widget
 	public function widget($args, $instance) {
 		global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 
-		$lang = get_option( $bg_verses_lang );
 		if (!$lang) $lang = set_bible_lang();
 		$lang = include_books($lang);
 
@@ -579,6 +654,7 @@ class BibleSearchWidget extends WP_Widget
 <!--	Искомое слово или фраза		-->
 			<input class="required" id="bg_search_ptrnId" type="text" placeholder="<?php _e('Search', 'bg_bibfers' ); ?>&hellip;" value=""><br>		
 <!--	Язык Библии					-->
+		<?php if (!$dlang) { ?>
 			<label class="widget-title" for="bg_search_langId"><?php _e('Language', 'bg_bibfers' ); ?></label><br>
 			<select class="required" id="bg_search_langId">
 				<?php $path = dirname( __FILE__ ).'/bible/';
@@ -593,7 +669,11 @@ class BibleSearchWidget extends WP_Widget
 					}
 					closedir($handle); 
 				} ?>
-			</select></p>
+			</select>
+		<?php } else { ?>
+			<input id="bg_quote_langId" type="hidden" value="">
+		<?php } ?>		
+			</p>
 			<p><input type="submit" value="<?php _e('Search', 'bg_bibfers' ); ?>" onclick="bg_search_goToPage()"></p>
 		</aside>
 		<?php if ($storage) { ?>
@@ -661,6 +741,11 @@ class QuotesWidget extends WP_Widget
 		
 		echo '<p><label for="' . $langId . '">' . __('Language of the Bible:', 'bg_bibfers' ) . '</label><br>';
 		echo '<select class="required" id="' . $langId . '" name="'.$langName.'" type="text">';
+
+			echo "<option ";
+			if(!$lang) echo "selected ";
+			echo " value=''>".__('Default', 'bg_bibfers' )."</option>\n";
+			
 			$path = dirname( __FILE__ ).'/bible/';
 			if ($handle = opendir($path)) {
 				while (false !== ($dir = readdir($handle))) { 
@@ -687,15 +772,14 @@ class QuotesWidget extends WP_Widget
 	public function widget($args, $instance) {
 		global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 
-		$lang = get_option( $bg_verses_lang );
-		if (!$lang) $lang = set_bible_lang();
-		$lang = include_books($lang);
-		
-		$num_books = count($bg_bibfers_bookTitle);
-		$books = array_keys ( $bg_bibfers_bookTitle);
 		$title = $instance["title"];
 		$ref = $instance["ref"];
 		$lang = $instance["lang"];
+
+		if (!$lang) $lang = set_bible_lang();
+		$lang = include_books($lang);
+		$num_books = count($bg_bibfers_bookTitle);
+		$books = array_keys ( $bg_bibfers_bookTitle);
 ?>
 		<aside id="bg-bibrefs-3" class="widget widget_bg-bibrefs">
 			<h2 class="widget-title"><?php echo $title; ?></h2>
@@ -708,7 +792,7 @@ class QuotesWidget extends WP_Widget
 }
 
 // Регистрируем виджеты
-function  register_widgets() {
+function register_widgets() {
     register_widget("BibleWidget");
     register_widget("BibleSearchWidget");
     register_widget("QuotesWidget");

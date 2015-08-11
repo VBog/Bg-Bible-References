@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 4.2.3
+Tested up to: 4.2.4
 
 Stable tag: trunk
 
@@ -90,6 +90,8 @@ Russian:
 Шорт-код [bible_epigraph ref='rnd' lang='ru'] выводит на экран цитату в форме эпиграфа. 
 
 Шорт-код [bible_search context='Отче наш' type='verses' lang='ru' /] выводит на экран результаты поиска указанной в параметре 'context' фразы. В поисковом запросе можно использовать специальные символы: "$" - 1 любая буква, "%" - 0 или 1 любая буква, "*" - несколько любых букв.
+
+Шорт-код [bible_omnisearch lang='ru' page='{URL}'/] выводит на экран элемент формы, позволяющий пользователю вводить поисковый запрос (см. [bible_search]). В параметре 'page' необходимо указать URL страницы, на которой будут выведены результаты поиска (указан шорт-код [bible_search]). Если параметр 'page' не задан, то подразумевается эта же страница.
 
 Шорт-код [references type='list' separator=', ' list='o' col=1 /] выводит список ссылок на Библию, встречающиеся в статье.
 Здесь: type – формат отображения списка (по умолчанию 'list').
@@ -176,7 +178,9 @@ The parameters of the book and ch ignored.
 
 Shortcode [bible_epigraph ref = 'rnd' lang = 'ru'] displays the quote in the format of epigraph.
 
-Short-code [bible_search context = 'Our Father' type = 'verses' lang = 'ru' /] displays the search results of phrase (parameter 'context'). In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аny letter, "*" - more any letters.
+Shortcode [bible_search context = 'Our Father' type = 'verses' lang = 'ru' /] displays the search results of phrase (parameter 'context'). In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аny letter, "*" - more any letters.
+
+Shortcode [bible_omnisearch lang = 'ru' page = '{URL}' /] displays a form element, allowing the user to enter a search query (see: [Bible_search]). In the parameter 'page' you must specify the URL of the page where search results will be displayed (specified shortcode [bible_search]). If the parameter 'page' is not set, it means the same page.
 
 Shortcode [references type = 'list' separator = ',' list = 'o' col = 1 /] displays list of Bible references are finded in the article.
 Here : type - list display format(default 'list').
@@ -220,6 +224,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.9.0 =
+
+* Added shortcode [bible_omnisearch].
+* Improved support for multilingual sites.
+* Multilingual support of Readings in the plugin Bg Orthodox Calendar.
 
 = 3.8.0 =
 
@@ -490,6 +500,12 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.9.0 =
+
+* Added shortcode [bible_omnisearch].
+* Improved support for multilingual sites.
+* Multilingual support of Readings in the plugin Bg Orthodox Calendar.
 
 = 3.8.0 =
 

@@ -166,8 +166,11 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 *******************************************************************************/  
 function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type) {
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
+	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+
     $bg_show_fn = get_option( 'bg_bibfers_show_fn' );
 
+	$shortTitle = $bg_bibfers_shortTitle[$book];
 	$verses = "";
 	$cv1 = $ch1 *1000 + $vr1;
 	$cv2 = $ch2 *1000 + $vr2;
@@ -192,8 +195,8 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 					if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['part']."</em>   ";
 					else $pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";							// Номер главы : номер стиха
 				} else if ($type == 'b_verses') { 																			// Тип: стихи
-					if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['ru_book'].".".$json[$i]['part'].$fn."</em>   ";
-					else $pointer = "<em>".$json[$i]['ru_book'].".".$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";	// Книга. номер главы : номер стиха
+					if ($json[$i]['stix'] == 0) $pointer = "<em>".$shortTitle.$json[$i]['part'].$fn."</em>   ";
+					else $pointer = "<em>".$shortTitle.$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";				// Книга. номер главы : номер стиха
 				} else {																									// Тип: цитата
 					$pointer = "";																							// Ничего
 				}
@@ -378,4 +381,53 @@ function bg_bibfers_bible_quote_refs($ref, $lang) {
 	if (!$book) return "";											// Если нет такой книги, то возвращаем пустое значение
 
 	return $book.$part[1];
+}
+/*******************************************************************************
+   Преобразования заголовков Чтений Святого Писания в плагине "Православный календарь"
+   Вызывается функцией showDayInfo() - файл days.php плагина Bg Orthodox Calendar
+*******************************************************************************/  
+function bg_bibfers_convertTitles($q, $type) {
+	if ($type != 'on' && $type != '' && $type != 'quote') {
+		$q = preg_replace("/;/u", '<br>', $q);		// Если выводится текст Библии, то замена точки с запятой на перевод строки
+	// Раздел <h3> (Чтение Апостола и Евангелие - по умолчанию)
+		$q = preg_replace("/<em><strong>Евангелие и Апостол:<\/strong><\/em><br>/u", '<h3>'.__( 'Gospel and Apostolic readings', 'bg_bibfers' ).'</h3>', $q);		
+		$q = preg_replace("/<em><strong>Псалтирь:<\/strong><\/em><br>/u", '<h3>'.__( 'Reading of the Psalms', 'bg_bibfers' ).'</h3>', $q);		
+	// Названия служб <h4>
+		$q = preg_replace("/<em> На утр.: - <\/em>/u", '<h4>'. __( 'At Matins', 'bg_bibfers' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На лит.: - <\/em>/u", '<h4>'. __( 'At Liturgy', 'bg_bibfers' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На веч.: - <\/em>/u", '<h4>'. __( 'At Vespers', 'bg_bibfers' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 1-м часе: - <\/em>/u", '<h4>'. __( 'At the 1st hour', 'bg_bibfers' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 3-м часе: - <\/em>/u", '<h4>'. __( 'At the 3rd hour', 'bg_bibfers' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 6-м часе: - <\/em>/u", '<h4>'. __( 'At the 6th hour', 'bg_bibfers' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 9-м часе: - <\/em>/u", '<h4>'. __( 'At the 9th hour', 'bg_bibfers' ) .'</h4>', $q);		
+	// Подзаголовки служб <h5>
+		$q = preg_replace("/<em> Ап.: <\/em>/u", '<h5>'. __( 'Apostol', 'bg_bibfers' ) .'</h5>', $q);		
+		$q = preg_replace("/<em> Ев.: <\/em>/u", '<h5>'. __( 'Gospel', 'bg_bibfers' ) .'</h5>', $q);		
+	// Комментарии
+		$q = preg_replace("/Праздник:/u", __( 'Reading on holiday:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Ряд.: /u", __( 'Serial reading:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Под зач.: /u", __( 'Reading after pericope:', 'bg_bibfers' ), $q);		
+	}
+	else {	// Просто обеспечиваем многоязычность
+	// Раздел <h3> (Чтение Апостола и Евангелие - по умолчанию)
+		$q = preg_replace("/Евангелие и Апостол:/u", __( 'Gospel and Apostol:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Псалтирь:/u", __( 'Psalms:', 'bg_bibfers' ), $q);		
+	// Названия служб <h4>
+		$q = preg_replace("/На утр.:/u", __( 'At Mat.:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/На лит.:/u", __( 'At Lit.:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/На веч.:/u", __( 'At Ves.:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/На 1-м часе:/u", __( 'At 1st hour:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/На 3-м часе:/u", __( 'At 3rd hour:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/На 6-м часе:/u", __( 'At 6th hour:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/На 9-м часе:/u", __( 'At 9th hour:', 'bg_bibfers' ), $q);		
+	// Подзаголовки служб <h5>
+		$q = preg_replace("/Ап.:/u", __( 'Ap.:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Ев.:/u", __( 'Gos.:', 'bg_bibfers' ), $q);		
+	// Комментарии
+		$q = preg_replace("/Праздник:/u", __( 'Holiday:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Ряд.: /u", __( 'Ser.:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Под зач.: /u", __( 'After per.:', 'bg_bibfers' ), $q);		
+	}
+	$q = bg_bibfers_bible_proc($q, $type);
+	return $q;
 }

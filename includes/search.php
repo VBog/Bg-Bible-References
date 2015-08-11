@@ -99,7 +99,6 @@ function bg_bibfers_search_result($context, $type, $lang) {
 				else if ($type == "t_verses") $verses = $verses."<strong>".bg_bibfers_getTitle($book)."</strong><br>";
 				$bkr = $book;
 			}
-			if ($type == "verses") $verses = $verses."<em>".$bg_bibfers_shortTitle[$book]."</em>";
 			$ch = (int)$json[$i]['part'];
 			$vr = (int)$json[$i]['stix'];
 			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch, $ch, $vr, $vr, $type);
