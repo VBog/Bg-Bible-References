@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bg_bibfers\n"
-"POT-Creation-Date: 2015-08-03 10:32+0300\n"
-"PO-Revision-Date: 2015-08-03 10:36+0300\n"
+"POT-Creation-Date: 2015-08-09 22:36+0300\n"
+"PO-Revision-Date: 2015-08-09 22:37+0300\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: uk_UA\n"
@@ -18,119 +18,235 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../bg_bibrefs.php:144 ../bg_bibrefs.php:323
+#: ../bg_bibrefs.php:168 ../bg_bibrefs.php:398
 msgid "Bible References"
 msgstr "Посилання на Біблію"
 
-#: ../bg_bibrefs.php:306
-msgid "Expand"
-msgstr "Розгорнути"
-
-#: ../bg_bibrefs.php:306
-msgid "Hide"
-msgstr "Приховати"
-
-#: ../bg_bibrefs.php:328 ../includes/settings.php:192
-msgid "Language of references and tooltips"
-msgstr "Мова посилань і підказок"
-
-#: ../bg_bibrefs.php:331 ../includes/settings.php:195
-msgid "Default"
-msgstr "За замовчуванням"
-
-#: ../bg_bibrefs.php:346
-msgid "Ban to highlight references"
-msgstr "Заборона підсвічування посилань"
-
-#: ../bg_bibrefs.php:349
-msgid "Off"
-msgstr "Відкл."
-
-#: ../bg_bibrefs.php:350
-msgid "On"
-msgstr "Вкл."
-
-#: ../bg_bibrefs.php:388
-msgid "Bible References Widget"
-msgstr "Віджет \"Посилання на Біблію\""
-
-#: ../bg_bibrefs.php:389
-msgid "Create reference to the Bible"
-msgstr "Створення посилання на Біблію"
-
-#: ../bg_bibrefs.php:404 ../bg_bibrefs.php:538 ../bg_bibrefs.php:646
-msgid "Title:"
-msgstr "Назва:"
-
-#: ../bg_bibrefs.php:409 ../bg_bibrefs.php:543
-msgid "Permalink to page:"
-msgstr "Постійне посилання на сторінку:"
-
-#: ../bg_bibrefs.php:416 ../bg_bibrefs.php:550
-msgid "Save selected options (on user side only)"
-msgstr "Зберігати вибрані параметри (тільки на стороні користувача)"
-
-#: ../bg_bibrefs.php:446
-msgid "Book"
-msgstr "Книга"
-
-#: ../bg_bibrefs.php:453
-msgid "Chapter"
-msgstr "Розділ"
-
-#: ../bg_bibrefs.php:454
-msgid "Chapters and verses"
-msgstr "Розділи і вірші"
-
-#: ../bg_bibrefs.php:456 ../bg_bibrefs.php:582
-msgid "Language"
-msgstr "Мова"
-
-#: ../bg_bibrefs.php:471
-msgid "Go"
-msgstr "Перейти"
-
-#: ../bg_bibrefs.php:522
-msgid "Bible Search Widget"
-msgstr "Віджет \"Пошук в Біблії\""
-
-#: ../bg_bibrefs.php:523
-msgid "Finds words or phrases in the Bible"
-msgstr "Пошук слова або фрази в Біблії"
-
-#: ../bg_bibrefs.php:580 ../bg_bibrefs.php:597
+#: ../bg_bibrefs.php:334 ../bg_bibrefs.php:667 ../bg_bibrefs.php:689
 msgid "Search"
 msgstr "Шукати"
 
-#: ../bg_bibrefs.php:629
+#: ../bg_bibrefs.php:381
+msgid "Expand"
+msgstr "Розгорнути"
+
+#: ../bg_bibrefs.php:381
+msgid "Hide"
+msgstr "Приховати"
+
+#: ../bg_bibrefs.php:403 ../includes/settings.php:192
+msgid "Language of references and tooltips"
+msgstr "Мова посилань і підказок"
+
+#: ../bg_bibrefs.php:406 ../bg_bibrefs.php:759 ../includes/settings.php:195
+msgid "Default"
+msgstr "За замовчуванням"
+
+#: ../bg_bibrefs.php:421
+msgid "Ban to highlight references"
+msgstr "Заборона підсвічування посилань"
+
+#: ../bg_bibrefs.php:424
+msgid "Off"
+msgstr "Відкл."
+
+#: ../bg_bibrefs.php:425
+msgid "On"
+msgstr "Вкл."
+
+#: ../bg_bibrefs.php:463
+msgid "Bible References Widget"
+msgstr "Віджет \"Посилання на Біблію\""
+
+#: ../bg_bibrefs.php:464
+msgid "Create reference to the Bible"
+msgstr "Створення посилання на Біблію"
+
+#: ../bg_bibrefs.php:480 ../bg_bibrefs.php:619 ../bg_bibrefs.php:738
+msgid "Title:"
+msgstr "Назва:"
+
+#: ../bg_bibrefs.php:485 ../bg_bibrefs.php:624
+msgid "Permalink to page:"
+msgstr "Постійне посилання на сторінку:"
+
+#: ../bg_bibrefs.php:492 ../bg_bibrefs.php:631
+msgid "Default language"
+msgstr "Мова за замовчуванням"
+
+#: ../bg_bibrefs.php:498 ../bg_bibrefs.php:637
+msgid "Save selected options (on user side only)"
+msgstr "Зберігати вибрані параметри (тільки на стороні користувача)"
+
+#: ../bg_bibrefs.php:529
+msgid "Book"
+msgstr "Книга"
+
+#: ../bg_bibrefs.php:536
+msgid "Chapter"
+msgstr "Розділ"
+
+#: ../bg_bibrefs.php:537
+msgid "Chapters and verses"
+msgstr "Розділи і вірші"
+
+#: ../bg_bibrefs.php:540 ../bg_bibrefs.php:670
+msgid "Language"
+msgstr "Мова"
+
+#: ../bg_bibrefs.php:559
+msgid "Go"
+msgstr "Перейти"
+
+#: ../bg_bibrefs.php:603
+msgid "Bible Search Widget"
+msgstr "Віджет \"Пошук в Біблії\""
+
+#: ../bg_bibrefs.php:604
+msgid "Finds words or phrases in the Bible"
+msgstr "Пошук слова або фрази в Біблії"
+
+#: ../bg_bibrefs.php:721
 msgid "Bible Quote Widget"
 msgstr "Віджет \"Цитата з Біблії\""
 
-#: ../bg_bibrefs.php:630
+#: ../bg_bibrefs.php:722
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr "Показує на экране Випадкову Цитату або Цитату Дня з Біблії"
 
-#: ../bg_bibrefs.php:651
+#: ../bg_bibrefs.php:743
 msgid "Type of quote:"
 msgstr "Вид цитати:"
 
-#: ../bg_bibrefs.php:654
+#: ../bg_bibrefs.php:746
 msgid "Day's Quote"
 msgstr "Цитата Дня"
 
-#: ../bg_bibrefs.php:657
+#: ../bg_bibrefs.php:749
 msgid "Random Quote"
 msgstr "Випадкова Цитата"
 
-#: ../bg_bibrefs.php:662
+#: ../bg_bibrefs.php:754
 msgid "Language of the Bible:"
 msgstr "Мова Біблії:"
 
-#: ../includes/quotes.php:315
+#: ../includes/quotes.php:318
 msgid "Click to go to interpretation"
 msgstr "Клацніть, щоб перейти до тлумачення"
 
-#: ../includes/search.php:112
+#: ../includes/quotes.php:393
+msgid "Gospel and Apostolic readings"
+msgstr "Євангельські і Апостольські читання"
+
+#: ../includes/quotes.php:394
+msgid "Reading of the Psalms"
+msgstr "Читання Псалми"
+
+#: ../includes/quotes.php:396
+msgid "At Matins"
+msgstr "На Утрені"
+
+#: ../includes/quotes.php:397
+msgid "At Liturgy"
+msgstr "На Літургії"
+
+#: ../includes/quotes.php:398
+msgid "At Vespers"
+msgstr "На Вечерне"
+
+#: ../includes/quotes.php:399
+msgid "At the 1st hour"
+msgstr "На 1-й годині"
+
+#: ../includes/quotes.php:400
+msgid "At the 3rd hour"
+msgstr "На 3-му годині"
+
+#: ../includes/quotes.php:401
+msgid "At the 6th hour"
+msgstr "На 6-му годині"
+
+#: ../includes/quotes.php:402
+msgid "At the 9th hour"
+msgstr "На 9-му годині"
+
+#: ../includes/quotes.php:404
+msgid "Apostol"
+msgstr "Апостол"
+
+#: ../includes/quotes.php:405
+msgid "Gospel"
+msgstr "Євангеліє"
+
+#: ../includes/quotes.php:407
+msgid "Reading on holiday:"
+msgstr "Читання на свято:"
+
+#: ../includes/quotes.php:408
+msgid "Serial reading:"
+msgstr "Рядові читання:"
+
+#: ../includes/quotes.php:409
+msgid "Reading after pericope:"
+msgstr "Читання під зачало:"
+
+#: ../includes/quotes.php:413
+msgid "Gospel and Apostol:"
+msgstr "Євангеліє і Апостол:"
+
+#: ../includes/quotes.php:414
+msgid "Psalms:"
+msgstr "Псалми:"
+
+#: ../includes/quotes.php:416
+msgid "At Mat.:"
+msgstr "На утр.:"
+
+#: ../includes/quotes.php:417
+msgid "At Lit.:"
+msgstr "На літ.:"
+
+#: ../includes/quotes.php:418
+msgid "At Ves.:"
+msgstr "На веч.:"
+
+#: ../includes/quotes.php:419
+msgid "At 1st hour:"
+msgstr "На 1-й год.:"
+
+#: ../includes/quotes.php:420
+msgid "At 3rd hour:"
+msgstr "На 3-му год.:"
+
+#: ../includes/quotes.php:421
+msgid "At 6th hour:"
+msgstr "На 6-му год.:"
+
+#: ../includes/quotes.php:422
+msgid "At 9th hour:"
+msgstr "На 9-му год.:"
+
+#: ../includes/quotes.php:424
+msgid "Ap.:"
+msgstr "Ап.:"
+
+#: ../includes/quotes.php:425
+msgid "Gos.:"
+msgstr "Єв.:"
+
+#: ../includes/quotes.php:427
+msgid "Holiday:"
+msgstr "Свято:"
+
+#: ../includes/quotes.php:428
+msgid "Ser.:"
+msgstr "Ряд.:"
+
+#: ../includes/quotes.php:429
+msgid "After per.:"
+msgstr "Під зач.:"
+
+#: ../includes/search.php:111
 msgid ""
 "sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
@@ -379,6 +495,18 @@ msgstr ""
 #: ../includes/settings.php:353
 msgid "God protect you!"
 msgstr "Хай збереже Вас Господь!"
+
+#~ msgid "At 1st hour"
+#~ msgstr "На 1-й год.:"
+
+#~ msgid "At 3rd hour"
+#~ msgstr "На 3-му год.:"
+
+#~ msgid "At 6th hour"
+#~ msgstr "На 6-му год.:"
+
+#~ msgid "At 9th hour"
+#~ msgstr "На 9-му год.:"
 
 #~ msgid ""
 #~ "Sorry, but nothing matched your search terms. Please try again with some "
