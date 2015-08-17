@@ -124,9 +124,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
 				}
 			}
-//			$addr = bg_bibfers_get_url($title, $chapter, $lang);
 			$book = bg_bibfers_getBook($title);
-
 
 			if (strcasecmp($book, "") != 0 
 				&& bg_bibfers_check_tag($hdr_a, $matches[0][$i][1]) 
@@ -134,7 +132,6 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 				&&  bg_bibfers_check_tag($hdr_norefs, $matches[0][$i][1])
 				&&  bg_bibfers_check_tag($hdr_bible, $matches[0][$i][1])) {
 				$ref = $matches[0][$i][0];
-//				$ref = substr($ref, 1, strlen($ref)-2);							//Обрезаем первый и последний символы
 				$ref = trim ( $ref, "\x20\f\t\v\n\r\xA0\xC2" );
 				$book = bg_bibfers_getBook($title);								// Обозначение книги
 				if ($type == '' || $type == 'link') {
