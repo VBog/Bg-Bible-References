@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bg Bibble References\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/bg-biblie-references\n"
-"POT-Creation-Date: 2015-08-06 23:49+0300\n"
+"POT-Creation-Date: 2015-08-16 00:31+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,185 +18,318 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: bg_bibrefs.php:167 bg_bibrefs.php:397
+#: bg_bibrefs.php:156 bg_bibrefs.php:392
 msgid "Bible References"
 msgstr ""
 
-#: bg_bibrefs.php:333 bg_bibrefs.php:669 bg_bibrefs.php:691
+#: bg_bibrefs.php:328 bg_bibrefs.php:661 bg_bibrefs.php:683
 msgid "Search"
 msgstr ""
 
-#: bg_bibrefs.php:380
+#: bg_bibrefs.php:375
 msgid "Expand"
 msgstr ""
 
-#: bg_bibrefs.php:380
+#: bg_bibrefs.php:375
 msgid "Hide"
 msgstr ""
 
-#: bg_bibrefs.php:402 includes/settings.php:192
+#: bg_bibrefs.php:397 includes/settings.php:257
 msgid "Language of references and tooltips"
 msgstr ""
 
-#: bg_bibrefs.php:405 bg_bibrefs.php:761 includes/settings.php:195
+#: bg_bibrefs.php:400 bg_bibrefs.php:753 includes/settings.php:260
 msgid "Default"
 msgstr ""
 
-#: bg_bibrefs.php:420
+#: bg_bibrefs.php:415
 msgid "Ban to highlight references"
 msgstr ""
 
-#: bg_bibrefs.php:423
+#: bg_bibrefs.php:418
 msgid "Off"
 msgstr ""
 
-#: bg_bibrefs.php:424
+#: bg_bibrefs.php:419
 msgid "On"
 msgstr ""
 
-#: bg_bibrefs.php:462
+#: bg_bibrefs.php:457
 msgid "Bible References Widget"
 msgstr ""
 
-#: bg_bibrefs.php:463
+#: bg_bibrefs.php:458
 msgid "Create reference to the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:479 bg_bibrefs.php:621 bg_bibrefs.php:740
+#: bg_bibrefs.php:474 bg_bibrefs.php:613 bg_bibrefs.php:732
 msgid "Title:"
 msgstr ""
 
-#: bg_bibrefs.php:484 bg_bibrefs.php:626
+#: bg_bibrefs.php:479 bg_bibrefs.php:618
 msgid "Permalink to page:"
 msgstr ""
 
-#: bg_bibrefs.php:491 bg_bibrefs.php:633
+#: bg_bibrefs.php:486 bg_bibrefs.php:625
 msgid "Default language"
 msgstr ""
 
-#: bg_bibrefs.php:497 bg_bibrefs.php:639
+#: bg_bibrefs.php:492 bg_bibrefs.php:631
 msgid "Save selected options (on user side only)"
 msgstr ""
 
-#: bg_bibrefs.php:528
+#: bg_bibrefs.php:523
 msgid "Book"
 msgstr ""
 
-#: bg_bibrefs.php:535
+#: bg_bibrefs.php:530
 msgid "Chapter"
 msgstr ""
 
-#: bg_bibrefs.php:536
+#: bg_bibrefs.php:531
 msgid "Chapters and verses"
 msgstr ""
 
-#: bg_bibrefs.php:539 bg_bibrefs.php:672
+#: bg_bibrefs.php:534 bg_bibrefs.php:664
 msgid "Language"
 msgstr ""
 
-#: bg_bibrefs.php:558
+#: bg_bibrefs.php:553
 msgid "Go"
 msgstr ""
 
-#: bg_bibrefs.php:605
+#: bg_bibrefs.php:597
 msgid "Bible Search Widget"
 msgstr ""
 
-#: bg_bibrefs.php:606
+#: bg_bibrefs.php:598
 msgid "Finds words or phrases in the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:723
+#: bg_bibrefs.php:715
 msgid "Bible Quote Widget"
 msgstr ""
 
-#: bg_bibrefs.php:724
+#: bg_bibrefs.php:716
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:745
+#: bg_bibrefs.php:737
 msgid "Type of quote:"
 msgstr ""
 
-#: bg_bibrefs.php:748
+#: bg_bibrefs.php:740
 msgid "Day's Quote"
 msgstr ""
 
-#: bg_bibrefs.php:751
+#: bg_bibrefs.php:743
 msgid "Random Quote"
 msgstr ""
 
-#: bg_bibrefs.php:756
+#: bg_bibrefs.php:748
 msgid "Language of the Bible:"
 msgstr ""
 
-#: includes/quotes.php:318
+#: includes/quotes.php:357
 msgid "Click to go to interpretation"
 msgstr ""
 
-#: includes/search.php:111
+#: includes/quotes.php:432
+msgid "Gospel and Apostolic readings"
+msgstr ""
+
+#: includes/quotes.php:433
+msgid "Reading of the Psalms"
+msgstr ""
+
+#: includes/quotes.php:435
+msgid "At Matins"
+msgstr ""
+
+#: includes/quotes.php:436
+msgid "At Liturgy"
+msgstr ""
+
+#: includes/quotes.php:437
+msgid "At Vespers"
+msgstr ""
+
+#: includes/quotes.php:438
+msgid "At the 1st hour"
+msgstr ""
+
+#: includes/quotes.php:439
+msgid "At the 3rd hour"
+msgstr ""
+
+#: includes/quotes.php:440
+msgid "At the 6th hour"
+msgstr ""
+
+#: includes/quotes.php:441
+msgid "At the 9th hour"
+msgstr ""
+
+#: includes/quotes.php:443
+msgid "Apostol"
+msgstr ""
+
+#: includes/quotes.php:444
+msgid "Gospel"
+msgstr ""
+
+#: includes/quotes.php:446
+msgid "Reading on holiday:"
+msgstr ""
+
+#: includes/quotes.php:447
+msgid "Serial reading:"
+msgstr ""
+
+#: includes/quotes.php:448
+msgid "Reading after pericope:"
+msgstr ""
+
+#: includes/quotes.php:452
+msgid "Gospel and Apostol:"
+msgstr ""
+
+#: includes/quotes.php:453
+msgid "Psalms:"
+msgstr ""
+
+#: includes/quotes.php:455
+msgid "At Mat.:"
+msgstr ""
+
+#: includes/quotes.php:456
+msgid "At Lit.:"
+msgstr ""
+
+#: includes/quotes.php:457
+msgid "At Ves.:"
+msgstr ""
+
+#: includes/quotes.php:458
+msgid "At 1st hour:"
+msgstr ""
+
+#: includes/quotes.php:459
+msgid "At 3rd hour:"
+msgstr ""
+
+#: includes/quotes.php:460
+msgid "At 6th hour:"
+msgstr ""
+
+#: includes/quotes.php:461
+msgid "At 9th hour:"
+msgstr ""
+
+#: includes/quotes.php:463
+msgid "Ap.:"
+msgstr ""
+
+#: includes/quotes.php:464
+msgid "Gos.:"
+msgstr ""
+
+#: includes/quotes.php:466
+msgid "Holiday:"
+msgstr ""
+
+#: includes/quotes.php:467
+msgid "Ser.:"
+msgstr ""
+
+#: includes/quotes.php:468
+msgid "After per.:"
+msgstr ""
+
+#: includes/search.php:112
 msgid ""
 "sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
 msgstr ""
 
-#: includes/settings.php:143
+#: includes/settings.php:162
 msgid "Options saved."
 msgstr ""
 
-#: includes/settings.php:153
+#: includes/settings.php:172
 msgid "Bg Bible References Plugin Options"
 msgstr ""
 
-#: includes/settings.php:154
+#: includes/settings.php:173
 msgid "Version"
 msgstr ""
 
-#: includes/settings.php:164
+#: includes/settings.php:182
+msgid "Links to... (select the site)"
+msgstr ""
+
+#: includes/settings.php:189
+msgid ""
+"Links to <a href=\"http://azbyka.ru/biblia/\" target=_blank>azbyka.ru</a>"
+msgstr ""
+
+#: includes/settings.php:195
 msgid "Languages of the Bible text on"
 msgstr ""
 
-#: includes/settings.php:168
+#: includes/settings.php:198
 msgid "Church Slavic"
 msgstr ""
 
-#: includes/settings.php:169
+#: includes/settings.php:199
 msgid "Russian"
 msgstr ""
 
-#: includes/settings.php:170
+#: includes/settings.php:200
 msgid "Greek"
 msgstr ""
 
-#: includes/settings.php:171
+#: includes/settings.php:201
 msgid "Latin"
 msgstr ""
 
-#: includes/settings.php:172
+#: includes/settings.php:202
 msgid "Hebrew"
 msgstr ""
 
-#: includes/settings.php:175
+#: includes/settings.php:208
 msgid "Font for Church Slavonic text"
 msgstr ""
 
-#: includes/settings.php:177
+#: includes/settings.php:209
 msgid "Church Slavic font"
 msgstr ""
 
-#: includes/settings.php:178
+#: includes/settings.php:210
 msgid "Russian font (\"Old\" style)"
 msgstr ""
 
-#: includes/settings.php:179
+#: includes/settings.php:211
 msgid "HIP-standard"
 msgstr ""
 
-#: includes/settings.php:213
+#: includes/settings.php:226
+msgid "Links to this site"
+msgstr ""
+
+#: includes/settings.php:232
+msgid "Permalink to page for search result"
+msgstr ""
+
+#: includes/settings.php:239
+msgid "No links, popup only"
+msgstr ""
+
+#: includes/settings.php:278
 msgid "Show original verse numbers"
 msgstr ""
 
-#: includes/settings.php:215
+#: includes/settings.php:280
 msgid ""
 "<br><i>(Show the original verse numbers in parentheses after the verse "
 "numbers of Russian Synodal Translation in the tooltips and quotes.<br>Verses "
@@ -204,63 +337,67 @@ msgid ""
 "visible!)</i>"
 msgstr ""
 
-#: includes/settings.php:218
+#: includes/settings.php:283
 msgid "Open links"
 msgstr ""
 
-#: includes/settings.php:220
+#: includes/settings.php:285
 msgid "in new window"
 msgstr ""
 
-#: includes/settings.php:221
+#: includes/settings.php:286
 msgid "in current window"
 msgstr ""
 
-#: includes/settings.php:224
+#: includes/settings.php:289
 msgid "Highlight references in the headers H1...H6"
 msgstr ""
 
-#: includes/settings.php:229
+#: includes/settings.php:294
 msgid "Enable links to the interpretation of the Holy Scriptures"
 msgstr ""
 
-#: includes/settings.php:231
+#: includes/settings.php:296 includes/settings.php:301
 msgid "<br><i>(Tooltips and Short Codes)</i>"
 msgstr ""
 
-#: includes/settings.php:235
+#: includes/settings.php:299
+msgid "Enable links to the parallel passages in the Bible"
+msgstr ""
+
+#: includes/settings.php:305
 msgid "Additional options..."
 msgstr ""
 
-#: includes/settings.php:249
+#: includes/settings.php:319
 msgid "Convert references to the normalized form"
 msgstr ""
 
-#: includes/settings.php:254
+#: includes/settings.php:324
 msgid "Show Bible verses in popup"
 msgstr ""
 
-#: includes/settings.php:256
+#: includes/settings.php:326
 msgid ""
 "<br><i>(If this option is disabled or data are not received from the server,"
 "<br>popup showing the Bible book title, chapter number and verse numbers)</i>"
 msgstr ""
 
-#: includes/settings.php:260
+#: includes/settings.php:330
 msgid "Preload Bible verses in tooltips"
 msgstr ""
 
-#: includes/settings.php:262
+#: includes/settings.php:332
 msgid ""
 "<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a "
 "problem with ajax-requests limiting on the server.)</i>"
 msgstr ""
 
-#: includes/settings.php:277
+#: includes/settings.php:347
 msgid "Method of reading files"
 msgstr ""
 
-#: includes/settings.php:282
+#: includes/settings.php:352
 msgid ""
 "<i>(Plugin tries to read Bible files with marked methods in the order listed."
 "<br>To do the reading faster, disable unnecessary methods - you need one "
@@ -268,23 +405,23 @@ msgid ""
 "server.)</i>"
 msgstr ""
 
-#: includes/settings.php:298
+#: includes/settings.php:368
 msgid "Container, inside which will display tooltips"
 msgstr ""
 
-#: includes/settings.php:304
+#: includes/settings.php:374
 msgid "Reference links CSS class"
 msgstr ""
 
-#: includes/settings.php:310
+#: includes/settings.php:380
 msgid "Custom file of Bible quotes"
 msgstr ""
 
-#: includes/settings.php:316
+#: includes/settings.php:386
 msgid "Debug"
 msgstr ""
 
-#: includes/settings.php:318
+#: includes/settings.php:388
 msgid ""
 "<br><i>(If you enable this option the debug information will written to the "
 "file \"debug.log\" in the plugin directory.<br>The file will be updated in "
@@ -293,65 +430,65 @@ msgid ""
 "font>)</i>"
 msgstr ""
 
-#: includes/settings.php:323
+#: includes/settings.php:393
 msgid "Update Options"
 msgstr ""
 
-#: includes/settings.php:335
+#: includes/settings.php:405
 msgid "Thanks for using Bg Biblie References"
 msgstr ""
 
-#: includes/settings.php:337
+#: includes/settings.php:407
 msgid ""
 "Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope "
 "it is useful for your site."
 msgstr ""
 
-#: includes/settings.php:338
+#: includes/settings.php:408
 msgid "Vadim Bogaiskov"
 msgstr ""
 
-#: includes/settings.php:340
+#: includes/settings.php:410
 msgid "I like this plugin<br>– how can I thank you?"
 msgstr ""
 
-#: includes/settings.php:341
+#: includes/settings.php:411
 msgid "There are several ways for you to say thanks:"
 msgstr ""
 
-#: includes/settings.php:343
+#: includes/settings.php:413
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give a donation</a>  for the construction "
 "of the church of Sts. Peter and Fevronia in Marino"
 msgstr ""
 
-#: includes/settings.php:344
+#: includes/settings.php:414
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Give 5 stars</a> over at the WordPress "
 "Plugin Directory"
 msgstr ""
 
-#: includes/settings.php:345
+#: includes/settings.php:415
 msgid "Share infotmation or make a nice blog post about the plugin"
 msgstr ""
 
-#: includes/settings.php:347
+#: includes/settings.php:417
 msgid "Bg Bible References really cool plugin for Orthodox WordPress sites"
 msgstr ""
 
-#: includes/settings.php:350
+#: includes/settings.php:420
 msgid "Support"
 msgstr ""
 
-#: includes/settings.php:351
+#: includes/settings.php:421
 #, php-format
 msgid ""
 "Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
 "href=\"%2$s\" target=\"_blank\">personal site</a> for help."
 msgstr ""
 
-#: includes/settings.php:353
+#: includes/settings.php:423
 msgid "God protect you!"
 msgstr ""

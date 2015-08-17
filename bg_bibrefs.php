@@ -171,12 +171,12 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 	), $atts ) );
 // Если $ref задано значение "get", то получаем $book и $ch из ссылки	
 	if ($ref == "get") {
+		$ref = $_GET["bs"];
 		$book = $_GET["book"];
 		$ch = $_GET["ch"];
 		if ($ch == "") $ch = "1-999";
 		$l = $_GET["lang"];
 		if ($l != "") $lang = $l;
-		$ref = '';
 	}
 // это и все нововведения для версии 3.7
 	
@@ -187,11 +187,8 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 	if ($content) $quote = bg_bibfers_bible_proc($content, $type, $lang);
 	else if ($ref) $quote = bg_bibfers_bible_proc($ref, $type, $lang);
 	else if ($book != '') {
-		if ($type == 'link') {
-			$addr = bg_bibfers_get_url($book, $ch, $lang);
-			if (strcasecmp($addr, "") != 0) $quote = '('.$addr .bg_bibfers_getshortTitle($book).' '.$ch. "</a></span>".')';
-			else return "";
-		} else $quote = bg_bibfers_getQuotes($book, $ch, $type, $lang);
+		if ($type == 'link') $quote = '('.bg_bibfers_get_url($book, bg_bibfers_getshortTitle($book).' '.$ch, $ch, $lang).')';
+		else $quote = bg_bibfers_getQuotes($book, $ch, $type, $lang);
 	}
 	else return "";
 	if ($quote != "") {
@@ -282,17 +279,27 @@ function bg_bibfers_norefs( $atts, $content = null ) {
 //  [bible_search]
 function bg_bibfers_bible_search( $atts ) {
 	extract( shortcode_atts( array(
-		'context' => '',
+		'context' => 'get',
+		'book' => '',
+		'ch' => '1-999',
 		'type' => 'b_verses',
 		'lang' => ''
 	), $atts ) );
 // Если $context задано значение "get", то получаем $context из ссылки	
 	if ($context == "get") {
 		$context = $_GET["bs"];
+		$book = $_GET["book"];
+		$ch = $_GET["ch"];
+		if ($ch == "") $ch = "1-999";
 		$l = $_GET["lang"];
 		if ($l != "") $lang = $l;
+		if (!isset($_GET["bs"]) && !isset($_GET["book"])) {$keys = array_keys($_GET); $context = $keys[0]; $context = str_replace ( '_' , ' ' , $context );}
 	}
 	
+	if ($book)	{
+		$book = bg_bibfers_getBook($book);
+		$context = $book.$ch;
+	}
 	$context = trim($context);
 	if (!$context) return "";
 	$quote = bg_bibfers_bible_proc($context, $type, $lang);

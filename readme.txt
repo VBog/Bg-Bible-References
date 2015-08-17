@@ -26,7 +26,9 @@ Russian:
 
 Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт Православной энциклопедии "Азбука веры" (http://azbyka.ru/biblia). 
 Текст Библии представлен на церковнославянском, русском, греческом, еврейском и латинском языках. 
+В настройках Вы можете переопределить эти гиперссылки на свой собственный сайт или даже отключить их.
 А также на толкования Святого Писания Святыми отцами и Учителями Церкви на сайте монастыря Оптина Пустынь (http://bible.optina.ru).
+В настройках Вы также можете включить отображение ссылок на параллельные места в Библии. Ссылки на параллельные места указаны в конце каждого стиха в фигурных скобках.
 
 Плагин обрабатывает ссылки следующего формата:
 
@@ -115,7 +117,9 @@ English:
 
 The plugin will highlight references to the Bible text with links to site of Orthodox encyclopedia "The Alphabet of Faith" (http://azbyka.ru/biblia).
 The Bible is presented in Church, Russian, Greek, Hebrew and Latin.
+In the settings, you can redirect the hyperlink to your own website, or even turn off them.
 And also on the interpretation of Holy Scripture by the Holy Fathers and Doctors of the Church on the site of Optina Pustyn monastery (http://bible.optina.ru).
+In the settings you can also choose to display references to parallel passages in the Bible. Links to parallel passages are listed at the end of each verse in the curly brackets.
 
 The plugin handles the references with the format:
 
@@ -224,6 +228,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.10.0 =
+
+* You can redirect the hyperlinks of references to your own website, or even turn off them.
+* You can turn on references to parallel passages in the Bible.
 
 = 3.9.0 =
 
