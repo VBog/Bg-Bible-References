@@ -36,7 +36,8 @@ function bg_bibfers_search_result($context, $type, $lang) {
 	$pattern  = preg_replace("/\\$/ui", '\w',  $pattern);		// $ - строго 1 любая буква
 	$pattern  = preg_replace("/\%/ui", '\w?',  $pattern);		// % - 0 или 1 любая буква
 	$pattern  = preg_replace("/\*/ui", '\w*',  $pattern);		// * - 0 или несколько любых букв
-	$pattern  = preg_replace("/\s/ui", '\s+', $pattern);		// пробельные символы в тексте Библии могут быть любыми
+	
+	$pattern  = preg_replace("/\s/ui", '\s*', $pattern);		// пробельные символы в тексте Библии могут быть любыми
 	$pattern = "/\b".$pattern."\b/ui";			// Только целое слово
 	
 //	echo "pattern=". $pattern. "<br>";					// Отладка
@@ -101,7 +102,7 @@ function bg_bibfers_search_result($context, $type, $lang) {
 			}
 			$ch = (int)$json[$i]['part'];
 			$vr = (int)$json[$i]['stix'];
-			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch, $ch, $vr, $vr, $type);
+			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch, $ch, $vr, $vr, $type, $lang);
 			$chr = $ch;
 			
 			$verses = $verses."</div>";	

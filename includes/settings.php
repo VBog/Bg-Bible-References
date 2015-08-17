@@ -8,6 +8,8 @@ function bg_bibfers_options_page() {
 
 
     // имена опций и полей
+	$bg_bibfers_site = 'bg_bibfers_site';				// Имя ссылки
+	
     $c_lang_name = 'bg_bibfers_c_lang';					// Церковно-славянский
     $r_lang_name = 'bg_bibfers_r_lang';					// Русский
     $g_lang_name = 'bg_bibfers_g_lang';					// Греческий
@@ -15,12 +17,15 @@ function bg_bibfers_options_page() {
     $i_lang_name = 'bg_bibfers_i_lang';					// Иврит
     $c_font_name = 'bg_bibfers_c_font';					// Шрифт для церковно-славянского текста
 
+	$bg_bibfers_page = 'bg_bibfers_page';				// Ссылка на предварительно созданную страницу для вывода текста Библии
+
 	$bg_verses_lang = 'bg_bibfers_verses_lang';			// Язык стихов из Библии во всплывающей подсказке
     $bg_show_fn = 'bg_bibfers_show_fn';					// Отображать оригинальные номера стихов
 
     $target_window = 'bg_bibfers_target';				// Где открыть страницу с текстом Библии
 	$bg_headers = 'bg_bibfers_headers';					// Подсвечивать ссылки в заголовках H1-H6
 	$bg_interpret = 'bg_bibfers_interpret';				// Включить ссылки на толкование Священного Писания
+	$bg_parallel = 'bg_bibfers_parallel';				// Включить ссылки на паралельные места Священного Писания
 
 	$bg_norm_refs = 'bg_bibfers_norm_refs';				// Преобразовывать ссылки к нормализованному виду
 	$bg_verses_name = 'bg_bibfers_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
@@ -42,6 +47,8 @@ function bg_bibfers_options_page() {
 	bg_bibrefs_options_ini (); 			// Параметры по умолчанию
 	
     // Читаем существующие значения опций из базы данных
+    $bg_bibfers_site_val = get_option( $bg_bibfers_site );
+	
     $c_lang_val = get_option( $c_lang_name );
     $r_lang_val = get_option( $r_lang_name );
     $g_lang_val = get_option( $g_lang_name );
@@ -49,12 +56,15 @@ function bg_bibfers_options_page() {
     $i_lang_val = get_option( $i_lang_name );
     $font_val = get_option( $c_font_name );
 
+    $bg_bibfers_page_val = get_option( $bg_bibfers_page );
+	
     $bg_verses_lang_val = get_option( $bg_verses_lang );
     $bg_show_fn_val = get_option( $bg_show_fn );
 
     $target_val = get_option( $target_window );
     $bg_headers_val = get_option( $bg_headers );
     $bg_interpret_val = get_option( $bg_interpret );
+    $bg_parallel_val = get_option( $bg_parallel );
 
     $bg_norm_refs_val = get_option( $bg_norm_refs );
     $bg_verses_val = get_option( $bg_verses_name );
@@ -76,6 +86,9 @@ function bg_bibfers_options_page() {
     if( isset( $_POST[ $hidden_field_name ] ) && $_POST[ $hidden_field_name ] == 'Y' ) {
 
 	// Сохраняем отправленное значение в БД
+		$bg_bibfers_site_val = ( isset( $_POST[$bg_bibfers_site] ) && $_POST[$bg_bibfers_site] ) ? $_POST[$bg_bibfers_site] : '' ;
+		update_option( $bg_bibfers_site, $bg_bibfers_site_val );
+
 		$c_lang_val = ( isset( $_POST[$c_lang_name] ) && $_POST[$c_lang_name] ) ? $_POST[$c_lang_name] : '' ;
 		update_option( $c_lang_name, $c_lang_val );
 
@@ -94,6 +107,9 @@ function bg_bibfers_options_page() {
 		$font_val = ( isset( $_POST[$c_font_name] ) && $_POST[$c_font_name] ) ? $_POST[$c_font_name] : '' ;
 		update_option( $c_font_name, $font_val );
 
+		$bg_bibfers_page_val = ( isset( $_POST[$bg_bibfers_page] ) && $_POST[$bg_bibfers_page] ) ? $_POST[$bg_bibfers_page] : '' ;
+		update_option( $bg_bibfers_page, $bg_bibfers_page_val );
+
 		$bg_verses_lang_val = ( isset( $_POST[$bg_verses_lang] ) && $_POST[$bg_verses_lang] ) ? $_POST[$bg_verses_lang] : '' ;
 		update_option( $bg_verses_lang, $bg_verses_lang_val );
 
@@ -108,6 +124,9 @@ function bg_bibfers_options_page() {
 
 		$bg_interpret_val = ( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '' ;
 		update_option( $bg_interpret, $bg_interpret_val );
+
+		$bg_parallel_val = ( isset( $_POST[$bg_parallel] ) && $_POST[$bg_parallel] ) ? $_POST[$bg_parallel] : '' ;
+		update_option( $bg_parallel, $bg_parallel_val );
 
 		$bg_norm_refs_val = ( isset( $_POST[$bg_norm_refs] ) && $_POST[$bg_norm_refs] ) ? $_POST[$bg_norm_refs] : '' ;
 		update_option( $bg_norm_refs, $bg_norm_refs_val );
@@ -158,11 +177,21 @@ function bg_bibfers_options_page() {
 <form name="form1" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 
 <!--  Основные параметры -->
+<!--  Адрес ссылки -->
+<details>
+<summary><strong><?php _e( 'Links to... (select the site)', 'bg_bibfers' ); ?></strong></summary>
+
 <table class="form-table">
 
 <tr valign="top">
-<th scope="row"><?php printf(__('Languages of the Bible text on', 'bg_bibfers' ).' <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>'); ?></th>
+<th scope="row">
+<input type="radio" id="bg_bibfers_site1" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="azbyka") echo "checked" ?> value="azbyka"> <?php _e('Links to <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibfers' ); ?>
+</th><td></td></tr>
+
+<tr valign="top">
+<th scope="row"></th>
 <td>
+<?php printf(__('Languages of the Bible text on', 'bg_bibfers' ).' <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>'); ?><br />
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
 <input type="checkbox" id="c_lang" name="<?php echo $c_lang_name ?>" <?php if($c_lang_val=="c") echo "checked" ?> value="c" onclick='c_lang_checked();'> <?php _e('Church Slavic', 'bg_bibfers' ); ?><br />
@@ -171,9 +200,11 @@ function bg_bibfers_options_page() {
 <input type="checkbox" id="l_lang" name="<?php echo $l_lang_name ?>" <?php if($l_lang_val=="l") echo "checked" ?>  value="l"> <?php _e('Latin', 'bg_bibfers' ); ?><br />
 <input type="checkbox" id="i_lang" name="<?php echo $i_lang_name ?>" <?php if($i_lang_val=="i") echo "checked" ?>  value="i"> <?php _e('Hebrew', 'bg_bibfers' ); ?><br />
 </td></tr>
+
 <tr valign="top">
-<th scope="row"><?php _e('Font for Church Slavonic text', 'bg_bibfers' ); ?></th>
+<th scope="row"></th>
 <td>
+<?php _e('Font for Church Slavonic text', 'bg_bibfers' ); ?><br />
 <input type="radio" id="ucs" name="<?php echo $c_font_name ?>" <?php if($font_val=="ucs") echo "checked" ?> value="ucs"> <?php _e('Church Slavic font', 'bg_bibfers' ); ?><br />
 <input type="radio" id="rus" name="<?php echo $c_font_name ?>" <?php if($font_val=="rus") echo "checked" ?> value="rus"> <?php _e('Russian font ("Old" style)', 'bg_bibfers' ); ?><br />
 <input type="radio" id="hip" name="<?php echo $c_font_name ?>" <?php if($font_val=="hip") echo "checked" ?> value="hip"> <?php _e('HIP-standard', 'bg_bibfers' ); ?><br />
@@ -188,6 +219,39 @@ function c_lang_checked() {
 c_lang_checked();
 </script>
 </td></tr>
+
+<tr valign="top">
+<th scope="row">
+<input type="radio" id="bg_bibfers_site2" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="this") echo "checked" ?> value="this"> <?php _e('Links to this site', 'bg_bibfers' ); ?><br />
+</th><td></td></tr>
+
+<tr valign="top">
+<th scope="row"></th>
+<td>
+<?php _e('Permalink to page for search result', 'bg_bibfers' ); ?><br />
+<input type="text" id="bg_bibfers_page" name="<?php echo $bg_bibfers_page ?>" size="60" value="<?php echo $bg_bibfers_page_val ?>"><br />
+</td></tr>
+
+
+<tr valign="top">
+<th scope="row">
+<input type="radio" id="bg_bibfers_site3" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="none") echo "checked" ?> value="none"> <?php _e('No links, popup only', 'bg_bibfers' ); ?><br />
+</th><td>
+<script>
+function bg_bibfers_site_checked() {
+	elRadio = document.getElementsByName('<?php echo $bg_bibfers_site ?>');
+	for (var i = 0; i < elRadio.length; i++) {
+		if (document.getElementById('c_lang').checked == true) {elRadio[i].disabled = false;}
+		else {elRadio[i].disabled = true;}
+	}
+}
+bg_bibfers_site_checked();
+</script>
+</td></tr></table>
+<hr>
+</details>
+<table class="form-table">
+
 <tr valign="top">
 <th scope="row"><?php _e('Language of references and tooltips', 'bg_bibfers' ); ?></th>
 <td>
@@ -229,33 +293,32 @@ c_lang_checked();
 <th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibfers' ); ?></th>
 <td>
 <input type="checkbox" id="bg_interpret" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibfers' ); ?> <br />
-</td></tr></table>
+</td></tr>
 
-<!--  Дополнительные параметры -->
-<a href='#' onclick='options_view();'><?php _e( 'Additional options...', 'bg_bibfers' ); ?></a>
-<script>
-function options_view() {
-	var el = document.getElementById('add_options');
-	if (el.style.display == 'none') {
-		el.style.display = '';
-	} else {
-		el.style.display = 'none';
-	}
-}
-</script>
+<tr valign="top">
+<th scope="row"><?php _e('Enable links to the parallel passages in the Bible', 'bg_bibfers' ); ?></th>
+<td>
+<input type="checkbox" id="bg_parallel" name="<?php echo $bg_parallel ?>" <?php if($bg_parallel_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibfers' ); ?> <br />
+</td></tr>
 
-<table id='add_options' class="form-table" style='display: none'>
 <tr valign="top">
 <th scope="row"><?php _e('Convert references to the normalized form', 'bg_bibfers' ); ?></th>
 <td>
 <input type="checkbox" id="bg_norm_refs" name="<?php echo $bg_norm_refs ?>" <?php if($bg_norm_refs_val=="on") echo "checked" ?>  value="on"> <br />
 </td></tr>
+
 <tr valign="top">
 <th scope="row"><?php _e('Show Bible verses in popup', 'bg_bibfers' ); ?></th>
 <td>
 <input type="checkbox" id="bg_verses" name="<?php echo $bg_verses_name ?>" <?php if($bg_verses_val=="on") echo "checked" ?>  value="on" onclick='bg_verses_checked();'> <?php _e('<br><i>(If this option is disabled or data are not received from the server,<br>popup showing the Bible book title, chapter number and verse numbers)</i>', 'bg_bibfers' ); ?> <br />
 </td></tr>
+</table>
 
+<!--  Дополнительные параметры -->
+<details>
+<summary><strong><?php _e( 'Additional options...', 'bg_bibfers' ); ?></strong></summary>
+
+<table class="form-table">
 <tr valign="top">
 <th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibfers' ); ?></th>
 <td>
@@ -319,6 +382,7 @@ reading_off_checked();
 </td></tr>
 
 </table>
+</details>
 <p class="submit">
 <input type="submit" name="Submit" value="<?php _e('Update Options', 'bg_bibfers' ) ?>" />
 </p>
@@ -359,17 +423,20 @@ reading_off_checked();
 
 // Задание параметров по умолчанию
 function bg_bibrefs_options_ini () {
+	add_option('bg_bibfers_site', "azbyka");
 	add_option('bg_bibfers_c_lang', "c");
 	add_option('bg_bibfers_r_lang', "r");
 	add_option('bg_bibfers_g_lang');
 	add_option('bg_bibfers_l_lang');
 	add_option('bg_bibfers_i_lang');
 	add_option('bg_bibfers_c_font', "ucs");
+	add_option('bg_bibfers_page', "");
 	add_option('bg_bibfers_verses_lang', "");
 	add_option('bg_bibfers_show_fn', "");
 	add_option('bg_bibfers_target', "_blank");
 	add_option('bg_bibfers_headers', "on");
 	add_option('bg_bibfers_interpret', "on");
+	add_option('bg_bibfers_parallel', "");
 	add_option('bg_bibfers_norm_refs');
 	add_option('bg_bibfers_show_verses', "on");
 	add_option('bg_bibfers_curl', "on");
@@ -384,17 +451,20 @@ function bg_bibrefs_options_ini () {
 
 // Очистка таблицы параметров при удалении плагина
 function bg_bibfers_deinstall() {
+	delete_option('bg_bibfers_site');
 	delete_option('bg_bibfers_c_lang');
 	delete_option('bg_bibfers_r_lang');
 	delete_option('bg_bibfers_g_lang');
 	delete_option('bg_bibfers_l_lang');
 	delete_option('bg_bibfers_i_lang');
 	delete_option('bg_bibfers_c_font');
+	delete_option('bg_bibfers_page');
 	delete_option('bg_bibfers_verses_lang');
 	delete_option('bg_bibfers_show_fn');
 	delete_option('bg_bibfers_target');
 	delete_option('bg_bibfers_headers');
 	delete_option('bg_bibfers_interpret');
+	delete_option('bg_bibfers_parallel');
 	delete_option('bg_bibfers_norm_refs');
 	delete_option('bg_bibfers_show_verses');
 	delete_option('bg_bibfers_curl');
@@ -426,6 +496,8 @@ function bg_bibfers_get_options () {
 	$bg_bibfers_option['azbyka'] = $opt;
 	
 // Общие параметры	отображения ссылок
+	$bg_bibfers_option['site'] = get_option( 'bg_bibfers_site' );
+    $bg_bibfers_option['page'] = get_option( 'bg_bibfers_page' );
     $bg_bibfers_option['target'] = get_option( 'bg_bibfers_target' );
     $bg_bibfers_option['content'] = get_option( 'bg_bibfers_content' );
 	if ($bg_bibfers_option['content'] == "") $bg_bibfers_option['content'] = 'body';
@@ -438,6 +510,7 @@ function bg_bibfers_get_options () {
 
     $bg_bibfers_option['headers'] = get_option( 'bg_bibfers_headers' );
     $bg_bibfers_option['interpret'] = get_option( 'bg_bibfers_interpret' );
+    $bg_bibfers_option['parallel'] = get_option( 'bg_bibfers_parallel' );
 
     $bg_bibfers_option['norm_refs'] = get_option( 'bg_bibfers_norm_refs' );
 

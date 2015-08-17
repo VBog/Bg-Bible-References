@@ -114,7 +114,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 					} else {
 						$vr2 = $vr1;
 					}
-					$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type);
+					$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang);
 					$chr = $ch1;
 					if ($sp == "") break;
 				}
@@ -152,19 +152,21 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 				$vr1 = 0;
 				$vr2 = 999;
 			}
-			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type);
+			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang);
 			$chr = $ch2;
 		}
 		if ($sp == "") break;
 	}
 	if ($type <> "quote") $verses = $verses."</div>";	
+
 	return $verses;
 }
 /*******************************************************************************
 	Формирование содержания цитаты
 	Вызывает bg_bibfers_optina() - см. ниже
 *******************************************************************************/  
-function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type) {
+function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang) {
+	global $bg_bibfers_option;
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
 	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
 
@@ -180,38 +182,75 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 		$vr = (int)$json[$i]['stix'];
 		$cv = $ch *1000 + $vr;
 		if ( $cv >= $cv1 && $cv <= $cv2) {
-				if (isset($json[$i]['stix_fn'])) {
-					$fn = $json[$i]['stix_fn'];
-					if ($fn != '*' && $bg_show_fn != 'on') $fn="";
-				} else $fn="";
-				if ($type == 'book') { 																						// Тип: книга
-					if ($chr != $ch) {
-						$verses = $verses."<strong>".$bg_bibfers_chapter." ".$ch."</strong><br>";					// Печатаем номер главы
-						$chr = $ch;
-					}
-					if ($json[$i]['stix'] == 0) $pointer = "";
-					else $pointer = "<em>".$json[$i]['stix'].$fn."</em> ";													// Только номер стиха
-				} else if ($type == 'verses' || $type == 't_verses') { 														// Тип: стихи или стихи с названием книг
-					if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['part']."</em>   ";
-					else $pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";							// Номер главы : номер стиха
-				} else if ($type == 'b_verses') { 																			// Тип: стихи
-					if ($json[$i]['stix'] == 0) $pointer = "<em>".$shortTitle.$json[$i]['part'].$fn."</em>   ";
-					else $pointer = "<em>".$shortTitle.$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";				// Книга. номер главы : номер стиха
-				} else {																									// Тип: цитата
-					$pointer = "";																							// Ничего
-				}
-				$txt = trim(strip_tags($json[$i]['text']));
-				if ($txt) {
-					if ($json[$i]['stix'] == 0) $txt = "<strong>".$pointer.$txt."</strong>";
-					else  $txt = $pointer.bg_bibfers_optina($txt, $book, $ch, $vr);
+			if (isset($json[$i]['stix_fn'])) {
+				$fn = $json[$i]['stix_fn'];
+				if ($fn != '*' && $bg_show_fn != 'on') $fn="";
+			} else $fn="";
 
-					$verses = $verses.$txt;
-					if ($type == 'quote') {$verses = $verses." ";}															// Если цитата, строку не переводим
-					else {$verses = $verses."<br>";}
-				} 
+			if ($type == 'book') { 																						// Тип: книга
+				if ($chr != $ch) {
+					$verses = $verses."<strong>".$bg_bibfers_chapter." ".$ch."</strong><br>";					// Печатаем номер главы
+					$chr = $ch;
+				}
+				if ($json[$i]['stix'] == 0) $pointer = "";
+				else $pointer = "<em>".$json[$i]['stix'].$fn."</em> ";													// Только номер стиха
+			} else if ($type == 'verses' || $type == 't_verses') { 														// Тип: стихи или стихи с названием книг
+				if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['part']."</em>   ";
+				else $pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";							// Номер главы : номер стиха
+			} else if ($type == 'b_verses') { 																			// Тип: стихи
+				if ($json[$i]['stix'] == 0) $pointer = "<em>".$shortTitle.$json[$i]['part'].$fn."</em>   ";
+				else $pointer = "<em>".$shortTitle.$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";				// Книга. номер главы : номер стиха
+			} else {																									// Тип: цитата
+				$pointer = "";																							// Ничего
+			}
+			$txt = trim(strip_tags($json[$i]['text']));
+			if ($txt) {
+				if ($json[$i]['stix'] == 0) $txt = "<strong>".$pointer.$txt."</strong>";
+				else  $txt = $pointer.bg_bibfers_optina($txt, $book, $ch, $vr);
+
+				$verses = $verses.$txt;
+				if ($type == 'quote') {$verses = $verses." ";}															// Если цитата, строку не переводим
+				else {
+					if ($bg_bibfers_option['parallel'] == 'on') {
+						$cn_linksKey = count($json[$i]['linksKey']);
+						if ($cn_linksKey) $verses .= " {";
+						for ($j=0; $j < $cn_linksKey; $j++) {
+							$verses .= bg_bibfers_linksKey($json[$i]['linksKey'][$j][1], $lang);
+						}
+						if ($cn_linksKey) $verses .= "}";
+					}
+					$verses .= "<br>";
+				}
+			} 
 		}
 	}
 	return $verses;
+}
+/*******************************************************************************
+	Формирование ссылки на паралельные места
+	$txt = $json[$i]['linksKey'][1];
+	 &#128279; - символ ссылки
+*******************************************************************************/  
+function bg_bibfers_linksKey( $linksKey, $lang) {
+	global $bg_bibfers_option;
+	global $bg_bibfers_chapter, $bg_bibfers_ch;
+	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+
+	$quote = $linksKey;
+	$template = "/(\d?\s*[А-яA-z]{2,8})(\.*|\s*)(\d+\,\s*\d+)/ui";
+	preg_match($template, $linksKey, $mt);
+	$cn = count($mt);
+	if ($cn > 0) {
+		$title = preg_replace("/\s/u", '',$mt[1]); 					// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
+		$title = bg_bibfers_getBook($title);						// Стандартное обозначение книги
+		$chapter = preg_replace("/\s/u", '', $mt[3]);				// и другие юникодные пробельные символы
+		$chapter = preg_replace("/\,/u", ':', $chapter);			// Если глава отделена запятой, заменяем ее на двоеточие.
+		if ($title != "") {						
+			if (!$lang) $lang = set_bible_lang();
+			$quote = bg_bibfers_get_url($title, $chapter, '&#128279;'.$bg_bibfers_shortTitle[$title].' '.$chapter.' ', $lang);
+		}
+	}
+	return $quote;
 }
 
 /*******************************************************************************
