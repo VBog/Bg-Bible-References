@@ -99,6 +99,9 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	add_shortcode( 'bible_search', 'bg_bibfers_bible_search' );
 // Регистрируем шорт-код bible_omnisearch
 	add_shortcode( 'bible_omnisearch', 'bg_bibfers_bible_omnisearch' );
+
+// Инициализируем значения параметров настройки плагина по умолчанию
+	bg_bibrefs_options_ini ();	
 }
 
 /*****************************************************************************************
