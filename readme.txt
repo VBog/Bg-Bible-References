@@ -229,6 +229,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.10.1 =
+
+* Fixed critical bug
+
 = 3.10.0 =
 
 * You can redirect the hyperlinks of references to your own website, or even turn off them.
@@ -509,6 +513,12 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+== Changelog ==
+
+= 3.10.1 =
+
+* Fixed critical bug
 
 = 3.10.0 =
 

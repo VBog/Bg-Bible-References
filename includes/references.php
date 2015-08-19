@@ -124,9 +124,9 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
 				}
 			}
-			$book = bg_bibfers_getBook($title);
+			$title = bg_bibfers_getBook($title);
 
-			if (strcasecmp($book, "") != 0 
+			if (strcasecmp($title, "") != 0 
 				&& bg_bibfers_check_tag($hdr_a, $matches[0][$i][1]) 
 				&& (($bg_bibfers_option['headers']=='on') || bg_bibfers_check_tag($hdr_h, $matches[0][$i][1])) 
 				&&  bg_bibfers_check_tag($hdr_norefs, $matches[0][$i][1])
@@ -137,10 +137,10 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 				if ($type == '' || $type == 'link') {
 					$book = bg_bibfers_getshortTitle($book);					// Короткое наименование книги
 					if ($bg_bibfers_option['norm_refs']) {						// Преобразовать ссылку к нормализованному виду
-						$newmt = bg_bibfers_get_url($title, $book.' '.$chapter, $chapter, $lang);
+						$newmt = bg_bibfers_get_url($title, $chapter, $book.' '.$chapter, $lang);
 					}
-					else $newmt = bg_bibfers_get_url($title, $ref, $chapter, $lang);
-					$listmt = bg_bibfers_get_url($title, $book.' '.$chapter, $chapter, $lang);
+					else $newmt = bg_bibfers_get_url($title, $chapter, $ref, $lang);
+					$listmt = bg_bibfers_get_url($title, $chapter, $book.' '.$chapter, $lang);
 					$double = false;
 					for ($k=0; $k < $j; $k++) {									// Проверяем не совпадают ли ссылки?
 						if ($bg_bibfers_all_refs[$k] == $listmt) {
