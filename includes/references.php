@@ -47,7 +47,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	
 // Ищем все вхождения ссылок <a ...</a>, заголовков <h. ... </h.> и шорт-кодов [norefs]...[/norefs] и [bible]...[/bible]
 	preg_match_all("/<a\\s.*?<\/a>/sui", $txt, $hdr_a, PREG_OFFSET_CAPTURE);
-	preg_match_all("/<h[1-6].*?<\/h[1-6]>/sui", $txt, $hdr_h, PREG_OFFSET_CAPTURE);
+	preg_match_all("/<h([1-6])(.*?)<\/h\\1>/sui", $txt, $hdr_h, PREG_OFFSET_CAPTURE);
 	preg_match_all("/\[norefs.*?\[\/norefs\]/sui", $txt, $hdr_norefs, PREG_OFFSET_CAPTURE);
 	preg_match_all("/\[bible.*?\[\/bible\]/sui", $txt, $hdr_bible, PREG_OFFSET_CAPTURE);
 	
@@ -186,7 +186,7 @@ function bg_bibfers_check_tag($hdr, $pos) {
 
 	for ($k = 0; $k < $chrd; $k++) {
 		$start = $hdr[0][$k][1];
-		$finish = $start + strlen($hdr[0][$k][0]);
+		$finish = $start + strlen($hdr[0][$k][0])-1;
 		if ($pos >= $start && $pos <= $finish) return false;
 	}
 	return true; 
