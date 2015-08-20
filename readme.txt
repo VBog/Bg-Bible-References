@@ -229,6 +229,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.10.2 =
+
+* Fixed minor bugs
+
 = 3.10.1 =
 
 * Fixed critical bug
@@ -515,6 +519,10 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.10.2 =
+
+* Fixed minor bugs
 
 = 3.10.1 =
 
