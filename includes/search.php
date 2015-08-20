@@ -3,7 +3,7 @@
    Формирование результатов поиска
    Вызывает bg_bibfers_printVerses() - см. ниже
 *******************************************************************************/  
-function bg_bibfers_search_result($context, $type, $lang) {
+function bg_bibfers_search_result($context, $type, $lang, $prll='') {
 	global $bg_bibfers_option;
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
 	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
@@ -85,7 +85,7 @@ function bg_bibfers_search_result($context, $type, $lang) {
 // Преобразовать json в массив
 		$json = json_decode($code, true);															
 /*******************************************************************************
-   Поиск вхождения в текста стихах Библии
+   Поиск вхождения в текст стиха Библии
    и формирование результатов поиска
 *******************************************************************************/  
 		$cn_json = count($json);
@@ -102,7 +102,7 @@ function bg_bibfers_search_result($context, $type, $lang) {
 			}
 			$ch = (int)$json[$i]['part'];
 			$vr = (int)$json[$i]['stix'];
-			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch, $ch, $vr, $vr, $type, $lang);
+			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch, $ch, $vr, $vr, $type, $lang, $prll);
 			$chr = $ch;
 			
 			$verses = $verses."</div>";	

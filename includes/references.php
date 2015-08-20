@@ -17,7 +17,7 @@ $bg_bibfers_all_refs=array();				// Перечень всех ссылок
 	Основная функция разбора текста и формирования ссылок,
     для работы требуется bg_bibfers_get_url() - см. ниже
 *******************************************************************************************/
-function bg_bibfers_bible_proc($txt, $type='', $lang='') {
+function bg_bibfers_bible_proc($txt, $type='', $lang='', $prll='') {
 	global $post;
 	global $bg_bibfers_option;
 	global $bg_bibfers_all_refs;
@@ -47,7 +47,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 	
 // Ищем все вхождения ссылок <a ...</a>, заголовков <h. ... </h.> и шорт-кодов [norefs]...[/norefs] и [bible]...[/bible]
 	preg_match_all("/<a\\s.*?<\/a>/sui", $txt, $hdr_a, PREG_OFFSET_CAPTURE);
-	preg_match_all("/<h[1-6].*?<\/h[1-6]>/sui", $txt, $hdr_h, PREG_OFFSET_CAPTURE);
+	preg_match_all("/<h([1-6])(.*?)<\/h\\1>/sui", $txt, $hdr_h, PREG_OFFSET_CAPTURE);
 	preg_match_all("/\[norefs.*?\[\/norefs\]/sui", $txt, $hdr_norefs, PREG_OFFSET_CAPTURE);
 	preg_match_all("/\[bible.*?\[\/bible\]/sui", $txt, $hdr_bible, PREG_OFFSET_CAPTURE);
 	
@@ -153,7 +153,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 						$j++;
 					}
 				} else {
-					$newmt = bg_bibfers_getQuotes($book, $chapter, $type, $lang );
+					$newmt = bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll );
 				}
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
@@ -186,7 +186,7 @@ function bg_bibfers_check_tag($hdr, $pos) {
 
 	for ($k = 0; $k < $chrd; $k++) {
 		$start = $hdr[0][$k][1];
-		$finish = $start + strlen($hdr[0][$k][0]);
+		$finish = $start + strlen($hdr[0][$k][0])-1;
 		if ($pos >= $start && $pos <= $finish) return false;
 	}
 	return true; 
