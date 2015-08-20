@@ -313,6 +313,11 @@ function bg_bibfers_bible_search( $atts ) {
 	
 	if (!$quote || $quote == $context) $quote = bg_bibfers_search_result($context, $type, $lang, $prll);
 	
+	if ($quote != "") {
+		$class_val = get_option( 'bg_bibfers_class' );
+		if ($class_val == "") $class_val = 'bg_bibfers';
+		$quote = "<span class='".$class_val."'>".$quote."</span>";
+	}
 	return "{$quote}";
 }
 
