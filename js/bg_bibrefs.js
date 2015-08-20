@@ -16,7 +16,7 @@ jQuery(document).ready(function(){
 	bg_bibrefs_tipTop = parseInt(tooltip.css('top'));	
 
 	var allParams = parseUrlQuery();
-	if (allParams.preq == '0') return; 
+	if (allParams.preq == '0') return; 							// Запрет на предварительную загрузку
 
 	jQuery('span.bg_data_title').each (function(){
 		var el = jQuery(this);
@@ -53,10 +53,12 @@ jQuery('span.bg_data_title')
 		var el = jQuery(this);
 		var tooltip = el.children('span.bg_data_tooltip');	
 		if (tooltip.css('position')=='fixed') return;
-		if (el.attr('data-title') != "") {						// Книга задана
-			tooltip.html("<strong>"+el.attr('title')+"</strong><div style='display: none;'></div>");
-			el.attr('title', "");
-			tooltip_mini(tooltip, el, e);
+
+		var allParams = parseUrlQuery();
+		if (el.attr('data-title') != "" && allParams.preq == '0') {	// Книга задана
+			var ttl= el.attr('title');							// Сохраняем на всякий случай содержимое стандартной подсказки
+			el.attr('title', "");								// Убираем стандартную подсказку
+
 			jQuery.ajax({
 				type: 'GET',
 				cache: false,
@@ -66,13 +68,17 @@ jQuery('span.bg_data_title')
 				data: {
 					action: 'bg_bibrefs'
 				},
-				success: function (verses, textStatus) {
-					if (verses != 0) {
+				success: function (verses, textStatus) {		// Если что-то пришло с сервера 
+					if (verses != 0) {							// и не пустая сторока
 						el.attr('data-title', "");				// Опустошаем, чтобы больше не загружать
 						tooltip.html(verses);					// Добавляем стихи в подсказку 
 						if (el.filter(':hover').length)			// Проверяем находится ли все еще курсор на ссылке
 							tooltip_mini(tooltip, el, e);		// и выводим подсказку на экран
 					} 
+					else el.attr('title', ttl);					// Если пусто, то восстанавливаем стандартную подсказку
+				},
+				error: function () {
+					el.attr('title', ttl);						// Если ошибка, то восстанавливаем стандартную подсказку
 				}
 			}); 
 		}
