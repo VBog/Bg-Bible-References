@@ -58,7 +58,7 @@ p.bg_bibfers_close {
 	max-width: 600px;					/* Максимальная ширина подсказки */
 	margin: 0px;						/* Отступ = 0 */
     padding:  5px 5px 5px 10px; 		/* Поля */
-    border: 1px solid #333; 			/* Параметры рамки */
+    border: 1px solid #767676; 			/* Параметры рамки */
 	font-family: sans-serif;			/* Вид шрифта */
 	font-size: 12px; 					/* Размер текста стиха */
 	font-style: normal;					/* Стиль текста */
@@ -68,11 +68,15 @@ p.bg_bibfers_close {
 	text-decoration: none; 				/* Без подчеркивания */
 	text-align: start;					/* Прижать текст влево */
     background-color: rgba(253,253,255,0.99); 	/* Полупрозрачный цвет фона */
+	box-shadow: 5px 5px 5px -3px rgba(118, 118, 118, 0.9);	/* Тень	*/
+	-webkit-box-shadow: 5px 5px 5px -3px rgba(118, 118, 118, 0.9);
+	-moz-box-shadow: 5px 5px 5px -3px rgba(118, 118, 118, 0.9);
+
 }
 .bg_data_tooltip  div{
     margin:  5px -5px -5px -10px;		/* Отступ */
     padding: 5px 5px 5px 10px;			/* Поля */
-	border-top: 1px solid #aaa; 		/* Параметры рамки */
+	border-top: 1px solid #767676; ; 	/* Параметры рамки */
 	overflow-y: auto; 	/* Разрешить при необходимости скроллинг по вертикали */
 	overflow-x: hidden; /* Запретить скроллинг по горизонтали */
 }
