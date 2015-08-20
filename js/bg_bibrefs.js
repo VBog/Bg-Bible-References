@@ -54,10 +54,13 @@ jQuery('span.bg_data_title')
 		var tooltip = el.children('span.bg_data_tooltip');	
 		if (tooltip.css('position')=='fixed') return;
 		if (el.attr('data-title') != "") {						// Книга задана
+			tooltip.html("<strong>"+el.attr('title')+"</strong><div style='display: none;'></div>");
+			el.attr('title', "");
+			tooltip_mini(tooltip, el, e);
 			jQuery.ajax({
 				type: 'GET',
 				cache: false,
-				async: false,									// Синхронный запрос
+				async: true,									// Асинхронный запрос
 				dataType: 'text',
 				url: el.attr('data-title'),						// Запрос стихов Библии
 				data: {
@@ -65,10 +68,11 @@ jQuery('span.bg_data_title')
 				},
 				success: function (verses, textStatus) {
 					if (verses != 0) {
-						tooltip.html(verses);					// Добавляем стихи в подсказку
-						el.attr('data-title', "");
-						el.attr('title', "");
-					}
+						el.attr('data-title', "");				// Опустошаем, чтобы больше не загружать
+						tooltip.html(verses);					// Добавляем стихи в подсказку 
+						if (el.filter(':hover').length)			// Проверяем находится ли все еще курсор на ссылке
+							tooltip_mini(tooltip, el, e);		// и выводим подсказку на экран
+					} 
 				}
 			}); 
 		}
