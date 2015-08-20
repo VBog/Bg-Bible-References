@@ -170,7 +170,8 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 		'book' => '',
 		'ch' => '1-999',
 		'type' => 'verses',
-		'lang' => ''
+		'lang' => '',
+		'prll' => ''
 	), $atts ) );
 // Если $ref задано значение "get", то получаем $book и $ch из ссылки	
 	if ($ref == "get") {
@@ -180,6 +181,7 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 		if ($ch == "") $ch = "1-999";
 		$l = $_GET["lang"];
 		if ($l != "") $lang = $l;
+		$prll = $_GET["prll"];
 	}
 // это и все нововведения для версии 3.7
 	
@@ -187,11 +189,11 @@ function bg_bibfers_qoutes( $atts, $content=null ) {
 	if (!$lang) $lang = set_bible_lang();
 	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibfers_bible_quote_refs($ref, $lang);
 	
-	if ($content) $quote = bg_bibfers_bible_proc($content, $type, $lang);
-	else if ($ref) $quote = bg_bibfers_bible_proc($ref, $type, $lang);
+	if ($content) $quote = bg_bibfers_bible_proc($content, $type, $lang, $prll);
+	else if ($ref) $quote = bg_bibfers_bible_proc($ref, $type, $lang, $prll);
 	else if ($book != '') {
 		if ($type == 'link') $quote = '('.bg_bibfers_get_url($book, $ch, bg_bibfers_getshortTitle($book).' '.$ch, $lang).')';
-		else $quote = bg_bibfers_getQuotes($book, $ch, $type, $lang);
+		else $quote = bg_bibfers_getQuotes($book, $ch, $type, $lang, $prll);
 	}
 	else return "";
 	if ($quote != "") {
@@ -286,7 +288,8 @@ function bg_bibfers_bible_search( $atts ) {
 		'book' => '',
 		'ch' => '1-999',
 		'type' => 'b_verses',
-		'lang' => ''
+		'lang' => '',
+		'prll' => ''
 	), $atts ) );
 // Если $context задано значение "get", то получаем $context из ссылки	
 	if ($context == "get") {
@@ -297,6 +300,7 @@ function bg_bibfers_bible_search( $atts ) {
 		$l = $_GET["lang"];
 		if ($l != "") $lang = $l;
 		if (!isset($_GET["bs"]) && !isset($_GET["book"])) {$keys = array_keys($_GET); $context = $keys[0]; $context = str_replace ( '_' , ' ' , $context );}
+		$prll = $_GET["prll"];
 	}
 	
 	if ($book)	{
@@ -305,9 +309,9 @@ function bg_bibfers_bible_search( $atts ) {
 	}
 	$context = trim($context);
 	if (!$context) return "";
-	$quote = bg_bibfers_bible_proc($context, $type, $lang);
+	$quote = bg_bibfers_bible_proc($context, $type, $lang, $prll);
 	
-	if (!$quote || $quote == $context) $quote = bg_bibfers_search_result($context, $type, $lang);
+	if (!$quote || $quote == $context) $quote = bg_bibfers_search_result($context, $type, $lang, $prll);
 	
 	return "{$quote}";
 }
@@ -808,4 +812,3 @@ function register_widgets() {
     register_widget("QuotesWidget");
 };
 add_action("widgets_init", "register_widgets");
-

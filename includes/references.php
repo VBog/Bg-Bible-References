@@ -17,7 +17,7 @@ $bg_bibfers_all_refs=array();				// Перечень всех ссылок
 	Основная функция разбора текста и формирования ссылок,
     для работы требуется bg_bibfers_get_url() - см. ниже
 *******************************************************************************************/
-function bg_bibfers_bible_proc($txt, $type='', $lang='') {
+function bg_bibfers_bible_proc($txt, $type='', $lang='', $prll='') {
 	global $post;
 	global $bg_bibfers_option;
 	global $bg_bibfers_all_refs;
@@ -153,7 +153,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='') {
 						$j++;
 					}
 				} else {
-					$newmt = bg_bibfers_getQuotes($book, $chapter, $type, $lang );
+					$newmt = bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll );
 				}
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);

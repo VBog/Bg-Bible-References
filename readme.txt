@@ -73,8 +73,8 @@ Russian:
 
 Если Вы включите опцию 'Преобразовывать ссылки к нормализованному виду', то ссылки на Библию будут заключены в круглые скобки, в них будут удалены лишние пробелы, а названия книг, обозначения глав и стихов будут приведены к стандартному виду, соответствующему восточной традиции.
 
-Самозакрывающийся шорт-код [bible book='Mt' ch='2:3-6' type='verses' lang='ru' /] выводит цитаты из Библии в тексте страницы.
-Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода, lang - язык текста Библии (по умолчанию, язык Библии поста).
+Самозакрывающийся шорт-код [bible book='Mt' ch='2:3-6' type='verses' lang='ru' prll='on' /] выводит цитаты из Библии в тексте страницы.
+Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода, lang - язык текста Библии (по умолчанию, язык Библии поста), prll='on'|'off' - вкл.|выкл. отображение ссылок на паралельные места в Библии.
 Допускается вместо book и ch указать полную ссылку в параметре ref. В этом случае параметры book и ch игнорируются. 
 Если ref='rnd', то выводится случайная цитата из перечня, представленного в файле quotes.txt. 
 Если ref='days', то выводится цитата дня в соответствии с порядковым номером дня в текущем году. 
@@ -91,7 +91,7 @@ Russian:
 
 Шорт-код [bible_epigraph ref='rnd' lang='ru'] выводит на экран цитату в форме эпиграфа. 
 
-Шорт-код [bible_search context='Отче наш' type='verses' lang='ru' /] выводит на экран результаты поиска указанной в параметре 'context' фразы. В поисковом запросе можно использовать специальные символы: "$" - 1 любая буква, "%" - 0 или 1 любая буква, "*" - несколько любых букв.
+Шорт-код [bible_search context='Отче наш' type='verses' lang='ru' prll='on' /] выводит на экран результаты поиска указанной в параметре 'context' фразы. В поисковом запросе можно использовать специальные символы: "$" - 1 любая буква, "%" - 0 или 1 любая буква, "*" - несколько любых букв.
 
 Шорт-код [bible_omnisearch lang='ru' page='{URL}'/] выводит на экран элемент формы, позволяющий пользователю вводить поисковый запрос (см. [bible_search]). В параметре 'page' необходимо указать URL страницы, на которой будут выведены результаты поиска (указан шорт-код [bible_search]). Если параметр 'page' не задан, то подразумевается эта же страница.
 
@@ -164,8 +164,8 @@ Warning: you can have problem with ajax-requests limiting on the server.
 
 If you enable the 'Convert References to the normalized form', the Bible references will within brackets, there are removed extra spaces, and the book titles, chapters and verses will be have the standard form corresponding to the Eastern tradition.
 
-Self-closing shortcode [bible book = 'Mt' ch = '2 :3-6 'type =' verses' lang='ru' /] displays quotes from the Bible in the text of the page.
-Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format.
+Self-closing shortcode [bible book = 'Mt' ch = '2 :3-6 'type =' verses' lang='ru' prll='on' /] displays quotes from the Bible in the text of the page.
+Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format, lang - language of the Bible, prll='on'|'off' - turn on|off links to parallel passages in the Bible.
 Allowed instead of 'book' and 'ch' specify the full reference  in the parameter 'ref'. In this case, the parameters 'book' and 'ch' are ignored.
 If ref = 'rnd', it displays a random quote from the list in the file quotes.txt.
 If ref = 'days', it displays the quote of the day according with the serial number of the day in the current year.
@@ -182,7 +182,7 @@ The parameters of the book and ch ignored.
 
 Shortcode [bible_epigraph ref = 'rnd' lang = 'ru'] displays the quote in the format of epigraph.
 
-Shortcode [bible_search context = 'Our Father' type = 'verses' lang = 'ru' /] displays the search results of phrase (parameter 'context'). In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аny letter, "*" - more any letters.
+Shortcode [bible_search context = 'Our Father' type = 'verses' lang = 'ru' prll='on' /] displays the search results of phrase (parameter 'context'). In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аny letter, "*" - more any letters.
 
 Shortcode [bible_omnisearch lang = 'ru' page = '{URL}' /] displays a form element, allowing the user to enter a search query (see: [Bible_search]). In the parameter 'page' you must specify the URL of the page where search results will be displayed (specified shortcode [bible_search]). If the parameter 'page' is not set, it means the same page.
 
@@ -231,6 +231,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 = 3.10.2 =
 
+* Added parameter 'prll' in shortcodes [bible] and [bible_search].
 * Fixed minor bugs
 
 = 3.10.1 =
@@ -522,6 +523,7 @@ Warning: Some methods may not be available on your server.
 
 = 3.10.2 =
 
+* Added parameter 'prll' in shortcodes [bible] and [bible_search].
 * Fixed minor bugs
 
 = 3.10.1 =

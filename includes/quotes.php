@@ -3,7 +3,7 @@
    Создание контента цитаты 
    Вызывает bg_bibfers_printVerses() - см. ниже
 *******************************************************************************/  
-function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
+function bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll='') {
 	global $bg_bibfers_option;
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
 	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
@@ -114,7 +114,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 					} else {
 						$vr2 = $vr1;
 					}
-					$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang);
+					$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
 					$chr = $ch1;
 					if ($sp == "") break;
 				}
@@ -152,7 +152,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 				$vr1 = 0;
 				$vr2 = 999;
 			}
-			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang);
+			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
 			$chr = $ch2;
 		}
 		if ($sp == "") break;
@@ -165,7 +165,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang) {
 	Формирование содержания цитаты
 	Вызывает bg_bibfers_optina() - см. ниже
 *******************************************************************************/  
-function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang) {
+function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll='') {
 	global $bg_bibfers_option;
 	global $bg_bibfers_chapter, $bg_bibfers_ch;
 	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
@@ -211,7 +211,7 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 				$verses = $verses.$txt;
 				if ($type == 'quote') {$verses = $verses." ";}															// Если цитата, строку не переводим
 				else {
-					if ($bg_bibfers_option['parallel'] == 'on') {
+					if (($bg_bibfers_option['parallel'] == 'on' && $prll != 'off') || $prll == 'on') {
 						$cn_linksKey = count($json[$i]['linksKey']);
 						if ($cn_linksKey) $verses .= " {";
 						for ($j=0; $j < $cn_linksKey; $j++) {
