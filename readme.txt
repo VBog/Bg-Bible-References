@@ -229,6 +229,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.10.3 =
+
+* Added 'Hebrews' in Belarusian language.
+* Fixed minor bugs
+
 = 3.10.2 =
 
 * Added parameter 'prll' in shortcodes [bible] and [bible_search].
@@ -520,6 +525,11 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.10.3 =
+
+* Added 'Hebrews' in Belarusian language.
+* Fixed minor bugs
 
 = 3.10.2 =
 
