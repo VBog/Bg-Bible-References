@@ -94,7 +94,6 @@ function bg_bibfers_search_result($context, $type, $lang, $prll='') {
 
 			if (!preg_match ( $pattern, $json[$i]['text'] )) continue;		// Если нет вхождений ищем в следующем стихе
 
-			$verses = $verses."<div>";
 			if ($bkr != $book) {
 				if ($type == "book") $verses = $verses."<h3>".bg_bibfers_getTitle($book)."</h3>";
 				else if ($type == "t_verses") $verses = $verses."<strong>".bg_bibfers_getTitle($book)."</strong><br>";
@@ -105,7 +104,6 @@ function bg_bibfers_search_result($context, $type, $lang, $prll='') {
 			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch, $ch, $vr, $vr, $type, $lang, $prll);
 			$chr = $ch;
 			
-			$verses = $verses."</div>";	
 		}
 	}
 	$verses  = preg_replace($pattern, '<strong class="search-excerpt">\0</strong>',  $verses);

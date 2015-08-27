@@ -213,11 +213,11 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 				else {
 					if (($bg_bibfers_option['parallel'] == 'on' && $prll != 'off') || $prll == 'on') {
 						$cn_linksKey = count($json[$i]['linksKey']);
-						if ($cn_linksKey) $verses .= " {";
+						if ($cn_linksKey) $verses .= " <span class='bg_bibfers_passage'>{";
 						for ($j=0; $j < $cn_linksKey; $j++) {
 							$verses .= bg_bibfers_linksKey($json[$i]['linksKey'][$j][1], $lang);
 						}
-						if ($cn_linksKey) $verses .= "}";
+						if ($cn_linksKey) $verses .= "}</span>";
 					}
 					$verses .= "<br>";
 				}
@@ -247,7 +247,7 @@ function bg_bibfers_linksKey( $linksKey, $lang) {
 		$chapter = preg_replace("/\,/u", ':', $chapter);			// Если глава отделена запятой, заменяем ее на двоеточие.
 		if ($title != "") {						
 			if (!$lang) $lang = set_bible_lang();
-			$quote = bg_bibfers_get_url($title, $chapter, '&#128279;'.$bg_bibfers_shortTitle[$title].' '.$chapter.' ', $lang);
+			$quote = bg_bibfers_get_url($title, $chapter, '&#128279;'.$bg_bibfers_shortTitle[$title].'&nbsp;'.$chapter.' ', $lang);
 		}
 	}
 	return $quote;
