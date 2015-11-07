@@ -2,7 +2,7 @@
 /* 
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
-    Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на текст Библии и толкования Святых Отцов. / The plugin will highlight the Bible references with links to the Bible text and interpretation of the Holy Fathers.
+    Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на текст Библии и толкования Святых Отцов. / The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
     Version: 3.10.4
     Author: VBog
     Author URI: https://bogaiskov.ru 

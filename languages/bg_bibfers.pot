@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Bg Bible References package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bg Bible References 3.10.3\n"
+"Project-Id-Version: Bg Bible References 3.10.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bg-biblie-"
 "references\n"
-"POT-Creation-Date: 2015-11-06 09:19:11+00:00\n"
+"POT-Creation-Date: 2015-11-07 17:41:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,115 +13,115 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: bg_bibrefs.php:159 bg_bibrefs.php:409
+#: bg_bibrefs.php:160 bg_bibrefs.php:410
 msgid "Bible References"
 msgstr ""
 
-#: bg_bibrefs.php:345 bg_bibrefs.php:678 bg_bibrefs.php:700
+#: bg_bibrefs.php:346 bg_bibrefs.php:679 bg_bibrefs.php:701
 msgid "Search"
 msgstr ""
 
-#: bg_bibrefs.php:392
+#: bg_bibrefs.php:393
 msgid "Expand"
 msgstr ""
 
-#: bg_bibrefs.php:392
+#: bg_bibrefs.php:393
 msgid "Hide"
 msgstr ""
 
-#: bg_bibrefs.php:414 includes/settings.php:256
+#: bg_bibrefs.php:415 includes/settings.php:256
 msgid "Language of references and tooltips"
 msgstr ""
 
-#: bg_bibrefs.php:417 bg_bibrefs.php:770 includes/settings.php:259
+#: bg_bibrefs.php:418 bg_bibrefs.php:771 includes/settings.php:259
 msgid "Default"
 msgstr ""
 
-#: bg_bibrefs.php:432
+#: bg_bibrefs.php:433
 msgid "Ban to highlight references"
 msgstr ""
 
-#: bg_bibrefs.php:435
+#: bg_bibrefs.php:436
 msgid "Off"
 msgstr ""
 
-#: bg_bibrefs.php:436
+#: bg_bibrefs.php:437
 msgid "On"
 msgstr ""
 
-#: bg_bibrefs.php:474
+#: bg_bibrefs.php:475
 msgid "Bible References Widget"
 msgstr ""
 
-#: bg_bibrefs.php:475
+#: bg_bibrefs.php:476
 msgid "Create reference to the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:491 bg_bibrefs.php:630 bg_bibrefs.php:749
+#: bg_bibrefs.php:492 bg_bibrefs.php:631 bg_bibrefs.php:750
 msgid "Title:"
 msgstr ""
 
-#: bg_bibrefs.php:496 bg_bibrefs.php:635
+#: bg_bibrefs.php:497 bg_bibrefs.php:636
 msgid "Permalink to page:"
 msgstr ""
 
-#: bg_bibrefs.php:503 bg_bibrefs.php:642
+#: bg_bibrefs.php:504 bg_bibrefs.php:643
 msgid "Default language"
 msgstr ""
 
-#: bg_bibrefs.php:509 bg_bibrefs.php:648
+#: bg_bibrefs.php:510 bg_bibrefs.php:649
 msgid "Save selected options (on user side only)"
 msgstr ""
 
-#: bg_bibrefs.php:540
+#: bg_bibrefs.php:541
 msgid "Book"
 msgstr ""
 
-#: bg_bibrefs.php:547
+#: bg_bibrefs.php:548
 msgid "Chapter"
 msgstr ""
 
-#: bg_bibrefs.php:548
+#: bg_bibrefs.php:549
 msgid "Chapters and verses"
 msgstr ""
 
-#: bg_bibrefs.php:551 bg_bibrefs.php:681
+#: bg_bibrefs.php:552 bg_bibrefs.php:682
 msgid "Language"
 msgstr ""
 
-#: bg_bibrefs.php:570
+#: bg_bibrefs.php:571
 msgid "Go"
 msgstr ""
 
-#: bg_bibrefs.php:614
+#: bg_bibrefs.php:615
 msgid "Bible Search Widget"
 msgstr ""
 
-#: bg_bibrefs.php:615
+#: bg_bibrefs.php:616
 msgid "Finds words or phrases in the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:732
+#: bg_bibrefs.php:733
 msgid "Bible Quote Widget"
 msgstr ""
 
-#: bg_bibrefs.php:733
+#: bg_bibrefs.php:734
 msgid "Display Random Quote or Day's Quote from the Bible"
 msgstr ""
 
-#: bg_bibrefs.php:754
+#: bg_bibrefs.php:755
 msgid "Type of quote:"
 msgstr ""
 
-#: bg_bibrefs.php:757
+#: bg_bibrefs.php:758
 msgid "Day's Quote"
 msgstr ""
 
-#: bg_bibrefs.php:760
+#: bg_bibrefs.php:761
 msgid "Random Quote"
 msgstr ""
 
-#: bg_bibrefs.php:765
+#: bg_bibrefs.php:766
 msgid "Language of the Bible:"
 msgstr ""
 
@@ -490,19 +490,15 @@ msgid "Bg Bible References"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://bogaiskov.ru/bg_bibfers/"
+msgid "http://wp-bible.info"
 msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a "
-"href=\"http://azbyka.ru/\">Православной энциклопедии \"Азбука веры\"</a> и "
-"толкование Священного Писания на сайте <a href=\"http://bible.optina.ru/"
-"\">монастыря \"Оптина Пустынь\"</a>. / The plugin will highlight references "
-"to the Bible text with links to site of <a href=\"http://azbyka.ru/"
-"\">Orthodox encyclopedia \"The Alphabet of Faith\"</a> and interpretation of "
-"Scripture on the site of the <a href=\"http://bible.optina.ru/\">monastery "
-"\"Optina Pustyn\"</a>."
+"Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на текст "
+"Библии и толкования Святых Отцов. / The plugin will highlight the Bible "
+"references with links to the Bible text and interpretation of the Holy "
+"Fathers."
 msgstr ""
 
 #. Author of the plugin/theme
@@ -510,5 +506,5 @@ msgid "VBog"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://bogaiskov.ru"
+msgid "https://bogaiskov.ru"
 msgstr ""

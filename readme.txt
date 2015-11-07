@@ -17,7 +17,7 @@ License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-...will highlight the Bible references with links to the Bible text and interpretation of the Holy Fathers.
+...will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
 
 == Description ==
 
