@@ -1,11 +1,11 @@
 <?php
 /* 
     Plugin Name: Bg Bible References 
-    Plugin URI: http://bogaiskov.ru/bg_bibfers/
-    Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт <a href="http://azbyka.ru/">Православной энциклопедии "Азбука веры"</a> и толкование Священного Писания на сайте <a href="http://bible.optina.ru/">монастыря "Оптина Пустынь"</a>. / The plugin will highlight references to the Bible text with links to site of <a href="http://azbyka.ru/">Orthodox encyclopedia "The Alphabet of Faith"</a> and interpretation of Scripture on the site of the <a href="http://bible.optina.ru/">monastery "Optina Pustyn"</a>.
-    Version: 3.10.3
+    Plugin URI: http://wp-bible.info
+    Description: Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на текст Библии и толкования Святых Отцов. / The plugin will highlight the Bible references with links to the Bible text and interpretation of the Holy Fathers.
+    Version: 3.10.4
     Author: VBog
-    Author URI: http://bogaiskov.ru 
+    Author URI: https://bogaiskov.ru 
 	License:     GPL2
 	Text Domain: bg_bibfers
 	Domain Path: /languages/
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.10.3');
+define('BG_BIBREFS_VERSION', '3.10.4');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -81,6 +81,7 @@ include_once('includes/search.php');
 if ( defined('ABSPATH') && defined('WPINC') ) {
 // Регистрируем крючок для обработки контента при его загрузке
 	add_filter( 'the_content', 'bg_bibfers' );
+	add_filter( 'the_excerpt', 'bg_bibfers' );
 // Регистрируем крючок для добавления меню администратора
 	add_action('admin_menu', 'bg_bibfers_add_pages');
 // Регистрируем крючок на удаление плагина

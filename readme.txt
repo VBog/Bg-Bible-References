@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 4.3.0
+Tested up to: 4.3.1
 
 Stable tag: trunk
 
@@ -17,8 +17,7 @@ License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-...will highlight references to Bible text with links to site "The Alphabet of Faith" and interpretation on site of Optina Pustyn.
-
+...will highlight the Bible references with links to the Bible text and interpretation of the Holy Fathers.
 
 == Description ==
 
@@ -228,6 +227,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 4. Interpretation of Holy Scripture
 
 == Changelog ==
+
+= 3.10.4 =
+
+* Now plugin highlight the Bible references in the post summary (field "Excerpt", see https://codex.wordpress.org/Excerpt).
 
 = 3.10.3 =
 
@@ -525,6 +528,10 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.10.4 =
+
+* Now plugin highlight the Bible references in the post summary (field "Excerpt", see https://codex.wordpress.org/Excerpt).
 
 = 3.10.3 =
 
