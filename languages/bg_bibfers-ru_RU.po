@@ -327,7 +327,7 @@ msgstr "Постоянная ссылка на страницу результа
 
 #: ../includes/settings.php:239
 msgid "No links, popup only"
-msgstr "Без ссылок, только всплывающие окно"
+msgstr "Без ссылок, только всплывающее окно"
 
 #: ../includes/settings.php:278
 msgid "Show original verse numbers"
