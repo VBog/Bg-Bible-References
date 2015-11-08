@@ -185,23 +185,24 @@ function bg_bibfers_options_page() {
 
 <tr valign="top">
 <th scope="row">
-<input type="radio" id="bg_bibfers_site1" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="azbyka") echo "checked" ?> value="azbyka"> <?php _e('Links to <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibfers' ); ?>
+<input type="radio" id="bg_bibfers_site1" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="azbyka") echo "checked" ?> value="azbyka" onclick='bg_bibfers_site_checked();'> <?php _e('Links to <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibfers' ); ?>
 </th><td></td></tr>
 
-<tr valign="top">
+<tr valign="top" id="bg_bibfers_azbyka_lang">
 <th scope="row"></th>
 <td>
+<div >
 <?php printf(__('Languages of the Bible text on', 'bg_bibfers' ).' <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>'); ?><br />
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
-
 <input type="checkbox" id="c_lang" name="<?php echo $c_lang_name ?>" <?php if($c_lang_val=="c") echo "checked" ?> value="c" onclick='c_lang_checked();'> <?php _e('Church Slavic', 'bg_bibfers' ); ?><br />
 <input type="checkbox" id="r_lang" name="<?php echo $r_lang_name ?>" <?php if($r_lang_val=="r") echo "checked" ?>  value="r"> <?php _e('Russian', 'bg_bibfers' ); ?><br />
 <input type="checkbox" id="g_lang" name="<?php echo $g_lang_name ?>" <?php if($g_lang_val=="g") echo "checked" ?>  value="g"> <?php _e('Greek', 'bg_bibfers' ); ?><br />
 <input type="checkbox" id="l_lang" name="<?php echo $l_lang_name ?>" <?php if($l_lang_val=="l") echo "checked" ?>  value="l"> <?php _e('Latin', 'bg_bibfers' ); ?><br />
 <input type="checkbox" id="i_lang" name="<?php echo $i_lang_name ?>" <?php if($i_lang_val=="i") echo "checked" ?>  value="i"> <?php _e('Hebrew', 'bg_bibfers' ); ?><br />
+</div>
 </td></tr>
 
-<tr valign="top">
+<tr valign="top" id="bg_bibfers_azbyka_font">
 <th scope="row"></th>
 <td>
 <?php _e('Font for Church Slavonic text', 'bg_bibfers' ); ?><br />
@@ -210,11 +211,9 @@ function bg_bibfers_options_page() {
 <input type="radio" id="hip" name="<?php echo $c_font_name ?>" <?php if($font_val=="hip") echo "checked" ?> value="hip"> <?php _e('HIP-standard', 'bg_bibfers' ); ?><br />
 <script>
 function c_lang_checked() {
-	elRadio = document.getElementsByName('<?php echo $c_font_name ?>');
-	for (var i = 0; i < elRadio.length; i++) {
-		if (document.getElementById('c_lang').checked == true) {elRadio[i].disabled = false;}
-		else {elRadio[i].disabled = true;}
-	}
+	azbyka_font = document.getElementById('bg_bibfers_azbyka_font');
+	if (document.getElementById('c_lang').checked == true) azbyka_font.style.display = '';
+	else azbyka_font.style.display = 'none';
 }
 c_lang_checked();
 </script>
@@ -222,10 +221,10 @@ c_lang_checked();
 
 <tr valign="top">
 <th scope="row">
-<input type="radio" id="bg_bibfers_site2" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="this") echo "checked" ?> value="this"> <?php _e('Links to this site', 'bg_bibfers' ); ?><br />
+<input type="radio" id="bg_bibfers_site2" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="this") echo "checked" ?> value="this" onclick='bg_bibfers_site_checked();'> <?php _e('Links to this site', 'bg_bibfers' ); ?><br />
 </th><td></td></tr>
 
-<tr valign="top">
+<tr valign="top" id="bg_bibfers_permalink">
 <th scope="row"></th>
 <td>
 <?php _e('Permalink to page for search result', 'bg_bibfers' ); ?><br />
@@ -235,15 +234,24 @@ c_lang_checked();
 
 <tr valign="top">
 <th scope="row">
-<input type="radio" id="bg_bibfers_site3" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="none") echo "checked" ?> value="none"> <?php _e('No links, popup only', 'bg_bibfers' ); ?><br />
+<input type="radio" id="bg_bibfers_site3" name="<?php echo $bg_bibfers_site ?>" <?php if($bg_bibfers_site_val=="none") echo "checked" ?> value="none" onclick='bg_bibfers_site_checked();'> <?php _e('No links, popup only', 'bg_bibfers' ); ?><br />
 </th><td>
 <script>
 function bg_bibfers_site_checked() {
 	elRadio = document.getElementsByName('<?php echo $bg_bibfers_site ?>');
-	for (var i = 0; i < elRadio.length; i++) {
-		if (document.getElementById('c_lang').checked == true) {elRadio[i].disabled = false;}
-		else {elRadio[i].disabled = true;}
+	azbyka_lang = document.getElementById('bg_bibfers_azbyka_lang');
+	azbyka_font = document.getElementById('bg_bibfers_azbyka_font');
+	permalink = document.getElementById('bg_bibfers_permalink');
+	if (elRadio[0].checked) {
+		azbyka_lang.style.display = '';
+		c_lang_checked();
 	}
+	else {
+		azbyka_lang.style.display = 'none';
+		azbyka_font.style.display = 'none';
+	}
+	if (elRadio[1].checked) permalink.style.display = '';
+	else permalink.style.display = 'none';
 }
 bg_bibfers_site_checked();
 </script>

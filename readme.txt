@@ -228,6 +228,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.10.5 =
+
+* Fixed bug on settings page.
+
 = 3.10.4 =
 
 * Now plugin highlight the Bible references in the post summary (field "Excerpt", see https://codex.wordpress.org/Excerpt).
@@ -528,6 +532,10 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.10.5 =
+
+* Fixed bug on settings page.
 
 = 3.10.4 =
 
