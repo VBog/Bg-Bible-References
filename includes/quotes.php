@@ -206,7 +206,7 @@ function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 			$txt = trim(strip_tags($json[$i]['text']));
 			if ($txt) {
 				if ($json[$i]['stix'] == 0) $txt = "<strong>".$pointer.$txt."</strong>";
-				else  $txt = $pointer.bg_bibrefs_optina($txt, $book, $ch, $vr);
+				else  $txt = $pointer.bg_bibrefs_optina($txt, $book, $ch, $vr, $lang);
 
 				$verses = $verses.$txt;
 				if ($type == 'quote') {$verses = $verses." ";}															// Если цитата, строку не переводим
@@ -257,7 +257,7 @@ function bg_bibrefs_linksKey( $linksKey, $lang) {
 	Создание ссылки на толкование Священного Писания на сайте Оптиной пустыни.
   
 *******************************************************************************/  
-function bg_bibrefs_optina($txt, $book, $chapter, $verse) {
+function bg_bibrefs_optina($txt, $book, $chapter, $verse, $lang) {
 
 	$opt = array(						// Таблица соответствия azbyka.ru и bible.optina.ru
 		// Ветхий Завет				
@@ -349,12 +349,23 @@ function bg_bibrefs_optina($txt, $book, $chapter, $verse) {
 		'Hebr'	 	=>'new:evr:',		//'Послание апостола Павла к Евреям', 
 		'Apok'	 	=>'new:otkr:');		//'Откровение Иоанна Богослова (Апокалипсис)'
 
-	$bg_interpret_val = get_option( 'bg_bibrefs_interpret' );
-	if ($bg_interpret_val != 'on') return $txt;
-	$target_val = get_option( 'bg_bibrefs_target' );
-	$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
-	$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
-	return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation', 'bg_bibrefs' ))."' target='".$target_val."'>".$txt."</a>");
+	global $bg_bibrefs_option;
+//	$bg_interpret_val = get_option( 'bg_bibrefs_interpret' );
+	if ($bg_bibrefs_option['interpret'] == 'on') {
+		$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
+		$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
+		return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
+	}
+	elseif ($bg_bibrefs_option['site'] == 'azbyka') {
+		return "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.":".$verse.$bg_bibrefs_option['azbyka']."' title='".(__( 'Click to go to the azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";	// Полный адрес ссылки на azbyka.ru
+	}
+	elseif ($bg_bibrefs_option['site'] == 'this') {
+		$page = $bg_bibrefs_option['page'];
+		if ($page == "") $page = get_permalink(); 
+		return "<a href='".$page."?bs=".$book.$chapter.":".$verse."&lang=".$lang."' title='".(__( 'Click to view on page', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";			// Полный адрес ссылки на текущий сайт
+	}
+	else return $txt;
+
 }
 
 /*******************************************************************************

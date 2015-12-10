@@ -229,6 +229,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.11.2 =
+
+* Added apocryphal books and chapters and missing verses from the King James Bible (KJV). 
+
 = 3.11.1 =
 
 * Fixed minor bugs. 
@@ -542,6 +546,10 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.11.2 =
+
+* Added apocryphal books and chapters and missing verses from the King James Bible (KJV). 
 
 = 3.11.1 =
 
