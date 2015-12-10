@@ -225,8 +225,14 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 2. Expanded tooltip.
 3. Page of Bible verses
 4. Interpretation of Holy Scripture
+5. Search in the Bible
 
 == Changelog ==
+
+= 3.11.0 =
+
+* Fixed old typos: bg_bibfers to bg_bibrefs (in function names, in option names, in text domain neme, in class names, etc.).
+* Fixed minor bugs. 
 
 = 3.10.5 =
 
@@ -532,6 +538,11 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.11.0 =
+
+* Fixed old typos: bg_bibfers to bg_bibrefs (in function names, in option names, in text domain neme, in class names, etc.).
+* Fixed minor bugs. 
 
 = 3.10.5 =
 

@@ -477,8 +477,8 @@ msgstr ""
 
 #: includes/settings.php:415
 msgid ""
-"Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or my <a "
-"href=\"%2$s\" target=\"_blank\">personal site</a> for help."
+"Please see the <a href=\"%1$s\" target=\"_blank\">support forum</a> or <a "
+"href=\"%2$s\" target=\"_blank\">plugin\'s site</a> for help."
 msgstr ""
 
 #: includes/settings.php:417
@@ -495,10 +495,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на текст "
-"Библии и толкования Святых Отцов. / The plugin will highlight the Bible "
-"references with links to the Bible text and interpretation of the Holy "
-"Fathers."
+"The plugin will highlight the Bible references with links to the Bible text "
+"and interpretation of the Holy Fathers."
 msgstr ""
 
 #. Author of the plugin/theme

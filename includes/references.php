@@ -12,21 +12,21 @@
 Допускается указание см.: сразу после открывающейся скобки. Варианты: см.: / см. / см: / см
 
 ********************************************************************************************************************************************/
-$bg_bibfers_all_refs=array();				// Перечень всех ссылок 
+$bg_bibrefs_all_refs=array();				// Перечень всех ссылок 
 /******************************************************************************************
 	Основная функция разбора текста и формирования ссылок,
-    для работы требуется bg_bibfers_get_url() - см. ниже
+    для работы требуется bg_bibrefs_get_url() - см. ниже
 *******************************************************************************************/
-function bg_bibfers_bible_proc($txt, $type='', $lang='', $prll='') {
+function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	global $post;
-	global $bg_bibfers_option;
-	global $bg_bibfers_all_refs;
-	global $bg_bibfers_chapter, $bg_bibfers_ch;
-	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
-	bg_bibfers_get_options ();
+	global $bg_bibrefs_option;
+	global $bg_bibrefs_all_refs;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
+	bg_bibrefs_get_options ();
 
 /****************** ОТЛАДКА ****************************************/	
-	if ($bg_bibfers_option['debug']) {
+	if ($bg_bibrefs_option['debug']) {
 		$debug_file = dirname(dirname(__FILE__ ))."/debug.log";
 		if (file_exists($debug_file)) {
 			$size = filesize ($debug_file);
@@ -73,7 +73,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='', $prll='') {
 	$j = 0;
 
 /****************** ОТЛАДКА ****************************************/	
-	if ($bg_bibfers_option['debug']) {
+	if ($bg_bibrefs_option['debug']) {
 		$this_time = microtime(true)*1000;
 		$time = ($this_time- $start_time);
 		error_log("  Начальная обработка: ". round($time, 2)." мсек.\n", 3, $debug_file);
@@ -124,36 +124,36 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='', $prll='') {
 						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
 				}
 			}
-			$title = bg_bibfers_getBook($title);
+			$title = bg_bibrefs_getBook($title);
 
 			if (strcasecmp($title, "") != 0 
-				&& bg_bibfers_check_tag($hdr_a, $matches[0][$i][1]) 
-				&& (($bg_bibfers_option['headers']=='on') || bg_bibfers_check_tag($hdr_h, $matches[0][$i][1])) 
-				&&  bg_bibfers_check_tag($hdr_norefs, $matches[0][$i][1])
-				&&  bg_bibfers_check_tag($hdr_bible, $matches[0][$i][1])) {
+				&& bg_bibrefs_check_tag($hdr_a, $matches[0][$i][1]) 
+				&& (($bg_bibrefs_option['headers']=='on') || bg_bibrefs_check_tag($hdr_h, $matches[0][$i][1])) 
+				&&  bg_bibrefs_check_tag($hdr_norefs, $matches[0][$i][1])
+				&&  bg_bibrefs_check_tag($hdr_bible, $matches[0][$i][1])) {
 				$ref = $matches[0][$i][0];
 				$ref = trim ( $ref, "\x20\f\t\v\n\r\xA0\xC2" );
-				$book = bg_bibfers_getBook($title);								// Обозначение книги
+				$book = bg_bibrefs_getBook($title);								// Обозначение книги
 				if ($type == '' || $type == 'link') {
-					$book = bg_bibfers_getshortTitle($book);					// Короткое наименование книги
-					if ($bg_bibfers_option['norm_refs']) {						// Преобразовать ссылку к нормализованному виду
-						$newmt = bg_bibfers_get_url($title, $chapter, $book.' '.$chapter, $lang);
+					$book = bg_bibrefs_getshortTitle($book);					// Короткое наименование книги
+					if ($bg_bibrefs_option['norm_refs']) {						// Преобразовать ссылку к нормализованному виду
+						$newmt = bg_bibrefs_get_url($title, $chapter, $book.' '.$chapter, $lang);
 					}
-					else $newmt = bg_bibfers_get_url($title, $chapter, $ref, $lang);
-					$listmt = bg_bibfers_get_url($title, $chapter, $book.' '.$chapter, $lang);
+					else $newmt = bg_bibrefs_get_url($title, $chapter, $ref, $lang);
+					$listmt = bg_bibrefs_get_url($title, $chapter, $book.' '.$chapter, $lang);
 					$double = false;
 					for ($k=0; $k < $j; $k++) {									// Проверяем не совпадают ли ссылки?
-						if ($bg_bibfers_all_refs[$k] == $listmt) {
+						if ($bg_bibrefs_all_refs[$k] == $listmt) {
 							$double = true;
 							break;
 						}
 					}
 					if (!$double) {												// Дубликат не найден
-						$bg_bibfers_all_refs[$j]=$listmt;
+						$bg_bibrefs_all_refs[$j]=$listmt;
 						$j++;
 					}
 				} else {
-					$newmt = bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll );
+					$newmt = bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll );
 				}
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
@@ -164,7 +164,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='', $prll='') {
 
 	
 /****************** ОТЛАДКА ****************************************/	
-	if ($bg_bibfers_option['debug']) {
+	if ($bg_bibrefs_option['debug']) {
 		error_log(" Всего патернов : ". $i."\n", 3, $debug_file);
 		$this_time = microtime(true)*1000;
 		$time = ($this_time- $start_time);
@@ -180,7 +180,7 @@ function bg_bibfers_bible_proc($txt, $type='', $lang='', $prll='') {
 	Проверяем находится ли указанная позиция текста внутри тега  tag1 ...tag2,
     если "да" - возвращаем false, "нет" - true 
 *******************************************************************************************/
-function bg_bibfers_check_tag($hdr, $pos) {
+function bg_bibrefs_check_tag($hdr, $pos) {
 
 	$chrd = count($hdr[0]);
 
@@ -193,63 +193,63 @@ function bg_bibfers_check_tag($hdr, $pos) {
 }
 /******************************************************************************************
 	Формирование ссылки на http://azbyka.ru/biblia/
-	Используется в функции bg_bibfers_bible_proc(),
-	для работы требуется bg_bibfers_getTitle() - см. ниже
-	и bg_bibfers_getBook() - см. ниже
+	Используется в функции bg_bibrefs_bible_proc(),
+	для работы требуется bg_bibrefs_getTitle() - см. ниже
+	и bg_bibrefs_getBook() - см. ниже
 *******************************************************************************************/
-function bg_bibfers_get_url($book, $chapter, $link, $lang) {
-	global $bg_bibfers_ch;
+function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
+	global $bg_bibrefs_ch;
 	
 /*******************************************************************************
    Проверяем настройки
 *******************************************************************************/  
-	global $bg_bibfers_option;
-	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+	global $bg_bibrefs_option;
+	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	
 	if ($book != "") {	
-		if ($bg_bibfers_option['site'] == 'azbyka')
-			$fullurl = "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.$bg_bibfers_option['azbyka']."' target='".$bg_bibfers_option['target']."'>" .$link. "</a>";	// Полный адрес ссылки на azbyka.ru
-		elseif ($bg_bibfers_option['site'] == 'this') {
-			$page = $bg_bibfers_option['page'];
+		if ($bg_bibrefs_option['site'] == 'azbyka')
+			$fullurl = "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.$bg_bibrefs_option['azbyka']."' target='".$bg_bibrefs_option['target']."'>" .$link. "</a>";	// Полный адрес ссылки на azbyka.ru
+		elseif ($bg_bibrefs_option['site'] == 'this') {
+			$page = $bg_bibrefs_option['page'];
 			if ($page == "") $page = get_permalink(); 
-			$fullurl = "<a href='".$page."?bs=".$book.$chapter."&lang=".$lang."' target='".$bg_bibfers_option['target']."'>" .$link. "</a>";			// Полный адрес ссылки на текущий сайт
+			$fullurl = "<a href='".$page."?bs=".$book.$chapter."&lang=".$lang."' target='".$bg_bibrefs_option['target']."'>" .$link. "</a>";			// Полный адрес ссылки на текущий сайт
 		}
 		else $fullurl = $link;
 		
-		$the_title =  $bg_bibfers_bookTitle[$book]." ".$bg_bibfers_ch." ".$chapter;					// Название книги, номера глав и стихов	
-		if ($bg_bibfers_option['show_verses'] == 'on') {											// Текст  стихов
+		$the_title =  $bg_bibrefs_bookTitle[$book]." ".$bg_bibrefs_ch." ".$chapter;					// Название книги, номера глав и стихов	
+		if ($bg_bibrefs_option['show_verses'] == 'on') {											// Текст  стихов
 			$ajax_url = admin_url("admin-ajax.php?title=".$book."&chapter=".$chapter."&type=t_verses&lang=".$lang);
 		} else {
 			$ajax_url = "";
 		}
-		return "<span class='bg_data_title ".$bg_bibfers_option['class']."' data-title='".$ajax_url."' title='".$the_title."'><span class='bg_data_tooltip'></span>".$fullurl."</span>"; 
+		return "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='".$ajax_url."' title='".$the_title."'><span class='bg_data_tooltip'></span>".$fullurl."</span>"; 
 	}
 	else return "";
 }
 
-function bg_bibfers_getBook($title) {
+function bg_bibrefs_getBook($title) {
 
-	global $bg_bibfers_url;
-	if (isset ($bg_bibfers_url[$title])) return $bg_bibfers_url[$title];// Обозначение книги Библии
+	global $bg_bibrefs_url;
+	if (isset ($bg_bibrefs_url[$title])) return $bg_bibrefs_url[$title];// Обозначение книги Библии
 	else return "";
 }
 
 /*******************************************************************************
    Полное наименование книги Библии
-   Используется в функции bg_bibfers_get_url()
+   Используется в функции bg_bibrefs_get_url()
 *******************************************************************************/  
-function bg_bibfers_getTitle($book) {
-	global $bg_bibfers_bookTitle;
-	return $bg_bibfers_bookTitle[$book];								// Полное наименование книги Библии
+function bg_bibrefs_getTitle($book) {
+	global $bg_bibrefs_bookTitle;
+	return $bg_bibrefs_bookTitle[$book];								// Полное наименование книги Библии
 }
 
 /*******************************************************************************
    Короткое наименование книги Библии
-   Используется в функции bg_bibfers_bible_proc()
+   Используется в функции bg_bibrefs_bible_proc()
 *******************************************************************************/  
-function bg_bibfers_getshortTitle($book) {
-	global $bg_bibfers_shortTitle;
-	return $bg_bibfers_shortTitle[$book];								// Короткое наименование книги Библии
+function bg_bibrefs_getshortTitle($book) {
+	global $bg_bibrefs_shortTitle;
+	return $bg_bibrefs_shortTitle[$book];								// Короткое наименование книги Библии
 }
 
 /*******************************************************************************

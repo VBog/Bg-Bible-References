@@ -1,9 +1,9 @@
 <?php
-	$bg_bibfers_lang_name = 'English';
-	$bg_bibfers_chapter = 'Chapter';
-	$bg_bibfers_ch = 'ch.';
+	$bg_bibrefs_lang_name = 'English';
+	$bg_bibrefs_chapter = 'Chapter';
+	$bg_bibrefs_ch = 'ch.';
 	
-	$bg_bibfers_url = array(		// Допустимые обозначения книг Священного Писания
+	$bg_bibrefs_url = array(		// Допустимые обозначения книг Священного Писания
 		// Ветхий Завет
 		// Пятикнижие Моисея															
 		'Gen'		=>'Gen',		//'Книга Бытия', 	
@@ -287,7 +287,7 @@
 		'Rev'		=>'Apok'
 		);				
 
-	$bg_bibfers_bookTitle = array(			// Полные названия Книг Священного Писания
+	$bg_bibrefs_bookTitle = array(			// Полные названия Книг Священного Писания
 		// Ветхий Завет
 		// Пятикнижие Моисея
 		'Gen' 		=>'Genesis', 
@@ -377,7 +377,7 @@
 		'Hebr'	 	=>'Hebrews', 
 		'Apok' 		=>'Revelation');
 
-	$bg_bibfers_shortTitle = array(			// Стандартные обозначения книг Священного Писания
+	$bg_bibrefs_shortTitle = array(			// Стандартные обозначения книг Священного Писания
 		// Ветхий Завет
 		// Пятикнижие Моисея															
 		'Gen'		=>"Gen.", 
@@ -466,7 +466,7 @@
 		'Hebr'		=>"Hebr.",
 		'Apok'		=>"Apok.");
 
-	$bg_bibfers_bookFile = array(						// Таблица названий файлов книг
+	$bg_bibrefs_bookFile = array(						// Таблица названий файлов книг
 		// Ветхий Завет
 		// Пятикнижие Моисея
 		'Gen'	 	=>'en/gen',							//'Книга Бытия', 

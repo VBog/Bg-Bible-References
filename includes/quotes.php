@@ -1,30 +1,30 @@
 <?php
 /*******************************************************************************
    Создание контента цитаты 
-   Вызывает bg_bibfers_printVerses() - см. ниже
+   Вызывает bg_bibrefs_printVerses() - см. ниже
 *******************************************************************************/  
-function bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll='') {
-	global $bg_bibfers_option;
-	global $bg_bibfers_chapter, $bg_bibfers_ch;
-	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
+	global $bg_bibrefs_option;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	$lang = include_books($lang);
-	bg_bibfers_get_options ();
+	bg_bibrefs_get_options ();
 /*******************************************************************************
    Преобразование обозначения книги из формата azbyka.ru в формат patriarhia.ru
    чтение и преобразование файла книги
 *******************************************************************************/  
 	if (!$book) return "";
-	if (!$bg_bibfers_bookFile[$book]) return "";
-	$book_file = 'bible/'.$bg_bibfers_bookFile[$book];										// Имя файла книги
+	if (!$bg_bibrefs_bookFile[$book]) return "";
+	$book_file = 'bible/'.$bg_bibrefs_bookFile[$book];										// Имя файла книги
 
 // Получаем данные из файла	
 	$code = false;
-	if ($bg_bibfers_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
+	if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
 		$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
 		$code = file_get_contents($url);		
 	}
 
-	if ($bg_bibfers_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
+	if ($bg_bibrefs_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
 		$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
 		$ch=fopen($url, "r" );																	// Открываем файл для чтения
 		if($ch)
@@ -35,7 +35,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll='') {
 			fclose($ch);																		// Закрываем файл
 		}
 	}
-	if ($bg_bibfers_option['curl'] == 'on' && function_exists('curl_init') && !$code) {		// Попытка3. Если установлен cURL				
+	if ($bg_bibrefs_option['curl'] == 'on' && function_exists('curl_init') && !$code) {		// Попытка3. Если установлен cURL				
 		$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
 		$ch = curl_init($url);																	// создание нового ресурса cURL
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
@@ -50,8 +50,8 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll='') {
 // Преобразовать json в массив
 	$json = json_decode($code, true);															
 
-	if ($type == "book") $verses = "<h3>".bg_bibfers_getTitle($book)."</h3>";
-	else if ($type == "t_verses") $verses = "<strong>".bg_bibfers_getTitle($book)."</strong><br>";
+	if ($type == "book") $verses = "<h3>".bg_bibrefs_getTitle($book)."</h3>";
+	else if ($type == "t_verses") $verses = "<strong>".bg_bibrefs_getTitle($book)."</strong><br>";
 	else $verses = "";
 	if ($type <> "quote") $verses = $verses."<div>";	
 /*******************************************************************************
@@ -114,7 +114,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll='') {
 					} else {
 						$vr2 = $vr1;
 					}
-					$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
+					$verses = $verses.bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
 					$chr = $ch1;
 					if ($sp == "") break;
 				}
@@ -152,7 +152,7 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll='') {
 				$vr1 = 0;
 				$vr2 = 999;
 			}
-			$verses = $verses.bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
+			$verses = $verses.bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
 			$chr = $ch2;
 		}
 		if ($sp == "") break;
@@ -163,16 +163,16 @@ function bg_bibfers_getQuotes($book, $chapter, $type, $lang, $prll='') {
 }
 /*******************************************************************************
 	Формирование содержания цитаты
-	Вызывает bg_bibfers_optina() - см. ниже
+	Вызывает bg_bibrefs_optina() - см. ниже
 *******************************************************************************/  
-function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll='') {
-	global $bg_bibfers_option;
-	global $bg_bibfers_chapter, $bg_bibfers_ch;
-	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll='') {
+	global $bg_bibrefs_option;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 
-    $bg_show_fn = get_option( 'bg_bibfers_show_fn' );
+    $bg_show_fn = get_option( 'bg_bibrefs_show_fn' );
 
-	$shortTitle = $bg_bibfers_shortTitle[$book];
+	$shortTitle = $bg_bibrefs_shortTitle[$book];
 	$verses = "";
 	$cv1 = $ch1 *1000 + $vr1;
 	$cv2 = $ch2 *1000 + $vr2;
@@ -189,7 +189,7 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 
 			if ($type == 'book') { 																						// Тип: книга
 				if ($chr != $ch) {
-					$verses = $verses."<strong>".$bg_bibfers_chapter." ".$ch."</strong><br>";					// Печатаем номер главы
+					$verses = $verses."<strong>".$bg_bibrefs_chapter." ".$ch."</strong><br>";					// Печатаем номер главы
 					$chr = $ch;
 				}
 				if ($json[$i]['stix'] == 0) $pointer = "";
@@ -206,16 +206,16 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 			$txt = trim(strip_tags($json[$i]['text']));
 			if ($txt) {
 				if ($json[$i]['stix'] == 0) $txt = "<strong>".$pointer.$txt."</strong>";
-				else  $txt = $pointer.bg_bibfers_optina($txt, $book, $ch, $vr);
+				else  $txt = $pointer.bg_bibrefs_optina($txt, $book, $ch, $vr);
 
 				$verses = $verses.$txt;
 				if ($type == 'quote') {$verses = $verses." ";}															// Если цитата, строку не переводим
 				else {
-					if (($bg_bibfers_option['parallel'] == 'on' && $prll != 'off') || $prll == 'on') {
+					if (($bg_bibrefs_option['parallel'] == 'on' && $prll != 'off') || $prll == 'on') {
 						$cn_linksKey = count($json[$i]['linksKey']);
-						if ($cn_linksKey) $verses .= " <span class='bg_bibfers_passage'>{";
+						if ($cn_linksKey) $verses .= " <span class='bg_bibrefs_passage'>{";
 						for ($j=0; $j < $cn_linksKey; $j++) {
-							$verses .= bg_bibfers_linksKey($json[$i]['linksKey'][$j][1], $lang);
+							$verses .= bg_bibrefs_linksKey($json[$i]['linksKey'][$j][1], $lang);
 						}
 						if ($cn_linksKey) $verses .= "}</span>";
 					}
@@ -231,10 +231,10 @@ function bg_bibfers_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 	$txt = $json[$i]['linksKey'][1];
 	 &#128279; - символ ссылки
 *******************************************************************************/  
-function bg_bibfers_linksKey( $linksKey, $lang) {
-	global $bg_bibfers_option;
-	global $bg_bibfers_chapter, $bg_bibfers_ch;
-	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+function bg_bibrefs_linksKey( $linksKey, $lang) {
+	global $bg_bibrefs_option;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 
 	$quote = $linksKey;
 	$template = "/(\d?\s*[А-яA-z]{2,8})(\.*|\s*)(\d+\,\s*\d+)/ui";
@@ -242,12 +242,12 @@ function bg_bibfers_linksKey( $linksKey, $lang) {
 	$cn = count($mt);
 	if ($cn > 0) {
 		$title = preg_replace("/\s/u", '',$mt[1]); 					// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
-		$title = bg_bibfers_getBook($title);						// Стандартное обозначение книги
+		$title = bg_bibrefs_getBook($title);						// Стандартное обозначение книги
 		$chapter = preg_replace("/\s/u", '', $mt[3]);				// и другие юникодные пробельные символы
 		$chapter = preg_replace("/\,/u", ':', $chapter);			// Если глава отделена запятой, заменяем ее на двоеточие.
 		if ($title != "") {						
 			if (!$lang) $lang = set_bible_lang();
-			$quote = bg_bibfers_get_url($title, $chapter, '&#128279;'.$bg_bibfers_shortTitle[$title].'&nbsp;'.$chapter.' ', $lang);
+			$quote = bg_bibrefs_get_url($title, $chapter, '&#128279;'.$bg_bibrefs_shortTitle[$title].'&nbsp;'.$chapter.' ', $lang);
 		}
 	}
 	return $quote;
@@ -257,7 +257,7 @@ function bg_bibfers_linksKey( $linksKey, $lang) {
 	Создание ссылки на толкование Священного Писания на сайте Оптиной пустыни.
   
 *******************************************************************************/  
-function bg_bibfers_optina($txt, $book, $chapter, $verse) {
+function bg_bibrefs_optina($txt, $book, $chapter, $verse) {
 
 	$opt = array(						// Таблица соответствия azbyka.ru и bible.optina.ru
 		// Ветхий Завет				
@@ -349,24 +349,24 @@ function bg_bibfers_optina($txt, $book, $chapter, $verse) {
 		'Hebr'	 	=>'new:evr:',		//'Послание апостола Павла к Евреям', 
 		'Apok'	 	=>'new:otkr:');		//'Откровение Иоанна Богослова (Апокалипсис)'
 
-	$bg_interpret_val = get_option( 'bg_bibfers_interpret' );
+	$bg_interpret_val = get_option( 'bg_bibrefs_interpret' );
 	if ($bg_interpret_val != 'on') return $txt;
-	$target_val = get_option( 'bg_bibfers_target' );
+	$target_val = get_option( 'bg_bibrefs_target' );
 	$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
 	$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
-	return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation', 'bg_bibfers' ))."' target='".$target_val."'>".$txt."</a>");
+	return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation', 'bg_bibrefs' ))."' target='".$target_val."'>".$txt."</a>");
 }
 
 /*******************************************************************************
 	Возвращает ссылку цитаты из Библии из файла quotes.txt
   
 *******************************************************************************/  
-function bg_bibfers_bible_quote_refs($ref, $lang) {
-	global $bg_bibfers_option;
-	global $bg_bibfers_url, $bg_bibfers_bookTitle, $bg_bibfers_shortTitle, $bg_bibfers_bookFile;
+function bg_bibrefs_bible_quote_refs($ref, $lang) {
+	global $bg_bibrefs_option;
+	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	$lang = include_books($lang);
 	
-	$refs_file = $bg_bibfers_option['refs_file'];
+	$refs_file = $bg_bibrefs_option['refs_file'];
 
 	$url = dirname(dirname(__FILE__ )).'/'.$refs_file;										// Локальный URL файла
 	if (!is_file ( $url )) {																// Если пользовательский файл не существует, то файл по умолчанию
@@ -375,10 +375,10 @@ function bg_bibfers_bible_quote_refs($ref, $lang) {
 	}
 // Получаем данные из файла	
 	$text = false;
-	if ($bg_bibfers_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
+	if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
 		$text = file_get_contents($url);		
 	}
-	if ($bg_bibfers_option['fopen'] == 'on' && !$text) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
+	if ($bg_bibrefs_option['fopen'] == 'on' && !$text) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
 		$ch=fopen($url, "r" );																	// Открываем файл для чтения
 		if($ch)	{
 			while (!feof($ch))	{
@@ -387,7 +387,7 @@ function bg_bibfers_bible_quote_refs($ref, $lang) {
 			fclose($ch);																		// Закрываем файл
 		}
 	}
-	if ($bg_bibfers_option['curl'] == 'on' && function_exists('curl_init') && !$text) {		// Попытка3. Если установлен cURL				
+	if ($bg_bibrefs_option['curl'] == 'on' && function_exists('curl_init') && !$text) {		// Попытка3. Если установлен cURL				
 		$url = plugins_url( $refs_file , dirname(__FILE__ ) );
 		$ch = curl_init($url);																	// создание нового ресурса cURL
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
@@ -414,9 +414,9 @@ function bg_bibfers_bible_quote_refs($ref, $lang) {
 	$ref = $refs[$z];												
 	$ref= trim($ref);												// Удаляем пробелы (или другие символы) из начала и конца строки
 	$part=explode(".", $ref);
-	if (isset ($bg_bibfers_url[$part[0]])) $book = $bg_bibfers_url[$part[0]];	// Обозначение книги
+	if (isset ($bg_bibrefs_url[$part[0]])) $book = $bg_bibrefs_url[$part[0]];	// Обозначение книги
 	else return "";
-	$book = $bg_bibfers_shortTitle[$book];
+	$book = $bg_bibrefs_shortTitle[$book];
 	if (!$book) return "";											// Если нет такой книги, то возвращаем пустое значение
 
 	return $book.$part[1];
@@ -425,48 +425,48 @@ function bg_bibfers_bible_quote_refs($ref, $lang) {
    Преобразования заголовков Чтений Святого Писания в плагине "Православный календарь"
    Вызывается функцией showDayInfo() - файл days.php плагина Bg Orthodox Calendar
 *******************************************************************************/  
-function bg_bibfers_convertTitles($q, $type) {
+function bg_bibrefs_convertTitles($q, $type) {
 	if ($type != 'on' && $type != '' && $type != 'quote') {
 		$q = preg_replace("/;/u", '<br>', $q);		// Если выводится текст Библии, то замена точки с запятой на перевод строки
 	// Раздел <h3> (Чтение Апостола и Евангелие - по умолчанию)
-		$q = preg_replace("/<em><strong>Евангелие и Апостол:<\/strong><\/em><br>/u", '<h3>'.__( 'Gospel and Apostolic readings', 'bg_bibfers' ).'</h3>', $q);		
-		$q = preg_replace("/<em><strong>Псалтирь:<\/strong><\/em><br>/u", '<h3>'.__( 'Reading of the Psalms', 'bg_bibfers' ).'</h3>', $q);		
+		$q = preg_replace("/<em><strong>Евангелие и Апостол:<\/strong><\/em><br>/u", '<h3>'.__( 'Gospel and Apostolic readings', 'bg_bibrefs' ).'</h3>', $q);		
+		$q = preg_replace("/<em><strong>Псалтирь:<\/strong><\/em><br>/u", '<h3>'.__( 'Reading of the Psalms', 'bg_bibrefs' ).'</h3>', $q);		
 	// Названия служб <h4>
-		$q = preg_replace("/<em> На утр.: - <\/em>/u", '<h4>'. __( 'At Matins', 'bg_bibfers' ) .'</h4>', $q);		
-		$q = preg_replace("/<em> На лит.: - <\/em>/u", '<h4>'. __( 'At Liturgy', 'bg_bibfers' ) .'</h4>', $q);		
-		$q = preg_replace("/<em> На веч.: - <\/em>/u", '<h4>'. __( 'At Vespers', 'bg_bibfers' ) .'</h4>', $q);		
-		$q = preg_replace("/<em> На 1-м часе: - <\/em>/u", '<h4>'. __( 'At the 1st hour', 'bg_bibfers' ) .'</h4>', $q);		
-		$q = preg_replace("/<em> На 3-м часе: - <\/em>/u", '<h4>'. __( 'At the 3rd hour', 'bg_bibfers' ) .'</h4>', $q);		
-		$q = preg_replace("/<em> На 6-м часе: - <\/em>/u", '<h4>'. __( 'At the 6th hour', 'bg_bibfers' ) .'</h4>', $q);		
-		$q = preg_replace("/<em> На 9-м часе: - <\/em>/u", '<h4>'. __( 'At the 9th hour', 'bg_bibfers' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На утр.: - <\/em>/u", '<h4>'. __( 'At Matins', 'bg_bibrefs' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На лит.: - <\/em>/u", '<h4>'. __( 'At Liturgy', 'bg_bibrefs' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На веч.: - <\/em>/u", '<h4>'. __( 'At Vespers', 'bg_bibrefs' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 1-м часе: - <\/em>/u", '<h4>'. __( 'At the 1st hour', 'bg_bibrefs' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 3-м часе: - <\/em>/u", '<h4>'. __( 'At the 3rd hour', 'bg_bibrefs' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 6-м часе: - <\/em>/u", '<h4>'. __( 'At the 6th hour', 'bg_bibrefs' ) .'</h4>', $q);		
+		$q = preg_replace("/<em> На 9-м часе: - <\/em>/u", '<h4>'. __( 'At the 9th hour', 'bg_bibrefs' ) .'</h4>', $q);		
 	// Подзаголовки служб <h5>
-		$q = preg_replace("/<em> Ап.: <\/em>/u", '<h5>'. __( 'Apostol', 'bg_bibfers' ) .'</h5>', $q);		
-		$q = preg_replace("/<em> Ев.: <\/em>/u", '<h5>'. __( 'Gospel', 'bg_bibfers' ) .'</h5>', $q);		
+		$q = preg_replace("/<em> Ап.: <\/em>/u", '<h5>'. __( 'Apostol', 'bg_bibrefs' ) .'</h5>', $q);		
+		$q = preg_replace("/<em> Ев.: <\/em>/u", '<h5>'. __( 'Gospel', 'bg_bibrefs' ) .'</h5>', $q);		
 	// Комментарии
-		$q = preg_replace("/Праздник:/u", __( 'Reading on holiday:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/Ряд.: /u", __( 'Serial reading:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/Под зач.: /u", __( 'Reading after pericope:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Праздник:/u", __( 'Reading on holiday:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/Ряд.: /u", __( 'Serial reading:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/Под зач.: /u", __( 'Reading after pericope:', 'bg_bibrefs' ), $q);		
 	}
 	else {	// Просто обеспечиваем многоязычность
 	// Раздел <h3> (Чтение Апостола и Евангелие - по умолчанию)
-		$q = preg_replace("/Евангелие и Апостол:/u", __( 'Gospel and Apostol:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/Псалтирь:/u", __( 'Psalms:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Евангелие и Апостол:/u", __( 'Gospel and Apostol:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/Псалтирь:/u", __( 'Psalms:', 'bg_bibrefs' ), $q);		
 	// Названия служб <h4>
-		$q = preg_replace("/На утр.:/u", __( 'At Mat.:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/На лит.:/u", __( 'At Lit.:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/На веч.:/u", __( 'At Ves.:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/На 1-м часе:/u", __( 'At 1st hour:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/На 3-м часе:/u", __( 'At 3rd hour:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/На 6-м часе:/u", __( 'At 6th hour:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/На 9-м часе:/u", __( 'At 9th hour:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/На утр.:/u", __( 'At Mat.:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/На лит.:/u", __( 'At Lit.:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/На веч.:/u", __( 'At Ves.:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/На 1-м часе:/u", __( 'At 1st hour:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/На 3-м часе:/u", __( 'At 3rd hour:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/На 6-м часе:/u", __( 'At 6th hour:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/На 9-м часе:/u", __( 'At 9th hour:', 'bg_bibrefs' ), $q);		
 	// Подзаголовки служб <h5>
-		$q = preg_replace("/Ап.:/u", __( 'Ap.:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/Ев.:/u", __( 'Gos.:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Ап.:/u", __( 'Ap.:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/Ев.:/u", __( 'Gos.:', 'bg_bibrefs' ), $q);		
 	// Комментарии
-		$q = preg_replace("/Праздник:/u", __( 'Holiday:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/Ряд.: /u", __( 'Ser.:', 'bg_bibfers' ), $q);		
-		$q = preg_replace("/Под зач.: /u", __( 'After per.:', 'bg_bibfers' ), $q);		
+		$q = preg_replace("/Праздник:/u", __( 'Holiday:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/Ряд.: /u", __( 'Ser.:', 'bg_bibrefs' ), $q);		
+		$q = preg_replace("/Под зач.: /u", __( 'After per.:', 'bg_bibrefs' ), $q);		
 	}
-	$q = bg_bibfers_bible_proc($q, $type);
+	$q = bg_bibrefs_bible_proc($q, $type);
 	return $q;
 }

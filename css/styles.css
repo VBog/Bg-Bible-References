@@ -2,7 +2,7 @@
 	Экран настроек
 	Информационная панель
 ******************************************/
-.bg_bibfers_info_box {
+.bg_bibrefs_info_box {
 	padding: 1.5em;
 	background-color: #FAFAFA;
 	border: 1px solid #ddd;
@@ -10,24 +10,24 @@
 	float: right;
 	width: 22em;
 }
-.bg_bibfers_info_box h3:first-of-type {
+.bg_bibrefs_info_box h3:first-of-type {
 	margin-top: 0;
 }
-.bg_bibfers_author {
+.bg_bibrefs_author {
 	font-style: italic;
 }
-.bg_bibfers_info_box p {
+.bg_bibrefs_info_box p {
 	margin: 0 0 .5em 0;
 }
-p.bg_bibfers_gravatar {
+p.bg_bibrefs_gravatar {
 	float: right;
 	margin: 0 0 1em 1em;
 }
-.bg_bibfers_info_box ul {
+.bg_bibrefs_info_box ul {
 	list-style-type: disc;
 	margin-left: 20px;
 }
-p.bg_bibfers_close {
+p.bg_bibrefs_close {
 	text-align: right;
 	font-style: italic;
 	font-weight: bold;
