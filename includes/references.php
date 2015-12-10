@@ -23,7 +23,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	global $bg_bibrefs_all_refs;
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
-	bg_bibrefs_get_options ();
+//	bg_bibrefs_get_options ();
 
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {

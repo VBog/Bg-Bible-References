@@ -8,7 +8,7 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	$lang = include_books($lang);
-	bg_bibrefs_get_options ();
+//	bg_bibrefs_get_options ();
 /*******************************************************************************
    Преобразование обозначения книги из формата azbyka.ru в формат patriarhia.ru
    чтение и преобразование файла книги
@@ -364,6 +364,7 @@ function bg_bibrefs_optina($txt, $book, $chapter, $verse) {
 function bg_bibrefs_bible_quote_refs($ref, $lang) {
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
+//	bg_bibrefs_get_options ();
 	$lang = include_books($lang);
 	
 	$refs_file = $bg_bibrefs_option['refs_file'];
@@ -397,6 +398,7 @@ function bg_bibrefs_bible_quote_refs($ref, $lang) {
 		curl_close($ch);																		// завершение сеанса и освобождение ресурсов
 	} 
 	if (!$text) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
+
 	$text= trim($text);												// Удаляем пробелы (или другие символы) из начала и конца текста
 
 	$refs = preg_split ("/\s+/sui", $text);							// Разделим текст на ссылки

@@ -229,6 +229,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.11.1 =
+
+* Fixed minor bugs. 
+
 = 3.11.0 =
 
 * Fixed old typos: bg_bibfers to bg_bibrefs (in function names, in option names, in text domain neme, in class names, etc.).
@@ -538,6 +542,10 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.11.1 =
+
+* Fixed minor bugs. 
 
 = 3.11.0 =
 

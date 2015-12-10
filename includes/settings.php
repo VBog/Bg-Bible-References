@@ -486,6 +486,7 @@ function bg_bibrefs_deinstall() {
 	delete_option('bg_bibrefs_debug');
 
 	delete_option('bg_bibrefs_submit_hidden');
+	delete_option('bg_bibrefs_options_udate');
 }
 
 function bg_bibrefs_get_options () {
@@ -542,6 +543,8 @@ function register_widgets() {
 add_action("widgets_init", "register_widgets");
 
 function bg_bibrefs_change_options () {
+	if (get_option('bg_bibrefs_options_udate') == "updated") return;
+	
 	$old_options = array (	'bg_bibfers_c_lang',
 							'bg_bibfers_g_lang',
 							'bg_bibfers_l_lang',
@@ -598,4 +601,14 @@ function bg_bibrefs_change_options () {
 			delete_option( $old_options[$i] );
 		}
 	}
+// Переименовывем виджеты в БД
+	global $wpdb;
+	$options_list = $wpdb->get_results("SELECT option_name, option_value FROM wp_options", ARRAY_A);
+	$cnt =count ($options_list);
+	for ($i=0; $i<$cnt; $i++) {
+		$options_list_new = preg_replace ('/bg_bibfers/i', 'bg_bibrefs', $options_list[$i]);
+		$wpdb->update( 'wp_options', $options_list_new, $options_list[$i] );
+	}
+	add_option('bg_bibrefs_options_udate', "updated");
 }
+
