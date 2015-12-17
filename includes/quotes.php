@@ -193,13 +193,13 @@ function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 					$chr = $ch;
 				}
 				if ($json[$i]['stix'] == 0) $pointer = "";
-				else $pointer = "<em>".$json[$i]['stix'].$fn."</em> ";													// Только номер стиха
+				else $pointer = "<em>".$json[$i]['stix_n'].$fn."</em> ";													// Только номер стиха
 			} else if ($type == 'verses' || $type == 't_verses') { 														// Тип: стихи или стихи с названием книг
 				if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['part']."</em>   ";
-				else $pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";							// Номер главы : номер стиха
+				else $pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix_n'].$fn."</em> ";							// Номер главы : номер стиха
 			} else if ($type == 'b_verses') { 																			// Тип: стихи
 				if ($json[$i]['stix'] == 0) $pointer = "<em>".$shortTitle.$json[$i]['part'].$fn."</em>   ";
-				else $pointer = "<em>".$shortTitle.$json[$i]['part'].":".$json[$i]['stix'].$fn."</em> ";				// Книга. номер главы : номер стиха
+				else $pointer = "<em>".$shortTitle.$json[$i]['part'].":".$json[$i]['stix_n'].$fn."</em> ";				// Книга. номер главы : номер стиха
 			} else {																									// Тип: цитата
 				$pointer = "";																							// Ничего
 			}

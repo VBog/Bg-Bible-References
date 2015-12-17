@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 4.3.1
+Tested up to: 4.4.0
 
 Stable tag: trunk
 
@@ -21,7 +21,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Russian:
+### Описание плагина
+
+[see also English description below](#eng)
 
 Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт Православной энциклопедии "Азбука веры" (http://azbyka.ru/biblia). 
 Текст Библии представлен на церковнославянском, русском, греческом, еврейском и латинском языках. 
@@ -112,7 +114,8 @@ Russian:
 * Виджет "Поиск в Библии" позволяет разместить в сайдбаре форму для поиска слова или фразы Библии. 
 * Виджет "Цитата из Библии" выводит в сайдбаре Случайную Цитату или Цитату Дня из Библии, аналогично тому, как это делает шорт-код [bible_epigraph].
 
-English: 
+ 
+### <a id="eng"></a>English plugin discription
 
 The plugin will highlight references to the Bible text with links to site of Orthodox encyclopedia "The Alphabet of Faith" (http://azbyka.ru/biblia).
 The Bible is presented in Church, Russian, Greek, Hebrew and Latin.
@@ -203,6 +206,17 @@ The plugin contains 3 widgets:
 * Bible Search Widget allows you to place the form in the sidebar to search for words or phrases in the Bible.
 * Bible Quote Widget in the sidebar displays a Random Quote or Day's Quote from the Bible the same way as it makes the shortcode [bible_epigraph].
 
+== Translasion ==
+
+* English (en) - default
+* Русский язык (ru) - basic Bible language
+* Українська мова (uk) - many thanks for Ruslan Smyk
+* Беларуская мова (be) - need your help
+* Церковно-славянский язык (cu) - Bible only
+* .pot file (`bg_bibrefs.pot`) for translators is also always included :)
+* *Your translation? - [Just send it in](http://wp-bible.info/contact/)*
+ 
+
 == Installation ==
 
 1. Upload 'bg-biblie-references' directory to the '/wp-content/plugins/' directory.
@@ -228,6 +242,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.11.3 =
+
+* Added missing in KJV apocryphal verses (Prov.4:28-29; Prov.13:14; Prov.18:8; Ps.151) from Brenton's Septuagint.
 
 = 3.11.2 =
 
@@ -546,6 +564,10 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.11.3 =
+
+* Added missing in KJV apocryphal verses (Prov.4:28-29; Prov.13:14; Prov.18:8; Ps.151) from Brenton's Septuagint.
 
 = 3.11.2 =
 
