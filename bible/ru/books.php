@@ -1,5 +1,6 @@
 <?php
 	$bg_bibrefs_lang_name = 'Русский';
+	$bg_bibrefs_book_lang = 'ru';
 	$bg_bibrefs_chapter = 'Глава';
 	$bg_bibrefs_ch = 'гл.';
 	

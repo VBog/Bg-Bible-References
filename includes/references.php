@@ -227,9 +227,10 @@ function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
 	else return "";
 }
 
-function bg_bibrefs_getBook($title) {
+function bg_bibrefs_getBook($title, $lang=null) {
 
 	global $bg_bibrefs_url;
+	if ($lang) $lang = include_books($lang);
 	if (isset ($bg_bibrefs_url[$title])) return $bg_bibrefs_url[$title];// Обозначение книги Библии
 	else return "";
 }
@@ -238,8 +239,9 @@ function bg_bibrefs_getBook($title) {
    Полное наименование книги Библии
    Используется в функции bg_bibrefs_get_url()
 *******************************************************************************/  
-function bg_bibrefs_getTitle($book) {
+function bg_bibrefs_getTitle($book, $lang=null) {
 	global $bg_bibrefs_bookTitle;
+	if ($lang) $lang = include_books($lang);
 	return $bg_bibrefs_bookTitle[$book];								// Полное наименование книги Библии
 }
 
@@ -247,8 +249,9 @@ function bg_bibrefs_getTitle($book) {
    Короткое наименование книги Библии
    Используется в функции bg_bibrefs_bible_proc()
 *******************************************************************************/  
-function bg_bibrefs_getshortTitle($book) {
+function bg_bibrefs_getshortTitle($book, $lang=null) {
 	global $bg_bibrefs_shortTitle;
+	if ($lang) $lang = include_books($lang);
 	return $bg_bibrefs_shortTitle[$book];								// Короткое наименование книги Библии
 }
 

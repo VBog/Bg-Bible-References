@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.11.3
+    Version: 3.11.4
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.11.3');
+define('BG_BIBREFS_VERSION', '3.11.4');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -192,8 +192,8 @@ function bg_bibrefs_qoutes( $atts, $content=null ) {
 	}
 // это и все нововведения для версии 3.7
 	
-	$book = bg_bibrefs_getBook($book);
 	if (!$lang) $lang = set_bible_lang();
+	$book = bg_bibrefs_getBook($book, $lang);
 	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibrefs_bible_quote_refs($ref, $lang);
 	
 	if ($content) $quote = bg_bibrefs_bible_proc($content, $type, $lang, $prll);
@@ -315,7 +315,7 @@ function bg_bibrefs_bible_search( $atts ) {
 		}
 	}
 	if ($book)	{
-		$book = bg_bibrefs_getBook($book);
+		$book = bg_bibrefs_getBook($book, $lang);
 		$context = $book.$ch;
 	}
 	$context = trim($context);
@@ -379,8 +379,22 @@ function bg_bibrefs_bible_omnisearch( $atts ) {
 
 	return "{$quote}";
 }
-
-
+/*****************************************************************************************
+	Формирует список книг Библии на заданном языке в виде объекта
+	
+******************************************************************************************/
+function bg_bibrefs_booklist ($lang) {
+	global $bg_bibrefs_bookTitle;
+	$lang = include_books($lang);
+	$num_books = count($bg_bibrefs_bookTitle);
+	$books = array_keys ( $bg_bibrefs_bookTitle);
+	$booklist = array();
+	for ($i = 0; $i< $num_books; $i++) { 
+		$booklist[$i]['value']=$books[$i];
+		$booklist[$i]['name']=$bg_bibrefs_bookTitle[$books[$i]];
+	} 
+	echo json_encode ($booklist);
+}
 /*****************************************************************************************
 	Генератор ответа AJAX
 	
@@ -390,15 +404,18 @@ add_action ('wp_ajax_nopriv_bg_bibrefs', 'bg_bibrefs_callback');
 
 function bg_bibrefs_callback() {
 	
-	$title = $_GET["title"];
-	$chapter = $_GET["chapter"];
-	if (!$chapter) $chapter = '1-999';
-	$type = $_GET["type"];
-	$lang = $_GET["lang"];
-	if (!$type) $type = 'verses';
-	$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer; margin-right: 8px;" align="left" width=16 height=16 title1="'.(__('Expand', 'bg_bibrefs' )).'" title2="'.(__('Hide', 'bg_bibrefs' )).'" />';
-	echo $expand_button.bg_bibrefs_getQuotes($title, $chapter, $type, $lang); 
-	
+	$blang = $_GET["blang"];
+	if ( $blang ) bg_bibrefs_booklist ($blang);		
+	else {
+		$title = $_GET["title"];
+		$chapter = $_GET["chapter"];
+		if (!$chapter) $chapter = '1-999';
+		$lang = $_GET["lang"];
+		$type = $_GET["type"];
+		if (!$type) $type = 'verses';
+		$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer; margin-right: 8px;" align="left" width=16 height=16 title1="'.(__('Expand', 'bg_bibrefs' )).'" title2="'.(__('Hide', 'bg_bibrefs' )).'" />';
+		echo $expand_button.bg_bibrefs_getQuotes($title, $chapter, $type, $lang); 
+	}
 	die();
 }
 function get_plugin_version() {
@@ -528,15 +545,13 @@ class BibleWidget extends WP_Widget
 	public function widget($args, $instance) {
 		global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 
-		if (!$lang) $lang = set_bible_lang();
-		$lang = include_books($lang);
-
-		$num_books = count($bg_bibrefs_bookTitle);
-		$books = array_keys ( $bg_bibrefs_bookTitle);
 		$title = $instance["title"];
 		$page = $instance["page"];
 		$dlang = $instance["dlang"];
 		$storage = $instance["storage"];
+
+		if (!$lang) $lang = set_bible_lang();
+		$lang = include_books($lang);
 ?>
 		<aside id="bg-bibrefs-1" class="widget widget_bg-bibrefs">
 			<h2 class="widget-title"><?php echo $title; ?></h2>
@@ -546,9 +561,13 @@ class BibleWidget extends WP_Widget
 <!--	Список книг Библии			-->
 			<p><label class="widget-title" for="bg_quote_bookId"><?php _e('Book', 'bg_bibrefs' ); ?></label><br>
 			<select class="required" id="bg_quote_bookId">
-				<?php for ($i = 0; $i< $num_books; $i++) { 
+				<?php 
+				$num_books = count($bg_bibrefs_bookTitle);
+				$books = array_keys ( $bg_bibrefs_bookTitle);
+				for ($i = 0; $i< $num_books; $i++) { 
 					echo "<option value=".$books[$i].">".$bg_bibrefs_bookTitle[$books[$i]]."</option>\n";
-				} ?>
+				} 
+				?>
 			</select><br>
 <!--	Номера глав и стихов		-->
 			<label class="widget-title" for="bg_quote_chId"><?php _e('Chapter', 'bg_bibrefs' ); ?></label><br>
@@ -556,7 +575,7 @@ class BibleWidget extends WP_Widget
 <!--	Язык Библии					-->
 		<?php if (!$dlang) { ?>
 			<label class="widget-title" for="bg_quote_langId"><?php _e('Language', 'bg_bibrefs' ); ?></label><br>
-			<select class="required" id="bg_quote_langId">
+			<select class="required" id="bg_quote_langId" onchange="bg_bibrefs_booklist();">
 				<?php $path = dirname( __FILE__ ).'/bible/';
 				if ($handle = opendir($path)) {
 					while (false !== ($dir = readdir($handle))) { 
@@ -576,16 +595,6 @@ class BibleWidget extends WP_Widget
 			</p>
 			<p><input type="submit" value="<?php _e('Go', 'bg_bibrefs' ); ?>" onclick="bg_quote_goToPage()"></p>
 		</aside>
-		<?php if ($storage) { ?>
-		<script>
-			if (window.localStorage['bg_quote_book'])
-				document.getElementById('bg_quote_bookId').value = window.localStorage['bg_quote_book'];
-			if (window.localStorage['bg_quote_ch'])
-				document.getElementById('bg_quote_chId').value = window.localStorage['bg_quote_ch'];
-			if (window.localStorage['bg_quote_lang'])
-				document.getElementById('bg_quote_langId').value = window.localStorage['bg_quote_lang'];
-		</script>
-	<?php } ?>
 		<script>
 			function bg_quote_goToPage() {
 				var bg_quote_page = document.getElementById('bg_quote_pageId').value;
@@ -606,8 +615,44 @@ class BibleWidget extends WP_Widget
 				// Допустимы цифры, запятая, двоеточие и тире
 				return /[\d\,\:\-]/.test(key);
 			}
+			function bg_bibrefs_booklist(select) {
+				var el = document.getElementById('bg_quote_bookId');
+				if (!select) select = el.value;
+				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+				jQuery.ajax({
+					type: 'GET',
+					cache: false,
+					async: true,											// Асинхронный запрос
+					dataType: 'json',
+					url: '/wp-admin/admin-ajax.php?blang='+bg_quote_lang,	// Запрос загрузки данных
+					data: {
+						action: 'bg_bibrefs'
+					},
+					success: function (t, textStatus) {
+						if (t) {
+							el.options.length = 0;
+							for (i=0; i<t.length; i++)
+								el.options[i] = new Option(t[i].name, t[i].value);
+							el.value = select;
+						}
+					}
+				});
+				<?php if ($storage) { ?>
+				window.localStorage['bg_quote_lang'] = bg_quote_lang;
+				<?php } ?>
+			}
 		</script>
-<?php
+		<?php if ($storage) { ?>
+		<script>
+			if (window.localStorage['bg_quote_lang'])
+				document.getElementById('bg_quote_langId').value = window.localStorage['bg_quote_lang'];
+			bg_bibrefs_booklist(window.localStorage['bg_quote_book']);
+			if (window.localStorage['bg_quote_book'])
+				document.getElementById('bg_quote_bookId').value = window.localStorage['bg_quote_book'];
+			if (window.localStorage['bg_quote_ch'])
+				document.getElementById('bg_quote_chId').value = window.localStorage['bg_quote_ch'];
+		</script>
+		<?php } 
 	}	
 }
 

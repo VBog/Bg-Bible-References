@@ -1,5 +1,6 @@
 <?php
 	$bg_bibrefs_lang_name = 'Церковнославянский';
+	$bg_bibrefs_book_lang = 'cu';
 	$bg_bibrefs_chapter = 'Глава';
 	$bg_bibrefs_ch = 'гл.';
 	
