@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bg-biblie-"
 "references\n"
 "POT-Creation-Date: 2015-12-10 00:03+0300\n"
-"PO-Revision-Date: 2015-12-10 00:05+0300\n"
+"PO-Revision-Date: 2015-12-26 20:35+0300\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: uk_UA\n"
@@ -154,15 +154,15 @@ msgstr "Читання Псалми"
 
 #: includes/quotes.php:448
 msgid "At Matins"
-msgstr "На Утрені"
+msgstr "На утрені"
 
 #: includes/quotes.php:449
 msgid "At Liturgy"
-msgstr "На Літургії"
+msgstr "На літургії"
 
 #: includes/quotes.php:450
 msgid "At Vespers"
-msgstr "На Вечерне"
+msgstr "На вечерне"
 
 #: includes/quotes.php:451
 msgid "At the 1st hour"

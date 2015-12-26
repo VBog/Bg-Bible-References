@@ -232,6 +232,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.11.5 =
+
+* Now plugin interface is available in the Belarusian language. Many thanks to Basil Matveev.
+
 = 3.11.4 =
 
 * Now you can easily add any edition of the Bible.
@@ -557,6 +561,10 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.11.5 =
+
+* Now plugin interface is available in the Belarusian language. Many thanks to Basil Matveev.
 
 = 3.11.4 =
 

@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bg-biblie-"
 "references\n"
 "POT-Creation-Date: 2015-12-10 00:02+0300\n"
-"PO-Revision-Date: 2015-12-10 00:03+0300\n"
+"PO-Revision-Date: 2015-12-26 20:34+0300\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
@@ -154,15 +154,15 @@ msgstr "Чтение Псалтири"
 
 #: includes/quotes.php:448
 msgid "At Matins"
-msgstr "На Утрени"
+msgstr "На утрени"
 
 #: includes/quotes.php:449
 msgid "At Liturgy"
-msgstr "На Литургии"
+msgstr "На литургии"
 
 #: includes/quotes.php:450
 msgid "At Vespers"
-msgstr "На Вечерне"
+msgstr "На вечерне"
 
 #: includes/quotes.php:451
 msgid "At the 1st hour"
@@ -350,7 +350,7 @@ msgid ""
 "marked with asterisk * are absent in the original translation. * - always "
 "visible!)</i>"
 msgstr ""
-"<br><i>Показать оригинальные номера стихов в скобках после номера стихов "
+"<br><i>(Показать оригинальные номера стихов в скобках после номера стихов "
 "русского Синодального перевода в подсказках и цитатах. <br>Стихи, помеченные "
 "звездочкой * отсутствуют в оригинальном переводе. * - отображаются всегда!)</"
 "i>"
