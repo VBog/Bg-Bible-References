@@ -103,6 +103,10 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	add_shortcode( 'bible_search', 'bg_bibrefs_bible_search' );
 // Регистрируем шорт-код bible_omnisearch
 	add_shortcode( 'bible_omnisearch', 'bg_bibrefs_bible_omnisearch' );
+// Регистрируем шорт-код kathisma
+	add_shortcode( 'kathisma', 'bg_bibrefs_kathisma' );
+// Регистрируем шорт-код stops
+	add_shortcode( 'stops', 'bg_bibrefs_stops' );
 
 // Инициализируем значения параметров настройки плагина по умолчанию
 

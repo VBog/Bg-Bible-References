@@ -80,7 +80,7 @@ function bg_bibrefs_options_page() {
     $bg_bibrefs_pload_val = get_option( $bg_bibrefs_pload );
 	$bg_bibrefs_preq_val = get_option( $bg_bibrefs_preq );
 	
-	$bg_bibrefs_maxtime_val = get_option($bg_bibrefs_maxtime);
+	$bg_bibrefs_maxtime_val = (int) get_option($bg_bibrefs_maxtime);
 	$bg_bibrefs_cashe_val = get_option($bg_bibrefs_cashe);
 
     $bg_content_val = get_option( $bg_content );
@@ -587,7 +587,7 @@ function bg_bibrefs_get_options () {
     $bg_bibrefs_option['pload'] = get_option('bg_bibrefs_preload' );
     $bg_bibrefs_option['preq'] = get_option('bg_bibrefs_prereq' );
 	
-    $bg_bibrefs_option['maxtime'] = get_option( 'bg_bibrefs_maxtime' );
+    $bg_bibrefs_option['maxtime'] = (int) get_option( 'bg_bibrefs_maxtime' );
     $bg_bibrefs_option['cashe'] = get_option( 'bg_bibrefs_cashe' );
 	
     $bg_bibrefs_option['refs_file'] = get_option( 'bg_bibrefs_refs_file' );
