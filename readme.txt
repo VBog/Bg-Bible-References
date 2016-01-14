@@ -232,6 +232,13 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.11.6 =
+
+* Added delay in 0.5 sec. when you hover over the link to avoid loading theBible books, if you accidentally moved the cursor around the screen.
+* Added object cache for downloaded books.
+* Added option which allows you to upload Bible verses in links when plugin parse of the text (before display it on the screen).
+* Added option to set the maximum execution time.
+
 = 3.11.5 =
 
 * Now plugin interface is available in the Belarusian language. Many thanks to Basil Matveev.
@@ -561,6 +568,13 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.11.6 =
+
+* Added delay in 0.5 sec. when you hover over the link to avoid loading theBible books, if you accidentally moved the cursor around the screen.
+* Added object cache for downloaded books.
+* Added option which allows you to upload Bible verses in links when plugin parse of the text (before display it on the screen).
+* Added option to set the maximum execution time.
 
 = 3.11.5 =
 

@@ -46,12 +46,12 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
    Организуем просмотр всех книг Библии
 
 *******************************************************************************/  
-	foreach ($bg_bibrefs_bookFile as $book => $book_file) {
-		$book_file = 'bible/'.$book_file;						// Имя файла книги
+	foreach ($bg_bibrefs_bookFile as $book => $bookFile) {
 /*******************************************************************************
    Чтение и преобразование файла книги
    
 *******************************************************************************/  
+		$book_file = 'bible/'.$bookFile;						// Имя файла книги
 	// Получаем данные из файла	
 		$code = false;
 		if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
@@ -62,8 +62,7 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 		if ($bg_bibrefs_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
 			$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
 			$ch=fopen($url, "r" );																	// Открываем файл для чтения
-			if($ch)
-			{
+			if($ch)	{
 				while (!feof($ch))	{
 					$code .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
 				}
@@ -83,7 +82,7 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 		if (!$code) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
 
 // Преобразовать json в массив
-		$json = json_decode($code, true);															
+		$json = json_decode($code, true);
 /*******************************************************************************
    Поиск вхождения в текст стиха Библии
    и формирование результатов поиска

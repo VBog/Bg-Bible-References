@@ -73,8 +73,9 @@ p.bg_bibrefs_close {
 	-moz-box-shadow: 5px 5px 5px -3px rgba(118, 118, 118, 0.9);
 
 }
-.bg_data_tooltip  div{
-    margin:  5px -5px -5px -10px;		/* Отступ */
+.bg_data_tooltip  span{
+    display: block;
+	margin:  5px -5px -5px -10px;		/* Отступ */
     padding: 5px 5px 5px 10px;			/* Поля */
 	border-top: 1px solid #767676; ; 	/* Параметры рамки */
 	overflow-y: auto; 	/* Разрешить при необходимости скроллинг по вертикали */

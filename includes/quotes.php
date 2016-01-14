@@ -8,52 +8,55 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	$lang = include_books($lang);
-//	bg_bibrefs_get_options ();
+
 /*******************************************************************************
    Преобразование обозначения книги из формата azbyka.ru в формат patriarhia.ru
    чтение и преобразование файла книги
 *******************************************************************************/  
 	if (!$book) return "";
 	if (!$bg_bibrefs_bookFile[$book]) return "";
-	$book_file = 'bible/'.$bg_bibrefs_bookFile[$book];										// Имя файла книги
+	$key='bible-'.$book.'_'.$lang;
+	if (!$bg_bibrefs_option['cashe'] || (false===($code=wp_cache_get($key,'bg-bible-refs'))) ){
+		$book_file = 'bible/'.$bg_bibrefs_bookFile[$book];										// Имя файла книги
 
-// Получаем данные из файла	
-	$code = false;
-	if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
-		$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
-		$code = file_get_contents($url);		
-	}
-
-	if ($bg_bibrefs_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
-		$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
-		$ch=fopen($url, "r" );																	// Открываем файл для чтения
-		if($ch)
-		{
-			while (!feof($ch))	{
-				$code .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
-			}
-			fclose($ch);																		// Закрываем файл
+	// Получаем данные из файла	
+		$code = false;
+		if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
+			$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
+			$code = file_get_contents($url);		
 		}
-	}
-	if ($bg_bibrefs_option['curl'] == 'on' && function_exists('curl_init') && !$code) {		// Попытка3. Если установлен cURL				
-		$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
-		$ch = curl_init($url);																	// создание нового ресурса cURL
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
-		$code = curl_exec($ch);																	// загрузка текста
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);										
-		if ($httpCode != '200') $code = false;													// Проверка на код http 200
-		curl_close($ch);																		// завершение сеанса и освобождение ресурсов
-	} 
 
-	if (!$code) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
+		if ($bg_bibrefs_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
+			$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
+			$ch=fopen($url, "r" );																	// Открываем файл для чтения
+			if($ch)
+			{
+				while (!feof($ch))	{
+					$code .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
+				}
+				fclose($ch);																		// Закрываем файл
+			}
+		}
+		if ($bg_bibrefs_option['curl'] == 'on' && function_exists('curl_init') && !$code) {		// Попытка3. Если установлен cURL				
+			$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
+			$ch = curl_init($url);																	// создание нового ресурса cURL
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
+			$code = curl_exec($ch);																	// загрузка текста
+			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);										
+			if ($httpCode != '200') $code = false;													// Проверка на код http 200
+			curl_close($ch);																		// завершение сеанса и освобождение ресурсов
+		} 
 
+		if (!$code) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
+
+		if ($bg_bibrefs_option['cashe']) wp_cache_set($key,$code,'bg-bible-refs',3600);		
+	}	
 // Преобразовать json в массив
 	$json = json_decode($code, true);															
-
 	if ($type == "book") $verses = "<h3>".bg_bibrefs_getTitle($book)."</h3>";
 	else if ($type == "t_verses") $verses = "<strong>".bg_bibrefs_getTitle($book)."</strong><br>";
 	else $verses = "";
-	if ($type <> "quote") $verses = $verses."<div>";	
+	if ($type <> "quote") $verses = $verses."<span style='display: block;'>";	
 /*******************************************************************************
    Разбор ссылки и формирование текста стихов Библии
   
@@ -157,7 +160,7 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 		}
 		if ($sp == "") break;
 	}
-	if ($type <> "quote") $verses = $verses."</div>";	
+	if ($type <> "quote") $verses = $verses."</span>";	
 
 	return $verses;
 }

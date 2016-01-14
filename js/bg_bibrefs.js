@@ -48,6 +48,8 @@ jQuery(document).ready(function(){
    При наведении мыши на ссылку, если подсказка не пуста, 
    отображает подсказку на экране
 *******************************************************************************/  
+var bg_bibrefs_intervalID;
+
 jQuery('span.bg_data_title')
 	.mouseenter(function(e){
 		var el = jQuery(this);
@@ -56,6 +58,7 @@ jQuery('span.bg_data_title')
 
 		var allParams = parseUrlQuery();
 		if (el.attr('data-title') != "" && allParams.preq == '0') {	// Книга задана
+		bg_bibrefs_intervalID = setTimeout(	function() {
 			var ttl= el.attr('title');							// Сохраняем на всякий случай содержимое стандартной подсказки
 			el.attr('title', "");								// Убираем стандартную подсказку
 
@@ -81,6 +84,7 @@ jQuery('span.bg_data_title')
 					el.attr('title', ttl);						// Если ошибка, то восстанавливаем стандартную подсказку
 				}
 			}); 
+		}, 500);
 		}
 	// Выводим подсказку на экран
 		tooltip_mini(tooltip, el, e);
@@ -88,7 +92,8 @@ jQuery('span.bg_data_title')
 /*******************************************************************************
    При удалении мыши от ссылки, удаляет подсказку с экрана
 *******************************************************************************/  
-	.mouseleave(function(e) {
+	.mouseleave (function(e){
+		clearInterval(bg_bibrefs_intervalID);
 		var tooltip = jQuery(this).children('span.bg_data_tooltip');
 		if (tooltip.css('position')=='fixed') return;
 		tooltip.css('display', "none");
@@ -131,7 +136,7 @@ function tooltip_mini(tooltip, el, e) {
 	if (x+tipWidth+padding > c_right) x = c_right-tipWidth-padding-1;
 
 	// Задаем размеры контейнера с текстом
-	container = tooltip.children('div');
+	container = tooltip.children('span');
 	var padding_w = parseInt(container.css('marginLeft'))+parseInt(container.css('marginRight'))+parseInt(container.css('paddingLeft'))+parseInt(container.css('paddingRight'))+parseInt(container.css('border-Left-Width'))+parseInt(container.css('border-Right-Width'));
 	var divWidth = tipWidth - padding_w;
 	var padding_h = parseInt(container.css('paddingTop'))+parseInt(container.css('paddingBottom'))+parseInt(container.css('border-Top-Width'))+parseInt(container.css('border-Bottom-Width'));
@@ -170,7 +175,7 @@ function tooltip_mini(tooltip, el, e) {
 		tooltip_maxi(tooltip);					// Развернуть подсказку			
 	});
 	// Выделение текста по щелчку
-	tooltip.children('div').click(function() {
+	tooltip.children('span').click(function() {
 		var e=this; 
 		if(window.getSelection){ 
 			var s=window.getSelection(); 
@@ -229,7 +234,7 @@ function tooltip_maxi(tooltip) {
 	var x = cc_left+(content.width() - tipWidth-padding)/2;
 
 	// Задаем размеры контейнера с текстом
-	container = tooltip.children('div');
+	container = tooltip.children('span');
 	var padding_w = parseInt(container.css('marginLeft'))+parseInt(container.css('marginRight'))+parseInt(container.css('paddingLeft'))+parseInt(container.css('paddingRight'))+parseInt(container.css('border-Left-Width'))+parseInt(container.css('border-Right-Width'));
 	var divWidth = tipWidth - padding_w;
 	var padding_h = parseInt(container.css('paddingTop'))+parseInt(container.css('paddingBottom'))+parseInt(container.css('border-Top-Width'))+parseInt(container.css('border-Bottom-Width'));

@@ -34,7 +34,11 @@ function bg_bibrefs_options_page() {
 	$bg_fgc_name = 'bg_bibrefs_fgc';					// Чтение файлов Библии с помощью file_get_contents()
 	$bg_fopen_name = 'bg_bibrefs_fopen';				// Чтение файлов Библии с помощью fopen()
 	
-	$bg_preq = 'bg_bibrefs_prereq';						// Предварительно загружать стихи из Библии в всплывающие подсказки
+	$bg_bibrefs_pload = 'bg_bibrefs_preload';			// Предварительно загружать стихи из Библии в всплывающие подсказки - до создания строницы (php)
+	$bg_bibrefs_preq = 'bg_bibrefs_prereq';				// Предварительно загружать стихи из Библии в всплывающие подсказки - после создания страницы (ajax)
+	
+	$bg_bibrefs_maxtime = "bg_bibrefs_maxtime";			// Максимальное время работы скрипта
+	$bg_bibrefs_cashe = "bg_bibrefs_cashe";				// Вкл. объектный кеш для загружаеммых книг Библии
 
     $bg_content = 'bg_bibrefs_content';					// Контейнер, внутри которого будут отображаться подсказки
 	$links_class = 'bg_bibrefs_class';					// CSS класс для ссылок на Библию
@@ -73,7 +77,11 @@ function bg_bibrefs_options_page() {
     $bg_fgc_val = get_option( $bg_fgc_name );
     $bg_fopen_val = get_option( $bg_fopen_name );
 
-    $bg_preq_val = get_option( $bg_preq );
+    $bg_bibrefs_pload_val = get_option( $bg_bibrefs_pload );
+	$bg_bibrefs_preq_val = get_option( $bg_bibrefs_preq );
+	
+	$bg_bibrefs_maxtime_val = get_option($bg_bibrefs_maxtime);
+	$bg_bibrefs_cashe_val = get_option($bg_bibrefs_cashe);
 
     $bg_content_val = get_option( $bg_content );
     $class_val = get_option( $links_class );
@@ -143,8 +151,17 @@ function bg_bibrefs_options_page() {
 		$bg_fopen_val = ( isset( $_POST[$bg_fopen_name] ) && $_POST[$bg_fopen_name] ) ? $_POST[$bg_fopen_name] : '' ;
 		update_option( $bg_fopen_name, $bg_fopen_val );
 
-		$bg_preq_val = ( isset( $_POST[$bg_preq] ) && $_POST[$bg_preq] ) ? $_POST[$bg_preq] : '' ;
-		update_option( $bg_preq, $bg_preq_val );
+		$bg_bibrefs_pload_val = ( isset( $_POST[$bg_bibrefs_pload] ) && $_POST[$bg_bibrefs_pload] ) ? $_POST[$bg_bibrefs_pload] : '' ;
+		update_option( $bg_bibrefs_pload, $bg_bibrefs_pload_val );
+
+		$bg_bibrefs_preq_val = ( isset( $_POST[$bg_bibrefs_preq] ) && $_POST[$bg_bibrefs_preq] ) ? $_POST[$bg_bibrefs_preq] : '' ;
+		update_option( $bg_bibrefs_preq, $bg_bibrefs_preq_val );
+
+		$bg_bibrefs_maxtime_val = ( isset( $_POST[$bg_bibrefs_maxtime] ) && $_POST[$bg_bibrefs_maxtime] ) ? $_POST[$bg_bibrefs_maxtime] : '' ;
+		update_option( $bg_bibrefs_maxtime, $bg_bibrefs_maxtime_val );
+
+		$bg_bibrefs_cashe_val = ( isset( $_POST[$bg_bibrefs_cashe] ) && $_POST[$bg_bibrefs_cashe] ) ? $_POST[$bg_bibrefs_cashe] : '' ;
+		update_option( $bg_bibrefs_cashe, $bg_bibrefs_cashe_val );
 
 		$bg_content_val = ( isset( $_POST[$bg_content] ) && $_POST[$bg_content] ) ? $_POST[$bg_content] : '' ;
 		update_option( $bg_content, $bg_content_val );
@@ -330,19 +347,43 @@ bg_bibrefs_site_checked();
 <tr valign="top">
 <th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibrefs' ); ?></th>
 <td>
-<input type="checkbox" id="bg_preq" name="<?php echo $bg_preq ?>" <?php if($bg_preq_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a problem with ajax-requests limiting on the server.)</i>', 'bg_bibrefs' ); ?> <br />
+<input type="checkbox" id="bg_bibrefs_pload" name="<?php echo $bg_bibrefs_pload ?>" <?php if($bg_bibrefs_pload_val=="on") echo "checked" ?>  value="on" onclick='bg_bibrefs_preload();'> <?php _e(' - before upload of the post (using PHP)', 'bg_bibrefs' ); ?><?php _e('<br><i>(Requires a lot of of time to prepare and upload of the post.<br><u>Warning:</u> You can have a problem with limiting the maximum execution time for script on the server.)</i>', 'bg_bibrefs' ); ?><br /><br />
+<input type="checkbox" id="bg_bibrefs_preq" name="<?php echo $bg_bibrefs_preq ?>" <?php if($bg_bibrefs_preq_val=="on") echo "checked" ?>  value="on" onclick='bg_bibrefs_prereq();'> <?php _e(' - after upload of the post (using AJAX)', 'bg_bibrefs' ); ?><?php _e('<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a problem with ajax-requests limiting on the server.)</i>', 'bg_bibrefs' ); ?> <br />
 </td></tr>
 <script>
 function bg_verses_checked() {
 	if (document.getElementById('bg_verses').checked == true) {
-		document.getElementById('bg_preq').disabled = false;
+		document.getElementById('bg_bibrefs_pload').disabled = false;
+		document.getElementById('bg_bibrefs_preq').disabled = false;
 	} else {
-		document.getElementById('bg_preq').disabled = true;
-		document.getElementById('bg_preq').checked = false;
+		document.getElementById('bg_bibrefs_pload').disabled = true;
+		document.getElementById('bg_bibrefs_pload').checked = false;
+		document.getElementById('bg_bibrefs_preq').disabled = true;
+		document.getElementById('bg_bibrefs_preq').checked = false;
 	}
 }
 bg_verses_checked();
+
+function bg_bibrefs_preload() {
+	if (document.getElementById('bg_bibrefs_pload').checked == true) {
+		document.getElementById('bg_bibrefs_preq').checked = false;
+	}
+}
+bg_bibrefs_preload();
+function bg_bibrefs_prereq() {
+	if (document.getElementById('bg_bibrefs_preq').checked == true){
+		document.getElementById('bg_bibrefs_pload').checked = false;
+	}
+}
+bg_bibrefs_prereq();
+
 </script>
+ 
+<tr valign="top">
+<th scope="row"><?php _e('The maximum execution time', 'bg_bibrefs') ?></th>
+<td>
+<input type="number" name="bg_bibrefs_maxtime" value="<?php echo $bg_bibrefs_maxtime_val; ?>" /> <?php _e('sec.', 'bg_bibrefs' ); ?>
+</td></tr>
 
 <tr valign="top">
 <th scope="row"><?php _e('Method of reading files', 'bg_bibrefs' ); ?></th>
@@ -359,12 +400,21 @@ function reading_off_checked() {
 	} else {
 		document.getElementById('bg_verses').disabled = true;
 		document.getElementById('bg_verses').checked = false;
-		document.getElementById('bg_preq').disabled = true;
-		document.getElementById('bg_preq').checked = false;
+		document.getElementById('bg_bibrefs_pload').disabled = true;
+		document.getElementById('bg_bibrefs_pload').checked = false;
+		document.getElementById('bg_bibrefs_preq').disabled = true;
+		document.getElementById('bg_bibrefs_preq').checked = false;
 	}
 }
 reading_off_checked();
 </script>
+
+<tr valign="top">
+<th scope="row"><?php _e('Object cashe for downloaded Bible books', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_bibrefs_cashe" name="<?php echo $bg_bibrefs_cashe ?>" <?php if($bg_bibrefs_cashe_val=="on") echo "checked" ?>  value="on">
+</td></tr>
+
 <tr valign="top">
 <th scope="row"><?php _e('Container, inside which will display tooltips', 'bg_bibrefs' ); ?></th>
 <td>
@@ -392,7 +442,7 @@ reading_off_checked();
 </table>
 </details>
 <p class="submit">
-<input type="submit" name="Submit" value="<?php _e('Update Options', 'bg_bibrefs' ) ?>" />
+<input type="submit" name="Submit" class="button-primary" value="<?php _e('Update Options', 'bg_bibrefs' ) ?>" />
 </p>
 
 </form>
@@ -451,7 +501,10 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibrefs_curl', "on");
 	add_option('bg_bibrefs_fgc', "on");
 	add_option('bg_bibrefs_fopen', "on");
+	add_option('bg_bibrefs_preload');
 	add_option('bg_bibrefs_prereq');
+	add_option('bg_bibrefs_maxtime', "60");
+	add_option('bg_bibrefs_cashe');
 	add_option('bg_bibrefs_content', "#content");
 	add_option('bg_bibrefs_class', "bg_bibrefs");
 	add_option('bg_bibrefs_refs_file', "");
@@ -479,7 +532,10 @@ function bg_bibrefs_deinstall() {
 	delete_option('bg_bibrefs_curl');
 	delete_option('bg_bibrefs_fgc');
 	delete_option('bg_bibrefs_fopen');
+	delete_option('bg_bibrefs_preload');
 	delete_option('bg_bibrefs_prereq');
+	delete_option('bg_bibrefs_maxtime');
+	delete_option('bg_bibrefs_cashe');
 	delete_option('bg_bibrefs_content');
 	delete_option('bg_bibrefs_class');
 	delete_option('bg_bibrefs_refs_file');
@@ -528,7 +584,11 @@ function bg_bibrefs_get_options () {
     $bg_bibrefs_option['fgc'] = get_option( 'bg_bibrefs_fgc' );
     $bg_bibrefs_option['fopen'] = get_option( 'bg_bibrefs_fopen' );
 
+    $bg_bibrefs_option['pload'] = get_option('bg_bibrefs_preload' );
     $bg_bibrefs_option['preq'] = get_option('bg_bibrefs_prereq' );
+	
+    $bg_bibrefs_option['maxtime'] = get_option( 'bg_bibrefs_maxtime' );
+    $bg_bibrefs_option['cashe'] = get_option( 'bg_bibrefs_cashe' );
 	
     $bg_bibrefs_option['refs_file'] = get_option( 'bg_bibrefs_refs_file' );
 	
@@ -565,7 +625,10 @@ function bg_bibrefs_change_options () {
 							'bg_bibfers_curl',
 							'bg_bibfers_fgc',
 							'bg_bibfers_fopen',
+							'bg_bibrefs_preload',
 							'bg_bibfers_prereq',
+							'bg_bibrefs_maxtime',
+							'bg_bibrefs_cashe',
 							'bg_bibfers_refs_file',
 							'bg_bibfers_debug');
 	$new_options = array (	'bg_bibrefs_c_lang',
@@ -588,7 +651,10 @@ function bg_bibrefs_change_options () {
 							'bg_bibrefs_curl',
 							'bg_bibrefs_fgc',
 							'bg_bibrefs_fopen',
+							'bg_bibrefs_preload',
 							'bg_bibrefs_prereq',
+							'bg_bibrefs_maxtime',
+							'bg_bibrefs_cashe',
 							'bg_bibrefs_refs_file',
 							'bg_bibrefs_debug');
 

@@ -81,6 +81,17 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	}
 /*******************************************************************/	
 
+// Устанавливаем максимальное время работы скрипта
+	$maxtime = $bg_bibrefs_option['maxtime'];
+	if (!set_time_limit ($maxtime)) {
+		$systemtime = ini_get('max_execution_time'); 
+		if (!$systemtime) $systemtime = 30;
+		$maxtime = $systemtime - 2;
+	}
+	$time0 = 0;
+	$cycle_time = 1;
+	$stime = microtime(true);
+
 	for ($i = 0; $i < $cnt; $i++) {
 		
 	// Проверим по каждому паттерну. 
@@ -159,13 +170,18 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
 			}
 		}
+	// Ограничение времени работы функции
+		$time = microtime(true) - $stime;
+		if ($time-$time0 > $cicle_time) $cicle_time = $time-$time0;
+		$time0 = $time;
+		if ($maxtime && $time > $maxtime-$cicle_time) break;
 	}
 	$txt = $text.substr($txt, $start);
 
 	
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {
-		error_log(" Всего патернов : ". $i."\n", 3, $debug_file);
+		error_log(" Обработано : ". $i." Всего патернов : ". $cnt."\n", 3, $debug_file);
 		$this_time = microtime(true)*1000;
 		$time = ($this_time- $start_time);
 		error_log("  * Обработка патернов: ". round($time, 2)." мсек.\n", 3, $debug_file);
@@ -222,7 +238,13 @@ function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
 		} else {
 			$ajax_url = "";
 		}
-		return "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='".$ajax_url."' title='".$the_title."'><span class='bg_data_tooltip'></span>".$fullurl."</span>"; 
+		if ($bg_bibrefs_option['pload']) {
+			$expand_button = "<img src='".plugins_url( '../js/expand.png' , __FILE__ )."' style='cursor:pointer; margin-right: 8px;' align='left' width=16 height=16 title1='".(__('Expand', 'bg_bibrefs' ))."' title2='".(__('Hide', 'bg_bibrefs' ))."' />";
+			$verses = $expand_button.bg_bibrefs_getQuotes($book, $chapter, 't_verses', $lang); 
+			return "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='' title=''><span class='bg_data_tooltip'>".$verses."</span>".$fullurl."</span>"; 
+		} else {
+			return "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='".$ajax_url."' title='".$the_title."'><span class='bg_data_tooltip'></span>".$fullurl."</span>"; 
+		}
 	}
 	else return "";
 }
