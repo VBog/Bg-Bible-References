@@ -53,10 +53,8 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 	}	
 // Преобразовать json в массив
 	$json = json_decode($code, true);															
-	if ($type == "book") $verses = "<h3>".bg_bibrefs_getTitle($book)."</h3>";
-	else if ($type == "t_verses") $verses = "<strong>".bg_bibrefs_getTitle($book)."</strong><br>";
-	else $verses = "";
-	if ($type <> "quote") $verses = $verses."<span style='display: block;'>";	
+
+	$verses = "";
 /*******************************************************************************
    Разбор ссылки и формирование текста стихов Библии
   
@@ -160,7 +158,10 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 		}
 		if ($sp == "") break;
 	}
-	if ($type <> "quote") $verses = $verses."</span>";	
+	if (!$verses) return "";
+	if ($type <> "quote") $verses = "<span class='".$bg_bibrefs_option['class']."_".$type."' style='display: block;'>".$verses."</span>";	
+	if ($type == "book") $verses = "<h3>".bg_bibrefs_getTitle($book)."</h3>".$verses;
+	else if ($type == "t_verses") $verses = "<strong>".bg_bibrefs_getTitle($book)."</strong><br>".$verses;
 
 	return $verses;
 }

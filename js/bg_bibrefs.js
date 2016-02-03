@@ -33,11 +33,17 @@ jQuery(document).ready(function(){
 					action: 'bg_bibrefs'
 				},
 				success: function (verses, textStatus) {
-					if (verses != 0) {
+					if (verses) {
 						tooltip.html(verses);					// Добавляем стихи в подсказку
 						el.attr('data-title', "");
 						el.attr('title', "");
-					} 
+					} else {
+						el.attr('title', "");
+						el.attr('data-title', "");
+						el.css("border-bottom", "1px dashed red");
+						e = el.children('a');
+						e.before(e.text()).remove();
+					}
 				}
 			});
 		}
@@ -72,19 +78,24 @@ jQuery('span.bg_data_title')
 					action: 'bg_bibrefs'
 				},
 				success: function (verses, textStatus) {		// Если что-то пришло с сервера 
-					if (verses != 0) {							// и не пустая сторока
+					if (verses) {							// и не пустая сторока
 						el.attr('data-title', "");				// Опустошаем, чтобы больше не загружать
 						tooltip.html(verses);					// Добавляем стихи в подсказку 
 						if (el.filter(':hover').length)			// Проверяем находится ли все еще курсор на ссылке
 							tooltip_mini(tooltip, el, e);		// и выводим подсказку на экран
-					} 
-					else el.attr('title', ttl);					// Если пусто, то восстанавливаем стандартную подсказку
+					} else {
+						el.attr('title', ttl);					// Если пусто, то восстанавливаем стандартную подсказку
+						el.attr('data-title', "");
+						el.css("border-bottom", "2px dotted red");
+						e = el.children('a');
+						e.before(e.text()).remove();
+					}
 				},
 				error: function () {
 					el.attr('title', ttl);						// Если ошибка, то восстанавливаем стандартную подсказку
 				}
 			}); 
-		}, 500);
+		}, 200);
 		}
 	// Выводим подсказку на экран
 		tooltip_mini(tooltip, el, e);
@@ -111,6 +122,13 @@ function tooltip_mini(tooltip, el, e) {
 		'top': bg_bibrefs_tipTop+"px",			// Восстанавливаем вертикальное положение подсказки
 		'position':'absolute',					// Абсолютная позиция
 		'display': "block"						// Строчно-блочный элемент 
+	});
+	tooltip.children('span').css({
+		'margin':  '5px -5px -5px -10px',		// Отступ
+		'padding': '5px 5px 5px 10px',			// Поля 
+		'overflow-y': 'auto', 					// Разрешить при необходимости скроллинг по вертикали 
+		'overflow-x': 'hidden', 				// Запретить скроллинг по горизонтали 
+		'border-top': "1px solid #767676" 		// Параметры рамки 
 	});
 
 	var padding = parseInt(tooltip.css('paddingLeft'))+parseInt(tooltip.css('paddingRight'))+parseInt(tooltip.css('border-Left-Width'))+parseInt(tooltip.css('border-Right-Width'));

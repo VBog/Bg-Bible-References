@@ -3,12 +3,12 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.11.6
+    Version: 3.11.7
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
 	Text Domain: bg_bibrefs
-	Domain Path: /languages/
+	Domain Path: /languages
 */
 
 /*  Copyright 2015  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.11.6');
+define('BG_BIBREFS_VERSION', '3.11.7');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -103,10 +103,6 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	add_shortcode( 'bible_search', 'bg_bibrefs_bible_search' );
 // Регистрируем шорт-код bible_omnisearch
 	add_shortcode( 'bible_omnisearch', 'bg_bibrefs_bible_omnisearch' );
-// Регистрируем шорт-код kathisma
-	add_shortcode( 'kathisma', 'bg_bibrefs_kathisma' );
-// Регистрируем шорт-код stops
-	add_shortcode( 'stops', 'bg_bibrefs_stops' );
 
 // Инициализируем значения параметров настройки плагина по умолчанию
 
@@ -417,10 +413,13 @@ function bg_bibrefs_callback() {
 		$lang = $_GET["lang"];
 		$type = $_GET["type"];
 		if (!$type) $type = 'verses';
-		$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer; margin-right: 8px;" align="left" width=16 height=16 title1="'.(__('Expand', 'bg_bibrefs' )).'" title2="'.(__('Hide', 'bg_bibrefs' )).'" />';
-		echo $expand_button.bg_bibrefs_getQuotes($title, $chapter, $type, $lang); 
+		$verses = bg_bibrefs_getQuotes($title, $chapter, $type, $lang);
+		if ($verses) {
+			$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer; margin-right: 8px;" align="left" width=16 height=16 title1="'.(__('Expand', 'bg_bibrefs' )).'" title2="'.(__('Hide', 'bg_bibrefs' )).'" />';
+			echo $expand_button. $verses;
+		} 
 	}
-	die();
+	wp_die();
 }
 function get_plugin_version() {
 	$plugin_data = get_plugin_data( __FILE__  );

@@ -232,6 +232,12 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.11.7 =
+
+* Plugin validates the references. Invalid references marks as errors.
+* Added additional classes for display verses: bg_bibrefs_<type>.
+* Changed delay to 0.2 sec.
+
 = 3.11.6 =
 
 * Added delay in 0.5 sec. when you hover over the link to avoid loading theBible books, if you accidentally moved the cursor around the screen.
@@ -568,6 +574,12 @@ Warning: Some methods may not be available on your server.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 3.11.7 =
+
+* Plugin validates the references. Invalid references marks as errors.
+* Added additional classes for display verses: bg_bibrefs_<type>.
+* Changed delay to 0.2 sec.
 
 = 3.11.6 =
 
