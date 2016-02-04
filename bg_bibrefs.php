@@ -52,21 +52,23 @@ function bg_enqueue_frontend_scripts () {
     $bg_preq_val = get_option( 'bg_bibrefs_prereq' );
 	if ($bg_preq_val == 'on') $preq = 1;
 	else $preq = 0;
-	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js?preq='.$preq , __FILE__ ), false, BG_BIBREFS_VERSION, true );
-	echo "<script> var ajaxurl='".admin_url('admin-ajax.php')."';</script>";
+	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js?preq='.$preq.'&content='.urlencode (get_option( "bg_bibrefs_content" )).'&ajaxurl='.urlencode (admin_url('admin-ajax.php')) , __FILE__ ), false, BG_BIBREFS_VERSION, true );
 }
-
+/*
 function bg_bibrefs_js_options () { 
 //	$content="#content";
 	$content=get_option( "bg_bibrefs_content" );
 ?>
-	<script> var bg_bibrefs_content='<?php echo $content; ?>';</script>
+<script> 
+	var bg_bibrefs_content='<?php echo $content; ?>';
+	var bg_bibrefs_ajaxurl='"<?php echo admin_url('admin-ajax.php'); ?>"';
+</script>
 <?php
 }
-
+*/
 if ( !is_admin() ) {
 	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' ); 
-	add_action( 'wp_head' , 'bg_bibrefs_js_options' ); 
+//	add_action( 'wp_head' , 'bg_bibrefs_js_options' ); 
 }
 
 // Загрузка интернационализации

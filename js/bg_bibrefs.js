@@ -2,6 +2,8 @@
 var bg_bibrefs_tipWidth;
 var bg_bibrefs_tipMaxHeight;	
 var bg_bibrefs_tipTop;	
+var bg_bibrefs_ajaxurl;
+var bg_bibrefs_content;
 
 /*******************************************************************************
    При создании страницы для всех элементов 'a.bg_data_title' 
@@ -16,6 +18,8 @@ jQuery(document).ready(function(){
 	bg_bibrefs_tipTop = parseInt(tooltip.css('top'));	
 
 	var allParams = parseUrlQuery();
+	bg_bibrefs_ajaxurl = decodeURIComponent (allParams.ajaxurl);
+	bg_bibrefs_content = decodeURIComponent (allParams.content);
 	if (allParams.preq != '1') return; 							// Запрет на предварительную загрузку
 
 	jQuery('span.bg_data_title').each (function(){
@@ -28,7 +32,7 @@ jQuery(document).ready(function(){
 				cache: false,
 				async: true,									// Асинхронный запрос
 				dataType: 'text',
-				url: ajaxurl+el.attr('data-title'),				// Запрос стихов Библии
+				url: bg_bibrefs_ajaxurl+el.attr('data-title'),	// Запрос стихов Библии
 				data: {
 					action: 'bg_bibrefs',
 					func: 'each'
@@ -74,7 +78,7 @@ jQuery('span.bg_data_title')
 				cache: false,
 				async: true,									// Асинхронный запрос
 				dataType: 'text',
-				url: ajaxurl+el.attr('data-title'),				// Запрос стихов Библии
+				url: bg_bibrefs_ajaxurl+el.attr('data-title'),	// Запрос стихов Библии
 				data: {
 					action: 'bg_bibrefs',
 					func: 'mouseenter'
