@@ -16,7 +16,7 @@ jQuery(document).ready(function(){
 	bg_bibrefs_tipTop = parseInt(tooltip.css('top'));	
 
 	var allParams = parseUrlQuery();
-	if (allParams.preq == '0') return; 							// Запрет на предварительную загрузку
+	if (allParams.preq != '1') return; 							// Запрет на предварительную загрузку
 
 	jQuery('span.bg_data_title').each (function(){
 		var el = jQuery(this);
