@@ -83,7 +83,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 
 // Устанавливаем максимальное время работы скрипта
 	$maxtime = $bg_bibrefs_option['maxtime'];
-	if (!set_time_limit ($maxtime)) {
+	if (!(@set_time_limit ($maxtime))) {
 		$systemtime = ini_get('max_execution_time'); 
 		if (!$systemtime) $systemtime = 30;
 		$maxtime = $systemtime - 2;
@@ -172,9 +172,9 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 		}
 	// Ограничение времени работы функции
 		$time = microtime(true) - $stime;
-		if ($time-$time0 > $cicle_time) $cicle_time = $time-$time0;
+		if ($time-$time0 > $cycle_time) $cycle_time = $time-$time0;
 		$time0 = $time;
-		if ($maxtime && $time > $maxtime-$cicle_time) break;
+		if ($maxtime && $time > $maxtime-$cycle_time) break;
 	}
 	$txt = $text.substr($txt, $start);
 
@@ -234,7 +234,8 @@ function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
 		
 		$the_title =  $bg_bibrefs_bookTitle[$book]." ".$bg_bibrefs_ch." ".$chapter;					// Название книги, номера глав и стихов	
 		if ($bg_bibrefs_option['show_verses'] == 'on') {											// Текст  стихов
-			$ajax_url = admin_url("admin-ajax.php?title=".$book."&chapter=".$chapter."&type=t_verses&lang=".$lang);
+//			$ajax_url = admin_url("admin-ajax.php?title=".$book."&chapter=".$chapter."&type=t_verses&lang=".$lang);
+			$ajax_url = "?title=".$book."&chapter=".$chapter."&type=t_verses&lang=".$lang;
 		} else {
 			$ajax_url = "";
 		}

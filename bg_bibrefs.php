@@ -53,6 +53,7 @@ function bg_enqueue_frontend_scripts () {
 	if ($bg_preq_val == 'on') $preq = 1;
 	else $preq = 0;
 	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js?preq='.$preq , __FILE__ ), false, BG_BIBREFS_VERSION, true );
+	echo "<script> var ajaxurl='".admin_url('admin-ajax.php')."';</script>";
 }
 
 function bg_bibrefs_js_options () { 
@@ -404,8 +405,10 @@ add_action ('wp_ajax_nopriv_bg_bibrefs', 'bg_bibrefs_callback');
 
 function bg_bibrefs_callback() {
 	
-	$blang = $_GET["blang"];
-	if ( $blang ) bg_bibrefs_booklist ($blang);		
+	if ( isset($_GET["blang"]) ) {
+		$blang = $_GET["blang"];
+		bg_bibrefs_booklist ($blang);
+	}
 	else {
 		$title = $_GET["title"];
 		$chapter = $_GET["chapter"];

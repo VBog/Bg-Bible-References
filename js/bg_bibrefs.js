@@ -28,9 +28,10 @@ jQuery(document).ready(function(){
 				cache: false,
 				async: true,									// Асинхронный запрос
 				dataType: 'text',
-				url: el.attr('data-title'),						// Запрос стихов Библии
+				url: ajaxurl+el.attr('data-title'),				// Запрос стихов Библии
 				data: {
-					action: 'bg_bibrefs'
+					action: 'bg_bibrefs',
+					func: 'each'
 				},
 				success: function (verses, textStatus) {
 					if (verses) {
@@ -73,9 +74,10 @@ jQuery('span.bg_data_title')
 				cache: false,
 				async: true,									// Асинхронный запрос
 				dataType: 'text',
-				url: el.attr('data-title'),						// Запрос стихов Библии
+				url: ajaxurl+el.attr('data-title'),				// Запрос стихов Библии
 				data: {
-					action: 'bg_bibrefs'
+					action: 'bg_bibrefs',
+					func: 'mouseenter'
 				},
 				success: function (verses, textStatus) {		// Если что-то пришло с сервера 
 					if (verses) {							// и не пустая сторока
