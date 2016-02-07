@@ -39,6 +39,7 @@ if ( !defined('ABSPATH') ) {
 }
 
 define('BG_BIBREFS_VERSION', '3.12.0');
+define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -103,15 +104,14 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	bg_bibrefs_options_ini ();	
 	bg_bibrefs_get_options ();
 }
-$bg_bibrefs_sourse_url = "http://plugins.svn.wordpress.org/bg-biblie-references/bible/";
 
 // Функция, исполняемая при активации плагина.
 function  bg_bibrefs_activate() {
 	if ( version_compare( $version, BG_BIBREFS_VERSION, '<' ) ) {
-		$folders=get_option('bg_bibrefs_folders');
-		if (!$folders) $folders = array("ru");			// Если нет папок, то по умолчанию русский язык
-		foreach ($folders as $book) bg_bibrefs_addFolder($book.'.zip');
-
+		$folders=get_option('bg_bibrefs_folders', array("ru"));
+		foreach ($folders as $book) {
+			bg_bibrefs_addFolder($book.'.zip');
+		}
 		update_option( 'bg_bibrefs_version', BG_BIBREFS_VERSION );
 	}
 }

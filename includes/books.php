@@ -233,8 +233,6 @@ class bg_bibrefs_Bible_List_Table extends WP_List_Table {
      * @uses $this->set_pagination_args()
      **************************************************************************/
     function prepare_items() {
-		global $bg_bibrefs_sourse_url;
-
         /**
          * First, lets decide how many records per page to show
          */
@@ -278,7 +276,7 @@ class bg_bibrefs_Bible_List_Table extends WP_List_Table {
          * use sort and pagination data to build a custom query instead, as you'll
          * be able to use your precisely-queried data immediately.
          */
-        $xml = @file_get_contents($bg_bibrefs_sourse_url."filelist.xml");
+        $xml = @file_get_contents(BG_BIBREFS_SOURCE_URL."filelist.xml");
 		if ($xml) {
 			$files = json_decode(json_encode((array)simplexml_load_string($xml)),1);
 			$file = $files['file'];

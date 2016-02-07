@@ -6,8 +6,6 @@
 function bg_bibrefs_options_page() {
 // http://azbyka.ru/biblia/?Lk.4:25-5:13,6:1-13&crgli&rus&num=cr
 
-	global $bg_bibrefs_sourse_url;
-
 	$active_tab = 'links';
 	if( isset( $_GET[ 'tab' ] ) ) $active_tab = $_GET[ 'tab' ];
 	
@@ -722,13 +720,12 @@ function bg_bibrefs_change_options () {
      * Добавить папку с Библией на сайт
      **************************************************************************/
 	function bg_bibrefs_addFolder($book) {
-		global $bg_bibrefs_sourse_url;
 	
-		$sourse_url = $bg_bibrefs_sourse_url.$book;
+		$source_url = BG_BIBREFS_SOURCE_URL.$book;
 		$local_url = dirname(dirname(__FILE__ )).'/'.$book;
 		$subfolder = dirname(dirname(__FILE__ )).'/bible/'.basename($book, ".zip").'/';
 		if (!file_exists($local_url)) {
-			if (copy ( $sourse_url, $local_url )) {
+			if (copy ( $source_url, $local_url )) {
 				$zip = new ZipArchive; 
 				$zip->open($local_url); 
 				$zip->extractTo($subfolder); 
@@ -772,5 +769,4 @@ function bg_bibrefs_change_options () {
 		}
 		return $folders;
 	}
-
 
