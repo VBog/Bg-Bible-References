@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bg-biblie-"
 "references\n"
 "POT-Creation-Date: 2016-02-07 22:15+0300\n"
-"PO-Revision-Date: 2016-02-07 22:15+0300\n"
+"PO-Revision-Date: 2016-02-07 22:22+0300\n"
 "Last-Translator: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language-Team: Vadim Bogaiskov <vadim.bogaiskov@gmail.com>\n"
 "Language: ru\n"
@@ -500,7 +500,7 @@ msgstr ""
 
 #: includes/settings.php:442
 msgid "External AJAX Proxy"
-msgstr "Внешние AJAX-прокси"
+msgstr "Внешний AJAX-прокси"
 
 #: includes/settings.php:446
 msgid ""
