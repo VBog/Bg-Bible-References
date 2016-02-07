@@ -6,7 +6,11 @@
 function bg_bibrefs_options_page() {
 // http://azbyka.ru/biblia/?Lk.4:25-5:13,6:1-13&crgli&rus&num=cr
 
+	global $bg_bibrefs_sourse_url;
 
+	$active_tab = 'links';
+	if( isset( $_GET[ 'tab' ] ) ) $active_tab = $_GET[ 'tab' ];
+	
     // имена опций и полей
 	$bg_bibrefs_site = 'bg_bibrefs_site';				// Имя ссылки
 	
@@ -38,9 +42,9 @@ function bg_bibrefs_options_page() {
 	$bg_bibrefs_preq = 'bg_bibrefs_prereq';				// Предварительно загружать стихи из Библии в всплывающие подсказки - после создания страницы (ajax)
 	
 	$bg_bibrefs_maxtime = "bg_bibrefs_maxtime";			// Максимальное время работы скрипта
-	$bg_bibrefs_cashe = "bg_bibrefs_cashe";				// Вкл. объектный кеш для загружаеммых книг Библии
 
-    $bg_content = 'bg_bibrefs_content';					// Контейнер, внутри которого будут отображаться подсказки
+    $bg_bibrefs_ajaxurl = "bg_bibrefs_ajaxurl";			// Внешний AJAX Proxy
+	$bg_content = 'bg_bibrefs_content';					// Контейнер, внутри которого будут отображаться подсказки
 	$links_class = 'bg_bibrefs_class';					// CSS класс для ссылок на Библию
 	$bg_refs_file = 'bg_bibrefs_refs_file';				// Пользовательский файл цитат из Библии
 	
@@ -81,8 +85,8 @@ function bg_bibrefs_options_page() {
 	$bg_bibrefs_preq_val = get_option( $bg_bibrefs_preq );
 	
 	$bg_bibrefs_maxtime_val = (int) get_option($bg_bibrefs_maxtime);
-	$bg_bibrefs_cashe_val = get_option($bg_bibrefs_cashe);
 
+	$bg_bibrefs_ajaxurl_val = get_option($bg_bibrefs_ajaxurl);
     $bg_content_val = get_option( $bg_content );
     $class_val = get_option( $links_class );
     $bg_refs_file_val = get_option( $bg_refs_file );
@@ -160,8 +164,8 @@ function bg_bibrefs_options_page() {
 		$bg_bibrefs_maxtime_val = ( isset( $_POST[$bg_bibrefs_maxtime] ) && $_POST[$bg_bibrefs_maxtime] ) ? $_POST[$bg_bibrefs_maxtime] : '' ;
 		update_option( $bg_bibrefs_maxtime, $bg_bibrefs_maxtime_val );
 
-		$bg_bibrefs_cashe_val = ( isset( $_POST[$bg_bibrefs_cashe] ) && $_POST[$bg_bibrefs_cashe] ) ? $_POST[$bg_bibrefs_cashe] : '' ;
-		update_option( $bg_bibrefs_cashe, $bg_bibrefs_cashe_val );
+		$bg_bibrefs_ajaxurl_val = ( isset( $_POST[$bg_bibrefs_ajaxurl] ) && $_POST[$bg_bibrefs_ajaxurl] ) ? $_POST[$bg_bibrefs_ajaxurl] : '' ;
+		update_option( $bg_bibrefs_ajaxurl, $bg_bibrefs_ajaxurl_val );
 
 		$bg_content_val = ( isset( $_POST[$bg_content] ) && $_POST[$bg_content] ) ? $_POST[$bg_content] : '' ;
 		update_option( $bg_content, $bg_content_val );
@@ -187,28 +191,54 @@ function bg_bibrefs_options_page() {
 <div class="wrap">
 <!--  Заголовок -->
 <h2><?php _e( 'Bg Bible References Plugin Options', 'bg_bibrefs' ); ?></h2>
+<div id="bg_bibrefs_resalt"></div>
 <p><?php printf( __( 'Version', 'bg_bibrefs' ).' <b>'.get_plugin_version().'</b>' ); ?></p>
 
+<h2 class="nav-tab-wrapper">
+	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=links" class="nav-tab <?php echo $active_tab == 'links' ? 'nav-tab-active' : ''; ?>"><?php _e('Links', 'bg_bibrefs') ?></a>
+	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=settings" class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>"><?php _e('Settings', 'bg_bibrefs') ?></a>
+	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=additional" class="nav-tab <?php echo $active_tab == 'additional' ? 'nav-tab-active' : ''; ?>"><?php _e('Additional options', 'bg_bibrefs') ?></a>
+	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=bible" class="nav-tab <?php echo $active_tab == 'bible' ? 'nav-tab-active' : ''; ?>"><?php _e('Bible books', 'bg_bibrefs') ?></a>
+</h2>
+
+<!-- Загрузка книг Библии -->
+<?php if ($active_tab == 'bible') { 
+
+	include_once ('books.php');
+
+    //Create an instance of our package class...
+    $bg_bibrefs_bible_ListTable = new bg_bibrefs_Bible_List_Table();
+    //Fetch, prepare, sort, and filter our data...
+    $bg_bibrefs_bible_ListTable->prepare_items();
+    
+?>
+<div class="wrap">
+	<div id="icon-users" class="icon32"><br/></div>
+	<h2><?php _e('Choice Bible books', 'bg_bibrefs') ?></h2>
+<!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
+	<form id="bg_bibrefs_books" method="get"> 
+		<!-- For plugins, we also need to ensure that the form posts back to our current page -->
+		<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+		<input type="hidden" name="tab" value="<?php echo $_REQUEST['tab'] ?>" />
+		<!-- Now we can render the completed list table -->
+		<?php $bg_bibrefs_bible_ListTable->display(); ?>
+	</form> 
+</div>
+<?php } else { ?>
 
 <!-- Форма настроек -->
 <form name="form1" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 
 <!--  Основные параметры -->
+
 <!--  Адрес ссылки -->
-<details>
-<summary><strong><?php _e( 'Links to... (select the site)', 'bg_bibrefs' ); ?></strong></summary>
-
-<table class="form-table">
-
+<table class="form-table" style="display: <?php echo $active_tab == 'links' ? '' : 'none'; ?>;">
 <tr valign="top">
 <th scope="row">
 <input type="radio" id="bg_bibrefs_site1" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="azbyka") echo "checked" ?> value="azbyka" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?>
-</th><td></td></tr>
-
-<tr valign="top" id="bg_bibrefs_azbyka_lang">
-<th scope="row"></th>
-<td>
-<div >
+</th>
+<td id="bg_bibrefs_azbyka_lang">
+<div>
 <?php printf(__('Languages of the Bible text on', 'bg_bibrefs' ).' <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>'); ?><br />
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 <input type="checkbox" id="c_lang" name="<?php echo $c_lang_name ?>" <?php if($c_lang_val=="c") echo "checked" ?> value="c" onclick='c_lang_checked();'> <?php _e('Church Slavic', 'bg_bibrefs' ); ?><br />
@@ -239,11 +269,8 @@ c_lang_checked();
 <tr valign="top">
 <th scope="row">
 <input type="radio" id="bg_bibrefs_site2" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="this") echo "checked" ?> value="this" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to this site', 'bg_bibrefs' ); ?><br />
-</th><td></td></tr>
-
-<tr valign="top" id="bg_bibrefs_permalink">
-<th scope="row"></th>
-<td>
+</th>
+<td id="bg_bibrefs_permalink">
 <?php _e('Permalink to page for search result', 'bg_bibrefs' ); ?><br />
 <input type="text" id="bg_bibrefs_page" name="<?php echo $bg_bibrefs_page ?>" size="60" value="<?php echo $bg_bibrefs_page_val ?>"><br />
 </td></tr>
@@ -272,11 +299,30 @@ function bg_bibrefs_site_checked() {
 }
 bg_bibrefs_site_checked();
 </script>
-</td></tr></table>
-<hr>
-</details>
-<table class="form-table">
+</td></tr>
 
+<tr valign="top">
+<th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_interpret" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibrefs' ); ?> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Enable links to the parallel passages in the Bible', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_parallel" name="<?php echo $bg_parallel ?>" <?php if($bg_parallel_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibrefs' ); ?> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Convert references to the normalized form', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_norm_refs" name="<?php echo $bg_norm_refs ?>" <?php if($bg_norm_refs_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+</table>
+
+<!--  Главные настройки -->
+<table class="form-table" style="display: <?php echo $active_tab == 'settings' ? '' : 'none'; ?>;">
 <tr valign="top">
 <th scope="row"><?php _e('Language of references and tooltips', 'bg_bibrefs' ); ?></th>
 <td>
@@ -298,46 +344,26 @@ bg_bibrefs_site_checked();
 	?>
 </select>
 </td></tr>
+
 <tr valign="top">
 <th scope="row"><?php _e('Show original verse numbers', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="checkbox" id="bg_show_fn" name="<?php echo $bg_show_fn ?>" <?php if($bg_show_fn_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Show the original verse numbers in parentheses after the verse numbers of Russian Synodal Translation in the tooltips and quotes.<br>Verses marked with asterisk * are absent in the original translation. * - always visible!)</i>', 'bg_bibrefs' ); ?> <br />
 </td></tr>
+
 <tr valign="top">
 <th scope="row"><?php _e('Open links', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="radio" id="blank_window" name="<?php echo $target_window ?>" <?php if($target_val=="_blank") echo "checked" ?> value="_blank"> <?php _e('in new window', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="self_window" name="<?php echo $target_window ?>" <?php if($target_val=="_self") echo "checked" ?> value="_self"> <?php _e('in current window', 'bg_bibrefs' ); ?><br />
 </td></tr>
+
 <tr valign="top">
 <th scope="row"><?php _e('Highlight references in the headers H1...H6', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="checkbox" id="bg_headers" name="<?php echo $bg_headers ?>" <?php if($bg_headers_val=="on") echo "checked" ?>  value="on"> <br />
 </td></tr>
-<tr valign="top">
-<th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibrefs' ); ?></th>
-<td>
-<input type="checkbox" id="bg_interpret" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibrefs' ); ?> <br />
-</td></tr>
 
-<tr valign="top">
-<th scope="row"><?php _e('Enable links to the parallel passages in the Bible', 'bg_bibrefs' ); ?></th>
-<td>
-<input type="checkbox" id="bg_parallel" name="<?php echo $bg_parallel ?>" <?php if($bg_parallel_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibrefs' ); ?> <br />
-</td></tr>
-
-<tr valign="top">
-<th scope="row"><?php _e('Convert references to the normalized form', 'bg_bibrefs' ); ?></th>
-<td>
-<input type="checkbox" id="bg_norm_refs" name="<?php echo $bg_norm_refs ?>" <?php if($bg_norm_refs_val=="on") echo "checked" ?>  value="on"> <br />
-</td></tr>
-</table>
-
-<!--  Дополнительные параметры -->
-<details>
-<summary><strong><?php _e( 'Additional options...', 'bg_bibrefs' ); ?></strong></summary>
-
-<table class="form-table">
 <tr valign="top">
 <th scope="row"><?php _e('Show Bible verses in popup', 'bg_bibrefs' ); ?></th>
 <td>
@@ -376,9 +402,12 @@ function bg_bibrefs_prereq() {
 	}
 }
 bg_bibrefs_prereq();
-
 </script>
  
+</table>
+
+<!--  Дополнительные параметры -->
+<table class="form-table" style="display: <?php echo $active_tab == 'additional' ? '' : 'none'; ?>;">
 <tr valign="top">
 <th scope="row"><?php _e('The maximum execution time', 'bg_bibrefs') ?></th>
 <td>
@@ -410,9 +439,13 @@ reading_off_checked();
 </script>
 
 <tr valign="top">
-<th scope="row"><?php _e('Object cashe for downloaded Bible books', 'bg_bibrefs' ); ?></th>
+<th scope="row"><?php _e('External AJAX Proxy', 'bg_bibrefs' ); ?></th>
 <td>
-<input type="checkbox" id="bg_bibrefs_cashe" name="<?php echo $bg_bibrefs_cashe ?>" <?php if($bg_bibrefs_cashe_val=="on") echo "checked" ?>  value="on">
+<input type="text" id="bg_bibrefs_ajaxurl" name="<?php echo $bg_bibrefs_ajaxurl ?>" size="60" value="<?php echo $bg_bibrefs_ajaxurl_val ?>"><br />
+<details>
+<summary><?php _e('Add into <em>functions.php</em> on this server the following PHP-code (see bellow)'); ?></summary>
+<?php printf ('<code>function allow_origin () {<br>&nbsp;&nbsp;&nbsp;&nbsp;header ( "Access-Control-Allow-Origin: %1$s" );<br>}<br>add_action ( "init", "allow_origin" );</code>', 'bg_bibrefs', get_site_url()); ?>
+</details>
 </td></tr>
 
 <tr valign="top">
@@ -440,12 +473,15 @@ reading_off_checked();
 </td></tr>
 
 </table>
-</details>
+
 <p class="submit">
 <input type="submit" name="Submit" class="button-primary" value="<?php _e('Update Options', 'bg_bibrefs' ) ?>" />
 </p>
 
 </form>
+
+<?php } ?>
+
 </div>
 </td>
 
@@ -504,11 +540,14 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibrefs_preload');
 	add_option('bg_bibrefs_prereq');
 	add_option('bg_bibrefs_maxtime', "60");
-	add_option('bg_bibrefs_cashe');
+	add_option('bg_bibrefs_ajaxurl', "");
 	add_option('bg_bibrefs_content', "#content");
 	add_option('bg_bibrefs_class', "bg_bibrefs");
 	add_option('bg_bibrefs_refs_file', "");
 	add_option('bg_bibrefs_debug', "");
+	
+	add_option('bg_bibrefs_version', 0 );
+	add_option('bg_bibrefs_folders', array('ru'));
 }
 
 // Очистка таблицы параметров при удалении плагина
@@ -536,6 +575,7 @@ function bg_bibrefs_deinstall() {
 	delete_option('bg_bibrefs_prereq');
 	delete_option('bg_bibrefs_maxtime');
 	delete_option('bg_bibrefs_cashe');
+	delete_option('bg_bibrefs_ajaxurl');
 	delete_option('bg_bibrefs_content');
 	delete_option('bg_bibrefs_class');
 	delete_option('bg_bibrefs_refs_file');
@@ -543,6 +583,9 @@ function bg_bibrefs_deinstall() {
 
 	delete_option('bg_bibrefs_submit_hidden');
 	delete_option('bg_bibrefs_options_udate');
+	
+	delete_option('bg_bibrefs_version');
+	delete_option('bg_bibrefs_folders');
 }
 
 function bg_bibrefs_get_options () {
@@ -588,7 +631,6 @@ function bg_bibrefs_get_options () {
     $bg_bibrefs_option['preq'] = get_option('bg_bibrefs_prereq' );
 	
     $bg_bibrefs_option['maxtime'] = (int) get_option( 'bg_bibrefs_maxtime' );
-    $bg_bibrefs_option['cashe'] = get_option( 'bg_bibrefs_cashe' );
 	
     $bg_bibrefs_option['refs_file'] = get_option( 'bg_bibrefs_refs_file' );
 	
@@ -654,7 +696,6 @@ function bg_bibrefs_change_options () {
 							'bg_bibrefs_preload',
 							'bg_bibrefs_prereq',
 							'bg_bibrefs_maxtime',
-							'bg_bibrefs_cashe',
 							'bg_bibrefs_refs_file',
 							'bg_bibrefs_debug');
 
@@ -677,4 +718,59 @@ function bg_bibrefs_change_options () {
 	}
 	add_option('bg_bibrefs_options_udate', "updated");
 }
+    /** ************************************************************************
+     * Добавить папку с Библией на сайт
+     **************************************************************************/
+	function bg_bibrefs_addFolder($book) {
+		global $bg_bibrefs_sourse_url;
+	
+		$sourse_url = $bg_bibrefs_sourse_url.$book;
+		$local_url = dirname(dirname(__FILE__ )).'/'.$book;
+		$subfolder = dirname(dirname(__FILE__ )).'/bible/'.basename($book, ".zip").'/';
+		if (!file_exists($local_url)) {
+			if (copy ( $sourse_url, $local_url )) {
+				$zip = new ZipArchive; 
+				$zip->open($local_url); 
+				$zip->extractTo($subfolder); 
+				$zip->close(); 
+				unlink ( $local_url );
+			}		
+			$folders = bg_bibrefs_getFolders();
+			update_option( 'bg_bibrefs_folders', $folders );
+		}
+	}
+    /** ************************************************************************
+     * Удалить папку с Библией с сайта
+     **************************************************************************/
+	function bg_bibrefs_removeFolder($book) {
+ 		$path = dirname(dirname( __FILE__ )).'/bible/';
+		$dir=$path.basename($book, ".zip"); 
+		if ($objs = glob($dir."/*")) {
+			foreach($objs as $obj) {
+				is_dir($obj) ? bg_bibrefs_removeFolder($obj) : unlink($obj);
+			}
+		}
+		@rmdir($dir);
+		$folders = bg_bibrefs_getFolders();
+		update_option( 'bg_bibrefs_folders', $folders );
+	}
+    /** ************************************************************************
+     * Получить список папок с Библией на сайте
+     **************************************************************************/
+	function bg_bibrefs_getFolders() {
+		$folders = array();
+		$path = dirname(dirname( __FILE__ )).'/bible/';
+		$id = 0;
+		if ($handle = @opendir($path)) {
+			while (false !== ($dir = readdir($handle))) { 
+				if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+					$folders[$id] = $dir;
+					$id++;
+				}
+			}
+			closedir($handle); 
+		}
+		return $folders;
+	}
+
 

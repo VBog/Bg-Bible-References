@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 4.4.0
+Tested up to: 4.4.2
 
 Stable tag: trunk
 
@@ -114,6 +114,17 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Виджет "Поиск в Библии" позволяет разместить в сайдбаре форму для поиска слова или фразы Библии. 
 * Виджет "Цитата из Библии" выводит в сайдбаре Случайную Цитату или Цитату Дня из Библии, аналогично тому, как это делает шорт-код [bible_epigraph].
 
+Настройки плагина включают файловый менеджер для библейских книг. Вы можете добавлять и удалять папки с книгами Библии на вашем сайте.
+
+Вы также можете получать отрывки из Библии от внешнего AJAX Proxy. Введите путь к внешнему AJAX Proxy (например, http://my-ajax-server.com/wp-admin/admin-ajax.php) в настройках.
+
+Кроме того, добавьте в *functions.php* на этом сервере следующий PHP-код:
+`function allow_origin () {
+    header ( "Access-Control-Allow-Origin: http://my-site.com " );
+}
+add_action ( "init", "allow_origin" );`
+
+
 
 ### English plugin discription
 
@@ -206,6 +217,17 @@ The plugin contains 3 widgets:
 * Bible Search Widget allows you to place the form in the sidebar to search for words or phrases in the Bible.
 * Bible Quote Widget in the sidebar displays a Random Quote or Day's Quote from the Bible the same way as it makes the shortcode [bible_epigraph].
 
+Plugin settings include the file manager for Bible books. You can add and delete folders with Bible books on your site.
+
+You can receive Bible verses from external AJAX Proxy. Enter path to external AJAX Proxy (e.g. http://my-ajax-server.com/wp-admin/admin-ajax.php) in settings. 
+
+Also add into *functions.php* on this server the following PHP-code
+`function allow_origin () {
+    header ( "Access-Control-Allow-Origin: http://my-site.com " );
+}
+add_action ( "init", "allow_origin" );`
+
+
 == Installation ==
 
 1. Upload 'bg-biblie-references' directory to the '/wp-content/plugins/' directory.
@@ -231,6 +253,11 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.12.0 =
+
+* Added file manager for Bible books.
+* Now you can receive Bible verses from external AJAX Proxy.
 
 = 3.11.7 =
 
@@ -573,7 +600,10 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-== Changelog ==
+= 3.12.0 =
+
+* Added file manager for Bible books.
+* Now you can receive Bible verses from external AJAX Proxy.
 
 = 3.11.7 =
 

@@ -15,8 +15,8 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 *******************************************************************************/  
 	if (!$book) return "";
 	if (!$bg_bibrefs_bookFile[$book]) return "";
-	$key='bible-'.$book.'_'.$lang;
-	if (!$bg_bibrefs_option['cashe'] || (false===($code=wp_cache_get($key,'bg-bible-refs'))) ){
+//	$key='bible-'.$book.'_'.$lang;
+//	if (!$bg_bibrefs_option['cashe'] || (false===($code=wp_cache_get($key,'bg-bible-refs'))) ){
 		$book_file = 'bible/'.$bg_bibrefs_bookFile[$book];										// Имя файла книги
 
 	// Получаем данные из файла	
@@ -49,8 +49,8 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 
 		if (!$code) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
 
-		if ($bg_bibrefs_option['cashe']) wp_cache_set($key,$code,'bg-bible-refs',3600);		
-	}	
+//		if ($bg_bibrefs_option['cashe']) wp_cache_set($key,$code,'bg-bible-refs',3600);		
+//	}	
 // Преобразовать json в массив
 	$json = json_decode($code, true);															
 

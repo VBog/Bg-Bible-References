@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.11.7
+    Version: 3.12.0
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.11.7');
+define('BG_BIBREFS_VERSION', '3.12.0');
 
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
@@ -52,23 +52,14 @@ function bg_enqueue_frontend_scripts () {
     $bg_preq_val = get_option( 'bg_bibrefs_prereq' );
 	if ($bg_preq_val == 'on') $preq = 1;
 	else $preq = 0;
-	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js?preq='.$preq.'&content='.urlencode (get_option( "bg_bibrefs_content" )).'&ajaxurl='.urlencode (admin_url('admin-ajax.php')) , __FILE__ ), false, BG_BIBREFS_VERSION, true );
-}
-/*
-function bg_bibrefs_js_options () { 
-//	$content="#content";
 	$content=get_option( "bg_bibrefs_content" );
-?>
-<script> 
-	var bg_bibrefs_content='<?php echo $content; ?>';
-	var bg_bibrefs_ajaxurl='"<?php echo admin_url('admin-ajax.php'); ?>"';
-</script>
-<?php
-}
-*/
+    $ajaxurl = trim(get_option( 'bg_bibrefs_ajaxurl' ));
+	if (!$ajaxurl) $ajaxurl=admin_url('admin-ajax.php');
+	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js', __FILE__ ), false, BG_BIBREFS_VERSION, true );
+	wp_localize_script( 'bg_bibrefs_proc', 'bg_bibrefs', array( 'ajaxurl' => $ajaxurl, 'content' => $content, 'preq' => $preq ) );
+}	 
 if ( !is_admin() ) {
 	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' ); 
-//	add_action( 'wp_head' , 'bg_bibrefs_js_options' ); 
 }
 
 // Загрузка интернационализации
@@ -112,6 +103,38 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 	bg_bibrefs_options_ini ();	
 	bg_bibrefs_get_options ();
 }
+$bg_bibrefs_sourse_url = "http://plugins.svn.wordpress.org/bg-biblie-references/bible/";
+
+// Функция, исполняемая при активации плагина.
+function  bg_bibrefs_activate() {
+	if ( version_compare( $version, BG_BIBREFS_VERSION, '<' ) ) {
+		$folders=get_option('bg_bibrefs_folders');
+		if (!$folders) $folders = array("ru");			// Если нет папок, то по умолчанию русский язык
+		foreach ($folders as $book) bg_bibrefs_addFolder($book.'.zip');
+
+		update_option( 'bg_bibrefs_version', BG_BIBREFS_VERSION );
+	}
+}
+
+register_activation_hook( __FILE__, 'bg_bibrefs_activate' );
+
+// Проверяем текущую версию плагина и обновляем папки с книгами Библии
+function bg_bibrefs_upload_folders() {
+	$version = get_option('bg_bibrefs_version');
+	if (!$version) {
+		$folders=array('be','cu','en','ru','uk');
+		update_option( 'bg_bibrefs_folders', $folders );
+	}
+	if ( version_compare( $version, BG_BIBREFS_VERSION, '<' ) ) {
+		$folders=get_option('bg_bibrefs_folders');
+		if (!$folders) $folders = array("ru");			// Если нет папок, то по умолчанию русский язык
+		foreach ($folders as $book) bg_bibrefs_addFolder($book.'.zip');
+
+		update_option( 'bg_bibrefs_version', BG_BIBREFS_VERSION );
+	}
+}
+add_action( 'plugins_loaded', 'bg_bibrefs_upload_folders' );
+
 
 /*****************************************************************************************
 	Функции установки языка Библии 
@@ -133,8 +156,10 @@ function set_bible_lang() {
 		$bible_lang = $bible_lang_posts_val;									// то язык из поста (4)
 	
 	$file_books = dirname( __FILE__ ).'/bible/'.$bible_lang.'/books.php';		// Если для установеннного языка отсутствует каталог с Библией,
-	if (!file_exists($file_books)) $bible_lang = 'en';							// то по умолчанию английский язык
+	if (!file_exists($file_books)) $bible_lang = 'ru';							// то по умолчанию русский язык (5)
 
+	$file_books = dirname( __FILE__ ).'/bible/'.$bible_lang.'/books.php';		// Если для русского языка отсутствует каталог с Библией,
+	if (!file_exists($file_books)) $bible_lang = '';							// то язык не установлен
 	return $bible_lang;
 }
 
@@ -148,7 +173,7 @@ function include_books($lang) {
 	
 	$file_books = dirname( __FILE__ ).'/bible/'.$lang.'/books.php';
 	if (!file_exists($file_books)) $lang = set_bible_lang(); // Если язык задан неверно, устанавливаем язык системы
-	include(dirname(__FILE__ ).'/bible/'.$lang.'/books.php');
+	if ($lang) include(dirname(__FILE__ ).'/bible/'.$lang.'/books.php');
 	return $lang;
 }
 
@@ -407,10 +432,7 @@ add_action ('wp_ajax_nopriv_bg_bibrefs', 'bg_bibrefs_callback');
 
 function bg_bibrefs_callback() {
 	
-	if ( isset($_GET["blang"]) ) {
-		$blang = $_GET["blang"];
-		bg_bibrefs_booklist ($blang);
-	}
+	if ( isset($_GET["blang"]) ) bg_bibrefs_booklist ($_GET["blang"]);		
 	else {
 		$title = $_GET["title"];
 		$chapter = $_GET["chapter"];

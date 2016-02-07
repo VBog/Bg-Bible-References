@@ -2,8 +2,6 @@
 var bg_bibrefs_tipWidth;
 var bg_bibrefs_tipMaxHeight;	
 var bg_bibrefs_tipTop;	
-var bg_bibrefs_ajaxurl;
-var bg_bibrefs_content;
 
 /*******************************************************************************
    При создании страницы для всех элементов 'a.bg_data_title' 
@@ -16,11 +14,9 @@ jQuery(document).ready(function(){
 	bg_bibrefs_tipWidth = parseInt(tooltip.css('width'));
 	bg_bibrefs_tipMaxHeight = parseInt(tooltip.css('max-height'));	
 	bg_bibrefs_tipTop = parseInt(tooltip.css('top'));	
+	
 
-	var allParams = parseUrlQuery();
-	bg_bibrefs_ajaxurl = decodeURIComponent (allParams.ajaxurl);
-	bg_bibrefs_content = decodeURIComponent (allParams.content);
-	if (allParams.preq != '1') return; 							// Запрет на предварительную загрузку
+	if (bg_bibrefs.preq != '1') return; 							// Запрет на предварительную загрузку
 
 	jQuery('span.bg_data_title').each (function(){
 		var el = jQuery(this);
@@ -32,7 +28,7 @@ jQuery(document).ready(function(){
 				cache: false,
 				async: true,									// Асинхронный запрос
 				dataType: 'text',
-				url: bg_bibrefs_ajaxurl+el.attr('data-title'),	// Запрос стихов Библии
+				url: bg_bibrefs.ajaxurl+el.attr('data-title'),	// Запрос стихов Библии
 				data: {
 					action: 'bg_bibrefs',
 					func: 'each'
@@ -67,8 +63,7 @@ jQuery('span.bg_data_title')
 		var tooltip = el.children('span.bg_data_tooltip');	
 		if (tooltip.css('position')=='fixed') return;
 
-		var allParams = parseUrlQuery();
-		if (el.attr('data-title') != "" && allParams.preq == '0') {	// Книга задана
+		if (el.attr('data-title') != "" && bg_bibrefs.preq == '0') {	// Книга задана
 		bg_bibrefs_intervalID = setTimeout(	function() {
 			var ttl= el.attr('title');							// Сохраняем на всякий случай содержимое стандартной подсказки
 			el.attr('title', "");								// Убираем стандартную подсказку
@@ -78,7 +73,7 @@ jQuery('span.bg_data_title')
 				cache: false,
 				async: true,									// Асинхронный запрос
 				dataType: 'text',
-				url: bg_bibrefs_ajaxurl+el.attr('data-title'),	// Запрос стихов Библии
+				url: bg_bibrefs.ajaxurl+el.attr('data-title'),	// Запрос стихов Библии
 				data: {
 					action: 'bg_bibrefs',
 					func: 'mouseenter'
@@ -139,7 +134,7 @@ function tooltip_mini(tooltip, el, e) {
 
 	var padding = parseInt(tooltip.css('paddingLeft'))+parseInt(tooltip.css('paddingRight'))+parseInt(tooltip.css('border-Left-Width'))+parseInt(tooltip.css('border-Right-Width'));
 	// Координаты контейнера, внутри которого будут отображаться подсказки. Например для <div id="content">, это "#content"
-	var content = jQuery(bg_bibrefs_content);
+	var content = jQuery(bg_bibrefs.content);
 	if (content.length < 1) content = jQuery('body');	// Если тема не содержит, указанный контейнер, то определяем положение body
 	var c_left = content.position().left+parseInt(content.css('paddingLeft'))+parseInt(content.css('marginLeft'))+parseInt(content.css('border-Left-Width'));
 	var c_right =c_left+content.width();
