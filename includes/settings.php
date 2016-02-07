@@ -443,8 +443,8 @@ reading_off_checked();
 <td>
 <input type="text" id="bg_bibrefs_ajaxurl" name="<?php echo $bg_bibrefs_ajaxurl ?>" size="60" value="<?php echo $bg_bibrefs_ajaxurl_val ?>"><br />
 <details>
-<summary><?php _e('Add into <em>functions.php</em> on this server the following PHP-code (see bellow)'); ?></summary>
-<?php printf ('<code>function allow_origin () {<br>&nbsp;&nbsp;&nbsp;&nbsp;header ( "Access-Control-Allow-Origin: %1$s" );<br>}<br>add_action ( "init", "allow_origin" );</code>', 'bg_bibrefs', get_site_url()); ?>
+<summary><?php _e('Add into <em>functions.php</em> on this server the following PHP-code (see bellow)', "bg_bibrefs"); ?></summary>
+<?php printf ('<code>function allow_origin () {<br>&nbsp;&nbsp;&nbsp;&nbsp;header ( "Access-Control-Allow-Origin: %1$s" );<br>}<br>add_action ( "init", "allow_origin" );</code>', get_site_url()); ?>
 </details>
 </td></tr>
 
