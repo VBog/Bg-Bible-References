@@ -120,7 +120,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Кроме того, добавьте в *functions.php* на этом сервере следующий PHP-код:
 `function allow_origin () {
-    header ( "Access-Control-Allow-Origin: http://my-site.com " );
+    header ( "Access-Control-Allow-Origin: http://my-site1.com " );
+    header ( "Access-Control-Allow-Origin: http://my-site2.com " );
+	...
+    header ( "Access-Control-Allow-Origin: http://my-siteN.com " );
 }
 add_action ( "init", "allow_origin" );`
 
@@ -223,7 +226,10 @@ You can receive Bible verses from external AJAX Proxy. Enter path to external AJ
 
 Also add into *functions.php* on this server the following PHP-code
 `function allow_origin () {
-    header ( "Access-Control-Allow-Origin: http://my-site.com " );
+    header ( "Access-Control-Allow-Origin: http://my-site1.com " );
+    header ( "Access-Control-Allow-Origin: http://my-site2.com " );
+	...
+    header ( "Access-Control-Allow-Origin: http://my-siteN.com " );
 }
 add_action ( "init", "allow_origin" );`
 
