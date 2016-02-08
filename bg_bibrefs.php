@@ -107,13 +107,25 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 
 // Функция, исполняемая при активации плагина.
 function  bg_bibrefs_activate() {
-	if ( version_compare( $version, BG_BIBREFS_VERSION, '<' ) ) {
-		$folders=get_option('bg_bibrefs_folders', array("ru"));
-		foreach ($folders as $book) {
-			bg_bibrefs_addFolder($book.'.zip');
+	$folders=array("ru");
+	$bible_lang = get_bloginfo('language');	
+	$bible_lang = substr($bible_lang,0, 2);
+	$xml = @file_get_contents(BG_BIBREFS_SOURCE_URL."filelist.xml");
+	if ($xml) {
+		$files = json_decode(json_encode((array)simplexml_load_string($xml)),1);
+		$file = $files['file'];
+		foreach ($file as $f){
+			$lang = basename($f['filename'], ".zip");
+			if ($lang == $bible_lang) {
+				$folders=array($lang);
+				break;
+			}
 		}
-		update_option( 'bg_bibrefs_version', BG_BIBREFS_VERSION );
 	}
+	foreach ($folders as $book) {
+		bg_bibrefs_addFolder($book.'.zip');
+	}
+	update_option( 'bg_bibrefs_version', BG_BIBREFS_VERSION );
 }
 
 register_activation_hook( __FILE__, 'bg_bibrefs_activate' );
