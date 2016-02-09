@@ -89,7 +89,7 @@ if ( defined('ABSPATH') && defined('WPINC') ) {
 // Регистрируем шорт-код bible
 	add_shortcode( 'bible', 'bg_bibrefs_qoutes' );
 // Регистрируем шорт-код bible_epigraph
-	add_shortcode( 'bible_epigraph', 'bg_bibrefs_bible_epigraph' );
+	add_shortcode( 'bible_epigraph', 'bg_bibrefs_epigraph' );
 // Регистрируем шорт-код references
 	add_shortcode( 'references', 'bg_bibrefs_references' );
 // Регистрируем шорт-код norefs
@@ -220,6 +220,10 @@ function bg_bibrefs_qoutes( $atts, $content=null ) {
 		'lang' => '',
 		'prll' => ''
 	), $atts ) );
+	$quote = bg_bibrefs_bible( $ref, $book, $ch, $type, $lang, $prll, $content );
+	return "{$quote}";
+}
+function bg_bibrefs_bible( $ref='', $book='', $ch='1-999', $type='verses', $lang='', $prll='', $content=null ) {
 // Если $ref задано значение "get", то получаем $book и $ch из ссылки	
 	if ($ref == "get") {
 		$ref = $_GET["bs"];
@@ -248,19 +252,18 @@ function bg_bibrefs_qoutes( $atts, $content=null ) {
 		if ($class_val == "") $class_val = 'bg_bibrefs';
 		$quote = "<span class='".$class_val."'>".$quote."</span>";
 	}
-	return "{$quote}";
+	return $quote;
 }
-
 // [bible_epigraph]
-function bg_bibrefs_bible_epigraph( $atts ) {
+function bg_bibrefs_epigraph( $atts ) {
 	extract( shortcode_atts( array(
 		'ref' => 'rnd',
 		'lang' => ''
 	), $atts ) );
-	$quote = bg_bibrefs_get_bible_epigraph( $ref, $lang );
+	$quote = bg_bibrefs_bible_epigraph( $ref, $lang );
 	return "{$quote}";
 }
-function bg_bibrefs_get_bible_epigraph( $ref, $lang ) {
+function bg_bibrefs_bible_epigraph( $ref='rnd', $lang='' ) {
 	if (!$lang) $lang = set_bible_lang();
 	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibrefs_bible_quote_refs($ref, $lang);
 	if ($ref != "") $quote = bg_bibrefs_bible_proc($ref, 'quote', $lang);

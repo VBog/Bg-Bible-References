@@ -264,6 +264,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 * Added file manager for Bible books.
 * Now you can receive Bible verses from external AJAX Proxy.
+* Functions -  analogs of the shortcodes: `bg_bibrefs_bible ( (string) $ref='', (string) $book='', (string) $ch='1-999', (string) $type='verses', (string) $lang='',(string)  $prll='' )` and `bg_bibrefs_bible_epigraph ( (string) $ref='rnd', (string) $lang='' )`.
 
 = 3.11.7 =
 
@@ -610,6 +611,7 @@ Warning: Some methods may not be available on your server.
 
 * Added file manager for Bible books.
 * Now you can receive Bible verses from external AJAX Proxy.
+* Functions -  analogs of the shortcodes: `bg_bibrefs_bible ( (string) $ref='', (string) $book='', (string) $ch='1-999', (string) $type='verses', (string) $lang='',(string)  $prll='' )` and `bg_bibrefs_bible_epigraph ( (string) $ref='rnd', (string) $lang='' )`.
 
 = 3.11.7 =
 
