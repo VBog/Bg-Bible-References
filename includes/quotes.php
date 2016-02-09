@@ -358,10 +358,10 @@ function bg_bibrefs_optina($txt, $book, $chapter, $verse, $lang) {
 	if ($bg_bibrefs_option['interpret'] == 'on') {
 		$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
 		$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
-		return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
+		return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation on Optina Pustyn site', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
 	}
 	elseif ($bg_bibrefs_option['site'] == 'azbyka') {
-		return "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.":".$verse.$bg_bibrefs_option['azbyka']."' title='".(__( 'Click to go to the azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";	// Полный адрес ссылки на azbyka.ru
+		return "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.":".$verse.$bg_bibrefs_option['azbyka']."' title='".(__( 'Click to go to the Bible on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";	// Полный адрес ссылки на azbyka.ru
 	}
 	elseif ($bg_bibrefs_option['site'] == 'this') {
 		$page = $bg_bibrefs_option['page'];

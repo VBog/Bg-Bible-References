@@ -233,7 +233,7 @@ function bg_bibrefs_options_page() {
 <table class="form-table" style="display: <?php echo $active_tab == 'links' ? '' : 'none'; ?>;">
 <tr valign="top">
 <th scope="row">
-<input type="radio" id="bg_bibrefs_site1" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="azbyka") echo "checked" ?> value="azbyka" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?>
+<input type="radio" id="bg_bibrefs_site1" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="azbyka") echo "checked" ?> value="azbyka" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to the Bible on <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?>
 </th>
 <td id="bg_bibrefs_azbyka_lang">
 <div>
@@ -266,7 +266,7 @@ c_lang_checked();
 
 <tr valign="top">
 <th scope="row">
-<input type="radio" id="bg_bibrefs_site2" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="this") echo "checked" ?> value="this" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to this site', 'bg_bibrefs' ); ?><br />
+<input type="radio" id="bg_bibrefs_site2" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="this") echo "checked" ?> value="this" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to the Bible on this site', 'bg_bibrefs' ); ?><br />
 </th>
 <td id="bg_bibrefs_permalink">
 <?php _e('Permalink to page for search result', 'bg_bibrefs' ); ?><br />

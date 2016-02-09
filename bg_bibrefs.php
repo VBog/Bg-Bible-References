@@ -41,6 +41,9 @@ if ( !defined('ABSPATH') ) {
 define('BG_BIBREFS_VERSION', '3.12.0');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
+$bg_bibrefs_start_time = microtime(true);
+
+
 // Таблица стилей для плагина
 function bg_enqueue_frontend_styles () {
 	wp_enqueue_style( "bg_bibrefs_styles", plugins_url( '/css/styles.css', plugin_basename(__FILE__) ), array() , BG_BIBREFS_VERSION  );

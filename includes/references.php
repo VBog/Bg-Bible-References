@@ -18,7 +18,7 @@ $bg_bibrefs_all_refs=array();				// Перечень всех ссылок
     для работы требуется bg_bibrefs_get_url() - см. ниже
 *******************************************************************************************/
 function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
-	global $post;
+	global $post, $bg_bibrefs_start_time;
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_all_refs;
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
@@ -72,6 +72,23 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	$start = 0;
 	$j = 0;
 
+// Устанавливаем максимальное время работы скрипта
+	$maxtime = $bg_bibrefs_option['maxtime'];
+	if (!function_exists ('set_time_limit') || !(@set_time_limit ($maxtime))) {
+		$systemtime = ini_get('max_execution_time'); 
+		if (!$systemtime) $systemtime = 30;
+		else $systemtime = intval($systemtime);
+		$maxtime = $systemtime;
+	} else {
+		 $bg_bibrefs_start_time = microtime(true);
+	}
+	$time0 = 0;
+	$cycle_time = 1;
+	$stime = microtime(true);
+	$pretime = microtime(true) - $bg_bibrefs_start_time;
+	$maxtime = $maxtime - $pretime - 2;
+	if ($maxtime-$pretime < 2) return $txt;
+	
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {
 		$this_time = microtime(true)*1000;
@@ -80,17 +97,6 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 		$start_time = $this_time;
 	}
 /*******************************************************************/	
-
-// Устанавливаем максимальное время работы скрипта
-	$maxtime = $bg_bibrefs_option['maxtime'];
-	if (!(@set_time_limit ($maxtime))) {
-		$systemtime = ini_get('max_execution_time'); 
-		if (!$systemtime) $systemtime = 30;
-		$maxtime = $systemtime - 2;
-	}
-	$time0 = 0;
-	$cycle_time = 1;
-	$stime = microtime(true);
 
 	for ($i = 0; $i < $cnt; $i++) {
 		
