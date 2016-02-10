@@ -908,7 +908,7 @@ class QuotesWidget extends WP_Widget
 ?>
 		<aside id="bg-bibrefs-3" class="widget widget_bg-bibrefs">
 			<h2 class="widget-title"><?php echo $title; ?></h2>
-			<p> <?php $quote = bg_bibrefs_get_bible_epigraph( $ref, $lang );
+			<p> <?php $quote = bg_bibrefs_bible_epigraph( $ref, $lang );
 				echo $quote; ?>
 			</p>
 		</aside>
