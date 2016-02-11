@@ -258,7 +258,7 @@ function bg_bibrefs_linksKey( $linksKey, $lang) {
 }
 
 /*******************************************************************************
-	Создание ссылки на толкование Священного Писания на сайте Оптиной пустыни.
+	Создание ссылки на толкование Священного Писания 
   
 *******************************************************************************/  
 function bg_bibrefs_optina($txt, $book, $chapter, $verse, $lang) {
@@ -353,12 +353,202 @@ function bg_bibrefs_optina($txt, $book, $chapter, $verse, $lang) {
 		'Hebr'	 	=>'new:evr:',		//'Послание апостола Павла к Евреям', 
 		'Apok'	 	=>'new:otkr:');		//'Откровение Иоанна Богослова (Апокалипсис)'
 
-	global $bg_bibrefs_option;
+	
+$lopuhin = array(					// Таблица соответствия azbyka.ru и толкований Лопухина
+	// Ветхий Завет				
+	// Пятикнижие Моисея				
+	'Gen'	 	=>'tolkovaja_biblija_01',		//'Книга Бытия', 
+	'Ex'	 	=>'tolkovaja_biblija_02',		//'Книга Исход', 
+	'Lev'	 	=>'tolkovaja_biblija_03',		//'Книга Левит', 
+	'Num'	 	=>'tolkovaja_biblija_04',		//'Книга Числа', 
+	'Deut'	 	=>'tolkovaja_biblija_05',		//'Второзаконие',
+	// «Пророки» (Невиим) 				
+	'Nav'	 	=>'tolkovaja_biblija_06',		//'Книга Иисуса Навина',
+	'Judg'		=>'tolkovaja_biblija_07',		//'Книга Судей Израилевых', 
+	'Rth'	 	=>'tolkovaja_biblija_08',		//'Книга Руфь',
+	'1Sam'	 	=>'tolkovaja_biblija_09',		//'Первая книга Царств (Первая книга Самуила)', 
+	'2Sam'	 	=>'tolkovaja_biblija_10',		//'Вторая книга Царств (Вторая книга Самуила)', 
+	'1King' 	=>'tolkovaja_biblija_11',		//'Третья книга Царств (Первая книга Царей)', 
+	'2King' 	=>'tolkovaja_biblija_12',		//'Четвёртая книга Царств (Вторая книга Царей)',
+	'1Chron'	=>'tolkovaja_biblija_13',		//'Первая книга Паралипоменон (Первая книга Хроник, Первая Летопись)', 
+	'2Chron' 	=>'tolkovaja_biblija_14',		//'Вторая книга Паралипоменон (Вторая книга Хроник, Вторая Летопись)', 
+	'Ezr'		=>'tolkovaja_biblija_15',		//'Книга Ездры (Первая книга Ездры)', 
+	'Nehem' 	=>'tolkovaja_biblija_16',		//'Книга Неемии', 
+	'Est'	 	=>'tolkovaja_biblija_20',		//'Книга Есфири',  
+	// «Писания» (Ктувим)				
+	'Job'	 	=>'tolkovaja_biblija_21',		//'Книга Иова',
+	'Ps' 		=>'tolkovaja_biblija_22',		//'Псалтирь', 
+	'Prov'	 	=>'tolkovaja_biblija_23',		//'Книга Притчей Соломоновых', 
+	'Eccl'	 	=>'tolkovaja_biblija_24',		//'Книга Екклезиаста, или Проповедника', 
+	'Song'	 	=>'tolkovaja_biblija_25',		//'Песнь песней Соломона',
+					
+	'Is' 		=>'tolkovaja_biblija_28',		//'Книга пророка Исайи', 
+	'Jer' 		=>'tolkovaja_biblija_29',		//'Книга пророка Иеремии',
+	'Lam' 		=>'tolkovaja_biblija_30',		//'Книга Плач Иеремии', 
+	'Ezek'	 	=>'tolkovaja_biblija_33',		//'Книга пророка Иезекииля',
+	'Dan' 		=>'tolkovaja_biblija_34',		//'Книга пророка Даниила', 
+	// Двенадцать малых пророков 				
+	'Hos' 		=>'tolkovaja_biblija_35',		//'Книга пророка Осии', 
+	'Joel'	 	=>'tolkovaja_biblija_36',		//'Книга пророка Иоиля',
+	'Am' 		=>'tolkovaja_biblija_37',		//'Книга пророка Амоса', 
+	'Avd' 		=>'tolkovaja_biblija_38',		//'Книга пророка Авдия', 
+	'Jona'	 	=>'tolkovaja_biblija_39',		//'Книга пророка Ионы',
+	'Mic' 		=>'tolkovaja_biblija_40',		//'Книга пророка Михея', 
+	'Naum' 		=>'tolkovaja_biblija_41',		//'Книга пророка Наума',
+	'Habak' 	=>'tolkovaja_biblija_42',		//'Книга пророка Аввакума', 
+	'Sofon' 	=>'tolkovaja_biblija_43',		//'Книга пророка Софонии', 
+	'Hag' 		=>'tolkovaja_biblija_44',		//'Книга пророка Аггея', 
+	'Zah' 		=>'tolkovaja_biblija_45',		//'Книга пророка Захарии',
+	'Mal' 		=>'tolkovaja_biblija_46',		//'Книга пророка Малахии',
+	// Второканонические книги				
+	'1Mac'	 	=>'tolkovanie-na-pervuyu-knigu-makkavejskuyu',		//'Первая книга Маккавейская',
+	'2Mac'	 	=>'tolkovanie-na-vtoruyu-knigu-makkavejskuyu',		//'Вторая книга Маккавейская', 
+	'3Mac'	 	=>'tolkovanie-na-tretyu-knigu-makkavejskuyu',		//'Третья книга Маккавейская', 
+	'Bar' 		=>'',		//'Книга пророка Варуха', 
+	'2Ezr' 		=>'',		//'Вторая книга Ездры', 
+	'3Ezr' 		=>'',		//'Третья книга Ездры',
+	'Judf' 		=>'',		//'Книга Иудифи', 
+	'pJer' 		=>'',		//'Послание Иеремии', 
+	'Solom' 	=>'',		//'Книга Премудрости Соломона',
+	'Sir' 		=>'',		//'Книга Премудрости Иисуса, сына Сирахова', 
+	'Tov' 		=>'',		//'Книга Товита',
+	// Новый Завет				
+	// Евангилие				
+	'Mt' 		=>'tolkovaja_biblija_51',		//'Евангелие от Матфея',
+	'Mk' 		=>'tolkovaja_biblija_52',		//'Евангелие от Марка', 
+	'Lk' 		=>'tolkovaja_biblija_53',		//'Евангелие от Луки', 
+	'Jn' 		=>'tolkovaja_biblija_54',		//'Евангелие от Иоанна', 
+	// Деяния и послания Апостолов				
+	'Act' 		=>'tolkovaja_biblija_55',		//'Деяния святых Апостолов', 
+	'Jac'	 	=>'tolkovaja_biblija_56',		//'Послание Иакова', 
+	'1Pet'	 	=>'tolkovaja_biblija_57',		//'Первое послание Петра', 
+	'2Pet'	 	=>'tolkovaja_biblija_58',		//'Второе послание Петра',
+	'1Jn'	 	=>'tolkovaja_biblija_59',		//'Первое послание Иоанна', 
+	'2Jn'	 	=>'tolkovaja_biblija_60',		//'Второе послание Иоанна', 
+	'3Jn'	 	=>'tolkovaja_biblija_61',		//'Третье послание Иоанна',
+	'Juda'	 	=>'tolkovaja_biblija_62',		//'Послание Иуды', 
+	// Послания апостола Павла				
+	'Rom' 		=>'tolkovaja_biblija_63',		//'Послание апостола Павла к Римлянам', 
+	'1Cor'	 	=>'tolkovaja_biblija_64',		//'Первое послание апостола Павла к Коринфянам', 
+	'2Cor'	 	=>'tolkovaja_biblija_65',		//'Второе послание апостола Павла к Коринфянам',
+	'Gal' 		=>'tolkovaja_biblija_66',		//'Послание апостола Павла к Галатам', 
+	'Eph' 		=>'tolkovaja_biblija_67',		//'Послание апостола Павла к Ефесянам', 
+	'Phil'	 	=>'tolkovaja_biblija_68',		//'Послание апостола Павла к Филиппийцам', 
+	'Col' 		=>'tolkovaja_biblija_69',		//'Послание апостола Павла к Колоссянам',
+	'1Thes' 	=>'tolkovaja_biblija_70',		//'Первое послание апостола Павла к Фессалоникийцам (Солунянам)',
+	'2Thes' 	=>'tolkovaja_biblija_71',		//'Второе послание апостола Павла к Фессалоникийцам (Солунянам)',  
+	'1Tim' 		=>'tolkovaja_biblija_72',		//'Первое послание апостола Павла к Тимофею', 
+	'2Tim' 		=>'tolkovaja_biblija_73',		//'Второе послание апостола Павла к Тимофею',
+	'Tit' 		=>'tolkovaja_biblija_74',		//'Послание апостола Павла к Титу', 
+	'Phlm'	 	=>'tolkovaja_biblija_75',		//'Послание апостола Павла к Филимону', 
+	'Hebr'	 	=>'tolkovaja_biblija_76',		//'Послание апостола Павла к Евреям', 
+	'Apok'	 	=>'tolkovaja_biblija_77');		//'Откровение Иоанна Богослова (Апокалипсис)'
+
+	$lopuhin_book = array(		// Стандартные обозначение книг Священного Писания
+		// Ветхий Завет
+		// Пятикнижие Моисея															
+		'Gen'		=>"Быт.", 
+		'Ex'		=>"Исх.", 
+		'Lev'		=>"Лев.",
+		'Num'		=>"Чис.",
+		'Deut'		=>"Втор.",
+		// «Пророки» (Невиим) 
+		'Nav'		=>"Нав.",
+		'Judg'		=>"Суд.",
+		'Rth'		=>"Руф.",
+		'1Sam'		=>"1Цар.",
+		'2Sam'		=>"2Цар.",
+		'1King'		=>"3Цар.",
+		'2King'		=>"4Цар.",
+		'1Chron'	=>"1Пар.",
+		'2Chron'	=>"2Пар.",
+		'Ezr'		=>"Ездр.",
+		'Nehem'		=>"Неем.",
+		'Est'		=>"Эсф.",
+		// «Писания» (Ктувим)
+		'Job'		=>"Иов.",
+		'Ps'		=>"Пс.",
+		'Prov'		=>"Притч.", 
+		'Eccl'		=>"Еккл.",
+		'Song'		=>"Песн.",
+		'Is'		=>"Ис.",
+		'Jer'		=>"Иер.",
+		'Lam'		=>"Плч.",
+		'Ezek'		=>"Иез.",
+		'Dan'		=>"Дан.",	
+		// Двенадцать малых пророков 
+		'Hos'		=>"Ос.",
+		'Joel'		=>"Иоил.",
+		'Am'		=>"Ам.",
+		'Avd'		=>"Авд.",
+		'Jona'		=>"Ион.",
+		'Mic'		=>"Мих.",
+		'Naum'		=>"Наум.",
+		'Habak'		=>"Авв.",
+		'Sofon'		=>"Соф.",
+		'Hag'		=>"Агг.",
+		'Zah'		=>"Зах.",
+		'Mal'		=>"Мал.",
+		// Второканонические книги
+		'1Mac'		=>"1Мак.",
+		'2Mac'		=>"2Мак.",
+		'3Mac'		=>"3Мак.",
+		'Bar'		=>"Вар.",
+		'2Ezr'		=>"2Езд.",
+		'3Ezr'		=>"3Езд.",
+		'Judf'		=>"Иудиф.",
+		'pJer'		=>"ПослИер.",
+		'Solom'		=>"Прем.",
+		'Sir'		=>"Сир.",
+		'Tov'		=>"Тов.",
+		// Новый Завет
+		// Евангилие
+		'Mt'		=>"Мф.",
+		'Mk'		=>"Мк.",
+		'Lk'		=>"Лк.",
+		'Jn'		=>"Ин.",
+		// Деяния и послания Апостолов
+		'Act'		=>"Деян.",
+		'Jac'		=>"Иак.",
+		'1Pet'		=>"1Пет.",
+		'2Pet'		=>"2Пет.",
+		'1Jn'		=>"1Ин.", 
+		'2Jn'		=>"2Ин.",
+		'3Jn'		=>"3Ин.",
+		'Juda'		=>"Иуд.",
+		// Послания апостола Павла
+		'Rom'		=>"Рим.",
+		'1Cor'		=>"1Кор.",
+		'2Cor'		=>"2Кор.",
+		'Gal'		=>"Гал.",
+		'Eph'		=>"Еф.",
+		'Phil'		=>"Флп.",
+		'Col'		=>"Кол.",
+		'1Thes'		=>"1Сол.",
+		'2Thes'		=>"2Сол.",
+		'1Tim'		=>"1Тим.",
+		'2Tim'		=>"2Тим.",
+		'Tit'		=>"Тит.",
+		'Phlm'		=>"Флм.",
+		'Hebr'		=>"Евр.",
+		'Apok'		=>"Откр.");
+
+		global $bg_bibrefs_option;
 //	$bg_interpret_val = get_option( 'bg_bibrefs_interpret' );
 	if ($bg_bibrefs_option['interpret'] == 'on') {
+		if ($opt[$book] == '') return $txt;
 		$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
 		$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
 		return ("<a href='http://bible.optina.ru/".$opt[$book].$ch.":".$vr."' title='".(__( 'Click to go to interpretation on Optina Pustyn site', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
+	}
+	elseif ($bg_bibrefs_option['interpret'] == 'lopuhin') {
+		if ($lopuhin[$book] == '') return $txt;
+		$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
+		$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
+		$ref = $lopuhin_book[$book].intval($ch).":".$vr;
+		if ($book == 'Avd' || $book == 'Juda') $path = $lopuhin[$book];
+		else $path = $lopuhin[$book]."/".$ch;
+		return ("<a href='http://azbyka.ru/otechnik/Lopuhin/".$path."?jumpto=".$ref."' title='".(__( 'Click to go to interpretation by A.Lopuhin on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
 	}
 	elseif ($bg_bibrefs_option['site'] == 'azbyka') {
 		return "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.":".$verse.$bg_bibrefs_option['azbyka']."' title='".(__( 'Click to go to the Bible on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";	// Полный адрес ссылки на azbyka.ru
