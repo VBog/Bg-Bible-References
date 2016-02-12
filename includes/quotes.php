@@ -545,7 +545,7 @@ $lopuhin = array(					// Таблица соответствия azbyka.ru и т
 		if ($lopuhin[$book] == '') return $txt;
 		$ch = str_pad($chapter, strcasecmp($book,'Ps')?2:3, "0", STR_PAD_LEFT);
 		$vr = str_pad($verse, 2, "0", STR_PAD_LEFT);
-		$ref = $lopuhin_book[$book].intval($ch).":".$vr;
+		$ref = $lopuhin_book[$book].intval($ch).":".intval($vr);
 		if ($book == 'Avd' || $book == 'Juda') $path = $lopuhin[$book];
 		else $path = $lopuhin[$book]."/".$ch;
 		return ("<a href='http://azbyka.ru/otechnik/Lopuhin/".$path."?jumpto=".$ref."' title='".(__( 'Click to go to interpretation by A.Lopuhin on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
