@@ -36,6 +36,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 		$start_time = microtime(true)*1000;
 		$s_time = $start_time;
 		error_log(date('d.m.Y h:i:s').": ". get_permalink()."\n", 3, $debug_file);
+		error_log("Прошло времени: ". round((microtime(true) - $bg_bibrefs_start_time), 2)." сек.\n", 3, $debug_file);
 	}
 /*******************************************************************/	
 	if (!$lang) $lang = set_bible_lang();
@@ -72,22 +73,9 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	$start = 0;
 	$j = 0;
 
-// Устанавливаем максимальное время работы скрипта
-	$maxtime = $bg_bibrefs_option['maxtime'];
-	if (!function_exists ('set_time_limit') || !(@set_time_limit ($maxtime))) {
-		$systemtime = ini_get('max_execution_time'); 
-		if (!$systemtime) $systemtime = 30;
-		else $systemtime = intval($systemtime);
-		$maxtime = $systemtime;
-	} else {
-		 $bg_bibrefs_start_time = microtime(true);
-	}
 	$time0 = 0;
 	$cycle_time = 1;
 	$stime = microtime(true);
-	$pretime = microtime(true) - $bg_bibrefs_start_time;
-	$maxtime = $maxtime - $pretime - 2;
-	if ($maxtime-$pretime < 2) return $txt;
 	
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {
@@ -97,6 +85,23 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 		$start_time = $this_time;
 	}
 /*******************************************************************/	
+// Устанавливаем максимальное время работы скрипта
+	$maxtime = $bg_bibrefs_option['maxtime'];
+	if (!function_exists ('set_time_limit') || !(@set_time_limit ($maxtime))) {
+		$systemtime = ini_get('max_execution_time'); 
+		if (!$systemtime) $systemtime = 30;
+		else $systemtime = intval($systemtime);
+		$maxtime = $systemtime;
+		$pretime = microtime(true) - $bg_bibrefs_start_time;
+		$maxtime = $systemtime - $pretime - 2;
+/****************** ОТЛАДКА ****************************************/	
+		if ($bg_bibrefs_option['debug']) {
+			error_log("  Ограничение времени работы скрипта: ". round($systemtime, 2)." сек.\n", 3, $debug_file);
+			error_log("  Осталось: ". round($maxtime, 2)." сек.\n", 3, $debug_file);
+		}
+/*******************************************************************/	
+		if ($maxtime < 2) return $txt;
+	} 
 
 	for ($i = 0; $i < $cnt; $i++) {
 		
@@ -187,6 +192,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {
+		error_log(date('d.m.Y h:i:s').": ". get_permalink()."\n", 3, $debug_file);
 		error_log(" Обработано : ". $i." Всего патернов : ". $cnt."\n", 3, $debug_file);
 		$this_time = microtime(true)*1000;
 		$time = ($this_time- $start_time);
