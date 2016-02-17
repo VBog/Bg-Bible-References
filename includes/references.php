@@ -36,7 +36,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 		$start_time = microtime(true)*1000;
 		$s_time = $start_time;
 		error_log(date('d.m.Y h:i:s').": ". get_permalink()."\n", 3, $debug_file);
-		error_log("Прошло времени: ". round((microtime(true) - $bg_bibrefs_start_time), 2)." сек.\n", 3, $debug_file);
+		error_log("Время ожидания начала работы скрипта: ". round((microtime(true) - $bg_bibrefs_start_time), 2)." сек.\n", 3, $debug_file);
 	}
 /*******************************************************************/	
 	if (!$lang) $lang = set_bible_lang();
@@ -81,7 +81,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	if ($bg_bibrefs_option['debug']) {
 		$this_time = microtime(true)*1000;
 		$time = ($this_time- $start_time);
-		error_log("  Начальная обработка: ". round($time, 2)." мсек.\n", 3, $debug_file);
+		error_log("    Начальная обработка (регулярные выражения): ". round($time, 2)." мсек.\n", 3, $debug_file);
 		$start_time = $this_time;
 	}
 /*******************************************************************/	
@@ -96,8 +96,8 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 		$maxtime = $systemtime - $pretime - 2;
 /****************** ОТЛАДКА ****************************************/	
 		if ($bg_bibrefs_option['debug']) {
-			error_log("  Ограничение времени работы скрипта: ". round($systemtime, 2)." сек.\n", 3, $debug_file);
-			error_log("  Осталось: ". round($maxtime, 2)." сек.\n", 3, $debug_file);
+			error_log("    Ограничение времени работы скрипта: ". round($systemtime, 2)." сек.\n", 3, $debug_file);
+			error_log("    Осталось: ". round($maxtime, 2)." сек.\n", 3, $debug_file);
 		}
 /*******************************************************************/	
 		if ($maxtime < 2) return $txt;
@@ -192,13 +192,13 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {
-		error_log(date('d.m.Y h:i:s').": ". get_permalink()."\n", 3, $debug_file);
-		error_log(" Обработано : ". $i." Всего патернов : ". $cnt."\n", 3, $debug_file);
 		$this_time = microtime(true)*1000;
 		$time = ($this_time- $start_time);
-		error_log("  * Обработка патернов: ". round($time, 2)." мсек.\n", 3, $debug_file);
+		error_log(date('d.m.Y h:i:s').": ". get_permalink()."\n", 3, $debug_file);
+		error_log("    Обработано: ". $i." Всего патернов: ". $cnt." за: ". round($time, 2)." мсек.\n", 3, $debug_file);
 		$time = ($this_time- $s_time);
-		error_log(" Полное время : ". round($time, 2)." мсек.\n\n", 3, $debug_file);
+		error_log("    Полное время обработки: ". round($time, 2)." мсек.\n", 3, $debug_file);
+		error_log("Полное время работы скрипта: ". round((microtime(true) - $bg_bibrefs_start_time), 2)." сек.\n\n", 3, $debug_file);
 		$start_time = $this_time;
 	}
 /*******************************************************************/	
