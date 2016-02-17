@@ -262,7 +262,8 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 = 3.12.1 =
 
-* Added links to  interpretation by Lopuchin on the site azbyka.ru
+* Added links to interpretation by Lopuchin on the site azbyka.ru
+* Fixed bugs.
 
 = 3.12.0 =
 
