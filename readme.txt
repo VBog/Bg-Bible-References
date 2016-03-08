@@ -260,6 +260,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.12.2 =
+
+* Fixed bugs.
+
 = 3.12.1 =
 
 * Added links to interpretation by Lopuchin on the site azbyka.ru
@@ -611,6 +615,10 @@ Warning: Some methods may not be available on your server.
 * Plugin in beta testing mode
 
 == Upgrade Notice ==
+
+= 3.12.2 =
+
+* Fixed bugs.
 
 = 3.12.1 =
 
