@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.12.2
+    Version: 3.12.3
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.12.2');
+define('BG_BIBREFS_VERSION', '3.12.3');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $bg_bibrefs_start_time = microtime(true);
@@ -156,8 +156,8 @@ add_action( 'plugins_loaded', 'bg_bibrefs_upload_folders' );
 function bg_bibrefs_addFolder($book) {
 
 	$source_url = BG_BIBREFS_SOURCE_URL.$book;
-	$local_url = dirname(dirname(__FILE__ )).'/'.$book;
-	$subfolder = dirname(dirname(__FILE__ )).'/bible/'.basename($book, ".zip").'/';
+	$local_url = dirname(__FILE__ ).'/'.$book;
+	$subfolder = dirname(__FILE__ ).'/bible/'.basename($book, ".zip").'/';
 	if (!file_exists($local_url)) {
 		if (copy ( $source_url, $local_url )) {
 			$zip = new ZipArchive; 
@@ -174,7 +174,7 @@ function bg_bibrefs_addFolder($book) {
  * Удалить папку с Библией с сайта
  **************************************************************************/
 function bg_bibrefs_removeFolder($book) {
-	$path = dirname(dirname( __FILE__ )).'/bible/';
+	$path = dirname( __FILE__ ).'/bible/';
 	$dir=$path.basename($book, ".zip"); 
 	if ($objs = glob($dir."/*")) {
 		foreach($objs as $obj) {
@@ -190,7 +190,7 @@ function bg_bibrefs_removeFolder($book) {
  **************************************************************************/
 function bg_bibrefs_getFolders() {
 	$folders = array();
-	$path = dirname(dirname( __FILE__ )).'/bible/';
+	$path = dirname( __FILE__ ).'/bible/';
 	$id = 0;
 	if ($handle = @opendir($path)) {
 		while (false !== ($dir = readdir($handle))) { 
