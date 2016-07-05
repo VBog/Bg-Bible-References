@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.12.3
+    Version: 3.12.4
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.12.3');
+define('BG_BIBREFS_VERSION', '3.12.4');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $bg_bibrefs_start_time = microtime(true);
@@ -652,7 +652,7 @@ class BibleWidget extends WP_Widget
 		$dlang = $instance["dlang"];
 		$storage = $instance["storage"];
 		
-		if (!$lang) $lang = set_bible_lang();
+		$lang = set_bible_lang();
 		$lang = include_books($lang);
 ?>
 		<aside id="bg-bibrefs-1" class="widget widget_bg-bibrefs">
@@ -662,7 +662,7 @@ class BibleWidget extends WP_Widget
 		
 <!--	Список книг Библии			-->
 			<p><label class="widget-title" for="bg_quote_bookId"><?php _e('Book', 'bg_bibrefs' ); ?></label><br>
-			<select class="required" id="bg_quote_bookId">
+			<select class="required" id="bg_quote_bookId" style="width: 100%">
 				<?php 
 				$num_books = count($bg_bibrefs_bookTitle);
 				$books = array_keys ( $bg_bibrefs_bookTitle);
@@ -778,6 +778,7 @@ class BibleSearchWidget extends WP_Widget
 		if (!empty($instance)) {
 			$title = $instance["title"];
 			$page = $instance["page"];
+			$dlang = $instance["dlang"];
 			$storage = $instance["storage"];
 		}
 		// Заголовок виджета в сайдбаре
@@ -816,13 +817,14 @@ class BibleSearchWidget extends WP_Widget
 	public function widget($args, $instance) {
 		global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 
-		if (!$lang) $lang = set_bible_lang();
+		$lang = set_bible_lang();
 		$lang = include_books($lang);
 
 		$num_books = count($bg_bibrefs_bookTitle);
 		$books = array_keys ( $bg_bibrefs_bookTitle);
 		$title = $instance["title"];
 		$page = $instance["page"];
+		$dlang = $instance["dlang"];
 		$storage = $instance["storage"];
 ?>
 		<aside id="bg-bibrefs-2" class="widget widget_bg-bibrefs">
