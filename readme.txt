@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 4.4.5
+Tested up to: 4.5.3
 
 Stable tag: trunk
 
