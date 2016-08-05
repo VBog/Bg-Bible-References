@@ -260,7 +260,7 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
-= 3.12.2-4 =
+= 3.12.2-5 =
 
 * Fixed bugs.
 
@@ -616,7 +616,7 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 3.12.2-4 =
+= 3.12.2-5 =
 
 * Fixed bugs.
 
