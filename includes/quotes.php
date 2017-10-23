@@ -674,6 +674,6 @@ function bg_bibrefs_convertTitles($q, $type) {
 		$q = preg_replace("/Ряд.: /u", __( 'Ser.:', 'bg_bibrefs' ), $q);		
 		$q = preg_replace("/Под зач.: /u", __( 'After per.:', 'bg_bibrefs' ), $q);		
 	}
-	$q = bg_bibrefs_bible_proc($q, $type);
+	if ($type != 'off') $q = bg_bibrefs_bible_proc($q, $type);
 	return $q;
 }

@@ -8,7 +8,7 @@ Tags: bible, orthodoxy, Christianity, Библия, православие, хр
 
 Requires at least: 3.0.1
 
-Tested up to: 4.5.3
+Tested up to: 4.8.2
 
 Stable tag: trunk
 
@@ -259,6 +259,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.12.6 =
+
+* Allow shortcodes into [bible]...[/bible] tags.
 
 = 3.12.2-5 =
 
