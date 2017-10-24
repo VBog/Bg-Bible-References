@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.12.6
+    Version: 3.12.7
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.12.6');
+define('BG_BIBREFS_VERSION', '3.12.7');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $bg_bibrefs_start_time = microtime(true);
@@ -324,6 +324,7 @@ function bg_bibrefs_epigraph( $atts ) {
 	return "{$quote}";
 }
 function bg_bibrefs_bible_epigraph( $ref='rnd', $lang='' ) {
+	$quote = "";
 	if (!$lang) $lang = set_bible_lang();
 	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibrefs_bible_quote_refs($ref, $lang);
 	if ($ref != "") $quote = bg_bibrefs_bible_proc($ref, 'quote', $lang);
@@ -607,6 +608,8 @@ class BibleWidget extends WP_Widget
 	public function form($instance) {
 		$title = "";
 		$page = "";
+		$dlang = "";
+		$storage = "";
 		// если instance не пустой, достанем значения
 		if (!empty($instance)) {
 			$title = $instance["title"];
@@ -642,8 +645,10 @@ class BibleWidget extends WP_Widget
 		$values = array();
 		$values["title"] = htmlentities($newInstance["title"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		$values["page"] = htmlentities($newInstance["page"], ENT_COMPAT | ENT_HTML401, "UTF-8");
-		$values["dlang"] = htmlentities($newInstance["dlang"], ENT_COMPAT | ENT_HTML401, "UTF-8");
-		$values["storage"] = htmlentities($newInstance["storage"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		if (!array_key_exists('dlang', $newInstance)) $values["dlang"]="";
+		else $values["dlang"] = htmlentities($newInstance["dlang"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		if (!array_key_exists('storage', $newInstance)) $values["storage"]="";
+		else $values["storage"] = htmlentities($newInstance["storage"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		return $values;
 	}
 	// Отображение виджета непосредственно в сайдбаре на сайте
@@ -777,6 +782,8 @@ class BibleSearchWidget extends WP_Widget
 	public function form($instance) {
 		$title = "";
 		$page = "";
+		$dlang = "";
+		$storage = "";
 		// если instance не пустой, достанем значения
 		if (!empty($instance)) {
 			$title = $instance["title"];
@@ -812,8 +819,10 @@ class BibleSearchWidget extends WP_Widget
 		$values = array();
 		$values["title"] = htmlentities($newInstance["title"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		$values["page"] = htmlentities($newInstance["page"], ENT_COMPAT | ENT_HTML401, "UTF-8");
-		$values["dlang"] = htmlentities($newInstance["dlang"], ENT_COMPAT | ENT_HTML401, "UTF-8");
-		$values["storage"] = htmlentities($newInstance["storage"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		if (!array_key_exists('dlang', $newInstance)) $values["dlang"]="";
+		else $values["dlang"] = htmlentities($newInstance["dlang"], ENT_COMPAT | ENT_HTML401, "UTF-8");
+		if (!array_key_exists('storage', $newInstance)) $values["storage"]="";
+		else $values["storage"] = htmlentities($newInstance["storage"], ENT_COMPAT | ENT_HTML401, "UTF-8");
 		return $values;
 	}
 	// Отображение виджета непосредственно в сайдбаре на сайте
@@ -910,7 +919,7 @@ class QuotesWidget extends WP_Widget
 		echo '<p><label for="' . $titleId . '">' . __('Title:', 'bg_bibrefs' ) . '</label><br>';
 		echo '<input id="' . $titleId . '" type="text" name="' . $titleName . '" value="' . $title . '" size="50"></p>';
 		// Тип цитаты 
-		$reId = $this->get_field_id("ref");
+		$refId = $this->get_field_id("ref");
 		$refName = $this->get_field_name("ref");
 		echo '<p><label for="' . $refId . '">' . __('Type of quote:', 'bg_bibrefs' ) . '</label><br>';
 		echo '<input id="' . $refId . '" type="radio" name="' . $refName . '" value="days"';

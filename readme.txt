@@ -260,6 +260,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.12.7 =
+
+* Fixed some bugs.
+
 = 3.12.6 =
 
 * Allow shortcodes into [bible]...[/bible] tags.
