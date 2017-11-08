@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.12.7
+    Version: 3.12.8
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.12.7');
+define('BG_BIBREFS_VERSION', '3.12.8');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $bg_bibrefs_start_time = microtime(true);
@@ -404,13 +404,14 @@ function bg_bibrefs_bible_search( $atts ) {
 	), $atts ) );
 // Если $context задано значение "get", то получаем $context из ссылки	
 	if ($context == "get") {
-		$context = $_GET["bs"];
-		$book = $_GET["book"];
-		$ch = $_GET["ch"];
+		if (isset($_GET["bs"])) $context = $_GET["bs"];
+		else $context = "";
+		if (isset($_GET["book"])) $book = $_GET["book"];
+		if (isset($_GET["ch"])) $ch = $_GET["ch"];
 		if ($ch == "") $ch = "1-999";
-		$l = $_GET["lang"];
+		if (isset($_GET["lang"])) $l = $_GET["lang"];
 		if ($l != "") $lang = $l;
-		$prll = $_GET["prll"];
+		if (isset($_GET["prll"])) $prll = $_GET["prll"];
 		if (!isset($_GET["bs"]) && !isset($_GET["book"])) {
 			$keys = array_keys($_GET); $context = $keys[0]; 
 			$context = str_replace ( '_' , ' ' , $context );

@@ -1,19 +1,13 @@
 ﻿=== Bg Bible References ===
 
 Contributors: VBog
-
 Donate link: http://bogaiskov.ru/about-me/donate/
-
 Tags: bible, orthodoxy, Christianity, Библия, православие, христианство, Священное Писание, Завет, ορθοδοξία, χριστιανισμός, Αγία Γραφή
-
+Requires PHP: 5.3
 Requires at least: 3.0.1
-
-Tested up to: 4.8.2
-
+Tested up to: 4.8.3
 Stable tag: trunk
-
 License: GPLv2
-
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
@@ -259,6 +253,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.12.8 =
+
+* Added option to disable links to interpretations.
 
 = 3.12.7 =
 
@@ -624,9 +622,9 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 3.12.2-5 =
+= 3.12.8 =
 
-* Fixed bugs.
+* Added option to disable links to interpretations.
 
 
 == Notes for Translators ==

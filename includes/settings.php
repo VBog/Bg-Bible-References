@@ -304,6 +304,7 @@ bg_bibrefs_site_checked();
 <td>
 <input type="radio" id="bg_interpret_opt" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?> value="on"> <?php _e('on Optina Pustyn site', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="bg_interpret_lop" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="lopuhin") echo "checked" ?> value="lopuhin"> <?php _e('by A.Lopuhin on azbyka.ru', 'bg_bibrefs' ); ?><br />
+<input type="radio" id="bg_interpret_lnk" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="link") echo "checked" ?> value="link"> <?php _e('link to the Bible (see above)', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="bg_interpret_off" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="") echo "checked" ?> value=""> <?php _e('disabled', 'bg_bibrefs' ); ?><br />
 </td></tr>
 

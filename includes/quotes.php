@@ -550,13 +550,15 @@ $lopuhin = array(					// Таблица соответствия azbyka.ru и т
 		else $path = $lopuhin[$book]."/".$ch;
 		return ("<a href='http://azbyka.ru/otechnik/Lopuhin/".$path."?jumpto=".$ref."' title='".(__( 'Click to go to interpretation by A.Lopuhin on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
 	}
-	elseif ($bg_bibrefs_option['site'] == 'azbyka') {
+	elseif ($bg_bibrefs_option['interpret'] == 'link') {
+		if ($bg_bibrefs_option['site'] == 'azbyka') {
 		return "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.":".$verse.$bg_bibrefs_option['azbyka']."' title='".(__( 'Click to go to the Bible on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";	// Полный адрес ссылки на azbyka.ru
-	}
-	elseif ($bg_bibrefs_option['site'] == 'this') {
-		$page = $bg_bibrefs_option['page'];
-		if ($page == "") $page = get_permalink(); 
-		return "<a href='".$page."?bs=".$book.$chapter.":".$verse."&lang=".$lang."' title='".(__( 'Click to view on page', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";			// Полный адрес ссылки на текущий сайт
+		}
+		elseif ($bg_bibrefs_option['site'] == 'this') {
+			$page = $bg_bibrefs_option['page'];
+			if ($page == "") $page = get_permalink(); 
+			return "<a href='".$page."?bs=".$book.$chapter.":".$verse."&lang=".$lang."' title='".(__( 'Click to view on page', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";			// Полный адрес ссылки на текущий сайт
+		}
 	}
 	else return $txt;
 
