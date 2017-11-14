@@ -32,6 +32,14 @@ function bg_bibrefs_options_page() {
 	$bg_norm_refs = 'bg_bibrefs_norm_refs';				// Преобразовывать ссылки к нормализованному виду
 	$bg_verses_name = 'bg_bibrefs_show_verses';			// Отображать стихи из Библии во всплывающей подсказке
 
+    $bg_perm_dot = 'bg_bibrefs_dot';					// Разрешить отсутствие точки после обозначения книги
+    $bg_perm_romeh = 'bg_bibrefs_romeh';				// Разрешить Римские цифры
+    $bg_perm_sepd = 'bg_bibrefs_sepd';					// Разрешить точку, как разделитеть номеров глав и стихов
+    $bg_perm_seps = 'bg_bibrefs_seps';					// Разрешить точку с запятой, как разделитеть номеров глав и стихов
+    $bg_perm_separator = 'bg_bibrefs_separator';		// Ссылка должна завершаться разделительным символом (любой, кроме буквенно-цифровых и пробельных символов)
+	$bg_strip_space = 'bg_bibrefs_strip_space';			// Удалять пробелы в обозначениях книг, начинающихся с цифр
+	$bg_perm_exceptions = 'bg_bibrefs_exceptions';		// Словосочетания, не являющиеся ссылками на Библию
+	
 	$bg_curl_name = 'bg_bibrefs_curl';					// Чтение файлов Библии с помощью cURL
 	$bg_fgc_name = 'bg_bibrefs_fgc';					// Чтение файлов Библии с помощью file_get_contents()
 	$bg_fopen_name = 'bg_bibrefs_fopen';				// Чтение файлов Библии с помощью fopen()
@@ -75,6 +83,14 @@ function bg_bibrefs_options_page() {
     $bg_norm_refs_val = get_option( $bg_norm_refs );
     $bg_verses_val = get_option( $bg_verses_name );
 
+    $bg_perm_dot_val = get_option( $bg_perm_dot );
+    $bg_perm_romeh_val = get_option( $bg_perm_romeh );
+    $bg_perm_sepd_val = get_option( $bg_perm_sepd );
+    $bg_perm_seps_val = get_option( $bg_perm_seps );
+    $bg_perm_separator_val = get_option( $bg_perm_separator );
+    $bg_strip_space_val = get_option( $bg_strip_space );
+    $bg_perm_exceptions_val = get_option( $bg_perm_exceptions );
+
     $bg_curl_val = get_option( $bg_curl_name );
     $bg_fgc_val = get_option( $bg_fgc_name );
     $bg_fopen_val = get_option( $bg_fopen_name );
@@ -96,85 +112,106 @@ function bg_bibrefs_options_page() {
     if( isset( $_POST[ $hidden_field_name ] ) && $_POST[ $hidden_field_name ] == 'Y' ) {
 
 	// Сохраняем отправленное значение в БД
-		$bg_bibrefs_site_val = ( isset( $_POST[$bg_bibrefs_site] ) && $_POST[$bg_bibrefs_site] ) ? $_POST[$bg_bibrefs_site] : '' ;
+		$bg_bibrefs_site_val = sanitize_text_field(( isset( $_POST[$bg_bibrefs_site] ) && $_POST[$bg_bibrefs_site] ) ? $_POST[$bg_bibrefs_site] : '') ;
 		update_option( $bg_bibrefs_site, $bg_bibrefs_site_val );
 
-		$c_lang_val = ( isset( $_POST[$c_lang_name] ) && $_POST[$c_lang_name] ) ? $_POST[$c_lang_name] : '' ;
+		$c_lang_val = sanitize_text_field(( isset( $_POST[$c_lang_name] ) && $_POST[$c_lang_name] ) ? $_POST[$c_lang_name] : '') ;
 		update_option( $c_lang_name, $c_lang_val );
 
-		$r_lang_val = ( isset( $_POST[$r_lang_name] ) && $_POST[$r_lang_name] ) ? $_POST[$r_lang_name] : '' ;
+		$r_lang_val = sanitize_text_field(( isset( $_POST[$r_lang_name] ) && $_POST[$r_lang_name] ) ? $_POST[$r_lang_name] : '') ;
 		update_option( $r_lang_name, $r_lang_val );
 
-		$g_lang_val =( isset( $_POST[$g_lang_name] ) && $_POST[$g_lang_name] ) ? $_POST[$g_lang_name] : '' ;
+		$g_lang_val = sanitize_text_field(( isset( $_POST[$g_lang_name] ) && $_POST[$g_lang_name] ) ? $_POST[$g_lang_name] : '') ;
 		update_option( $g_lang_name, $g_lang_val );
 
-		$l_lang_val = ( isset( $_POST[$l_lang_name] ) && $_POST[$l_lang_name] ) ? $_POST[$l_lang_name] : '' ;
+		$l_lang_val = sanitize_text_field(( isset( $_POST[$l_lang_name] ) && $_POST[$l_lang_name] ) ? $_POST[$l_lang_name] : '') ;
 		update_option( $l_lang_name, $l_lang_val );
 
-		$i_lang_val = ( isset( $_POST[$i_lang_name] ) && $_POST[$i_lang_name] ) ? $_POST[$i_lang_name] : '' ;
+		$i_lang_val = sanitize_text_field(( isset( $_POST[$i_lang_name] ) && $_POST[$i_lang_name] ) ? $_POST[$i_lang_name] : '') ;
 		update_option( $i_lang_name, $i_lang_val );
 
-		$font_val = ( isset( $_POST[$c_font_name] ) && $_POST[$c_font_name] ) ? $_POST[$c_font_name] : '' ;
+		$font_val = sanitize_text_field(( isset( $_POST[$c_font_name] ) && $_POST[$c_font_name] ) ? $_POST[$c_font_name] : '') ;
 		update_option( $c_font_name, $font_val );
 
-		$bg_bibrefs_page_val = ( isset( $_POST[$bg_bibrefs_page] ) && $_POST[$bg_bibrefs_page] ) ? $_POST[$bg_bibrefs_page] : '' ;
+		$bg_bibrefs_page_val = esc_url(( isset( $_POST[$bg_bibrefs_page] ) && $_POST[$bg_bibrefs_page] ) ? $_POST[$bg_bibrefs_page] : '') ;
 		update_option( $bg_bibrefs_page, $bg_bibrefs_page_val );
 
-		$bg_verses_lang_val = ( isset( $_POST[$bg_verses_lang] ) && $_POST[$bg_verses_lang] ) ? $_POST[$bg_verses_lang] : '' ;
+		$bg_verses_lang_val = sanitize_text_field(( isset( $_POST[$bg_verses_lang] ) && $_POST[$bg_verses_lang] ) ? $_POST[$bg_verses_lang] : '') ;
 		update_option( $bg_verses_lang, $bg_verses_lang_val );
 
-		$bg_show_fn_val = ( isset( $_POST[$bg_show_fn] ) && $_POST[$bg_show_fn] ) ? $_POST[$bg_show_fn] : '' ;
+		$bg_show_fn_val = sanitize_text_field(( isset( $_POST[$bg_show_fn] ) && $_POST[$bg_show_fn] ) ? $_POST[$bg_show_fn] : '') ;
 		update_option( $bg_show_fn, $bg_show_fn_val );
 
-		$target_val = ( isset( $_POST[$target_window] ) && $_POST[$target_window] ) ? $_POST[$target_window] : '' ;
+		$target_val = sanitize_text_field(( isset( $_POST[$target_window] ) && $_POST[$target_window] ) ? $_POST[$target_window] : '') ;
 		update_option( $target_window, $target_val );
 
-		$bg_headers_val = ( isset( $_POST[$bg_headers] ) && $_POST[$bg_headers] ) ? $_POST[$bg_headers] : '' ;
+		$bg_headers_val = sanitize_text_field(( isset( $_POST[$bg_headers] ) && $_POST[$bg_headers] ) ? $_POST[$bg_headers] : '') ;
 		update_option( $bg_headers, $bg_headers_val );
 
-		$bg_interpret_val = ( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '' ;
+		$bg_interpret_val = sanitize_text_field(( isset( $_POST[$bg_interpret] ) && $_POST[$bg_interpret] ) ? $_POST[$bg_interpret] : '') ;
 		update_option( $bg_interpret, $bg_interpret_val );
 
-		$bg_parallel_val = ( isset( $_POST[$bg_parallel] ) && $_POST[$bg_parallel] ) ? $_POST[$bg_parallel] : '' ;
+		$bg_parallel_val = sanitize_text_field(( isset( $_POST[$bg_parallel] ) && $_POST[$bg_parallel] ) ? $_POST[$bg_parallel] : '') ;
 		update_option( $bg_parallel, $bg_parallel_val );
 
-		$bg_norm_refs_val = ( isset( $_POST[$bg_norm_refs] ) && $_POST[$bg_norm_refs] ) ? $_POST[$bg_norm_refs] : '' ;
+		$bg_norm_refs_val = sanitize_text_field(( isset( $_POST[$bg_norm_refs] ) && $_POST[$bg_norm_refs] ) ? $_POST[$bg_norm_refs] : '') ;
 		update_option( $bg_norm_refs, $bg_norm_refs_val );
 
-		$bg_verses_val = ( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '' ;
+		$bg_verses_val = sanitize_text_field(( isset( $_POST[$bg_verses_name] ) && $_POST[$bg_verses_name] ) ? $_POST[$bg_verses_name] : '') ;
 		update_option( $bg_verses_name, $bg_verses_val );
 
-		$bg_curl_val = ( isset( $_POST[$bg_curl_name] ) && $_POST[$bg_curl_name] ) ? $_POST[$bg_curl_name] : '' ;
+		$bg_perm_dot_val = sanitize_text_field(( isset( $_POST[$bg_perm_dot] ) && $_POST[$bg_perm_dot] ) ? $_POST[$bg_perm_dot] : '') ;
+		update_option( $bg_perm_dot, $bg_perm_dot_val );
+
+		$bg_perm_romeh_val = sanitize_text_field(( isset( $_POST[$bg_perm_romeh] ) && $_POST[$bg_perm_romeh] ) ? $_POST[$bg_perm_romeh] : '') ;
+		update_option( $bg_perm_romeh, $bg_perm_romeh_val );
+
+		$bg_perm_sepd_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepd] ) && $_POST[$bg_perm_sepd] ) ? $_POST[$bg_perm_sepd] : '') ;
+		update_option( $bg_perm_sepd, $bg_perm_sepd_val );
+
+		$bg_perm_seps_val = sanitize_text_field(( isset( $_POST[$bg_perm_seps] ) && $_POST[$bg_perm_seps] ) ? $_POST[$bg_perm_seps] : '') ;
+		update_option( $bg_perm_seps, $bg_perm_seps_val );
+
+		$bg_perm_separator_val = sanitize_text_field(( isset( $_POST[$bg_perm_separator] ) && $_POST[$bg_perm_separator] ) ? $_POST[$bg_perm_separator] : '') ;
+		update_option( $bg_perm_separator, $bg_perm_separator_val );
+
+		$bg_strip_space_val = sanitize_text_field(( isset( $_POST[$bg_strip_space] ) && $_POST[$bg_strip_space] ) ? $_POST[$bg_strip_space] : '') ;
+		update_option( $bg_strip_space, $bg_strip_space_val );
+
+		$bg_perm_exceptions_val = sanitize_textarea_field(( isset( $_POST[$bg_perm_exceptions] ) && $_POST[$bg_perm_exceptions] ) ? $_POST[$bg_perm_exceptions] : '') ;
+		update_option( $bg_perm_exceptions, $bg_perm_exceptions_val );
+
+		$bg_curl_val = sanitize_text_field(( isset( $_POST[$bg_curl_name] ) && $_POST[$bg_curl_name] ) ? $_POST[$bg_curl_name] : '') ;
 		update_option( $bg_curl_name, $bg_curl_val );
 
-		$bg_fgc_val = ( isset( $_POST[$bg_fgc_name] ) && $_POST[$bg_fgc_name] ) ? $_POST[$bg_fgc_name] : '' ;
+		$bg_fgc_val = sanitize_text_field(( isset( $_POST[$bg_fgc_name] ) && $_POST[$bg_fgc_name] ) ? $_POST[$bg_fgc_name] : '') ;
 		update_option( $bg_fgc_name, $bg_fgc_val );
 
-		$bg_fopen_val = ( isset( $_POST[$bg_fopen_name] ) && $_POST[$bg_fopen_name] ) ? $_POST[$bg_fopen_name] : '' ;
+		$bg_fopen_val = sanitize_text_field(( isset( $_POST[$bg_fopen_name] ) && $_POST[$bg_fopen_name] ) ? $_POST[$bg_fopen_name] : '') ;
 		update_option( $bg_fopen_name, $bg_fopen_val );
 
-		$bg_bibrefs_pload_val = ( isset( $_POST[$bg_bibrefs_pload] ) && $_POST[$bg_bibrefs_pload] ) ? $_POST[$bg_bibrefs_pload] : '' ;
+		$bg_bibrefs_pload_val = sanitize_text_field(( isset( $_POST[$bg_bibrefs_pload] ) && $_POST[$bg_bibrefs_pload] ) ? $_POST[$bg_bibrefs_pload] : '') ;
 		update_option( $bg_bibrefs_pload, $bg_bibrefs_pload_val );
 
-		$bg_bibrefs_preq_val = ( isset( $_POST[$bg_bibrefs_preq] ) && $_POST[$bg_bibrefs_preq] ) ? $_POST[$bg_bibrefs_preq] : '' ;
+		$bg_bibrefs_preq_val = sanitize_text_field(( isset( $_POST[$bg_bibrefs_preq] ) && $_POST[$bg_bibrefs_preq] ) ? $_POST[$bg_bibrefs_preq] : '') ;
 		update_option( $bg_bibrefs_preq, $bg_bibrefs_preq_val );
 
-		$bg_bibrefs_maxtime_val = ( isset( $_POST[$bg_bibrefs_maxtime] ) && $_POST[$bg_bibrefs_maxtime] ) ? $_POST[$bg_bibrefs_maxtime] : '' ;
+		$bg_bibrefs_maxtime_val = (int) sanitize_text_field(( isset( $_POST[$bg_bibrefs_maxtime] ) && $_POST[$bg_bibrefs_maxtime] ) ? $_POST[$bg_bibrefs_maxtime] : '') ;
 		update_option( $bg_bibrefs_maxtime, $bg_bibrefs_maxtime_val );
 
-		$bg_bibrefs_ajaxurl_val = ( isset( $_POST[$bg_bibrefs_ajaxurl] ) && $_POST[$bg_bibrefs_ajaxurl] ) ? $_POST[$bg_bibrefs_ajaxurl] : '' ;
+		$bg_bibrefs_ajaxurl_val = esc_url(( isset( $_POST[$bg_bibrefs_ajaxurl] ) && $_POST[$bg_bibrefs_ajaxurl] ) ? $_POST[$bg_bibrefs_ajaxurl] : '') ;
 		update_option( $bg_bibrefs_ajaxurl, $bg_bibrefs_ajaxurl_val );
 
-		$bg_content_val = ( isset( $_POST[$bg_content] ) && $_POST[$bg_content] ) ? $_POST[$bg_content] : '' ;
+		$bg_content_val = sanitize_text_field(( isset( $_POST[$bg_content] ) && $_POST[$bg_content] ) ? $_POST[$bg_content] : '') ;
 		update_option( $bg_content, $bg_content_val );
 
-		$class_val = ( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '' ;
+		$class_val = sanitize_html_class(( isset( $_POST[$links_class] ) && $_POST[$links_class] ) ? $_POST[$links_class] : '') ;
 		update_option( $links_class, $class_val );
 
-		$bg_refs_file_val = ( isset( $_POST[$bg_refs_file] ) && $_POST[$bg_refs_file] ) ? $_POST[$bg_refs_file] : '' ;
+		$bg_refs_file_val = esc_url(( isset( $_POST[$bg_refs_file] ) && $_POST[$bg_refs_file] ) ? $_POST[$bg_refs_file] : '') ;
 		update_option( $bg_refs_file, $bg_refs_file_val );
 
- 		$bg_bibrefs_debug_val = ( isset( $_POST[$bg_bibrefs_debug_name] ) && $_POST[$bg_bibrefs_debug_name] ) ? $_POST[$bg_bibrefs_debug_name] : '' ;
+ 		$bg_bibrefs_debug_val = sanitize_text_field(( isset( $_POST[$bg_bibrefs_debug_name] ) && $_POST[$bg_bibrefs_debug_name] ) ? $_POST[$bg_bibrefs_debug_name] : '') ;
 		update_option( $bg_bibrefs_debug_name, $bg_bibrefs_debug_val );
 
        // Вывести сообщение об обновлении параметров на экран
@@ -182,7 +219,62 @@ function bg_bibrefs_options_page() {
     }
 ?>
 <!--  форма опций -->
-    
+<script>
+function c_lang_checked() {
+	azbyka_font = document.getElementById('bg_bibrefs_azbyka_font');
+	if (document.getElementById('c_lang').checked == true) azbyka_font.style.display = '';
+	else azbyka_font.style.display = 'none';
+}
+function bg_bibrefs_site_checked() {
+	elRadio = document.getElementsByName('<?php echo $bg_bibrefs_site ?>');
+	azbyka_lang = document.getElementById('bg_bibrefs_azbyka_lang');
+	azbyka_font = document.getElementById('bg_bibrefs_azbyka_font');
+	permalink = document.getElementById('bg_bibrefs_permalink');
+	if (elRadio[0].checked) {
+		azbyka_lang.style.display = '';
+		c_lang_checked();
+	}
+	else {
+		azbyka_lang.style.display = 'none';
+		azbyka_font.style.display = 'none';
+	}
+	if (elRadio[1].checked) permalink.style.display = '';
+	else permalink.style.display = 'none';
+}
+function bg_verses_checked() {
+	if (document.getElementById('bg_verses').checked == true) {
+		document.getElementById('bg_bibrefs_pload').disabled = false;
+		document.getElementById('bg_bibrefs_preq').disabled = false;
+	} else {
+		document.getElementById('bg_bibrefs_pload').disabled = true;
+		document.getElementById('bg_bibrefs_pload').checked = false;
+		document.getElementById('bg_bibrefs_preq').disabled = true;
+		document.getElementById('bg_bibrefs_preq').checked = false;
+	}
+}
+function bg_bibrefs_check_preload() {
+	if (document.getElementById('bg_bibrefs_pload').checked == true) {
+		document.getElementById('bg_bibrefs_preq').checked = false;
+	}
+}
+function bg_bibrefs_check_prereq() {
+	if (document.getElementById('bg_bibrefs_preq').checked == true){
+		document.getElementById('bg_bibrefs_pload').checked = false;
+	}
+}
+function reading_off_checked() {
+	if (document.getElementById('bg_curl').checked == true || document.getElementById('bg_fgc').checked == true || document.getElementById('bg_fopen').checked == true) {
+		document.getElementById('bg_verses').disabled = false;
+	} else {
+		document.getElementById('bg_verses').disabled = true;
+		document.getElementById('bg_verses').checked = false;
+		document.getElementById('bg_bibrefs_pload').disabled = true;
+		document.getElementById('bg_bibrefs_pload').checked = false;
+		document.getElementById('bg_bibrefs_preq').disabled = true;
+		document.getElementById('bg_bibrefs_preq').checked = false;
+	}
+}
+</script>    
 <table width="100%">
 <tr><td valign="top">
 <!--  Теперь отобразим опции на экране редактирования -->
@@ -194,6 +286,7 @@ function bg_bibrefs_options_page() {
 
 <h2 class="nav-tab-wrapper">
 	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=links" class="nav-tab <?php echo $active_tab == 'links' ? 'nav-tab-active' : ''; ?>"><?php _e('Links', 'bg_bibrefs') ?></a>
+	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=permissions" class="nav-tab <?php echo $active_tab == 'permissions' ? 'nav-tab-active' : ''; ?>"><?php _e('Permissions', 'bg_bibrefs') ?></a>
 	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=settings" class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>"><?php _e('Settings', 'bg_bibrefs') ?></a>
 	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=additional" class="nav-tab <?php echo $active_tab == 'additional' ? 'nav-tab-active' : ''; ?>"><?php _e('Additional options', 'bg_bibrefs') ?></a>
 	<a href="?page=bg-biblie-references%2Fbg_bibrefs.php&tab=bible" class="nav-tab <?php echo $active_tab == 'bible' ? 'nav-tab-active' : ''; ?>"><?php _e('Bible books', 'bg_bibrefs') ?></a>
@@ -255,11 +348,6 @@ function bg_bibrefs_options_page() {
 <input type="radio" id="rus" name="<?php echo $c_font_name ?>" <?php if($font_val=="rus") echo "checked" ?> value="rus"> <?php _e('Russian font ("Old" style)', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="hip" name="<?php echo $c_font_name ?>" <?php if($font_val=="hip") echo "checked" ?> value="hip"> <?php _e('HIP-standard', 'bg_bibrefs' ); ?><br />
 <script>
-function c_lang_checked() {
-	azbyka_font = document.getElementById('bg_bibrefs_azbyka_font');
-	if (document.getElementById('c_lang').checked == true) azbyka_font.style.display = '';
-	else azbyka_font.style.display = 'none';
-}
 c_lang_checked();
 </script>
 </td></tr>
@@ -279,22 +367,6 @@ c_lang_checked();
 <input type="radio" id="bg_bibrefs_site3" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="none") echo "checked" ?> value="none" onclick='bg_bibrefs_site_checked();'> <?php _e('No links, popup only', 'bg_bibrefs' ); ?><br />
 </th><td>
 <script>
-function bg_bibrefs_site_checked() {
-	elRadio = document.getElementsByName('<?php echo $bg_bibrefs_site ?>');
-	azbyka_lang = document.getElementById('bg_bibrefs_azbyka_lang');
-	azbyka_font = document.getElementById('bg_bibrefs_azbyka_font');
-	permalink = document.getElementById('bg_bibrefs_permalink');
-	if (elRadio[0].checked) {
-		azbyka_lang.style.display = '';
-		c_lang_checked();
-	}
-	else {
-		azbyka_lang.style.display = 'none';
-		azbyka_font.style.display = 'none';
-	}
-	if (elRadio[1].checked) permalink.style.display = '';
-	else permalink.style.display = 'none';
-}
 bg_bibrefs_site_checked();
 </script>
 </td></tr>
@@ -318,9 +390,59 @@ bg_bibrefs_site_checked();
 <th scope="row"><?php _e('Convert references to the normalized form', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="checkbox" id="bg_norm_refs" name="<?php echo $bg_norm_refs ?>" <?php if($bg_norm_refs_val=="on") echo "checked" ?>  value="on"> <br />
+</th><td>
 </td></tr>
 
 </table>
+
+<!--  Допустимые отклонения от стандарта ссылок -->
+<table class="form-table" style="display: <?php echo $active_tab == 'permissions' ? '' : 'none'; ?>;">
+<tr valign="top">
+<th scope="row"><?php _e('Allow no dot after the book title', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_perm_dot" name="<?php echo $bg_perm_dot ?>" <?php if($bg_perm_dot_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Allow Roman numerals', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_perm_romeh" name="<?php echo $bg_perm_romeh ?>" <?php if($bg_perm_romeh_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Allow the dot as divider of chapters and verses', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_perm_sepd" name="<?php echo $bg_perm_sepd ?>" <?php if($bg_perm_sepd_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Allow the semicolon as divider of chapters and verses', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_perm_seps" name="<?php echo $bg_perm_seps ?>" <?php if($bg_perm_seps_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Reference must end with a separator character', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_perm_separator" name="<?php echo $bg_perm_separator ?>" <?php if($bg_perm_separator_val=="on") echo "checked" ?>  value="on"> <br />
+<?php _e('(any, except alphanumeric and space characters). Allowed connecting unions and|or', 'bg_bibrefs' ); ?><br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Delete spaces between digit and letter in the book notation', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_strip_space" name="<?php echo $bg_strip_space ?>" <?php if($bg_strip_space_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Phrases are not Bible reference', 'bg_bibrefs' ); ?></th>
+<td>
+<textarea id="bg_perm_exceptions" name="<?php echo $bg_perm_exceptions ?>" rows="10" cols="60"><?php echo get_option($bg_perm_exceptions); ?></textarea><br>
+<i><?php _e('use a semicolon or new line as delimiter', 'bg_bibrefs') ?></i>
+</td></tr>
+
+</table>
+
 
 <!--  Главные настройки -->
 <table class="form-table" style="display: <?php echo $active_tab == 'settings' ? '' : 'none'; ?>;">
@@ -374,35 +496,13 @@ bg_bibrefs_site_checked();
 <tr valign="top">
 <th scope="row"><?php _e('Preload Bible verses in tooltips', 'bg_bibrefs' ); ?></th>
 <td>
-<input type="checkbox" id="bg_bibrefs_pload" name="<?php echo $bg_bibrefs_pload ?>" <?php if($bg_bibrefs_pload_val=="on") echo "checked" ?>  value="on" onclick='bg_bibrefs_preload();'> <?php _e(' - before upload of the post (using PHP)', 'bg_bibrefs' ); ?><?php _e('<br><i>(Requires a lot of of time to prepare and upload of the post.<br><u>Warning:</u> You can have a problem with limiting the maximum execution time for script on the server.)</i>', 'bg_bibrefs' ); ?><br /><br />
-<input type="checkbox" id="bg_bibrefs_preq" name="<?php echo $bg_bibrefs_preq ?>" <?php if($bg_bibrefs_preq_val=="on") echo "checked" ?>  value="on" onclick='bg_bibrefs_prereq();'> <?php _e(' - after upload of the post (using AJAX)', 'bg_bibrefs' ); ?><?php _e('<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a problem with ajax-requests limiting on the server.)</i>', 'bg_bibrefs' ); ?> <br />
+<input type="checkbox" id="bg_bibrefs_pload" name="<?php echo $bg_bibrefs_pload ?>" <?php if($bg_bibrefs_pload_val=="on") echo "checked" ?>  value="on" onclick='bg_bibrefs_check_preload();'> <?php _e(' - before upload of the post (using PHP)', 'bg_bibrefs' ); ?><?php _e('<br><i>(Requires a lot of of time to prepare and upload of the post.<br><u>Warning:</u> You can have a problem with limiting the maximum execution time for script on the server.)</i>', 'bg_bibrefs' ); ?><br /><br />
+<input type="checkbox" id="bg_bibrefs_preq" name="<?php echo $bg_bibrefs_preq ?>" <?php if($bg_bibrefs_preq_val=="on") echo "checked" ?>  value="on" onclick='bg_bibrefs_check_prereq();'> <?php _e(' - after upload of the post (using AJAX)', 'bg_bibrefs' ); ?><?php _e('<br><i>(Try this option on a slow server.<br><u>Warning:</u> You can have a problem with ajax-requests limiting on the server.)</i>', 'bg_bibrefs' ); ?> <br />
 </td></tr>
 <script>
-function bg_verses_checked() {
-	if (document.getElementById('bg_verses').checked == true) {
-		document.getElementById('bg_bibrefs_pload').disabled = false;
-		document.getElementById('bg_bibrefs_preq').disabled = false;
-	} else {
-		document.getElementById('bg_bibrefs_pload').disabled = true;
-		document.getElementById('bg_bibrefs_pload').checked = false;
-		document.getElementById('bg_bibrefs_preq').disabled = true;
-		document.getElementById('bg_bibrefs_preq').checked = false;
-	}
-}
 bg_verses_checked();
-
-function bg_bibrefs_preload() {
-	if (document.getElementById('bg_bibrefs_pload').checked == true) {
-		document.getElementById('bg_bibrefs_preq').checked = false;
-	}
-}
-bg_bibrefs_preload();
-function bg_bibrefs_prereq() {
-	if (document.getElementById('bg_bibrefs_preq').checked == true){
-		document.getElementById('bg_bibrefs_pload').checked = false;
-	}
-}
-bg_bibrefs_prereq();
+bg_bibrefs_check_preload();
+bg_bibrefs_check_prereq();
 </script>
  
 </table>
@@ -424,18 +524,6 @@ bg_bibrefs_prereq();
 <?php _e('<i>(Plugin tries to read Bible files with marked methods in the order listed.<br>To do the reading faster, disable unnecessary methods - you need one only. <br><u>Warning:</u> Some methods may not be available on your server.)</i>', 'bg_bibrefs' ); ?> <br />
 </td></tr>
 <script>
-function reading_off_checked() {
-	if (document.getElementById('bg_curl').checked == true || document.getElementById('bg_fgc').checked == true || document.getElementById('bg_fopen').checked == true) {
-		document.getElementById('bg_verses').disabled = false;
-	} else {
-		document.getElementById('bg_verses').disabled = true;
-		document.getElementById('bg_verses').checked = false;
-		document.getElementById('bg_bibrefs_pload').disabled = true;
-		document.getElementById('bg_bibrefs_pload').checked = false;
-		document.getElementById('bg_bibrefs_preq').disabled = true;
-		document.getElementById('bg_bibrefs_preq').checked = false;
-	}
-}
 reading_off_checked();
 </script>
 

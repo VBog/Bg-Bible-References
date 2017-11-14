@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.12.8
+    Version: 3.13.0
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.12.8');
+define('BG_BIBREFS_VERSION', '3.13.0');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $bg_bibrefs_start_time = microtime(true);
@@ -410,13 +410,17 @@ function bg_bibrefs_bible_search( $atts ) {
 		if (isset($_GET["ch"])) $ch = $_GET["ch"];
 		if ($ch == "") $ch = "1-999";
 		if (isset($_GET["lang"])) $l = $_GET["lang"];
+		else $l = "";
 		if ($l != "") $lang = $l;
 		if (isset($_GET["prll"])) $prll = $_GET["prll"];
 		if (!isset($_GET["bs"]) && !isset($_GET["book"])) {
-			$keys = array_keys($_GET); $context = $keys[0]; 
-			$context = str_replace ( '_' , ' ' , $context );
-			$context = trim ($context);
-			if ($context == "ch" || $context == "type" || $context == "lang" || $context == "prll") $context = '';
+			$keys = array_keys($_GET); 
+			if ($keys) {
+				$context = $keys[0]; 
+				$context = str_replace ( '_' , ' ' , $context );
+				$context = trim ($context);
+				if ($context == "ch" || $context == "type" || $context == "lang" || $context == "prll") $context = '';
+			}
 		}
 	}
 	if ($book)	{
@@ -1016,6 +1020,15 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibrefs_parallel', "");
 	add_option('bg_bibrefs_norm_refs');
 	add_option('bg_bibrefs_show_verses', "on");
+	
+	add_option('bg_bibrefs_dot');
+    add_option('bg_bibrefs_romeh');
+    add_option('bg_bibrefs_sepd');
+    add_option('bg_bibrefs_seps');
+    add_option('bg_bibrefs_separator');
+	add_option('bg_bibrefs_strip_space');
+	add_option('bg_bibrefs_exceptions',"");
+	
 	add_option('bg_bibrefs_curl', "on");
 	add_option('bg_bibrefs_fgc', "on");
 	add_option('bg_bibrefs_fopen', "on");
@@ -1050,6 +1063,15 @@ function bg_bibrefs_deinstall() {
 	delete_option('bg_bibrefs_parallel');
 	delete_option('bg_bibrefs_norm_refs');
 	delete_option('bg_bibrefs_show_verses');
+	
+	delete_option('bg_bibrefs_dot');
+    delete_option('bg_bibrefs_romeh');
+    delete_option('bg_bibrefs_sepd');
+    delete_option('bg_bibrefs_seps');
+    delete_option('bg_bibrefs_separator');
+	delete_option('bg_bibrefs_strip_space');
+	delete_option('bg_bibrefs_exceptions');
+	
 	delete_option('bg_bibrefs_curl');
 	delete_option('bg_bibrefs_fgc');
 	delete_option('bg_bibrefs_fopen');
@@ -1104,6 +1126,13 @@ function bg_bibrefs_get_options () {
     $bg_bibrefs_option['parallel'] = get_option( 'bg_bibrefs_parallel' );
 
     $bg_bibrefs_option['norm_refs'] = get_option( 'bg_bibrefs_norm_refs' );
+
+	$bg_bibrefs_option['dot'] = get_option( 'bg_bibrefs_dot' );
+	$bg_bibrefs_option['romeh'] = get_option( 'bg_bibrefs_romeh' );
+	$bg_bibrefs_option['sepd'] = get_option( 'bg_bibrefs_sepd' );
+	$bg_bibrefs_option['seps'] = get_option( 'bg_bibrefs_seps' );
+	$bg_bibrefs_option['separator'] = get_option( 'bg_bibrefs_separator' );
+    $bg_bibrefs_option['strip_space'] = get_option( 'bg_bibrefs_strip_space' );
 
     $bg_bibrefs_option['curl'] = get_option( 'bg_bibrefs_curl' );
     $bg_bibrefs_option['fgc'] = get_option( 'bg_bibrefs_fgc' );

@@ -5,7 +5,7 @@ Donate link: http://bogaiskov.ru/about-me/donate/
 Tags: bible, orthodoxy, Christianity, Библия, православие, христианство, Священное Писание, Завет, ορθοδοξία, χριστιανισμός, Αγία Γραφή
 Requires PHP: 5.3
 Requires at least: 3.0.1
-Tested up to: 4.8.3
+Tested up to: 4.9.0
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,10 +19,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 [see also English description below]
 
-Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт Православной энциклопедии "Азбука веры" (http://azbyka.ru/biblia). 
+Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок. 
 Текст Библии представлен на церковнославянском, русском, греческом, еврейском и латинском языках. 
 В настройках Вы можете переопределить эти гиперссылки на свой собственный сайт или даже отключить их.
-А также на толкования Святого Писания Святыми отцами и Учителями Церкви на сайте монастыря Оптина Пустынь (http://bible.optina.ru).
+А также на толкования Святого Писания Святыми отцами и Учителями Церкви.
 В настройках Вы также можете включить отображение ссылок на параллельные места в Библии. Ссылки на параллельные места указаны в конце каждого стиха в фигурных скобках.
 
 Плагин обрабатывает ссылки следующего формата:
@@ -65,6 +65,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Предупреждение: Некоторые методы могут быть недоступны на Вашем сервере. 
 Если Вы разместили свой блог на медленном сервере попробуйте опцию "Предварительная загрузка стихов из Библии во всплывающие подсказки". 
 Предупреждение: Вы можете иметь проблемы с ограничениями Ajax-запросов на сервере.
+
+Опция 'Удалить пробелы между цифрой и буквой в книжной нотации' позволяет в некоторых случаях избежать двоякого прочтения ссылок на книги, начинающиеся на цифру (3Цар., 2Пар. и т.п.). 
 
 Если Вы включите опцию 'Преобразовывать ссылки к нормализованному виду', то ссылки на Библию будут заключены в круглые скобки, в них будут удалены лишние пробелы, а названия книг, обозначения глав и стихов будут приведены к стандартному виду, соответствующему восточной традиции.
 
@@ -125,10 +127,10 @@ add_action ( "init", "allow_origin" );`
 
 ### English plugin discription
 
-The plugin will highlight references to the Bible text with links to site of Orthodox encyclopedia "The Alphabet of Faith" (http://azbyka.ru/biblia).
+The plugin will highlight references to the Bible text with links.
 The Bible is presented in Church, Russian, Greek, Hebrew and Latin.
 In the settings, you can redirect the hyperlink to your own website, or even turn off them.
-And also on the interpretation of Holy Scripture by the Holy Fathers and Doctors of the Church on the site of Optina Pustyn monastery (http://bible.optina.ru).
+And also on the interpretation of Holy Scripture by the Holy Fathers and Doctors of the Church.
 In the settings you can also choose to display references to parallel passages in the Bible. Links to parallel passages are listed at the end of each verse in the curly brackets.
 
 The plugin handles the references with the format:
@@ -171,6 +173,8 @@ To do the reading faster, disable unnecessary methods in settings - you need one
 Warning: Some methods may not be available on your server.
 If you placed your blog on a slow server try the option "Preload Bible verses in tooltips". 
 Warning: you can have problem with ajax-requests limiting on the server.
+
+The option 'Delete spaces between digit and letter in the book notation' allows in some cases to avoid a double understanding of references to books that beginning with digit (3King, 2Chron, etc.).
 
 If you enable the 'Convert References to the normalized form', the Bible references will within brackets, there are removed extra spaces, and the book titles, chapters and verses will be have the standard form corresponding to the Eastern tradition.
 
@@ -253,6 +257,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.13.0 =
+
+* Added options that allow you to adjust the permissible deviations from the Eastern tradition in Bible references.
 
 = 3.12.8 =
 
@@ -622,10 +630,9 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 3.12.8 =
+= 3.13.0 =
 
-* Added option to disable links to interpretations.
-
+* Added option 'Delete spaces between digit and letter in the book notation'.
 
 == Notes for Translators ==
 
