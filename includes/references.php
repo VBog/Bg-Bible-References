@@ -13,11 +13,14 @@
 
 ********************************************************************************************************************************************/
 $bg_bibrefs_all_refs=array();				// Перечень всех ссылок 
+$sps = "(?:\s|\x{00A0}|\x{00C2}|(?:&nbsp;))";
+$dashes = "(?:[\x{2010}-\x{2015}]|(&#820[8-9];)|(&#821[0-3];))";
 /******************************************************************************************
 	Основная функция разбора текста и формирования ссылок,
     для работы требуется bg_bibrefs_get_url() - см. ниже
 *******************************************************************************************/
 function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
+	global $sps, $dashes;
 	global $post, $bg_bibrefs_start_time;
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_all_refs;
@@ -46,6 +49,8 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	$norefs_posts_val = get_post_meta($post->ID, 'norefs', true);
 	if ($norefs_posts_val || in_category( 'norefs' ) || has_tag( 'norefs' )) return $txt;
 	
+    if ($bg_bibrefs_option['strip_space']) $txt = bg_bibrefs_strip_space($txt);
+
 // Ищем все вхождения ссылок <a ...</a>, заголовков <h. ... </h.> и шорт-кодов [norefs]...[/norefs] и [bible]...[/bible]
 	preg_match_all("/<a\\s.*?<\/a>/sui", $txt, $hdr_a, PREG_OFFSET_CAPTURE);
 	preg_match_all("/<h([1-6])(.*?)<\/h\\1>/sui", $txt, $hdr_h, PREG_OFFSET_CAPTURE);
@@ -54,19 +59,31 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	
 
 // Ищем все вхождения ссылок на Библию
-//	$template = "/[\\(\\[](см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)]/ui";
-//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
-//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\;\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)\\.]?/ui";
-//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)(\\s|&nbsp\\;)*[\\]\\)(\\;|\\.)]?/ui";
-//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?(\\d?(\\s|&nbsp\\;)*[А-яA-z]{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-—–](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/ui";
-
-//	$template = "/(\\s|&nbsp\\;)?\\(?\\[?((\\s|&nbsp\\;)*см\\.?\\:?(\\s|&nbsp\\;)*)?([1-4]?(\\s|&nbsp\\;)*[А-яёіїєґўЁІЇЄҐЎA-z\']{2,8})((\\.|\\s|&nbsp\\;)*)(\\d+((\\s|&nbsp\\;)*[\\:\\,\\.\\-‐‑‒–——―](\\s|&nbsp\\;)*\\d+)*)[(\\s|&nbsp\\;)\\]\\)(\\;|\\.)]?/uxi";
-
-	$sps = "(?:\s|\x{00A0}|\x{00C2}|(?:&nbsp;))";
-	$dashes = "(?:[\x{2010}-\x{2015}]|(&#820[8-9];)|(&#821[0-3];))";
-	$template = "/(?<!\w)((?:[1-4]|I{1,3}|IV)?".$sps."*['A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ]{2,8})".$sps."*\.?".$sps."*((\d+|[IVXLC]+)(".$sps."*([\.;:,-]|".$dashes.")".$sps."*(\d+|[IVXLC]+))*)(?!\w)/u";
-
-	preg_match_all($template, $txt, $matches, PREG_OFFSET_CAPTURE);
+	$spss = $sps."*";
+	// Разрешить отсутствие точки после обозначения книги
+	if ($bg_bibrefs_option['dot']) $dot = "\.?";
+	else $dot = "\.";
+	// Разрешить римские цифры
+	if ($bg_bibrefs_option['romeh']) {
+		$romeh = '|I{1,3}|IV';
+		$romeс = '|[IVXLC]+';
+	} else {
+		$romeh = "";
+		$romeс = "";
+	}
+	// Разрешить точку, как разделитеть номеров глав и стихов
+	if ($bg_bibrefs_option['sepd']) $sepd = "\.";
+	else $sepd = "";
+	// Разрешить точку с запятой, как разделитеть номеров глав и стихов
+	if ($bg_bibrefs_option['seps']) $seps = ";";
+	else $seps = "";
+	
+	$template = "((?:[1-4]".$romeh.")?".$spss."['A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ]{2,8})".$spss.$dot.$spss."((\d+".$romeс.")(".$spss."([".$sepd.$seps.":,-]|".$dashes.")".$spss."(\d+".$romeс."))*)";
+	// Ссылка должна завершаться разделительным символом (любой, кроме буквенно-цифровых и пробельных символов). Допускаются соединительные союзы и|да|или|либо
+	if ($bg_bibrefs_option['separator']) $separator = "(?=".$sps."+(".__('and|or', 'bg_bibrefs').")|".$spss."[^\s\x{00A0}\x{00C2}\w])";
+	else $separator = "(?!\w)";
+		
+	preg_match_all("/".$template.$separator."/u", $txt, $matches, PREG_OFFSET_CAPTURE);
 	$cnt = count($matches[0]);
 
 	$text = "";
@@ -102,13 +119,18 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 /*******************************************************************/	
 		if ($maxtime < 2) return $txt;
 	} 
-
+	$exceptions = preg_split  ("/[;\n]/u", get_option('bg_bibrefs_exceptions'));
 	for ($i = 0; $i < $cnt; $i++) {
-		
+	
+		$mtch = trim (preg_replace("/".$sps."+/u", ' ', $matches[0][$i][0]));
+		foreach ($exceptions as $exception) {
+			$exception = trim (preg_replace("/".$sps."+/u", ' ', $exception));
+			if (!$exception) continue;
+
+			if (!strnatcasecmp ($mtch, $exception)) continue 2;
+		}
 	// Проверим по каждому паттерну. 
-		preg_match($template, $matches[0][$i][0], $mt);
-		
-		
+		preg_match("/".$template."/u", $matches[0][$i][0], $mt);
 		
 /****************** ОПЕРАТИВНАЯ ОТЛАДКА ****************************	
 		echo "<b>". $matches[0][$i][0]."</b> => ";
@@ -125,6 +147,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 			$title = preg_replace("/".$sps."/u", '',$mt[1]); 					// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
 			$chapter = preg_replace("/".$sps."/u", '', $mt[2]);					// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
 			$chapter = preg_replace("/".$dashes."/u", '-', $chapter);			// Замена разных вариантов тире на обычный
+			$chapter = preg_replace("/\./u", ',', $chapter);					// Замена точки на запятую
 			$chapter = preg_replace("/;/u", ',', $chapter);						// Замена точки с запятой на запятую
 			$chapter = preg_replace("/(?<=[IVXLC]),\./u", ":", $chapter);		// Римскими цифрами обозначаются только главы (после них должно идти ":", а не "," или ".")
 
@@ -314,4 +337,33 @@ $font_rome = array("I","IV","V","IX","X","XL","L","XC","C");
 		else $n--;
 	}
 	return $rezult;
+}
+
+/*******************************************************************************
+   Функция удаляет пробелы в обозначениях книг, начинающихся с цифр
+   Используется в функции bg_bibrefs_bible_proc()
+*******************************************************************************/  
+function bg_bibrefs_strip_space($txt) {
+	global $bg_bibrefs_url, $sps;
+	
+	// Формируем массив допустимых сокращений книг с номерами
+	$keys = array_keys ($bg_bibrefs_url);
+	$dbooks = array();
+	$i=0;
+	foreach ($keys as $key) {
+		if (preg_match ( "/\d.*/iu" , $key)) {
+			$dbooks[$i]=$key;
+			$i++;
+		}
+	}
+	// Удаляем пробелы
+	foreach ($dbooks as $dbook) {
+		$txt = preg_replace_callback  ("/(".$dbook[0].$sps."*".substr($dbook, 1).")(".$sps."*\.?".$sps."*(\d+|[IVXLC]+))/iu", 
+			function ($matches) {
+				global $sps;
+				$dbook = preg_replace ("/(".$sps.")+/iu","", $matches[1]);
+				return $dbook.$matches[2];
+			}, $txt);
+	}
+	return $txt;
 }
