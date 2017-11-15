@@ -1021,10 +1021,10 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibrefs_norm_refs');
 	add_option('bg_bibrefs_show_verses', "on");
 	
-	add_option('bg_bibrefs_dot');
-    add_option('bg_bibrefs_romeh');
-    add_option('bg_bibrefs_sepd');
-    add_option('bg_bibrefs_seps');
+	add_option('bg_bibrefs_dot', "on");
+    add_option('bg_bibrefs_romeh', "on");
+    add_option('bg_bibrefs_sepd', "on");
+    add_option('bg_bibrefs_seps', "on");
     add_option('bg_bibrefs_separator');
 	add_option('bg_bibrefs_strip_space');
 	add_option('bg_bibrefs_exceptions',"");

@@ -66,9 +66,21 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Если Вы разместили свой блог на медленном сервере попробуйте опцию "Предварительная загрузка стихов из Библии во всплывающие подсказки". 
 Предупреждение: Вы можете иметь проблемы с ограничениями Ajax-запросов на сервере.
 
+Если Вы включите опцию 'Преобразовывать ссылки к нормализованному виду', то ссылки на Библию будут заключены в круглые скобки, в них будут удалены лишние пробелы, а названия книг, обозначения глав и стихов будут приведены к стандартному виду, соответствующему восточной традиции.
+
+Вы можете указать какие отклонения от восточной традиции при оформлении ссылок на Библию допустимы:
+
+* Разрешить отсутствие точки после обозначения книги
+* Разрешить римские цифры
+* Разрешить точку, как разделитель номеров глав и стихов
+* Разрешить точку с запятой, как разделитель номеров глав и стихов
+
+Для повышения однозначности при разборе текста можно указать, что 'Ссылка должна завершаться разделительным символом' (кроме буквенно-цифровых и пробельных символов). 
+Допускаются также соединительные союзы. В русском языке это: и|да|или|либо.
+
 Опция 'Удалить пробелы между цифрой и буквой в книжной нотации' позволяет в некоторых случаях избежать двоякого прочтения ссылок на книги, начинающиеся на цифру (3Цар., 2Пар. и т.п.). 
 
-Если Вы включите опцию 'Преобразовывать ссылки к нормализованному виду', то ссылки на Библию будут заключены в круглые скобки, в них будут удалены лишние пробелы, а названия книг, обозначения глав и стихов будут приведены к стандартному виду, соответствующему восточной традиции.
+Чтобы избежать двусмысленности, вы можете добавить в список исключений словосочетания, которые не будут интерпретироваться как ссылки (например, Лев XII, Петр I).
 
 Самозакрывающийся шорт-код [bible book='Mt' ch='2:3-6' type='verses' lang='ru' prll='on' /] выводит цитаты из Библии в тексте страницы.
 Здесь: book – обозначение книги, ch – номера глав и стихов, type – формат вывода, lang - язык текста Библии (по умолчанию, язык Библии поста), prll='on'|'off' - вкл.|выкл. отображение ссылок на паралельные места в Библии.
@@ -174,9 +186,21 @@ Warning: Some methods may not be available on your server.
 If you placed your blog on a slow server try the option "Preload Bible verses in tooltips". 
 Warning: you can have problem with ajax-requests limiting on the server.
 
+If you enable the 'Convert References to the normalized form', the Bible references will within brackets, there are removed extra spaces, and the book titles, chapters and verses will be have the standard form corresponding to the Eastern tradition.
+
+You can specify what deviations from the Eastern tradition in the Bible references are permissible:
+
+* Allow no dot after the book
+* Allow Roman numerals
+* Allow a point as separator for chapter and verse numbers
+* Allow a semicolon, as separator for chapter and verse numbers
+
+You can specify that 'Reference must end with a separator character' (any, except for alphanumeric and whitespace characters).
+Connecting unions are also allowed. In English it is: and|or.
+
 The option 'Delete spaces between digit and letter in the book notation' allows in some cases to avoid a double understanding of references to books that beginning with digit (3King, 2Chron, etc.).
 
-If you enable the 'Convert References to the normalized form', the Bible references will within brackets, there are removed extra spaces, and the book titles, chapters and verses will be have the standard form corresponding to the Eastern tradition.
+To avoid ambiguity, you can add phrases to the list of exceptions that will not be interpreted as references (for example, Leo XII, Peter I).
 
 Self-closing shortcode [bible book = 'Mt' ch = '2 :3-6 'type =' verses' lang='ru' prll='on' /] displays quotes from the Bible in the text of the page.
 Here: book - the designation of the book, ch - numbers of chapters and verses, type - the output format, lang - language of the Bible, prll='on'|'off' - turn on|off links to parallel passages in the Bible.
