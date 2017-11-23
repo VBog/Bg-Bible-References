@@ -5,7 +5,7 @@
 *******************************************************************************/  
 function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 	global $bg_bibrefs_option;
-	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	$lang = include_books($lang);
 
@@ -171,7 +171,7 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 *******************************************************************************/  
 function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll='') {
 	global $bg_bibrefs_option;
-	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 
     $bg_show_fn = get_option( 'bg_bibrefs_show_fn' );
@@ -193,7 +193,10 @@ function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 
 			if ($type == 'book') { 																						// Тип: книга
 				if ($chr != $ch) {
-					$verses = $verses."<strong>".$bg_bibrefs_chapter." ".$ch."</strong><br>";					// Печатаем номер главы
+					if (isset($bg_bibrefs_psalm) && $book == 'Ps')
+						$verses = $verses."<strong>".$bg_bibrefs_psalm." ".$ch."</strong><br>";					// Печатаем номер псалма
+					else
+						$verses = $verses."<strong>".$bg_bibrefs_chapter." ".$ch."</strong><br>";					// Печатаем номер главы
 					$chr = $ch;
 				}
 				if ($json[$i]['stix'] == 0) $pointer = "";
@@ -237,7 +240,7 @@ function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 *******************************************************************************/  
 function bg_bibrefs_linksKey( $linksKey, $lang) {
 	global $bg_bibrefs_option;
-	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 
 	$quote = $linksKey;
@@ -638,8 +641,8 @@ function bg_bibrefs_convertTitles($q, $type) {
 	if ($type != 'on' && $type != '' && $type != 'quote') {
 		$q = preg_replace("/;/u", '<br>', $q);		// Если выводится текст Библии, то замена точки с запятой на перевод строки
 	// Раздел <h3> (Чтение Апостола и Евангелие - по умолчанию)
-		$q = preg_replace("/<em><strong>Евангелие и Апостол:<\/strong><\/em><br>/u", '<h3>'.__( 'Gospel and Apostolic readings', 'bg_bibrefs' ).'</h3>', $q);		
-		$q = preg_replace("/<em><strong>Псалтирь:<\/strong><\/em><br>/u", '<h3>'.__( 'Reading of the Psalms', 'bg_bibrefs' ).'</h3>', $q);		
+		$q = preg_replace("/(<br>)?<em><strong>Евангелие и Апостол:<\/strong><\/em><br>/u", '<h3>'.__( 'Gospel and Apostolic readings', 'bg_bibrefs' ).'</h3>', $q);		
+		$q = preg_replace("/(<br>)?<em><strong>Псалтирь:<\/strong><\/em><br>/u", '<h3>'.__( 'Reading of the Psalms', 'bg_bibrefs' ).'</h3>', $q);		
 	// Названия служб <h4>
 		$q = preg_replace("/<em> На утр.: - <\/em>/u", '<h4>'. __( 'At Matins', 'bg_bibrefs' ) .'</h4>', $q);		
 		$q = preg_replace("/<em> На лит.: - <\/em>/u", '<h4>'. __( 'At Liturgy', 'bg_bibrefs' ) .'</h4>', $q);		

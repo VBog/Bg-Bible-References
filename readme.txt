@@ -282,6 +282,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.13.1 =
+
+* In the book "Psalms" the word "Chapter" is replaced by "Psalm".
+
 = 3.13.0 =
 
 * Added options that allow you to adjust the permissible deviations from the Eastern tradition in Bible references.

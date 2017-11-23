@@ -24,9 +24,8 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	global $post, $bg_bibrefs_start_time;
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_all_refs;
-	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
-//	bg_bibrefs_get_options ();
 
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {
@@ -80,7 +79,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	
 	$template = "((?:[1-4]".$romeh.")?".$spss."['A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ]{2,8})".$spss.$dot.$spss."((\d+".$romeс.")(".$spss."([".$sepd.$seps.":,-]|".$dashes.")".$spss."(\d+".$romeс."))*)";
 	// Ссылка должна завершаться разделительным символом (любой, кроме буквенно-цифровых и пробельных символов). Допускаются соединительные союзы и|да|или|либо
-	if ($bg_bibrefs_option['separator']) $separator = "(?=".$sps."+(".__('and|or', 'bg_bibrefs').")|".$spss."[^\s\x{00A0}\x{00C2}\w])";
+	if ($bg_bibrefs_option['separator']) $separator = "(?=".$sps."+(".__('and|or', 'bg_bibrefs').")|".$spss."[^\s\x{00A0}\x{00C2}\w]|$)";
 	else $separator = "(?!\w)";
 		
 	preg_match_all("/".$template.$separator."/u", $txt, $matches, PREG_OFFSET_CAPTURE);
@@ -249,7 +248,7 @@ function bg_bibrefs_check_tag($hdr, $pos) {
 	и bg_bibrefs_getBook() - см. ниже
 *******************************************************************************************/
 function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
-	global $bg_bibrefs_ch;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	
 /*******************************************************************************
    Проверяем настройки
@@ -267,7 +266,11 @@ function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
 		}
 		else $fullurl = $link;
 		
-		$the_title =  $bg_bibrefs_bookTitle[$book]." ".$bg_bibrefs_ch." ".$chapter;					// Название книги, номера глав и стихов	
+		if (isset($bg_bibrefs_ps) && $book == 'Ps')
+			$the_title =  $bg_bibrefs_bookTitle[$book]." ".$bg_bibrefs_ps." ".$chapter;				// Название книги, номера псалмов и стихов	
+		else
+			$the_title =  $bg_bibrefs_bookTitle[$book]." ".$bg_bibrefs_ch." ".$chapter;				// Название книги, номера глав и стихов	
+
 		if ($bg_bibrefs_option['show_verses'] == 'on') {											// Текст  стихов
 //			$ajax_url = admin_url("admin-ajax.php?title=".$book."&chapter=".$chapter."&type=t_verses&lang=".$lang);
 			$ajax_url = "?title=".$book."&chapter=".$chapter."&type=t_verses&lang=".$lang;

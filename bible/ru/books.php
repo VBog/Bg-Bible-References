@@ -3,6 +3,8 @@
 	$bg_bibrefs_book_lang = 'ru';
 	$bg_bibrefs_chapter = 'Глава';
 	$bg_bibrefs_ch = 'гл.';
+	$bg_bibrefs_psalm = 'Псалом';
+	$bg_bibrefs_ps = 'пс.';
 	
 	$bg_bibrefs_url = array(		// Допустимые обозначения книг Священного Писания
 		// Ветхий Завет

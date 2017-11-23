@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.13.0
+    Version: 3.13.1
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -11,7 +11,7 @@
 	Domain Path: /languages
 */
 
-/*  Copyright 2015  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
+/*  Copyright 2013-2017  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.13.0');
+define('BG_BIBREFS_VERSION', '3.13.1');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $bg_bibrefs_start_time = microtime(true);
@@ -237,7 +237,8 @@ function set_bible_lang() {
 	
 ******************************************************************************************/
 function include_books($lang) {
-	global $bg_bibrefs_lang_name, $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_lang_name;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	
 	$file_books = dirname( __FILE__ ).'/bible/'.$lang.'/books.php';
@@ -296,7 +297,7 @@ function bg_bibrefs_bible( $ref='', $book='', $ch='1-999', $type='verses', $lang
 	if (!$lang) $lang = set_bible_lang();
 	$book = bg_bibrefs_getBook($book, $lang);
 	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibrefs_bible_quote_refs($ref, $lang);
-	
+
 	if ($content) {
 		$content = do_shortcode($content);
 		$quote = bg_bibrefs_bible_proc($content, $type, $lang, $prll);
