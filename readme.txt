@@ -27,7 +27,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * You can add and delete folders with Bible books on your site.
 * To customize the appearance of reference  links, use class bg_bibrefs.
 
-### Bible in 5 languages:: 
+### Bible in 5 languages: 
 * Church Slavic (Elizabeth Bible) 
 * Russian (Synodal translation) 
 * Ukrainian (translation by I.I.Ogienko) 
@@ -37,8 +37,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ### Shortcode:
 * `[bible]` displays quotes from the Bible in the text of the page.
 * `[bible_epigraph]` displays the quote in the format of epigraph.
-* `[bible_search]` displays the search results of phrase (parameter 'context'). 
-In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аny letter, "*" - more any letters.
+* `[bible_search]` displays the search results of phrase (parameter 'context'). In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аny letter, "*" - more any letters.
 * `[bible_omnisearch]` displays a form element, allowing the user to enter a search query (see: [Bible_search]).
 * `[references]` displays list of Bible references are finded in the article.
 * `[norefs]...[/norefs]` prohibits highlighting the Bible references in the text enclosed with this shortcode.
@@ -48,6 +47,7 @@ In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аn
 * *Bible Search Widget* allows you to place the form in the sidebar to search for words or phrases in the Bible.
 * *Bible Quote Widget* in the sidebar displays a Random Quote or Day's Quote from the Bible the same way as it makes the shortcode `[bible_epigraph]`.
 
+-----
 
 ## Описание плагина
 
@@ -71,8 +71,7 @@ In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аn
 ### Шорт-коды:
 * `[bible]` выводит цитаты из Библии в тексте страницы.
 * `[bible_epigraph]` выводит на экран цитату в форме эпиграфа. 
-* `[bible_search]` выводит на экран результаты поиска фразы в Библии. 
-В поисковом запросе можно использовать специальные символы: "$" - 1 любая буква, "%" - 0 или 1 любая буква, "*" - несколько любых букв.
+* `[bible_search]` выводит на экран результаты поиска фразы в Библии. В поисковом запросе можно использовать специальные символы: "$" - 1 любая буква, "%" - 0 или 1 любая буква, "*" - несколько любых букв.
 * `[bible_omnisearch]` выводит на экран элемент формы, позволяющий пользователю вводить поисковый запрос. 
 * `[references]` выводит список ссылок на Библию, встречающиеся в статье.
 * `[norefs]...[/norefs]` запрещает подсветку гиперссылок на Библию в тексте, ограниченном этим шорт-кодом. 
@@ -81,6 +80,8 @@ In the search query you can use wildcards: "$" - 1 аny letter, "%" - 0 or 1 аn
 * Виджет *"Ссылки на Библию"* позволяет разместить в сайдбаре форму для вывода текста цитат из Библии на странице Вашего сайта.
 * Виджет *"Поиск в Библии"* позволяет разместить в сайдбаре форму для поиска слова или фразы Библии. 
 * Виджет *"Цитата из Библии"* выводит в сайдбаре Случайную Цитату или Цитату Дня из Библии, аналогично тому, как это делает шорт-код `[bible_epigraph]`.
+
+-----
 
 == Installation ==
 
