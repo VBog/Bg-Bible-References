@@ -5,7 +5,7 @@
 *******************************************************************************/  
 function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 	global $bg_bibrefs_option;
-	global $bg_bibrefs_chapter, $bg_bibrefs_ch;
+	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	$lang = include_books($lang);
 	bg_bibrefs_get_options ();
