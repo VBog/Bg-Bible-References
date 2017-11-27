@@ -11,19 +11,20 @@ License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-...will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
+...will highlight the Bible references with hyperlinks to the Bible and interpretation by the Holy Fathers.
 
 == Description ==
 
 `[see also Russian description below]`
 
-* The plugin will highlight references to the Bible text with links.
+* The plugin will highlight references to the Bible with links.
 * Parallel passages in the Bible.
 * Interpretation of Holy Scripture by the Holy Fathers and Doctors of the Church.
 * Convert references to normalized form.
 * Excerpts from the Bible in the article.
 * Random quote and quote of the day.
-* List of bible references contented in the article.
+* Search in the Bible.
+* List of Bible references contented in the article.
 * You can add and delete folders with Bible books on your site.
 * To customize the appearance of reference  links, use class bg_bibrefs.
 
@@ -51,12 +52,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ## Описание плагина
 
-* Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок.
+* Плагин подсвечивает ссылки на Библию с помощью гиперссылок.
 * Параллельные места в Библии.
 * Толкования Святого Писания Святыми отцами и Учителями Церкви.
 * Преобразование ссылок к нормализованному виду.
 * Отрывки из Библии в тексте статьи.
 * Случайная цитата и Цитата дня.
+* Поиск в Библии.
 * Список библейских ссылок в статье.
 * Вы можете добавлять и удалять папки с книгами Библии на вашем сайте.
 * Для настройки вида ссылок используйте класс bg_bibrefs.
@@ -108,6 +110,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.13.2 =
+
+* Fixed bugs.
 
 = 3.13.1 =
 
@@ -335,9 +341,10 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 3.13.1 =
+= 3.13 =
 
 * In the book "Psalms" the word "Chapter" is replaced by "Psalm".
+* Added options that allow you to adjust the permissible deviations from the Eastern tradition in Bible references.
 
 == Notes for Translators ==
 
