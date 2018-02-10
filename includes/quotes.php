@@ -251,7 +251,8 @@ function bg_bibrefs_linksKey( $linksKey, $lang) {
 		$title = preg_replace("/\s/u", '',$mt[1]); 					// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
 		$title = bg_bibrefs_getBook($title);						// Стандартное обозначение книги
 		$chapter = preg_replace("/\s/u", '', $mt[3]);				// и другие юникодные пробельные символы
-		$chapter = preg_replace("/\,/u", ':', $chapter);			// Если глава отделена запятой, заменяем ее на двоеточие.
+		if ($bg_bibrefs_option['sepc'])								// В западной традиции
+			$chapter = preg_replace("/\,/u", ':', $chapter);		// глава отделена запятой - заменяем ее на двоеточие.
 		if ($title != "") {						
 			if (!$lang) $lang = set_bible_lang();
 			$quote = bg_bibrefs_get_url($title, $chapter, '&#128279;'.$bg_bibrefs_shortTitle[$title].'&nbsp;'.$chapter.' ', $lang);

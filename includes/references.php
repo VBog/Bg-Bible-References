@@ -164,7 +164,8 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 			preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
 			if ($mtchs) {
 				if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
-						$chapter = preg_replace("/\,/u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена запятой, заменяем ее на двоеточие.
+						if ($bg_bibrefs_option['sepc'])							// В западной традиции
+							$chapter = preg_replace("/\,/u", ':', $chapter, 1);	// глава отделена запятой - заменяем ее на двоеточие.
 						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
 				}
 			}

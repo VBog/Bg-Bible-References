@@ -5,7 +5,7 @@ Donate link: http://bogaiskov.ru/about-me/donate/
 Tags: bible, orthodoxy, Christianity, Библия, православие, христианство, Священное Писание, Завет, ορθοδοξία, χριστιανισμός, Αγία Γραφή
 Requires PHP: 5.3
 Requires at least: 3.0.1
-Tested up to: 4.9.0
+Tested up to: 4.9.3
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -110,6 +110,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.13.3 =
+
+* Added option "Allow the comma as divider between chapter and verses (western tradition)".
 
 = 3.13.2 =
 

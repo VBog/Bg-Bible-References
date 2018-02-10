@@ -34,6 +34,7 @@ function bg_bibrefs_options_page() {
 
     $bg_perm_dot = 'bg_bibrefs_dot';					// Разрешить отсутствие точки после обозначения книги
     $bg_perm_romeh = 'bg_bibrefs_romeh';				// Разрешить Римские цифры
+    $bg_perm_sepc = 'bg_bibrefs_sepc';					// Разрешить запятую, как разделитеть между главой и стихами (западная традиция)
     $bg_perm_sepd = 'bg_bibrefs_sepd';					// Разрешить точку, как разделитеть номеров глав и стихов
     $bg_perm_seps = 'bg_bibrefs_seps';					// Разрешить точку с запятой, как разделитеть номеров глав и стихов
     $bg_perm_separator = 'bg_bibrefs_separator';		// Ссылка должна завершаться разделительным символом (любой, кроме буквенно-цифровых и пробельных символов)
@@ -85,6 +86,7 @@ function bg_bibrefs_options_page() {
 
     $bg_perm_dot_val = get_option( $bg_perm_dot );
     $bg_perm_romeh_val = get_option( $bg_perm_romeh );
+    $bg_perm_sepс_val = get_option( $bg_perm_sepс );
     $bg_perm_sepd_val = get_option( $bg_perm_sepd );
     $bg_perm_seps_val = get_option( $bg_perm_seps );
     $bg_perm_separator_val = get_option( $bg_perm_separator );
@@ -165,6 +167,9 @@ function bg_bibrefs_options_page() {
 
 		$bg_perm_romeh_val = sanitize_text_field(( isset( $_POST[$bg_perm_romeh] ) && $_POST[$bg_perm_romeh] ) ? $_POST[$bg_perm_romeh] : '') ;
 		update_option( $bg_perm_romeh, $bg_perm_romeh_val );
+
+		$bg_perm_sepс_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepс] ) && $_POST[$bg_perm_sepс] ) ? $_POST[$bg_perm_sepс] : '') ;
+		update_option( $bg_perm_sepс, $bg_perm_sepс_val );
 
 		$bg_perm_sepd_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepd] ) && $_POST[$bg_perm_sepd] ) ? $_POST[$bg_perm_sepd] : '') ;
 		update_option( $bg_perm_sepd, $bg_perm_sepd_val );
@@ -407,6 +412,12 @@ bg_bibrefs_site_checked();
 <th scope="row"><?php _e('Allow Roman numerals', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="checkbox" id="bg_perm_romeh" name="<?php echo $bg_perm_romeh ?>" <?php if($bg_perm_romeh_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Allow the comma as divider between chapter and verses (western tradition)', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_perm_sepc" name="<?php echo $bg_perm_sepc ?>" <?php if($bg_perm_sepc_val=="on") echo "checked" ?>  value="on"> <br />
 </td></tr>
 
 <tr valign="top">
