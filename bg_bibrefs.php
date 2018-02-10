@@ -1024,7 +1024,7 @@ function bg_bibrefs_options_ini () {
 	
 	add_option('bg_bibrefs_dot', "on");
     add_option('bg_bibrefs_romeh', "on");
-    add_option('bg_bibrefs_sepс', "on");
+    add_option('bg_bibrefs_sepc', "on");
     add_option('bg_bibrefs_sepd', "on");
     add_option('bg_bibrefs_seps', "on");
     add_option('bg_bibrefs_separator');
@@ -1068,7 +1068,7 @@ function bg_bibrefs_deinstall() {
 	
 	delete_option('bg_bibrefs_dot');
     delete_option('bg_bibrefs_romeh');
-    delete_option('bg_bibrefs_sepс');
+    delete_option('bg_bibrefs_sepc');
     delete_option('bg_bibrefs_sepd');
     delete_option('bg_bibrefs_seps');
     delete_option('bg_bibrefs_separator');
@@ -1132,7 +1132,7 @@ function bg_bibrefs_get_options () {
 
 	$bg_bibrefs_option['dot'] = get_option( 'bg_bibrefs_dot' );
 	$bg_bibrefs_option['romeh'] = get_option( 'bg_bibrefs_romeh' );
-	$bg_bibrefs_option['sepс'] = get_option( 'bg_bibrefs_sepс' );
+	$bg_bibrefs_option['sepc'] = get_option( 'bg_bibrefs_sepc' );
 	$bg_bibrefs_option['sepd'] = get_option( 'bg_bibrefs_sepd' );
 	$bg_bibrefs_option['seps'] = get_option( 'bg_bibrefs_seps' );
 	$bg_bibrefs_option['separator'] = get_option( 'bg_bibrefs_separator' );

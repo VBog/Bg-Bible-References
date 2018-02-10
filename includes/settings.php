@@ -86,7 +86,7 @@ function bg_bibrefs_options_page() {
 
     $bg_perm_dot_val = get_option( $bg_perm_dot );
     $bg_perm_romeh_val = get_option( $bg_perm_romeh );
-    $bg_perm_sepс_val = get_option( $bg_perm_sepс );
+    $bg_perm_sepc_val = get_option( $bg_perm_sepc );
     $bg_perm_sepd_val = get_option( $bg_perm_sepd );
     $bg_perm_seps_val = get_option( $bg_perm_seps );
     $bg_perm_separator_val = get_option( $bg_perm_separator );
@@ -168,8 +168,8 @@ function bg_bibrefs_options_page() {
 		$bg_perm_romeh_val = sanitize_text_field(( isset( $_POST[$bg_perm_romeh] ) && $_POST[$bg_perm_romeh] ) ? $_POST[$bg_perm_romeh] : '') ;
 		update_option( $bg_perm_romeh, $bg_perm_romeh_val );
 
-		$bg_perm_sepс_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepс] ) && $_POST[$bg_perm_sepс] ) ? $_POST[$bg_perm_sepс] : '') ;
-		update_option( $bg_perm_sepс, $bg_perm_sepс_val );
+		$bg_perm_sepc_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepc] ) && $_POST[$bg_perm_sepc] ) ? $_POST[$bg_perm_sepc] : '') ;
+		update_option( $bg_perm_sepc, $bg_perm_sepc_val );
 
 		$bg_perm_sepd_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepd] ) && $_POST[$bg_perm_sepd] ) ? $_POST[$bg_perm_sepd] : '') ;
 		update_option( $bg_perm_sepd, $bg_perm_sepd_val );
