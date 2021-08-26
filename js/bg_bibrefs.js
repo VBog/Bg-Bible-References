@@ -199,7 +199,7 @@ function tooltip_mini(tooltip, el, e) {
 		if(window.getSelection){ 
 			var s=window.getSelection(); 
 			if(s.setBaseAndExtent){ 
-				s.setBaseAndExtent(e,0,e,e.innerText.length-1); 
+				s.setBaseAndExtent(e,0,e,e.childNodes.length-1); 
 			}else{ 
 				var r=document.createRange(); 
 				r.selectNodeContents(e); 

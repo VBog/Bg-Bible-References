@@ -35,9 +35,6 @@ function bg_bibrefs_options_page() {
     $bg_perm_dot = 'bg_bibrefs_dot';					// Разрешить отсутствие точки после обозначения книги
     $bg_perm_romeh = 'bg_bibrefs_romeh';				// Разрешить Римские цифры
     $bg_perm_sepc = 'bg_bibrefs_sepc';					// Разрешить запятую, как разделитеть между главой и стихами (западная традиция)
-    $bg_perm_sepd = 'bg_bibrefs_sepd';					// Разрешить точку, как разделитеть номеров глав и стихов
-    $bg_perm_seps = 'bg_bibrefs_seps';					// Разрешить точку с запятой, как разделитеть номеров глав и стихов
-    $bg_perm_separator = 'bg_bibrefs_separator';		// Ссылка должна завершаться разделительным символом (любой, кроме буквенно-цифровых и пробельных символов)
 	$bg_strip_space = 'bg_bibrefs_strip_space';			// Удалять пробелы в обозначениях книг, начинающихся с цифр
 	$bg_perm_exceptions = 'bg_bibrefs_exceptions';		// Словосочетания, не являющиеся ссылками на Библию
 	
@@ -87,9 +84,6 @@ function bg_bibrefs_options_page() {
     $bg_perm_dot_val = get_option( $bg_perm_dot );
     $bg_perm_romeh_val = get_option( $bg_perm_romeh );
     $bg_perm_sepc_val = get_option( $bg_perm_sepc );
-    $bg_perm_sepd_val = get_option( $bg_perm_sepd );
-    $bg_perm_seps_val = get_option( $bg_perm_seps );
-    $bg_perm_separator_val = get_option( $bg_perm_separator );
     $bg_strip_space_val = get_option( $bg_strip_space );
     $bg_perm_exceptions_val = get_option( $bg_perm_exceptions );
 
@@ -170,15 +164,6 @@ function bg_bibrefs_options_page() {
 
 		$bg_perm_sepc_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepc] ) && $_POST[$bg_perm_sepc] ) ? $_POST[$bg_perm_sepc] : '') ;
 		update_option( $bg_perm_sepc, $bg_perm_sepc_val );
-
-		$bg_perm_sepd_val = sanitize_text_field(( isset( $_POST[$bg_perm_sepd] ) && $_POST[$bg_perm_sepd] ) ? $_POST[$bg_perm_sepd] : '') ;
-		update_option( $bg_perm_sepd, $bg_perm_sepd_val );
-
-		$bg_perm_seps_val = sanitize_text_field(( isset( $_POST[$bg_perm_seps] ) && $_POST[$bg_perm_seps] ) ? $_POST[$bg_perm_seps] : '') ;
-		update_option( $bg_perm_seps, $bg_perm_seps_val );
-
-		$bg_perm_separator_val = sanitize_text_field(( isset( $_POST[$bg_perm_separator] ) && $_POST[$bg_perm_separator] ) ? $_POST[$bg_perm_separator] : '') ;
-		update_option( $bg_perm_separator, $bg_perm_separator_val );
 
 		$bg_strip_space_val = sanitize_text_field(( isset( $_POST[$bg_strip_space] ) && $_POST[$bg_strip_space] ) ? $_POST[$bg_strip_space] : '') ;
 		update_option( $bg_strip_space, $bg_strip_space_val );
@@ -391,13 +376,6 @@ bg_bibrefs_site_checked();
 <input type="checkbox" id="bg_parallel" name="<?php echo $bg_parallel ?>" <?php if($bg_parallel_val=="on") echo "checked" ?>  value="on"> <?php _e('<br><i>(Tooltips and Short Codes)</i>', 'bg_bibrefs' ); ?> <br />
 </td></tr>
 
-<tr valign="top">
-<th scope="row"><?php _e('Convert references to the normalized form', 'bg_bibrefs' ); ?></th>
-<td>
-<input type="checkbox" id="bg_norm_refs" name="<?php echo $bg_norm_refs ?>" <?php if($bg_norm_refs_val=="on") echo "checked" ?>  value="on"> <br />
-</th><td>
-</td></tr>
-
 </table>
 
 <!--  Допустимые отклонения от стандарта ссылок -->
@@ -418,31 +396,20 @@ bg_bibrefs_site_checked();
 <th scope="row"><?php _e('Allow the comma as divider between chapter and verses (western tradition)', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="checkbox" id="bg_perm_sepc" name="<?php echo $bg_perm_sepc ?>" <?php if($bg_perm_sepc_val=="on") echo "checked" ?>  value="on"> <br />
-</td></tr>
-
-<tr valign="top">
-<th scope="row"><?php _e('Allow the dot as divider of chapters and verses', 'bg_bibrefs' ); ?></th>
-<td>
-<input type="checkbox" id="bg_perm_sepd" name="<?php echo $bg_perm_sepd ?>" <?php if($bg_perm_sepd_val=="on") echo "checked" ?>  value="on"> <br />
-</td></tr>
-
-<tr valign="top">
-<th scope="row"><?php _e('Allow the semicolon as divider of chapters and verses', 'bg_bibrefs' ); ?></th>
-<td>
-<input type="checkbox" id="bg_perm_seps" name="<?php echo $bg_perm_seps ?>" <?php if($bg_perm_seps_val=="on") echo "checked" ?>  value="on"> <br />
-</td></tr>
-
-<tr valign="top">
-<th scope="row"><?php _e('Reference must end with a separator character', 'bg_bibrefs' ); ?></th>
-<td>
-<input type="checkbox" id="bg_perm_separator" name="<?php echo $bg_perm_separator ?>" <?php if($bg_perm_separator_val=="on") echo "checked" ?>  value="on"> <br />
-<?php _e('(any, except alphanumeric and space characters). Allowed connecting unions and|or', 'bg_bibrefs' ); ?><br />
+<?php _e('The plugin highlights references in both eastern and western notation. There is collision what is mean the reference containing two numbers devided by a comma (for example, Ps. 4,6). In the Western tradition, this is reference to Psalm 4 verse 6, but in the east tradition it is reference to Psalms 4 and 6. You can choose how to interpret such links by specifying it in the settings.', 'bg_bibrefs' ); ?>
 </td></tr>
 
 <tr valign="top">
 <th scope="row"><?php _e('Delete spaces between digit and letter in the book notation', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="checkbox" id="bg_strip_space" name="<?php echo $bg_strip_space ?>" <?php if($bg_strip_space_val=="on") echo "checked" ?>  value="on"> <br />
+</td></tr>
+
+<tr valign="top">
+<th scope="row"><?php _e('Convert references to the normalized form', 'bg_bibrefs' ); ?></th>
+<td>
+<input type="checkbox" id="bg_norm_refs" name="<?php echo $bg_norm_refs ?>" <?php if($bg_norm_refs_val=="on") echo "checked" ?>  value="on"> <br />
+</th><td>
 </td></tr>
 
 <tr valign="top">
@@ -464,6 +431,18 @@ bg_bibrefs_site_checked();
 	<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibrefs' ); ?></option>
 	<?php
 		$path = dirname(dirname( __FILE__ )).'/bible/';
+		if ($handle = opendir($path)) {
+			while (false !== ($dir = readdir($handle))) { 
+				if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+					include ($path.$dir.'/books.php');
+					echo "<option ";
+					if($bg_verses_lang_val==$dir) echo "selected";
+					echo " value=".$dir.">".$bg_bibrefs_lang_name."</option>\n";
+				}
+			}
+			closedir($handle); 
+		}
+		$path = BG_BIBREFS_UPLOAD_DIR.'/bible/';
 		if ($handle = opendir($path)) {
 			while (false !== ($dir = readdir($handle))) { 
 				if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {

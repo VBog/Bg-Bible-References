@@ -3,56 +3,18 @@
    Создание контента цитаты 
    Вызывает bg_bibrefs_printVerses() - см. ниже
 *******************************************************************************/  
-function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
+function bg_bibrefs_getQuotes($book, $chapter, $type, $langs, $prll='') {
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
-	$lang = include_books($lang);
+
 
 /*******************************************************************************
    Преобразование обозначения книги из формата azbyka.ru в формат patriarhia.ru
    чтение и преобразование файла книги
 *******************************************************************************/  
-	if (!$book) return "";
-	if (!$bg_bibrefs_bookFile[$book]) return "";
-//	$key='bible-'.$book.'_'.$lang;
-//	if (!$bg_bibrefs_option['cashe'] || (false===($code=wp_cache_get($key,'bg-bible-refs'))) ){
-		$book_file = 'bible/'.$bg_bibrefs_bookFile[$book];										// Имя файла книги
-
-	// Получаем данные из файла	
-		$code = false;
-		if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
-			$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
-			$code = file_get_contents($url);		
-		}
-
-		if ($bg_bibrefs_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
-			$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
-			$ch=fopen($url, "r" );																	// Открываем файл для чтения
-			if($ch)
-			{
-				while (!feof($ch))	{
-					$code .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
-				}
-				fclose($ch);																		// Закрываем файл
-			}
-		}
-		if ($bg_bibrefs_option['curl'] == 'on' && function_exists('curl_init') && !$code) {		// Попытка3. Если установлен cURL				
-			$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
-			$ch = curl_init($url);																	// создание нового ресурса cURL
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
-			$code = curl_exec($ch);																	// загрузка текста
-			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);										
-			if ($httpCode != '200') $code = false;													// Проверка на код http 200
-			curl_close($ch);																		// завершение сеанса и освобождение ресурсов
-		} 
-
-		if (!$code) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
-
-//		if ($bg_bibrefs_option['cashe']) wp_cache_set($key,$code,'bg-bible-refs',3600);		
-//	}	
-// Преобразовать json в массив
-	$json = json_decode($code, true);															
+	$jsons = bg_bibrefs_get_file ($book, $langs);
+	if (empty($jsons)) return "";
 
 	$verses = "";
 /*******************************************************************************
@@ -115,7 +77,7 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 					} else {
 						$vr2 = $vr1;
 					}
-					$verses = $verses.bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
+					$verses = $verses.bg_bibrefs_printVerses ($jsons, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $langs, $prll);
 					$chr = $ch1;
 					if ($sp == "") break;
 				}
@@ -153,7 +115,7 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 				$vr1 = 0;
 				$vr2 = 999;
 			}
-			$verses = $verses.bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll);
+			$verses = $verses.bg_bibrefs_printVerses ($jsons, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $langs, $prll);
 			$chr = $ch2;
 		}
 		if ($sp == "") break;
@@ -165,19 +127,101 @@ function bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll='') {
 
 	return $verses;
 }
+
+/*******************************************************************************
+   Получить данные из файла Библии
+   
+*******************************************************************************/  
+function bg_bibrefs_get_file ($book, $langs) {
+	global $bg_bibrefs_option, $bg_bibrefs_bookFile, $bg_bibrefs_lang_name;
+	
+	$languages = explode ('~', $langs);
+	
+	foreach ($languages as $lang) {
+		$lang = include_books($lang);
+		
+		if (!$book) return "";
+		if (!$bg_bibrefs_bookFile[$book]) return "";
+		$book_file = 'bible/'.$bg_bibrefs_bookFile[$book];										// Имя файла книги
+		$path = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
+		$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
+		if (!file_exists($path)) {
+			$upload_dir = wp_upload_dir();
+			$path = $upload_dir['basedir'].'/'.$book_file;
+			$url = $upload_dir['baseurl'].'/'.$book_file;
+		}
+	// Получаем данные из файла	
+		$code = false;
+		if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
+		
+			$code = file_get_contents($path);		
+		}
+
+		if ($bg_bibrefs_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
+			$ch=fopen($path, "r" );																	// Открываем файл для чтения
+			if($ch)
+			{
+				while (!feof($ch))	{
+					$code .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
+				}
+				fclose($ch);																		// Закрываем файл
+			}
+		}
+		if ($bg_bibrefs_option['curl'] == 'on' && function_exists('curl_init') && !$code) {		// Попытка3. Если установлен cURL				
+			$ch = curl_init($url);																	// создание нового ресурса cURL
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
+			$code = curl_exec($ch);																	// загрузка текста
+			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);										
+			if ($httpCode != '200') $code = false;													// Проверка на код http 200
+			curl_close($ch);																		// завершение сеанса и освобождение ресурсов
+		} 
+
+		if (!$code) return "";																	// Увы. Паранойя хостера достигла апогея. Файл не прочитан или ошибка
+
+	// Преобразовать json в массив
+		$json['name'] = $bg_bibrefs_lang_name;															
+		$json['data'] = json_decode($code, true);															
+		$jsons[$lang] = $json;															
+	}
+	return $jsons;
+}
 /*******************************************************************************
 	Формирование содержания цитаты
 	Вызывает bg_bibrefs_optina() - см. ниже
 *******************************************************************************/  
-function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $lang, $prll='') {
+function bg_bibrefs_printVerses ($jsons, $book, $chr, $ch1, $ch2, $vr1, $vr2, $type, $langs, $prll='') {
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
-
+	
+	$langs = explode ('~', $langs);
+	$num_langs = count($langs);
+	$lang = $langs[0];
+	$json = $jsons[$lang];
+	
     $bg_show_fn = get_option( 'bg_bibrefs_show_fn' );
-
 	$shortTitle = $bg_bibrefs_shortTitle[$book];
 	$verses = "";
+	
+// Если выбрано несколько языков
+	if ($num_langs > 1) {	
+	// Для заголовков используем язык по умолчанию
+		$lang = set_bible_lang();
+		$json = bg_bibrefs_get_file ($book, $lang);
+		if (empty($json)) return "Книга ".$book." на ".$lang." не найдена. ";
+		$json = $json[$lang];
+	// Заголовок таблицы
+		$verses = "<table class='bg_bibrefs_table_".$type."'><tr>";
+		if ($type != 'quote') $verses = $verses. "<th></th>";
+		foreach ($jsons as $lg => $jsn) {
+			$verses = $verses. "<th>" .$jsn['name']. "</th>";
+		}
+		$verses = $verses."</tr>";
+	}
+	$json = $json['data'];
+	
+	
+// Начинаем вывов стихов
 	$cv1 = $ch1 *1000 + $vr1;
 	$cv2 = $ch2 *1000 + $vr2;
 	$cn_json = count($json);
@@ -191,46 +235,61 @@ function bg_bibrefs_printVerses ($json, $book, $chr, $ch1, $ch2, $vr1, $vr2, $ty
 				if ($fn != '*' && $bg_show_fn != 'on') $fn="";
 			} else $fn="";
 
-			if ($type == 'book') { 																						// Тип: книга
+		// Заголовки и нумерация стихов
+			if ($type == 'book') { 																				// Тип: книга
 				if ($chr != $ch) {
 					if (isset($bg_bibrefs_psalm) && $book == 'Ps')
-						$verses = $verses."<strong>".$bg_bibrefs_psalm." ".$ch."</strong><br>";					// Печатаем номер псалма
+						$verses = $verses."<strong>".$bg_bibrefs_psalm." ".$ch."</strong><br>";						// Печатаем номер псалма
 					else
 						$verses = $verses."<strong>".$bg_bibrefs_chapter." ".$ch."</strong><br>";					// Печатаем номер главы
 					$chr = $ch;
 				}
 				if ($json[$i]['stix'] == 0) $pointer = "";
-				else $pointer = "<em>".$json[$i]['stix_n'].$fn."</em> ";													// Только номер стиха
-			} else if ($type == 'verses' || $type == 't_verses') { 														// Тип: стихи или стихи с названием книг
-				if ($json[$i]['stix'] == 0) $pointer = "<em>".$json[$i]['part']."</em>   ";
-				else $pointer = "<em>".$json[$i]['part'].":".$json[$i]['stix_n'].$fn."</em> ";							// Номер главы : номер стиха
-			} else if ($type == 'b_verses') { 																			// Тип: стихи
-				if ($json[$i]['stix'] == 0) $pointer = "<em>".$shortTitle.$json[$i]['part'].$fn."</em>   ";
-				else $pointer = "<em>".$shortTitle.$json[$i]['part'].":".$json[$i]['stix_n'].$fn."</em> ";				// Книга. номер главы : номер стиха
-			} else {																									// Тип: цитата
-				$pointer = "";																							// Ничего
+				else $pointer = $json[$i]['stix_n'].$fn;														// Только номер стиха
+			} else if ($type == 'verses' || $type == 't_verses') { 												// Тип: стихи или стихи с названием книг
+				if ($json[$i]['stix'] == 0) $pointer = $json[$i]['part'];
+				else $pointer = $json[$i]['part'].":".$json[$i]['stix_n'].$fn;									// Номер главы : номер стиха
+			} else if ($type == 'b_verses') { 																	// Тип: стихи
+				if ($json[$i]['stix'] == 0) $pointer = $shortTitle.$json[$i]['part'].$fn;
+				else $pointer = $shortTitle.$json[$i]['part'].":".$json[$i]['stix_n'].$fn;						// Книга. номер главы : номер стиха
+			} else {																							// Тип: цитата
+				$pointer = "";																						// Ничего
 			}
-			$txt = trim(strip_tags($json[$i]['text']));
-			if ($txt) {
-				if ($json[$i]['stix'] == 0) $txt = "<strong>".$pointer.$txt."</strong>";
-				else  $txt = $pointer.bg_bibrefs_optina($txt, $book, $ch, $vr, $lang);
-
-				$verses = $verses.$txt;
-				if ($type == 'quote') {$verses = $verses." ";}															// Если цитата, строку не переводим
-				else {
-					if (($bg_bibrefs_option['parallel'] == 'on' && $prll != 'off') || $prll == 'on') {
-						$cn_linksKey = count($json[$i]['linksKey']);
-						if ($cn_linksKey) $verses .= " <span class='bg_bibrefs_passage'>{";
-						for ($j=0; $j < $cn_linksKey; $j++) {
-							$verses .= bg_bibrefs_linksKey($json[$i]['linksKey'][$j][1], $lang);
-						}
-						if ($cn_linksKey) $verses .= "}</span>";
-					}
-					$verses .= "<br>";
+		// Ссылки на параллельные места
+			$prl = "";
+			if (($bg_bibrefs_option['parallel'] == 'on' && $prll != 'off') || $prll == 'on') {
+				$cn_linksKey = count($json[$i]['linksKey']);
+				if ($cn_linksKey) $prl = " <span class='bg_bibrefs_passage'>";
+				for ($j=0; $j < $cn_linksKey; $j++) {
+					$prl .= bg_bibrefs_linksKey($json[$i]['linksKey'][$j][1], $lang);
 				}
-			} 
+				if ($cn_linksKey) $prl .= "</span> ";
+			}
+		// Текст стихов на разных языках
+			$text = "";
+			foreach ($jsons as $lg => $jsn) {
+				$js = $jsn['data'];
+				$txt = trim(strip_tags($js[$i]['text']));
+			
+				if ($txt) {
+					if ($json[$i]['stix'] == 0) $txt = "<strong>".$txt."</strong>";
+					else if (isset($bg_bibrefs_psalm) && $book == 'Ps' && $json[$i]['order'] == 1) $txt = "<strong>".bg_bibrefs_optina($txt, $book, $ch, $vr, $lang)."</strong>";
+					else  $txt = bg_bibrefs_optina($txt, $book, $ch, $vr, $lang);
+
+				} 
+				if ($num_langs > 1) $txt = "<td>".$txt."</td>";
+				$text = $text.$txt;
+			}
+			if ($type == 'quote') {
+				if ($num_langs > 1) $verses .= "<tr>".$text."</tr>";
+				else $verses = $verses.$text." ";
+			} else {														// Если цитата, строку не переводим
+				if ($num_langs > 1) $verses = $verses."<tr><td>"."<em>".$pointer.($prl?"*<br>":"")."</em>".$prl."</td>".$text."</tr>";
+				else $verses = $verses."<em>".$pointer."</em> ".$text.$prl."<br>";
+			}
 		}
 	}
+	if ($num_langs > 1) $verses .= "</table>";
 	return $verses;
 }
 /*******************************************************************************
@@ -244,7 +303,7 @@ function bg_bibrefs_linksKey( $linksKey, $lang) {
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 
 	$quote = $linksKey;
-	$template = "/(\d?\s*[А-яA-z]{2,8})(\.*|\s*)(\d+\,\s*\d+)/ui";
+	$template = "/(\d?\s*\w{2,8})(\.*|\s*)(\d+\,\s*\d+)/ui";
 	preg_match($template, $linksKey, $mt);
 	$cn = count($mt);
 	if ($cn > 0) {
@@ -408,14 +467,14 @@ $lopuhin = array(					// Таблица соответствия azbyka.ru и т
 	'1Mac'	 	=>'tolkovanie-na-pervuyu-knigu-makkavejskuyu',		//'Первая книга Маккавейская',
 	'2Mac'	 	=>'tolkovanie-na-vtoruyu-knigu-makkavejskuyu',		//'Вторая книга Маккавейская', 
 	'3Mac'	 	=>'tolkovanie-na-tretyu-knigu-makkavejskuyu',		//'Третья книга Маккавейская', 
-	'Bar' 		=>'',		//'Книга пророка Варуха', 
-	'2Ezr' 		=>'',		//'Вторая книга Ездры', 
-	'3Ezr' 		=>'',		//'Третья книга Ездры',
-	'Judf' 		=>'',		//'Книга Иудифи', 
-	'pJer' 		=>'',		//'Послание Иеремии', 
-	'Solom' 	=>'',		//'Книга Премудрости Соломона',
-	'Sir' 		=>'',		//'Книга Премудрости Иисуса, сына Сирахова', 
-	'Tov' 		=>'',		//'Книга Товита',
+	'Bar' 		=>'tolkovanie-na-knigu-proroka-varuha',				//'Книга пророка Варуха', 
+	'2Ezr' 		=>'tolkovanie-na-vtoruyu-knigu-ezdry',				//'Вторая книга Ездры', 
+	'3Ezr' 		=>'tolkovanie-na-tretyu-knigu-ezdry',				//'Третья книга Ездры',
+	'Judf' 		=>'tolkovanie-na-knigu-iudifi',						//'Книга Иудифи', 
+	'pJer' 		=>'tolkovanie-na-poslanie-ieremii',					//'Послание Иеремии', 
+	'Solom' 	=>'tolkovanie-na-knigu-premudrosti-solomona',		//'Книга Премудрости Соломона',
+	'Sir' 		=>'tolkovanie-na-knigu-premudrosti-iisusa-syna-sirahova',	//'Книга Премудрости Иисуса, сына Сирахова', 
+	'Tov' 		=>'/tolkovanie-na-knigu-tovita',					//'Книга Товита',
 	// Новый Завет				
 	// Евангилие				
 	'Mt' 		=>'tolkovaja_biblija_51',		//'Евангелие от Матфея',
@@ -552,7 +611,7 @@ $lopuhin = array(					// Таблица соответствия azbyka.ru и т
 		$ref = $lopuhin_book[$book].intval($ch).":".intval($vr);
 		if ($book == 'Avd' || $book == 'Juda') $path = $lopuhin[$book];
 		else $path = $lopuhin[$book]."/".$ch;
-		return ("<a href='http://azbyka.ru/otechnik/Lopuhin/".$path."?jumpto=".$ref."' title='".(__( 'Click to go to interpretation by A.Lopuhin on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
+		return ("<a href='http://azbyka.ru/otechnik/Lopuhin/".$path."#v_".intval($vr)."' title='".(__( 'Click to go to interpretation by A.Lopuhin on azbyka.ru', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>".$txt."</a>");
 	}
 	elseif ($bg_bibrefs_option['interpret'] == 'link') {
 		if ($bg_bibrefs_option['site'] == 'azbyka') {
@@ -561,7 +620,7 @@ $lopuhin = array(					// Таблица соответствия azbyka.ru и т
 		elseif ($bg_bibrefs_option['site'] == 'this') {
 			$page = $bg_bibrefs_option['page'];
 			if ($page == "") $page = get_permalink(); 
-			return "<a href='".$page."?bs=".$book.$chapter.":".$verse."&lang=".$lang."' title='".(__( 'Click to view on page', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";			// Полный адрес ссылки на текущий сайт
+			return "<a href='".$page."?bs=".$book.".".$chapter.":".$verse."&lang=".$lang."' title='".(__( 'Click to view on page', 'bg_bibrefs' ))."' target='".$bg_bibrefs_option['target']."'>" .$txt. "</a>";			// Полный адрес ссылки на текущий сайт
 		}
 	}
 	else return $txt;

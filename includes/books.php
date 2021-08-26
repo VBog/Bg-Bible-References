@@ -276,7 +276,10 @@ class bg_bibrefs_Bible_List_Table extends WP_List_Table {
          * use sort and pagination data to build a custom query instead, as you'll
          * be able to use your precisely-queried data immediately.
          */
-        $xml = @file_get_contents(BG_BIBREFS_SOURCE_URL."filelist.xml");
+		$data = array();
+        $response = wp_remote_get (BG_BIBREFS_SOURCE_URL."filelist.xml");
+		$xml = wp_remote_retrieve_body( $response );
+		
 		if ($xml) {
 			$files = json_decode(json_encode((array)simplexml_load_string($xml)),1);
 			$file = $files['file'];

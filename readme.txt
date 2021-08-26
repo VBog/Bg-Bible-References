@@ -3,9 +3,9 @@
 Contributors: VBog
 Donate link: http://bogaiskov.ru/about-me/donate/
 Tags: bible, orthodoxy, Christianity, Библия, православие, христианство, Священное Писание, Завет, ορθοδοξία, χριστιανισμός, Αγία Γραφή
-Requires PHP: 5.3
+Requires PHP: 5.6
 Requires at least: 3.0.1
-Tested up to: 4.9.3
+Tested up to: 5.4.0
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,11 +28,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * You can add and delete folders with Bible books on your site.
 * To customize the appearance of reference  links, use class bg_bibrefs.
 
-### Bible in 5 languages: 
+### Bible in 6 languages: 
 * Church Slavic (Elizabeth Bible) 
-* Russian (Synodal translation) 
+* Russian (Synodal translation by Russian Orthodox Church) 
 * Ukrainian (translation by I.I.Ogienko) 
 * Belarusian (New Testament translated by Biblical Commission of the Belarusian Exarchate) 
+* Serbian (New Testament - synodal translation by Serbian Orthodox Church, Old Testament by Daničić, Karadžić) 
 * English (King James Version)
 
 ### Shortcode:
@@ -63,11 +64,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Вы можете добавлять и удалять папки с книгами Библии на вашем сайте.
 * Для настройки вида ссылок используйте класс bg_bibrefs.
 
-### Текст Библии на 5 языках: 
+### Текст Библии на 6 языках: 
 * церковно-славянский (Елизаветинская Библия)
 * русский (Синодальный перевод)
 * украинский (перевод И.И.Огиенко)
 * белорусский (Новый Завет в переводе Библейской Комиссии при Белорусском Экзархате)
+* cербский (Новый Завет - синодальный перевод Сербской Православной Церкви, Ветхий Завет в переводе Даничича и Караджича)
 * английский (King James Version)
 
 ### Шорт-коды:
@@ -111,21 +113,63 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
-= 3.13.3 =
+= 3.17 =
 
-* Added option "Allow the comma as divider between chapter and verses (western tradition)".
+* Added display multilanguage page with Bible verses.
 
-= 3.13.2 =
+= 3.16.3 =
 
-* Fixed bugs.
+* Fixed getting remote files.
 
-= 3.13.1 =
+= 3.16.1-2 =
 
-* In the book "Psalms" the word "Chapter" is replaced by "Psalm".
+* Fixed bug.
 
-= 3.13.0 =
+= 3.16 =
+
+* Added Serbian translation. Many thanks to Tropinin Maxim.
+* Allowed to upload Serbian version of the Bible.
+
+= 3.15.4 =
+
+* Allowed to set the maximum of character number of in references of Bible book.
+
+= 3.15.3 =
+
+* Fixed some bugs.
+
+= 3.15.2 =
+
+* Now you can upload your own Bible books on your site in `wp-content/uploads/bible/` folder, without risk lose them when plugin update.
+
+= 3.15.1 =
+
+* Some French language support add-ons.
+
+= 3.15 =
+
+* Added French translation. Many thanks to Mr. R.F. Bouthillette from Quebec.
+
+= 3.14.4-5 =
+
+* Changed format of links to interpretation of Bible by Lopuchin on the site azbyka.ru
+
+= 3.14.3 =
+
+* Added links to interpretation of deuterocanonical books by Lopuchin on the site azbyka.ru
+
+= 3.14.1-2 =
+
+* Fixed small bug.
+
+= 3.14.0 =
+
+* Improved algorithm to recognize the Bible references. Some settings have been changed.
+
+= 3.13 =
 
 * Added options that allow you to adjust the permissible deviations from the Eastern tradition in Bible references.
+* In the book "Psalms" the word "Chapter" is replaced by "Psalm".
 
 = 3.12 =
 
@@ -262,7 +306,7 @@ Warning: Some methods may not be available on your server.
 = 2.4 =
 
 * New algoritm to get and display Bible verses. 
-* Added type='t_verses' in shortcode `[bible]`.
+* Added `type='t_verses' in shortcode `[bible]`.`
 
 = 2.3 =
 
@@ -275,7 +319,7 @@ Warning: Some methods may not be available on your server.
 
 = 2.2 =
 
-* Added type='b_verses' in Short code `[bible]`.
+* Added `type='b_verses' in Short code `[bible]`.`
 * Short code `[bible book='Mt' ch='2:3-6 'type='verses']` displays quotes from the Bible in the text.
 
 = 2.1 =
@@ -345,10 +389,9 @@ Warning: Some methods may not be available on your server.
 
 == Upgrade Notice ==
 
-= 3.13 =
+= 3.14 =
 
-* In the book "Psalms" the word "Chapter" is replaced by "Psalm".
-* Added options that allow you to adjust the permissible deviations from the Eastern tradition in Bible references.
+* Improved algorithm to recognize the Bible references. Some settings have been changed.
 
 == Notes for Translators ==
 

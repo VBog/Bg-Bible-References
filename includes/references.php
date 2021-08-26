@@ -12,6 +12,96 @@
 Допускается указание см.: сразу после открывающейся скобки. Варианты: см.: / см. / см: / см
 
 ********************************************************************************************************************************************/
+$bg_bibrefs_bookChapters = array(			// Количество глав в книгах Библии
+	// Ветхий Завет
+	// Пятикнижие Моисея
+	'Gen'		=> 50, 						
+	'Ex'		=> 40, 						
+	'Lev'		=> 27, 						
+	'Num'		=> 36, 						
+	'Deut'		=> 34, 						
+	// «Пророки» (Невиим) 
+	'Nav'		=> 24, 						
+	'Judg'		=> 21, 						
+	'Rth'		=> 4, 						
+	'1Sam'		=> 31, 						
+	'2Sam'		=> 24, 						
+	'1King'		=> 22, 						
+	'2King'		=> 25, 						
+	'1Chron'	=> 29, 						
+	'2Chron'	=> 37, 						
+	'Ezr'		=> 10, 						
+	'Nehem'		=> 13, 						
+	'Est'		=> 10, 						
+	// «Писания» (Ктувим)
+	'Job'		=> 42, 						
+	'Ps'		=> 151, 						
+	'Prov'		=> 31, 						
+	'Eccl'		=> 12, 						
+	'Song'		=> 8, 						
+
+	'Is'		=> 66, 						
+	'Jer'		=> 52, 						
+	'Lam'		=> 5, 						
+	'Ezek'		=> 48, 						
+	'Dan'		=> 14, 						
+	// Двенадцать малых пророков 
+	'Hos'		=> 14, 						
+	'Joel'		=> 3, 						
+	'Am'		=> 9, 						
+	'Avd'		=> 1, 						
+	'Jona'		=> 4, 						
+	'Mic'		=> 7, 						
+	'Naum'		=> 3, 						
+	'Habak'		=> 3, 						
+	'Sofon'		=> 3, 						
+	'Hag'		=> 2, 						
+	'Zah'		=> 14, 						
+	'Mal'		=> 4, 						
+	// Второканонические книги
+	'1Mac'		=> 16, 						
+	'2Mac'		=> 15, 						
+	'3Mac'		=> 7, 						
+	'Bar'		=> 5, 						
+	'2Ezr'		=> 9, 						
+	'3Ezr'		=> 16, 						
+	'Judf'		=> 16, 						
+	'pJer'		=> 1, 						
+	'Solom'		=> 19, 						
+	'Sir'		=> 51, 						
+	'Tov'		=> 14, 						
+	// Новый Завет
+	// Евангилие
+	'Mt'		=> 28, 						
+	'Mk'		=> 16, 						
+	'Lk'		=> 24, 						
+	'Jn'		=> 21, 						
+	// Деяния и послания Апостолов
+	'Act'		=> 28, 						
+	'Jac'		=> 5, 						
+	'1Pet'		=> 5, 						
+	'2Pet'		=> 3, 						
+	'1Jn'		=> 5, 						
+	'2Jn'		=> 1, 						
+	'3Jn'		=> 1, 						
+	'Juda'		=> 1, 						
+	// Послания апостола Павла
+	'Rom'		=> 16, 						
+	'1Cor'		=> 16, 						
+	'2Cor'		=> 13, 						
+	'Gal'		=> 6, 						
+	'Eph'		=> 6, 						
+	'Phil'		=> 4, 						
+	'Col'		=> 4, 						
+	'1Thes'		=> 5, 						
+	'2Thes'		=> 3, 						
+	'1Tim'		=> 6, 						
+	'2Tim'		=> 4, 						
+	'Tit'		=> 3, 						
+	'Phlm'		=> 1, 						
+	'Hebr'		=> 13, 						
+	'Apok'		=> 22);
+	
 $bg_bibrefs_all_refs=array();				// Перечень всех ссылок 
 $sps = "(?:\s|\x{00A0}|\x{00C2}|(?:&nbsp;))";
 $dashes = "(?:[\x{2010}-\x{2015}]|(&#820[8-9];)|(&#821[0-3];))";
@@ -24,8 +114,9 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	global $post, $bg_bibrefs_start_time;
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_all_refs;
+	global $bg_bibrefs_lang_name, $bg_bibrefs_book_letters, $bg_bibrefs_book_length;
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
-	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
+	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile, $bg_bibrefs_bookChapters;
 
 /****************** ОТЛАДКА ****************************************/	
 	if ($bg_bibrefs_option['debug']) {
@@ -64,25 +155,23 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	else $dot = "\.";
 	// Разрешить римские цифры
 	if ($bg_bibrefs_option['romeh']) {
-		$romeh = '|I{1,3}|IV';
+		$romeh = '|I{1,3}|IV|V';
 		$romeс = '|[IVXLC]+';
 	} else {
 		$romeh = "";
 		$romeс = "";
 	}
-	// Разрешить точку, как разделитеть номеров глав и стихов
-	if ($bg_bibrefs_option['sepd']) $sepd = "\.";
-	else $sepd = "";
-	// Разрешить точку с запятой, как разделитеть номеров глав и стихов
-	if ($bg_bibrefs_option['seps']) $seps = ";";
-	else $seps = "";
-	
-	$template = "((?:[1-4]".$romeh.")?".$spss."['A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ]{2,8})".$spss.$dot.$spss."((\d+".$romeс.")(".$spss."([".$sepd.$seps.":,-]|".$dashes.")".$spss."(\d+".$romeс."))*)";
-	// Ссылка должна завершаться разделительным символом (любой, кроме буквенно-цифровых и пробельных символов). Допускаются соединительные союзы и|да|или|либо
-	if ($bg_bibrefs_option['separator']) $separator = "(?=".$sps."+(".__('and|or', 'bg_bibrefs').")|".$spss."[^\s\x{00A0}\x{00C2}\w]|$)";
-	else $separator = "(?!\w)";
+	$letters = 'A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ'.(isset($bg_bibrefs_book_letters)?$bg_bibrefs_book_letters:'');
+	$wordsize = '{2,'.(isset($bg_bibrefs_book_length)?$bg_bibrefs_book_length:'8').'}';
+
+//	$template = "((?:[1-4]".$romeh.")?".$spss."['A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ]{2,8})".$spss.$dot.$spss."((\d+".$romeс.")(".$spss."([".$sepd.$seps.":,-]|".$dashes.")".$spss."(\d+".$romeс."))*)";
+	$ch_pattern = "(\d+".$romeс.")(".$spss."([\.:,-]|".$dashes.")".$spss."\d+)";
+	$template = "((?:[1-5]".$romeh.")?".$spss."['".$letters."]".$wordsize.")".$spss.$dot.$spss."((".$ch_pattern."*)(".$spss.";".$spss."(".$ch_pattern."+))*)";
+
+	$separator2 = "(?![0-9".$letters.":]|".$dashes.")";
+	$separator1 = "(?<![0-9".$letters."])";
 		
-	preg_match_all("/".$template.$separator."/u", $txt, $matches, PREG_OFFSET_CAPTURE);
+	preg_match_all("/".$separator1.$template.$separator2."/u", $txt, $matches, PREG_OFFSET_CAPTURE);
 	$cnt = count($matches[0]);
 
 	$text = "";
@@ -146,12 +235,10 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 			$title = preg_replace("/".$sps."/u", '',$mt[1]); 					// Убираем пробельные символы, включая пробел, табуляцию, переводы строки 
 			$chapter = preg_replace("/".$sps."/u", '', $mt[2]);					// и другие юникодные пробельные символы, а также неразрывные пробелы &nbsp;
 			$chapter = preg_replace("/".$dashes."/u", '-', $chapter);			// Замена разных вариантов тире на обычный
-			$chapter = preg_replace("/\./u", ',', $chapter);					// Замена точки на запятую
-			$chapter = preg_replace("/;/u", ',', $chapter);						// Замена точки с запятой на запятую
 			$chapter = preg_replace("/(?<=[IVXLC]),\./u", ":", $chapter);		// Римскими цифрами обозначаются только главы (после них должно идти ":", а не "," или ".")
 
 		// Замена римских цифр на арабские
-			preg_match("/(I{1,3}|IV)(?=".$sps."*['A-Za-zА-Яа-яёіїєґўЁІЇЄҐЎ]{2,8})/u", $title, $rome);
+			preg_match("/(I{1,3}|IV)(?=".$sps."*['".$letters."]".$wordsize.")/u", $title, $rome);
 			if ($rome) {
 				$title = preg_replace("/".$rome[0]."/u", rome_to_arab($rome[0]), $title, 1);
 			}
@@ -161,45 +248,58 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 				$chapter = preg_replace("/".$rome[0][$r][0]."/u", rome_to_arab($rome[0][$r][0]), $chapter, 1);
 			}
 
-			preg_match("/[\\:\\,\\.\\-]/u", $chapter, $mtchs);
-			if ($mtchs) {
-				if (strcasecmp($mtchs[0], ',') == 0 || strcasecmp($mtchs[0], '.') == 0) {
-						if ($bg_bibrefs_option['sepc'])							// В западной традиции
-							$chapter = preg_replace("/\,/u", ':', $chapter, 1);	// глава отделена запятой - заменяем ее на двоеточие.
-						$chapter = preg_replace("/\./u", ':', $chapter, 1);		// Первое число всегда номер главы. Если глава отделена точкой, заменяем ее на двоеточие.
-				}
-			}
-			$title = bg_bibrefs_getBook($title);
+			$title = bg_bibrefs_getBook($title);// Обозначение книги
+			$ref = $matches[0][$i][0];
+			$ref = trim ( $ref, "\x20\f\t\v\n\r\xA0\xC2" );
+			if (strcasecmp($title, "") != 0) { 
+				$chapters = $bg_bibrefs_bookChapters[$title];
+				// В книгах с одной главой, допускается указывать только номер стиха
+				if ($chapters==1 && strpos($chapter, '1:')!==0 && strpos($chapter, ':')===false ) $chapter = "1:".$chapter;
+ 
+				if (intval($chapter) <= $chapters) {	// Номер главы не больше максимального
+					// Проверяем, не примеяется ли западная нотация?
+					if (isWesternNotation ($chapter, $chapters)) {
+						// Заменяем запятую на двоеточие, оставляя запятые как разделители глав
 
-			if (strcasecmp($title, "") != 0 
-				&& bg_bibrefs_check_tag($hdr_a, $matches[0][$i][1]) 
-				&& (($bg_bibrefs_option['headers']=='on') || bg_bibrefs_check_tag($hdr_h, $matches[0][$i][1])) 
-				&&  bg_bibrefs_check_tag($hdr_norefs, $matches[0][$i][1])
-				&&  bg_bibrefs_check_tag($hdr_bible, $matches[0][$i][1])) {
-				$ref = $matches[0][$i][0];
-				$ref = trim ( $ref, "\x20\f\t\v\n\r\xA0\xC2" );
-				$book = bg_bibrefs_getBook($title);								// Обозначение книги
-				if ($type == '' || $type == 'link') {
-					$book = bg_bibrefs_getshortTitle($book);					// Короткое наименование книги
-					if ($bg_bibrefs_option['norm_refs']) {						// Преобразовать ссылку к нормализованному виду
-						$newmt = bg_bibrefs_get_url($title, $chapter, $book.' '.$chapter, $lang);
+						$chapter = preg_replace_callback ("/[-:,\.;]/", function ($match) {
+							static $prevDelimeter=',';
+							$mt = $match[0];
+							if ($mt == ',' && ($prevDelimeter == ',' || $prevDelimeter == ';' || $prevDelimeter == '.')) $mt = ':';
+							$prevDelimeter = $mt;
+							return $mt;
+						}, $chapter);		
 					}
-					else $newmt = bg_bibrefs_get_url($title, $chapter, $ref, $lang);
-					$listmt = bg_bibrefs_get_url($title, $chapter, $book.' '.$chapter, $lang);
-					$double = false;
-					for ($k=0; $k < $j; $k++) {									// Проверяем не совпадают ли ссылки?
-						if ($bg_bibrefs_all_refs[$k] == $listmt) {
-							$double = true;
-							break;
+					
+					$chapter = preg_replace("/\./u", ',', $chapter);	// Заменяем точку на запятую
+					$chapter = preg_replace("/;/u", ',', $chapter);		// Заменяем точку с запятой на запятую
+
+					if (bg_bibrefs_check_tag($hdr_a, $matches[0][$i][1]) 
+						&& (($bg_bibrefs_option['headers']=='on') || bg_bibrefs_check_tag($hdr_h, $matches[0][$i][1])) 
+						&&  bg_bibrefs_check_tag($hdr_norefs, $matches[0][$i][1])
+						&&  bg_bibrefs_check_tag($hdr_bible, $matches[0][$i][1])) {
+						if ($type == '' || $type == 'link') {
+							$book = bg_bibrefs_getshortTitle($title);					// Короткое наименование книги
+							if ($bg_bibrefs_option['norm_refs']) {						// Преобразовать ссылку к нормализованному виду
+								$newmt = bg_bibrefs_get_url($title, $chapter, $book.' '.$chapter, $lang);
+							}
+							else $newmt = bg_bibrefs_get_url($title, $chapter, $ref, $lang);
+							$listmt = bg_bibrefs_get_url($title, $chapter, $book.' '.$chapter, $lang);
+							$double = false;
+							for ($k=0; $k < $j; $k++) {									// Проверяем не совпадают ли ссылки?
+								if ($bg_bibrefs_all_refs[$k] == $listmt) {
+									$double = true;
+									break;
+								}
+							}
+							if (!$double) {												// Дубликат не найден
+								$bg_bibrefs_all_refs[$j]=$listmt;
+								$j++;
+							}
+						} else {
+							$newmt = bg_bibrefs_getQuotes($title, $chapter, $type, $lang, $prll );
 						}
-					}
-					if (!$double) {												// Дубликат не найден
-						$bg_bibrefs_all_refs[$j]=$listmt;
-						$j++;
-					}
-				} else {
-					$newmt = bg_bibrefs_getQuotes($book, $chapter, $type, $lang, $prll );
-				}
+					} else $newmt = $matches[0][$i][0];
+				}else $newmt = "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='' title='' style='border-bottom: 2px dotted red;'><span class='bg_data_tooltip'></span>".$matches[0][$i][0]."</span>";
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
 			}
@@ -263,7 +363,8 @@ function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
 		elseif ($bg_bibrefs_option['site'] == 'this') {
 			$page = $bg_bibrefs_option['page'];
 			if ($page == "") $page = get_permalink(); 
-			$fullurl = "<a href='".$page."?bs=".$book.$chapter."&lang=".$lang."' target='".$bg_bibrefs_option['target']."'>" .$link. "</a>";			// Полный адрес ссылки на текущий сайт
+//			$fullurl = "<a href='".$page."?bs=".$book.'.'.$chapter."&lang=".$lang."' target='".$bg_bibrefs_option['target']."'>" .$link. "</a>";			// Полный адрес ссылки на текущий сайт
+			$fullurl = "<a href='".$page."?book=".$book.'&ch='.$chapter."&lang=".$lang."' target='".$bg_bibrefs_option['target']."'>" .$link. "</a>";			// Полный адрес ссылки на текущий сайт
 		}
 		else $fullurl = $link;
 		
@@ -284,7 +385,7 @@ function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
 				$expand_button = "<img src='".plugins_url( '../js/expand.png' , __FILE__ )."' style='cursor:pointer; margin-right: 8px;' align='left' width=16 height=16 title1='".(__('Expand', 'bg_bibrefs' ))."' title2='".(__('Hide', 'bg_bibrefs' ))."' />";
 				$verses = $expand_button.$verses; 
 				$url = "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='' title=''><span class='bg_data_tooltip'>".$verses."</span>".$fullurl."</span>"; 
-			} else $url = "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='' title='".$the_title."' style='border-bottom: 1px dashed red;'><span class='bg_data_tooltip'></span>".$link."</span>";
+			} else $url = "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='' title='".$the_title."' style='border-bottom: 2px dotted red;'><span class='bg_data_tooltip'></span>".$link."</span>";
 			return $url;
 		} else {
 			return "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='".$ajax_url."' title='".$the_title."'><span class='bg_data_tooltip'></span>".$fullurl."</span>"; 
@@ -370,4 +471,24 @@ function bg_bibrefs_strip_space($txt) {
 			}, $txt);
 	}
 	return $txt;
+}
+/*******************************************************************************
+	Функция проверяет, является ли запись западной нотацией
+
+*******************************************************************************/  
+function isWesternNotation ($ch, $chapters) {
+	global $bg_bibrefs_option;
+	if (preg_match("/^(\d{1,3}),/m", $ch)) {						// Если после первой цифры идет запятая 
+		if (preg_match("/[;\.\-]/u", $ch)) return true;				// и при этом выражение содержит точку с запятой, точку или тире
+		// Особый случай: два числа, разделенных запятой
+		if (preg_match("/^\d{1,3},\d{1,3}$/m", $ch)) {
+			$arr = explode(',', $ch);
+			// Западная нотация всегда если:
+			if (intval ($arr[0]) >= intval ($arr[1]) ||		// Первая цифра больше или равна второй
+				intval ($arr[1]) > $chapters)				// Вторая цифра больше кол-ва глав в книге
+				return true;
+		}
+		if ($bg_bibrefs_option['sepc']) return true;	// Опция включена - западная нотация
+	}
+	return false;
 }

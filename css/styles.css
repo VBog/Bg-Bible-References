@@ -99,3 +99,76 @@ p.bg_bibrefs_close {
   width: 100%;				/* Ширина максимальна */
   z-index: 100;				/* Заведомо быть НАД другими элементами */
 }
+/*****************************************
+	Многоязычная таблица
+******************************************/
+.bg_bibrefs_table_book,
+.bg_bibrefs_table_verses,
+.bg_bibrefs_table_t_verses,
+.bg_bibrefs_table_b_verses,
+.bg_bibrefs_table_quote {
+	font-size: 90%;
+}
+.bg_bibrefs_table_book th,
+.bg_bibrefs_table_verses th,
+.bg_bibrefs_table_t_verses th,
+.bg_bibrefs_table_b_verses th,
+.bg_bibrefs_table_quote th {
+	font-size: 80%;
+	text-align: center;
+	vertical-align:middle;
+}
+.bg_bibrefs_table_book th:first-child,
+.bg_bibrefs_table_book td:first-child {
+	width: 3em;
+	text-align: center;
+}
+.bg_bibrefs_table_verses th:first-child,
+.bg_bibrefs_table_t_verses th:first-child,
+.bg_bibrefs_table_verses td:first-child,
+.bg_bibrefs_table_t_verses td:first-child {
+	width: 4em;
+	text-align: center;
+}
+.bg_bibrefs_table_b_verses th:first-child,
+.bg_bibrefs_table_b_verses td:first-child {
+	width: 8em;
+}
+.bg_bibrefs_table_book td>span.bg_bibrefs_passage,
+.bg_bibrefs_table_verses td>span.bg_bibrefs_passage,
+.bg_bibrefs_table_t_verses td>span.bg_bibrefs_passage,
+.bg_bibrefs_table_b_verses td>span.bg_bibrefs_passage {
+	display: none;
+    position: relative;  
+/*	overflow-y: hidden; */
+/*	overflow-x: hidden; */
+    z-index: 101;
+	left: 0px; 
+	top: 0px; 	
+	width: 240px;
+	max-height: 240px;
+	max-width: 600px;
+	margin: 0px;
+    padding:  5px 5px 5px 10px;
+    border: 1px solid #767676;
+	font-family: sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	font-stretch: normal;
+    color: #000000;
+	text-decoration: none;
+	text-align: start;
+    background-color: rgba(253,253,255,0.99);
+	box-shadow: 5px 5px 5px -3px rgba(118, 118, 118, 0.9);
+	-webkit-box-shadow: 5px 5px 5px -3px rgba(118, 118, 118, 0.9);
+	-moz-box-shadow: 5px 5px 5px -3px rgba(118, 118, 118, 0.9);
+}
+
+.bg_bibrefs_table_book td:hover > span.bg_bibrefs_passage,
+.bg_bibrefs_table_verses td:hover > span.bg_bibrefs_passage,
+.bg_bibrefs_table_t_verses td:hover > span.bg_bibrefs_passage,
+.bg_bibrefs_table_b_verses td:hover > span.bg_bibrefs_passage {
+	display: block;
+}
+

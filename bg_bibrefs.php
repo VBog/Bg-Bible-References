@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.13.3
+    Version: 3.17
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -11,7 +11,7 @@
 	Domain Path: /languages
 */
 
-/*  Copyright 2013-2017  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
+/*  Copyright 2013-2020  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,8 +38,11 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.13.3');
+define('BG_BIBREFS_VERSION', '3.17');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
+
+$upload_dir = wp_upload_dir();
+define('BG_BIBREFS_UPLOAD_DIR', $upload_dir['basedir']);
 
 $bg_bibrefs_start_time = microtime(true);
 
@@ -113,7 +116,8 @@ function  bg_bibrefs_activate() {
 	$folders=array("ru");
 	$bible_lang = get_bloginfo('language');	
 	$bible_lang = substr($bible_lang,0, 2);
-	$xml = @file_get_contents(BG_BIBREFS_SOURCE_URL."filelist.xml");
+	$response = wp_remote_get (BG_BIBREFS_SOURCE_URL."filelist.xml");
+	$xml = wp_remote_retrieve_body( $response );
 	if ($xml) {
 		$files = json_decode(json_encode((array)simplexml_load_string($xml)),1);
 		$file = $files['file'];
@@ -159,7 +163,10 @@ function bg_bibrefs_addFolder($book) {
 	$local_url = dirname(__FILE__ ).'/'.$book;
 	$subfolder = dirname(__FILE__ ).'/bible/'.basename($book, ".zip").'/';
 	if (!file_exists($local_url)) {
-		if (copy ( $source_url, $local_url )) {
+        $response = wp_remote_get ($source_url);
+		$body = wp_remote_retrieve_body( $response );
+		if ($body) {
+			file_put_contents ($local_url, $body);
 			$zip = new ZipArchive; 
 			$zip->open($local_url); 
 			$zip->extractTo($subfolder); 
@@ -225,10 +232,13 @@ function set_bible_lang() {
 		$bible_lang = $bible_lang_posts_val;									// то язык из поста (4)
 	
 	$file_books = dirname( __FILE__ ).'/bible/'.$bible_lang.'/books.php';		// Если для установеннного языка отсутствует каталог с Библией,
-	if (!file_exists($file_books)) $bible_lang = 'ru';							// то по умолчанию русский язык (5)
-
-	$file_books = dirname( __FILE__ ).'/bible/'.$bible_lang.'/books.php';		// Если для русского языка отсутствует каталог с Библией,
-	if (!file_exists($file_books)) $bible_lang = '';							// то язык не установлен
+	$file_books_uploaded = BG_BIBREFS_UPLOAD_DIR.'/bible/'.$bible_lang.'/books.php';	
+	if (!file_exists($file_books) && 
+		!file_exists($file_books_uploaded)) {
+			$bible_lang = 'ru';	 				// то по умолчанию русский язык (5)
+			$file_books = dirname( __FILE__ ).'/bible/'.$bible_lang.'/books.php';		// Если для русского языка отсутствует каталог с Библией,
+			if (!file_exists($file_books)) $bible_lang = '';							// то язык не установлен
+		}
 	return $bible_lang;
 }
 
@@ -237,13 +247,18 @@ function set_bible_lang() {
 	
 ******************************************************************************************/
 function include_books($lang) {
-	global $bg_bibrefs_lang_name;
+	global $bg_bibrefs_lang_name, $bg_bibrefs_book_letters, $bg_bibrefs_book_length;
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
 	
 	$file_books = dirname( __FILE__ ).'/bible/'.$lang.'/books.php';
-	if (!file_exists($file_books)) $lang = set_bible_lang(); // Если язык задан неверно, устанавливаем язык системы
-	if ($lang) include(dirname(__FILE__ ).'/bible/'.$lang.'/books.php');
+	if (!file_exists($file_books)) // Если нет в папке плагина, то ищем в /wp-content/uploads
+		$file_books = BG_BIBREFS_UPLOAD_DIR.'/bible/'.$lang.'/books.php';
+	if (!file_exists($file_books)) {
+		$lang = set_bible_lang(); // Если язык задан неверно, устанавливаем язык системы
+		$file_books = dirname( __FILE__ ).'/bible/'.$lang.'/books.php';
+	}
+	if ($lang) include($file_books);
 	return $lang;
 }
 
@@ -290,10 +305,10 @@ function bg_bibrefs_bible( $ref='', $book='', $ch='1-999', $type='verses', $lang
 		if ($ch == "") $ch = "1-999";
 		$l = $_GET["lang"];
 		if ($l != "") $lang = $l;
-		$prll = $_GET["prll"];
+		$p = $_GET["prll"];
+		if ($p != "") $prll = $p;
 	}
 // это и все нововведения для версии 3.7
-	
 	if (!$lang) $lang = set_bible_lang();
 	$book = bg_bibrefs_getBook($book, $lang);
 	if ($ref == "rnd" || $ref == "days" || is_numeric ($ref)) $ref = bg_bibrefs_bible_quote_refs($ref, $lang);
@@ -551,8 +566,9 @@ function bg_bibrefs_extra_fields_box_func( $post ){
 		<select id="bg_verses_lang" name="bg_bibrefs_extra[bible_lang]">
 		<?php $bg_verses_lang_val = get_post_meta($post->ID, 'bible_lang', 1); ?>
 			<option <?php if($bg_verses_lang_val=="") echo "selected" ?> value=""><?php _e('Default', 'bg_bibrefs' ); ?></option>
-			<?php $path = dirname( __FILE__ ).'/bible/';
-			if ($handle = opendir($path)) {
+			<?php 
+			$path = dirname( __FILE__ ).'/bible/';
+			if (is_dir($path) && $handle = opendir($path)) {
 				while (false !== ($dir = readdir($handle))) { 
 					if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
 						include ($path.$dir.'/books.php');
@@ -562,7 +578,20 @@ function bg_bibrefs_extra_fields_box_func( $post ){
 					}
 				}
 				closedir($handle); 
-			} ?>
+			} 
+			$path = BG_BIBREFS_UPLOAD_DIR.'/bible/';
+			if (is_dir($path) && $handle = opendir($path)) {
+				while (false !== ($dir = readdir($handle))) { 
+					if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+						include ($path.$dir.'/books.php');
+						echo "<option ";
+						if($bg_verses_lang_val==$dir) echo "selected";
+						echo " value=".$dir.">".$bg_bibrefs_lang_name."</option>\n";
+					}
+				}
+				closedir($handle); 
+			} 
+			?>
 		</select>
 	&nbsp;
 	<label for="bg_norefs"><?php _e('Ban to highlight references', 'bg_bibrefs' ); ?></label>
@@ -684,15 +713,16 @@ class BibleWidget extends WP_Widget
 					echo "<option value=".$books[$i].">".$bg_bibrefs_bookTitle[$books[$i]]."</option>\n";
 				} 
 				?>
-			</select><br>
+			</select></p>
 <!--	Номера глав и стихов		-->
-			<label class="widget-title" for="bg_quote_chId"><?php _e('Chapter', 'bg_bibrefs' ); ?></label><br>
-			<input class="required" id="bg_quote_chId" type="text" value="" onkeypress="return bg_quote_testKey(event)" placeholder="<?php _e('Chapters and verses', 'bg_bibrefs' ); ?>&hellip;"><br>		
+			<p><label class="widget-title" for="bg_quote_chId"><?php _e('Chapter', 'bg_bibrefs' ); ?></label><br>
+			<input class="required" id="bg_quote_chId" type="text" value="" onkeypress="return bg_quote_testKey(event)" placeholder="<?php _e('Chapters and verses', 'bg_bibrefs' ); ?>&hellip;"></p>		
 <!--	Язык Библии					-->
 		<?php if (!$dlang) { ?>
-			<label class="widget-title" for="bg_quote_langId"><?php _e('Language', 'bg_bibrefs' ); ?></label><br>
-			<select class="required" id="bg_quote_langId" onchange="bg_bibrefs_booklist();">
-				<?php $path = dirname( __FILE__ ).'/bible/';
+			<p><label class="widget-title" for="bg_quote_langId"><?php _e('Language', 'bg_bibrefs' ); ?></label><br>
+			<select class="required" id="bg_quote_langId" onchange="bg_bibrefs_booklist();" multiple>
+				<?php 
+				$path = dirname( __FILE__ ).'/bible/';
 				if ($handle = opendir($path)) {
 					while (false !== ($dir = readdir($handle))) { 
 						if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
@@ -703,12 +733,24 @@ class BibleWidget extends WP_Widget
 						}
 					}
 					closedir($handle); 
-				} ?>
-			</select>
+				} 
+				$path = BG_BIBREFS_UPLOAD_DIR.'/bible/';
+				if ($handle = @opendir($path)) {
+					while (false !== ($dir = readdir($handle))) { 
+						if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+							include ($path.$dir.'/books.php');
+							echo "<option ";
+							if($lang==$dir) echo "selected";
+							echo " value=".$dir.">".$bg_bibrefs_lang_name."</option>\n";
+						}
+					}
+					closedir($handle); 
+				} 
+				?>
+			</select></p>
 		<?php } else { ?>
 			<input id="bg_quote_langId" type="hidden" value="">
-		<?php } ?>		
-			</p>
+		<?php } ?>	
 			<p><input type="submit" value="<?php _e('Go', 'bg_bibrefs' ); ?>" onclick="bg_quote_goToPage()"></p>
 		</aside>
 		<script>
@@ -716,7 +758,17 @@ class BibleWidget extends WP_Widget
 				var bg_quote_page = document.getElementById('bg_quote_pageId').value;
 				var bg_quote_book = document.getElementById('bg_quote_bookId').value;
 				var bg_quote_ch = document.getElementById('bg_quote_chId').value;
-				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+//				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+
+				var bg_quote_lang = "";
+				var len = document.getElementById("bg_quote_langId").options.length;
+				for (var n = 0; n < len; n++) {
+					if (document.getElementById("bg_quote_langId").options[n].selected==true) {
+						bg_quote_lang = bg_quote_lang + "~" + document.getElementById("bg_quote_langId").options[n].value;
+					}
+				}
+				bg_quote_lang = bg_quote_lang.slice(1);
+
 				document.location.href = encodeURI(bg_quote_page + "?book=" + bg_quote_book + ((bg_quote_ch!="")?"&ch=":"") + bg_quote_ch + ((bg_quote_lang!="")?"&lang=":"") + bg_quote_lang);
 				window.localStorage['bg_quote_book'] = bg_quote_book;
 				window.localStorage['bg_quote_ch'] = bg_quote_ch;
@@ -734,7 +786,15 @@ class BibleWidget extends WP_Widget
 			function bg_bibrefs_booklist(select) {
 				var el = document.getElementById('bg_quote_bookId');
 				if (!select) select = el.value;
-				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+//				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+				var bg_quote_lang = "";
+				var len = document.getElementById("bg_quote_langId").options.length;
+				for (var n = 0; n < len; n++) {
+					if (document.getElementById("bg_quote_langId").options[n].selected==true) {
+						bg_quote_lang = bg_quote_lang + "~" + document.getElementById("bg_quote_langId").options[n].value;
+					}
+				}
+				bg_quote_lang = bg_quote_lang.slice(1);
 				jQuery.ajax({
 					type: 'GET',
 					cache: false,
@@ -761,8 +821,19 @@ class BibleWidget extends WP_Widget
 		<?php if ($storage) { ?>
 		<script>
 			<?php if (!$dlang) { ?>
-			if (window.localStorage['bg_quote_lang'])
-				document.getElementById('bg_quote_langId').value = window.localStorage['bg_quote_lang'];
+			if (window.localStorage['bg_quote_lang']) {
+//				document.getElementById('bg_quote_langId').value = window.localStorage['bg_quote_lang'];
+
+				var langs = window.localStorage['bg_quote_lang'].split('~');
+				var len = document.getElementById("bg_quote_langId").options.length;
+				for (var n = 0; n < len; n++) {
+					if (langs.indexOf(document.getElementById("bg_quote_langId").options[n].value) != -1) {
+						document.getElementById("bg_quote_langId").options[n].selected = true;
+					} else {
+						document.getElementById("bg_quote_langId").options[n].selected = false;
+					}
+				}
+			}
 			bg_bibrefs_booklist(window.localStorage['bg_quote_book']);
 			<?php } ?>
 			if (window.localStorage['bg_quote_book'])
@@ -854,9 +925,11 @@ class BibleSearchWidget extends WP_Widget
 			<input class="required" id="bg_search_ptrnId" type="text" placeholder="<?php _e('Search', 'bg_bibrefs' ); ?>&hellip;" value=""><br>		
 <!--	Язык Библии					-->
 		<?php if (!$dlang) { ?>
+		
 			<label class="widget-title" for="bg_search_langId"><?php _e('Language', 'bg_bibrefs' ); ?></label><br>
 			<select class="required" id="bg_search_langId">
-				<?php $path = dirname( __FILE__ ).'/bible/';
+				<?php 
+				$path = dirname( __FILE__ ).'/bible/';
 				if ($handle = opendir($path)) {
 					while (false !== ($dir = readdir($handle))) { 
 						if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
@@ -867,7 +940,20 @@ class BibleSearchWidget extends WP_Widget
 						}
 					}
 					closedir($handle); 
-				} ?>
+				} 
+				$path = BG_BIBREFS_UPLOAD_DIR.'/bible/';
+				if ($handle = opendir($path)) {
+					while (false !== ($dir = readdir($handle))) { 
+						if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+							include ($path.$dir.'/books.php');
+							echo "<option ";
+							if($lang==$dir) echo "selected";
+							echo " value=".$dir.">".$bg_bibrefs_lang_name."</option>\n";
+						}
+					}
+					closedir($handle); 
+				} 
+				?>
 			</select>
 		<?php } else { ?>
 			<input id="bg_search_langId" type="hidden" value="">
@@ -957,6 +1043,18 @@ class QuotesWidget extends WP_Widget
 				}
 				closedir($handle); 
 			}
+			$path = BG_BIBREFS_UPLOAD_DIR.'/bible/';
+			if ($handle = opendir($path)) {
+				while (false !== ($dir = readdir($handle))) { 
+					if (is_dir ( $path.$dir ) && $dir != '.' && $dir != '..') {
+						include ($path.$dir.'/books.php');
+						echo "<option ";
+						if($lang==$dir) echo "selected ";
+						echo " value=".$dir.">".$bg_bibrefs_lang_name."</option>\n";
+					}
+				}
+				closedir($handle); 
+			}
 		echo '</select></p>';
 	}
 	// Сохранение настроек
@@ -1025,9 +1123,6 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibrefs_dot', "on");
     add_option('bg_bibrefs_romeh', "on");
     add_option('bg_bibrefs_sepc', "on");
-    add_option('bg_bibrefs_sepd', "on");
-    add_option('bg_bibrefs_seps', "on");
-    add_option('bg_bibrefs_separator');
 	add_option('bg_bibrefs_strip_space');
 	add_option('bg_bibrefs_exceptions',"");
 	
@@ -1133,9 +1228,6 @@ function bg_bibrefs_get_options () {
 	$bg_bibrefs_option['dot'] = get_option( 'bg_bibrefs_dot' );
 	$bg_bibrefs_option['romeh'] = get_option( 'bg_bibrefs_romeh' );
 	$bg_bibrefs_option['sepc'] = get_option( 'bg_bibrefs_sepc' );
-	$bg_bibrefs_option['sepd'] = get_option( 'bg_bibrefs_sepd' );
-	$bg_bibrefs_option['seps'] = get_option( 'bg_bibrefs_seps' );
-	$bg_bibrefs_option['separator'] = get_option( 'bg_bibrefs_separator' );
     $bg_bibrefs_option['strip_space'] = get_option( 'bg_bibrefs_strip_space' );
 
     $bg_bibrefs_option['curl'] = get_option( 'bg_bibrefs_curl' );

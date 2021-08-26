@@ -7,6 +7,7 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 	global $bg_bibrefs_option;
 	global $bg_bibrefs_chapter, $bg_bibrefs_ch, $bg_bibrefs_psalm, $bg_bibrefs_ps;
 	global $bg_bibrefs_url, $bg_bibrefs_bookTitle, $bg_bibrefs_shortTitle, $bg_bibrefs_bookFile;
+
 	$lang = include_books($lang);
 	bg_bibrefs_get_options ();
 	$verses = "";
@@ -41,7 +42,7 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 	$pattern = "/\b".$pattern."\b/ui";			// Только целое слово
 	
 //	echo "pattern=". $pattern. "<br>";					// Отладка
-
+	
 /*******************************************************************************
    Организуем просмотр всех книг Библии
 
@@ -51,17 +52,28 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
    Чтение и преобразование файла книги
    
 *******************************************************************************/  
+		$jsons = bg_bibrefs_get_file ($book, $lang);
+		$json = $jsons[$lang];
+		$json = $json['data'];
+		if (empty($json)) continue;
+/*		
 		$book_file = 'bible/'.$bookFile;						// Имя файла книги
+		$path = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
+		$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
+		if (!file_exists($path)) {
+			$upload_dir = wp_upload_dir();
+			$path = $upload_dir['basedir'].'/'.$book_file;
+			$url = $upload_dir['baseurl'].'/'.$book_file;
+		}
+
 	// Получаем данные из файла	
 		$code = false;
 		if ($bg_bibrefs_option['fgc'] == 'on' && function_exists('file_get_contents')) {		// Попытка1. Если данные не получены попробуем применить file_get_contents()
-			$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
-			$code = file_get_contents($url);		
+			$code = file_get_contents($path);		
 		}
 
 		if ($bg_bibrefs_option['fopen'] == 'on' && !$code) {									// Попытка 2. Если данные опять не получены попробуем применить fopen() 
-			$url = dirname(dirname(__FILE__ )).'/'.$book_file;										// Локальный URL файла
-			$ch=fopen($url, "r" );																	// Открываем файл для чтения
+			$ch=fopen($path, "r" );																	// Открываем файл для чтения
 			if($ch)	{
 				while (!feof($ch))	{
 					$code .= fread($ch, 2097152);													// загрузка текста (не более 2097152 байт)
@@ -70,7 +82,6 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 			}
 		}
 		if ($bg_bibrefs_option['curl'] == 'on' && function_exists('curl_init') && !$code) {		// Попытка3. Если установлен cURL				
-			$url = plugins_url( $book_file , dirname(__FILE__ ) );									// URL файла
 			$ch = curl_init($url);																	// создание нового ресурса cURL
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);											// возврат результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер
 			$code = curl_exec($ch);																	// загрузка текста
@@ -83,6 +94,7 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 
 // Преобразовать json в массив
 		$json = json_decode($code, true);
+*/
 /*******************************************************************************
    Поиск вхождения в текст стиха Библии
    и формирование результатов поиска
@@ -100,7 +112,7 @@ function bg_bibrefs_search_result($context, $type, $lang, $prll='') {
 			}
 			$ch = (int)$json[$i]['part'];
 			$vr = (int)$json[$i]['stix'];
-			$verses = $verses.bg_bibrefs_printVerses ($json, $book, $chr, $ch, $ch, $vr, $vr, $type, $lang, $prll);
+			$verses = $verses.bg_bibrefs_printVerses ($jsons, $book, $chr, $ch, $ch, $vr, $vr, $type, $lang, $prll);
 			$chr = $ch;
 			
 		}
