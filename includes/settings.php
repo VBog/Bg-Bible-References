@@ -13,11 +13,15 @@ function bg_bibrefs_options_page() {
 	$bg_bibrefs_site = 'bg_bibrefs_site';				// Имя ссылки
 	
     $c_lang_name = 'bg_bibrefs_c_lang';					// Церковно-славянский
+    $c_font_name = 'bg_bibrefs_c_font';					// Шрифт для церковно-славянского текста
     $r_lang_name = 'bg_bibrefs_r_lang';					// Русский
+    $k_lang_name = 'bg_bibrefs_k_lang';					// Украинский
+    $v_lang_name = 'bg_bibrefs_v_lang';					// Белорусский
+    $z_lang_name = 'bg_bibrefs_z_lang';					// Сербский
+    $a_lang_name = 'bg_bibrefs_a_lang';					// Английский
     $g_lang_name = 'bg_bibrefs_g_lang';					// Греческий
     $l_lang_name = 'bg_bibrefs_l_lang';					// Латинский
     $i_lang_name = 'bg_bibrefs_i_lang';					// Иврит
-    $c_font_name = 'bg_bibrefs_c_font';					// Шрифт для церковно-славянского текста
 
 	$bg_bibrefs_page = 'bg_bibrefs_page';				// Ссылка на предварительно созданную страницу для вывода текста Библии
 
@@ -63,6 +67,10 @@ function bg_bibrefs_options_page() {
 	
     $c_lang_val = get_option( $c_lang_name );
     $r_lang_val = get_option( $r_lang_name );
+    $k_lang_val = get_option( $k_lang_name );
+    $v_lang_val = get_option( $v_lang_name );
+    $z_lang_val = get_option( $z_lang_name );
+    $a_lang_val = get_option( $a_lang_name );
     $g_lang_val = get_option( $g_lang_name );
     $l_lang_val = get_option( $l_lang_name );
     $i_lang_val = get_option( $i_lang_name );
@@ -117,6 +125,18 @@ function bg_bibrefs_options_page() {
 		$r_lang_val = sanitize_text_field(( isset( $_POST[$r_lang_name] ) && $_POST[$r_lang_name] ) ? $_POST[$r_lang_name] : '') ;
 		update_option( $r_lang_name, $r_lang_val );
 
+		$k_lang_val = sanitize_text_field(( isset( $_POST[$k_lang_name] ) && $_POST[$k_lang_name] ) ? $_POST[$k_lang_name] : '') ;
+		update_option( $k_lang_name, $k_lang_val );
+
+		$v_lang_val = sanitize_text_field(( isset( $_POST[$v_lang_name] ) && $_POST[$v_lang_name] ) ? $_POST[$v_lang_name] : '') ;
+		update_option( $v_lang_name, $v_lang_val );
+
+		$z_lang_val = sanitize_text_field(( isset( $_POST[$z_lang_name] ) && $_POST[$z_lang_name] ) ? $_POST[$z_lang_name] : '') ;
+		update_option( $z_lang_name, $z_lang_val );
+
+		$a_lang_val = sanitize_text_field(( isset( $_POST[$a_lang_name] ) && $_POST[$a_lang_name] ) ? $_POST[$a_lang_name] : '') ;
+		update_option( $a_lang_name, $a_lang_val );		
+		
 		$g_lang_val = sanitize_text_field(( isset( $_POST[$g_lang_name] ) && $_POST[$g_lang_name] ) ? $_POST[$g_lang_name] : '') ;
 		update_option( $g_lang_name, $g_lang_val );
 
@@ -324,6 +344,10 @@ function reading_off_checked() {
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 <input type="checkbox" id="c_lang" name="<?php echo $c_lang_name ?>" <?php if($c_lang_val=="c") echo "checked" ?> value="c" onclick='c_lang_checked();'> <?php _e('Church Slavic', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="r_lang" name="<?php echo $r_lang_name ?>" <?php if($r_lang_val=="r") echo "checked" ?>  value="r"> <?php _e('Russian', 'bg_bibrefs' ); ?><br />
+<input type="checkbox" id="k_lang" name="<?php echo $k_lang_name ?>" <?php if($k_lang_val=="k") echo "checked" ?>  value="k"> <?php _e('Ukrainian', 'bg_bibrefs' ); ?><br />
+<input type="checkbox" id="v_lang" name="<?php echo $v_lang_name ?>" <?php if($v_lang_val=="v") echo "checked" ?>  value="v"> <?php _e('Belorussian', 'bg_bibrefs' ); ?><br />
+<input type="checkbox" id="z_lang" name="<?php echo $z_lang_name ?>" <?php if($z_lang_val=="z") echo "checked" ?>  value="z"> <?php _e('Serbian', 'bg_bibrefs' ); ?><br />
+<input type="checkbox" id="a_lang" name="<?php echo $a_lang_name ?>" <?php if($a_lang_val=="a") echo "checked" ?>  value="a"> <?php _e('English', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="g_lang" name="<?php echo $g_lang_name ?>" <?php if($g_lang_val=="g") echo "checked" ?>  value="g"> <?php _e('Greek', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="l_lang" name="<?php echo $l_lang_name ?>" <?php if($l_lang_val=="l") echo "checked" ?>  value="l"> <?php _e('Latin', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="i_lang" name="<?php echo $i_lang_name ?>" <?php if($i_lang_val=="i") echo "checked" ?>  value="i"> <?php _e('Hebrew', 'bg_bibrefs' ); ?><br />
@@ -336,7 +360,6 @@ function reading_off_checked() {
 <?php _e('Font for Church Slavonic text', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="ucs" name="<?php echo $c_font_name ?>" <?php if($font_val=="ucs") echo "checked" ?> value="ucs"> <?php _e('Church Slavic font', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="rus" name="<?php echo $c_font_name ?>" <?php if($font_val=="rus") echo "checked" ?> value="rus"> <?php _e('Russian font ("Old" style)', 'bg_bibrefs' ); ?><br />
-<input type="radio" id="hip" name="<?php echo $c_font_name ?>" <?php if($font_val=="hip") echo "checked" ?> value="hip"> <?php _e('HIP-standard', 'bg_bibrefs' ); ?><br />
 <script>
 c_lang_checked();
 </script>
@@ -365,7 +388,7 @@ bg_bibrefs_site_checked();
 <th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="radio" id="bg_interpret_opt" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?> value="on"> <?php _e('on Optina Pustyn site', 'bg_bibrefs' ); ?><br />
-<input type="radio" id="bg_interpret_lop" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="lopuhin") echo "checked" ?> value="lopuhin"> <?php _e('by A.Lopuhin on azbyka.ru', 'bg_bibrefs' ); ?><br />
+<input type="radio" id="bg_interpret_lop" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="lopuhin") echo "checked" ?> value="lopuhin"> <?php _e('on <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="bg_interpret_lnk" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="link") echo "checked" ?> value="link"> <?php _e('link to the Bible (see above)', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="bg_interpret_off" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="") echo "checked" ?> value=""> <?php _e('disabled', 'bg_bibrefs' ); ?><br />
 </td></tr>

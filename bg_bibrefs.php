@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.17
+    Version: 3.18
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.17');
+define('BG_BIBREFS_VERSION', '3.18');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $upload_dir = wp_upload_dir();
@@ -1196,14 +1196,20 @@ function bg_bibrefs_get_options () {
 // Читаем существующие значения опций из базы данных
 	$opt = "";
 	$c_lang_val = get_option( 'bg_bibrefs_c_lang' );
+	$font_val = get_option( 'bg_bibrefs_c_font' );
     $r_lang_val = get_option( 'bg_bibrefs_r_lang' );
+    $k_lang_val = get_option( 'bg_bibrefs_k_lang' );
+    $v_lang_val = get_option( 'bg_bibrefs_v_lang' );
+    $z_lang_val = get_option( 'bg_bibrefs_z_lang' );
+    $a_lang_val = get_option( 'bg_bibrefs_a_lang' );
     $g_lang_val = get_option( 'bg_bibrefs_g_lang' );
     $l_lang_val = get_option( 'bg_bibrefs_l_lang' );
     $i_lang_val = get_option( 'bg_bibrefs_i_lang' );
-	$lang_val = $c_lang_val.$r_lang_val.$g_lang_val.$l_lang_val.$i_lang_val;
-	$font_val = get_option( 'bg_bibrefs_c_font' );
-	if ($lang_val) $opt = "&".$lang_val;
-	if ($font_val && $c_lang_val) $opt = $opt."&".$font_val;
+	
+	if ($c_lang_val=="c" && $font_val == "ucs") $c_lang_val='utfcs';
+	
+	$langs_arr = array_filter( array($c_lang_val,$r_lang_val,$k_lang_val,$v_lang_val,$z_lang_val,$a_lang_val,$g_lang_val,$l_lang_val,$i_lang_val));
+	if (count($langs_arr)) $opt = "&".implode('~', $langs_arr);
 	$bg_bibrefs_option['azbyka'] = $opt;
 	
 // Общие параметры	отображения ссылок
