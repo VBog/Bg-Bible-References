@@ -19,6 +19,7 @@ function bg_bibrefs_options_page() {
     $v_lang_name = 'bg_bibrefs_v_lang';					// Белорусский
     $z_lang_name = 'bg_bibrefs_z_lang';					// Сербский
     $a_lang_name = 'bg_bibrefs_a_lang';					// Английский
+    $h_lang_name = 'bg_bibrefs_h_lang';					// Французский
     $g_lang_name = 'bg_bibrefs_g_lang';					// Греческий
     $l_lang_name = 'bg_bibrefs_l_lang';					// Латинский
     $i_lang_name = 'bg_bibrefs_i_lang';					// Иврит
@@ -71,6 +72,7 @@ function bg_bibrefs_options_page() {
     $v_lang_val = get_option( $v_lang_name );
     $z_lang_val = get_option( $z_lang_name );
     $a_lang_val = get_option( $a_lang_name );
+    $h_lang_val = get_option( $h_lang_name );
     $g_lang_val = get_option( $g_lang_name );
     $l_lang_val = get_option( $l_lang_name );
     $i_lang_val = get_option( $i_lang_name );
@@ -136,6 +138,9 @@ function bg_bibrefs_options_page() {
 
 		$a_lang_val = sanitize_text_field(( isset( $_POST[$a_lang_name] ) && $_POST[$a_lang_name] ) ? $_POST[$a_lang_name] : '') ;
 		update_option( $a_lang_name, $a_lang_val );		
+		
+		$h_lang_val = sanitize_text_field(( isset( $_POST[$h_lang_name] ) && $_POST[$h_lang_name] ) ? $_POST[$h_lang_name] : '') ;
+		update_option( $h_lang_name, $h_lang_val );		
 		
 		$g_lang_val = sanitize_text_field(( isset( $_POST[$g_lang_name] ) && $_POST[$g_lang_name] ) ? $_POST[$g_lang_name] : '') ;
 		update_option( $g_lang_name, $g_lang_val );
@@ -348,6 +353,7 @@ function reading_off_checked() {
 <input type="checkbox" id="v_lang" name="<?php echo $v_lang_name ?>" <?php if($v_lang_val=="v") echo "checked" ?>  value="v"> <?php _e('Belorussian', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="z_lang" name="<?php echo $z_lang_name ?>" <?php if($z_lang_val=="z") echo "checked" ?>  value="z"> <?php _e('Serbian', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="a_lang" name="<?php echo $a_lang_name ?>" <?php if($a_lang_val=="a") echo "checked" ?>  value="a"> <?php _e('English', 'bg_bibrefs' ); ?><br />
+<input type="checkbox" id="h_lang" name="<?php echo $h_lang_name ?>" <?php if($h_lang_val=="h") echo "checked" ?>  value="h"> <?php _e('French', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="g_lang" name="<?php echo $g_lang_name ?>" <?php if($g_lang_val=="g") echo "checked" ?>  value="g"> <?php _e('Greek', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="l_lang" name="<?php echo $l_lang_name ?>" <?php if($l_lang_val=="l") echo "checked" ?>  value="l"> <?php _e('Latin', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="i_lang" name="<?php echo $i_lang_name ?>" <?php if($i_lang_val=="i") echo "checked" ?>  value="i"> <?php _e('Hebrew', 'bg_bibrefs' ); ?><br />

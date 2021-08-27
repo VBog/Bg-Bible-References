@@ -1106,6 +1106,11 @@ function bg_bibrefs_options_ini () {
 	add_option('bg_bibrefs_site', "azbyka");
 	add_option('bg_bibrefs_c_lang', "c");
 	add_option('bg_bibrefs_r_lang', "r");
+	add_option('bg_bibrefs_k_lang');
+	add_option('bg_bibrefs_v_lang');
+	add_option('bg_bibrefs_z_lang');
+	add_option('bg_bibrefs_a_lang');
+	add_option('bg_bibrefs_h_lang');
 	add_option('bg_bibrefs_g_lang');
 	add_option('bg_bibrefs_l_lang');
 	add_option('bg_bibrefs_i_lang');
@@ -1147,6 +1152,11 @@ function bg_bibrefs_deinstall() {
 	delete_option('bg_bibrefs_site');
 	delete_option('bg_bibrefs_c_lang');
 	delete_option('bg_bibrefs_r_lang');
+	delete_option('bg_bibrefs_k_lang');
+	delete_option('bg_bibrefs_v_lang');
+	delete_option('bg_bibrefs_z_lang');
+	delete_option('bg_bibrefs_a_lang');
+	delete_option('bg_bibrefs_h_lang');
 	delete_option('bg_bibrefs_g_lang');
 	delete_option('bg_bibrefs_l_lang');
 	delete_option('bg_bibrefs_i_lang');
@@ -1202,13 +1212,14 @@ function bg_bibrefs_get_options () {
     $v_lang_val = get_option( 'bg_bibrefs_v_lang' );
     $z_lang_val = get_option( 'bg_bibrefs_z_lang' );
     $a_lang_val = get_option( 'bg_bibrefs_a_lang' );
+    $h_lang_val = get_option( 'bg_bibrefs_h_lang' );
     $g_lang_val = get_option( 'bg_bibrefs_g_lang' );
     $l_lang_val = get_option( 'bg_bibrefs_l_lang' );
     $i_lang_val = get_option( 'bg_bibrefs_i_lang' );
 	
 	if ($c_lang_val=="c" && $font_val == "ucs") $c_lang_val='utfcs';
 	
-	$langs_arr = array_filter( array($c_lang_val,$r_lang_val,$k_lang_val,$v_lang_val,$z_lang_val,$a_lang_val,$g_lang_val,$l_lang_val,$i_lang_val));
+	$langs_arr = array_filter( array($c_lang_val,$r_lang_val,$k_lang_val,$v_lang_val,$z_lang_val,$a_lang_val,$h_lang_val,$g_lang_val,$l_lang_val,$i_lang_val));
 	if (count($langs_arr)) $opt = "&".implode('~', $langs_arr);
 	$bg_bibrefs_option['azbyka'] = $opt;
 	
