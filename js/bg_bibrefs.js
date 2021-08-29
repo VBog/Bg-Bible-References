@@ -104,7 +104,7 @@ jQuery('span.bg_data_title')
 /*******************************************************************************
    При удалении мыши от ссылки, удаляет подсказку с экрана
 *******************************************************************************/  
-	.mouseleave (function(e){
+	.mouseleave (function(){
 		clearInterval(bg_bibrefs_intervalID);
 		var tooltip = jQuery(this).children('span.bg_data_tooltip');
 		if (tooltip.css('position')=='fixed') return;
@@ -142,7 +142,7 @@ function tooltip_mini(tooltip, el, e) {
 	
 	var tipWidth = parseInt(tooltip.css('width'));	// Заданная ширина подсказки
 
-	var pos = el.position();						// Позиция родительского элемента
+	var pos = el.offset();						// Позиция родительского элемента
 	var x = e.pageX-(el.offset().left-pos.left)-12;	// Получаем координаты по оси X - 12
 	
 	var y =  pos.top+el.height(); 					// Получаем координаты по оси Y
@@ -164,29 +164,31 @@ function tooltip_mini(tooltip, el, e) {
 		'width': divWidth+"px",
 		'max-height': divHeight+"px"
 	});
-	
+
 	// Определяем дистанцию от ниждего края окна браузера до блока, содержащего подсказку        
 	tipHeight = tooltip.height(); 				// Вычисляем высоту подсказки
-	var tipVisY = jQuery(window).scrollTop()+jQuery(window).height() - (y + tipHeight+(el.offset().top-pos.top));
+	var tipVisY = jQuery(window).scrollTop()+jQuery(window).height() - (y + tipHeight+(pos.top-el.position().top));
 	if ( tipVisY < 20 ) { // Если высота подсказки превышает расстояние от нижнего края окна браузера до курсора,
 		y = pos.top-tipHeight-el.height()/2;  		// то распологаем область с подсказкой над курсором
 	} 
 	//Присваиваем найденные координаты области, содержащей подсказку
 	x = Math.round(x);							
 	y = Math.round(y);
+
 	tooltip.css({
 		'width': tipWidth+"px",
-		'top': y+"px",
-		'left': x+"px",
+//		'top': y+"px",
+//		'left': x+"px",
 		'position':'absolute',					// Абсолютная позиция
 		'display': "block"						// Строчно-блочный элемент 
 	});	
+	tooltip.offset({top:y, left:x});
 	// Назначаем название и действие кнопке
 	var img = jQuery('span.bg_data_tooltip img');
 	img.unbind();								// Удаляем все обработчики событий
-	img.attr('title', img.attr('title1'));		//  Название 1
+	img.attr('title', img.attr('data-title1'));		//  Название 1
 	img.click (function () {
-		var tooltip = jQuery(this).parent();	
+		var tooltip = jQuery(this).closest('span.bg_data_tooltip');	
 		tooltip.css({
 			'position': 'absolute',				// Абсолютная позиция
 			'display': "none"					// Скрыть подсказку
@@ -279,9 +281,9 @@ function tooltip_maxi(tooltip) {
 	// Назначаем название и действие кнопке
 	var img = jQuery('span.bg_data_tooltip img');
 	img.unbind();								// Удаляем все обработчики событий
-	img.attr('title', img.attr('title2'));		//  Название 2
+	img.attr('title', img.attr('data-title2'));		//  Название 2
 	img.click (function () {					// Щелчок по кнопке
-		jQuery(this).parent().css({
+		jQuery(this).closest('span.bg_data_tooltip').css({
 			'position': 'absolute',				// Абсолютная позиция
 			'display': "none"					// Скрыть подсказку
 		});

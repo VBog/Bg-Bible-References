@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.18
+    Version: 3.18.1
     Author: VBog
     Author URI: https://bogaiskov.ru 
 	License:     GPL2
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.18');
+define('BG_BIBREFS_VERSION', '3.18.1');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $upload_dir = wp_upload_dir();
@@ -539,7 +539,7 @@ function bg_bibrefs_callback() {
 		if (!$type) $type = 'verses';
 		$verses = bg_bibrefs_getQuotes($title, $chapter, $type, $lang);
 		if ($verses) {
-			$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer; margin-right: 8px;" align="left" width=16 height=16 title1="'.(__('Expand', 'bg_bibrefs' )).'" title2="'.(__('Hide', 'bg_bibrefs' )).'" />';
+			$expand_button = '<img src="'.plugins_url( '/js/expand.png' , __FILE__ ).'" style="cursor:pointer; margin-right: 8px;" align="left" width=16 height=16 data-title1="'.(__('Expand', 'bg_bibrefs' )).'" data-title2="'.(__('Hide', 'bg_bibrefs' )).'" />';
 			echo $expand_button. $verses;
 		} 
 	}

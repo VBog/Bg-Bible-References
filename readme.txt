@@ -113,6 +113,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.18.1 =
+
+* Fixed bug.
+
 = 3.18 =
 
 * Changed the setting format for the language of the Bible on the azbyka.ru website.
