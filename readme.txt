@@ -5,7 +5,7 @@ Donate link: http://bogaiskov.ru/about-me/donate/
 Tags: bible, orthodoxy, Christianity, Библия, православие, христианство, Священное Писание, Завет, ορθοδοξία, χριστιανισμός, Αγία Γραφή
 Requires PHP: 5.6
 Requires at least: 3.0.1
-Tested up to: 5.8
+Tested up to: 6.0.1
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -112,6 +112,18 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.18.4 =
+
+* Replaced links http://azbyka.ru/biblia/... to https://azbyka.ru/biblia/... .
+
+= 3.18.3 =
+
+* Fixed bug.
+
+= 3.18.2 =
+
+* Fixed parsing of western notation.
 
 = 3.18.1 =
 

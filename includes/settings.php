@@ -4,7 +4,7 @@
     отображает содержимое страницы для подменю Bible References
 *******************************************************************************************/
 function bg_bibrefs_options_page() {
-// http://azbyka.ru/biblia/?Lk.4:25-5:13,6:1-13&crgli&rus&num=cr
+// https://azbyka.ru/biblia/?Lk.4:25-5:13,6:1-13&crgli&rus&num=cr
 
 	$active_tab = 'links';
 	if( isset( $_GET[ 'tab' ] ) ) $active_tab = $_GET[ 'tab' ];
@@ -341,11 +341,11 @@ function reading_off_checked() {
 <table class="form-table" style="display: <?php echo $active_tab == 'links' ? '' : 'none'; ?>;">
 <tr valign="top">
 <th scope="row">
-<input type="radio" id="bg_bibrefs_site1" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="azbyka") echo "checked" ?> value="azbyka" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to the Bible on <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?>
+<input type="radio" id="bg_bibrefs_site1" name="<?php echo $bg_bibrefs_site ?>" <?php if($bg_bibrefs_site_val=="azbyka") echo "checked" ?> value="azbyka" onclick='bg_bibrefs_site_checked();'> <?php _e('Links to the Bible on <a href="https://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?>
 </th>
 <td id="bg_bibrefs_azbyka_lang">
 <div>
-<?php printf(__('Languages of the Bible text on', 'bg_bibrefs' ).' <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>'); ?><br />
+<?php printf(__('Languages of the Bible text on', 'bg_bibrefs' ).' <a href="https://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>'); ?><br />
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 <input type="checkbox" id="c_lang" name="<?php echo $c_lang_name ?>" <?php if($c_lang_val=="c") echo "checked" ?> value="c" onclick='c_lang_checked();'> <?php _e('Church Slavic', 'bg_bibrefs' ); ?><br />
 <input type="checkbox" id="r_lang" name="<?php echo $r_lang_name ?>" <?php if($r_lang_val=="r") echo "checked" ?>  value="r"> <?php _e('Russian', 'bg_bibrefs' ); ?><br />
@@ -394,7 +394,7 @@ bg_bibrefs_site_checked();
 <th scope="row"><?php _e('Enable links to the interpretation of the Holy Scriptures', 'bg_bibrefs' ); ?></th>
 <td>
 <input type="radio" id="bg_interpret_opt" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="on") echo "checked" ?> value="on"> <?php _e('on Optina Pustyn site', 'bg_bibrefs' ); ?><br />
-<input type="radio" id="bg_interpret_lop" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="lopuhin") echo "checked" ?> value="lopuhin"> <?php _e('on <a href="http://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?><br />
+<input type="radio" id="bg_interpret_lop" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="lopuhin") echo "checked" ?> value="lopuhin"> <?php _e('on <a href="https://azbyka.ru/biblia/" target=_blank>azbyka.ru</a>', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="bg_interpret_lnk" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="link") echo "checked" ?> value="link"> <?php _e('link to the Bible (see above)', 'bg_bibrefs' ); ?><br />
 <input type="radio" id="bg_interpret_off" name="<?php echo $bg_interpret ?>" <?php if($bg_interpret_val=="") echo "checked" ?> value=""> <?php _e('disabled', 'bg_bibrefs' ); ?><br />
 </td></tr>
@@ -606,7 +606,7 @@ reading_off_checked();
 	<h3><?php _e('I like this plugin<br>– how can I thank you?', 'bg_bibrefs') ?></h3>
 	<p><?php _e('There are several ways for you to say thanks:', 'bg_bibrefs') ?></p>
 	<ul>
-		<li><?php printf(__('<a href="%1$s" target="_blank">Give a donation</a>  for the construction of the church of Sts. Peter and Fevronia in Marino', 'bg_bibrefs'), "http://hpf.ru.com/donate/") ?></li>
+		<li><?php printf(__('<a href="%1$s" target="_blank">Give a donation</a>  for the construction of the church of Sts. Peter and Fevronia in Marino', 'bg_bibrefs'), "https://hpf.ru.com/donate/") ?></li>
 		<li><?php printf(__('<a href="%1$s" target="_blank">Give 5 stars</a> over at the WordPress Plugin Directory', 'bg_bibrefs'), "http://wordpress.org/support/view/plugin-reviews/bg-biblie-references") ?></li>
 		<li><?php printf(__('Share infotmation or make a nice blog post about the plugin', 'bg_bibrefs')) ?></li>
 	</ul>

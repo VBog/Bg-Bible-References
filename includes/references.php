@@ -1,6 +1,6 @@
 <?php
 /******************************************************************************************************************************************
-Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт Православной энциклопедии "Азбука веры" (http://azbyka.ru/biblia). 
+Плагин подсвечивает ссылки на текст Библии с помощью гиперссылок на сайт Православной энциклопедии "Азбука веры" (https://azbyka.ru/biblia). 
 Текст Библии представлен на церковнославянском, русском, греческом, еврейском и латинском языках. Не требуется никаких настроек. 
 Плагин обрабатывает ссылки следующего формата:
 	(Ин. 3:16), где «Ин.» - это название книги, 3 - это глава, а 16 - это номер стиха.
@@ -261,12 +261,15 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 					if (isWesternNotation ($chapter, $chapters)) {
 						// Заменяем запятую на двоеточие, оставляя запятые как разделители глав
 
-						$chapter = preg_replace_callback ("/[-:,\.;]/", function ($match) {
-							static $prevDelimeter=',';
-							$mt = $match[0];
-							if ($mt == ',' && ($prevDelimeter == ',' || $prevDelimeter == ';' || $prevDelimeter == '.')) $mt = ':';
+						$chapter = preg_replace_callback ("/(\d+)([-:,\.;])/", function ($match) {
+							static $prevDelimeter=',', $prevDigit = 999;
+							$mt = $match[2];
+							if (($mt == ',') && 
+								($prevDigit>=$match[1]) &&
+								($prevDelimeter == ',' || $prevDelimeter == ';' || $prevDelimeter == '.' || $prevDelimeter == '-')) $mt = ':';
 							$prevDelimeter = $mt;
-							return $mt;
+							$prevDigit = $match[1];
+							return $match[1].$mt;
 						}, $chapter);		
 					}
 					
@@ -343,7 +346,7 @@ function bg_bibrefs_check_tag($hdr, $pos) {
 	return true; 
 }
 /******************************************************************************************
-	Формирование ссылки на http://azbyka.ru/biblia/
+	Формирование ссылки на https://azbyka.ru/biblia/
 	Используется в функции bg_bibrefs_bible_proc(),
 	для работы требуется bg_bibrefs_getTitle() - см. ниже
 	и bg_bibrefs_getBook() - см. ниже
@@ -359,7 +362,7 @@ function bg_bibrefs_get_url($book, $chapter, $link, $lang) {
 	
 	if ($book != "") {	
 		if ($bg_bibrefs_option['site'] == 'azbyka')
-			$fullurl = "<a href='"."http://azbyka.ru/biblia/?".$book.".". $chapter.$bg_bibrefs_option['azbyka']."' target='".$bg_bibrefs_option['target']."'>" .$link. "</a>";	// Полный адрес ссылки на azbyka.ru
+			$fullurl = "<a href='"."https://azbyka.ru/biblia/?".$book.".". $chapter.$bg_bibrefs_option['azbyka']."' target='".$bg_bibrefs_option['target']."'>" .$link. "</a>";	// Полный адрес ссылки на azbyka.ru
 		elseif ($bg_bibrefs_option['site'] == 'this') {
 			$page = $bg_bibrefs_option['page'];
 			if ($page == "") $page = get_permalink(); 

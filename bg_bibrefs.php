@@ -3,15 +3,15 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.18.1
+    Version: 3.18.4
     Author: VBog
-    Author URI: https://bogaiskov.ru 
+    Author URI: http://bogaiskov.ru 
 	License:     GPL2
 	Text Domain: bg_bibrefs
 	Domain Path: /languages
 */
 
-/*  Copyright 2013-2020  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
+/*  Copyright 2013-2022  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.18.1');
+define('BG_BIBREFS_VERSION', '3.18.4');
 define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 
 $upload_dir = wp_upload_dir();
@@ -749,7 +749,7 @@ class BibleWidget extends WP_Widget
 				?>
 			</select></p>
 		<?php } else { ?>
-			<input id="bg_quote_langId" type="hidden" value="">
+			<input id="bg_quote_langId" type="hidden" value="<?php echo $lang; ?>">
 		<?php } ?>	
 			<p><input type="submit" value="<?php _e('Go', 'bg_bibrefs' ); ?>" onclick="bg_quote_goToPage()"></p>
 		</aside>
@@ -758,8 +758,10 @@ class BibleWidget extends WP_Widget
 				var bg_quote_page = document.getElementById('bg_quote_pageId').value;
 				var bg_quote_book = document.getElementById('bg_quote_bookId').value;
 				var bg_quote_ch = document.getElementById('bg_quote_chId').value;
-//				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
 
+			<?php if ($dlang) { ?>
+				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+			<?php } else { ?>
 				var bg_quote_lang = "";
 				var len = document.getElementById("bg_quote_langId").options.length;
 				for (var n = 0; n < len; n++) {
@@ -768,6 +770,7 @@ class BibleWidget extends WP_Widget
 					}
 				}
 				bg_quote_lang = bg_quote_lang.slice(1);
+			<?php } ?>
 
 				document.location.href = encodeURI(bg_quote_page + "?book=" + bg_quote_book + ((bg_quote_ch!="")?"&ch=":"") + bg_quote_ch + ((bg_quote_lang!="")?"&lang=":"") + bg_quote_lang);
 				window.localStorage['bg_quote_book'] = bg_quote_book;
@@ -786,7 +789,10 @@ class BibleWidget extends WP_Widget
 			function bg_bibrefs_booklist(select) {
 				var el = document.getElementById('bg_quote_bookId');
 				if (!select) select = el.value;
-//				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+
+			<?php if ($dlang) { ?>
+				var bg_quote_lang = document.getElementById('bg_quote_langId').value;
+			<?php } else { ?>
 				var bg_quote_lang = "";
 				var len = document.getElementById("bg_quote_langId").options.length;
 				for (var n = 0; n < len; n++) {
@@ -795,6 +801,8 @@ class BibleWidget extends WP_Widget
 					}
 				}
 				bg_quote_lang = bg_quote_lang.slice(1);
+			<?php } ?>
+
 				jQuery.ajax({
 					type: 'GET',
 					cache: false,
