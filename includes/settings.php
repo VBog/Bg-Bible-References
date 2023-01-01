@@ -599,22 +599,21 @@ reading_off_checked();
 <div class="bg_bibrefs_info_box">
 
 	<h3><?php _e('Thanks for using Bg Biblie References', 'bg_bibrefs') ?></h3>
-	<p class="bg_bibrefs_gravatar"><a href="http://bogaiskov.ru" target="_blank"><?php echo get_avatar("vadim.bogaiskov@gmail.com", '64'); ?></a></p>
+	<p class="bg_bibrefs_gravatar"><a href="https://bogaiskov.ru" target="_blank"><?php echo get_avatar("vadim.bogaiskov@gmail.com", '64'); ?></a></p>
 	<p><?php _e('Dear brothers and sisters!<br />Thank you for using my plugin!<br />I hope it is useful for your site.', 'bg_bibrefs') ?></p>
-	<p class="bg_bibrefs_author"><a href="http://bogaiskov.ru" target="_blank"><?php _e('Vadim Bogaiskov', 'bg_bibrefs') ?></a></p>
+	<p class="bg_bibrefs_author"><a href="https://bogaiskov.ru" target="_blank"><?php _e('Vadim Bogaiskov', 'bg_bibrefs') ?></a></p>
 
 	<h3><?php _e('I like this plugin<br>– how can I thank you?', 'bg_bibrefs') ?></h3>
 	<p><?php _e('There are several ways for you to say thanks:', 'bg_bibrefs') ?></p>
 	<ul>
 		<li><?php printf(__('<a href="%1$s" target="_blank">Give a donation</a>  for the construction of the church of Sts. Peter and Fevronia in Marino', 'bg_bibrefs'), "https://hpf.ru.com/donate/") ?></li>
-		<li><?php printf(__('<a href="%1$s" target="_blank">Give 5 stars</a> over at the WordPress Plugin Directory', 'bg_bibrefs'), "http://wordpress.org/support/view/plugin-reviews/bg-biblie-references") ?></li>
 		<li><?php printf(__('Share infotmation or make a nice blog post about the plugin', 'bg_bibrefs')) ?></li>
 	</ul>
-	<div class="share42init" align="center" data-url="http://bogaiskov.ru/bg_bibrefs/" data-title="<?php _e('Bg Bible References really cool plugin for Orthodox WordPress sites', 'bg_bibrefs') ?>"></div>
-	<script type="text/javascript" src="<?php printf( plugins_url( 'share42/share42.js' , dirname(__FILE__) ) ) ?>"></script>
+	<!-- div class="share42init" align="center" data-url="https://bogaiskov.ru/bg_bibrefs/" data-title="<?php _e('Bg Bible References really cool plugin for Orthodox WordPress sites', 'bg_bibrefs') ?>"></div -->
+	<!-- script type="text/javascript" src="<?php printf( plugins_url( 'share42/share42.js' , dirname(__FILE__) ) ) ?>"></script -->
 
 	<h3><?php _e('Support', 'bg_bibrefs') ?></h3>
-	<p><?php printf(__('Please see the <a href="%1$s" target="_blank">support forum</a> or <a href="%2$s" target="_blank">plugin\'s site</a> for help.', 'bg_bibrefs'), "http://wordpress.org/support/plugin/bg-biblie-references", "http://wp-bible.info/") ?></p>
+	<p><?php printf(__('Please see the <a href="$s" target="_blank">plugin\'s site</a> for help.', 'bg_bibrefs'), "http://wp-bible.info/") ?></p>
 	
 	<p class="bg_bibrefs_close"><?php _e("God protect you!", 'bg_bibrefs') ?></p>
 </div>

@@ -5,7 +5,7 @@ Donate link: http://bogaiskov.ru/about-me/donate/
 Tags: bible, orthodoxy, Christianity, Библия, православие, христианство, Священное Писание, Завет, ορθοδοξία, χριστιανισμός, Αγία Γραφή
 Requires PHP: 5.6
 Requires at least: 3.0.1
-Tested up to: 6.0.1
+Tested up to: 6.1.1
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Belarusian (New Testament translated by Biblical Commission of the Belarusian Exarchate) 
 * Serbian (New Testament - synodal translation by Serbian Orthodox Church, Old Testament by Daničić, Karadžić) 
 * English (King James Version)
+* French (La Sainte Bible de Machaira 2020).
 
 ### Shortcode:
 * `[bible]` displays quotes from the Bible in the text of the page.
@@ -71,6 +72,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * белорусский (Новый Завет в переводе Библейской Комиссии при Белорусском Экзархате)
 * cербский (Новый Завет - синодальный перевод Сербской Православной Церкви, Ветхий Завет в переводе Даничича и Караджича)
 * английский (King James Version)
+* французский (La Sainte Bible de Machaira 2020)
 
 ### Шорт-коды:
 * `[bible]` выводит цитаты из Библии в тексте страницы.
@@ -112,6 +114,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.18.5 =
+
+* Hosting the plugin on GitHub: https://github.com/VBog/Bg-Bible-References
 
 = 3.18.4 =
 
