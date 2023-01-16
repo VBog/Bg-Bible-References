@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.18.6
+    Version: 3.18.5
     Author: VBog
     Author URI: http://bogaiskov.ru 
 	License:     GPL2
@@ -39,7 +39,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.18.6');
+define('BG_BIBREFS_VERSION', '3.18.5');
 //define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 define('BG_BIBREFS_SOURCE_URL', "https://github.com//VBog/Bible/raw/main/");
 
@@ -82,7 +82,6 @@ include_once('includes/settings.php');
 include_once('includes/references.php');
 include_once('includes/quotes.php');
 include_once('includes/search.php');
-include_once('includes/PDUpdater.php');
  
 if ( defined('ABSPATH') && defined('WPINC') ) {
 // Регистрируем крючок для обработки контента при его загрузке
@@ -139,16 +138,6 @@ function  bg_bibrefs_activate() {
 }
 
 register_activation_hook( __FILE__, 'bg_bibrefs_activate' );
-
-
-// Проверяем и обновляем текущую версию плагина
-    $updater = new PDUpdater(__FILE__);
-    $updater->set_username('VBog');
-    $updater->set_repository('Bg-Bible-References');
-    $updater->authorize('');
-    $updater->initialize();
-
-
 
 // Проверяем текущую версию плагина и обновляем папки с книгами Библии
 function bg_bibrefs_upload_folders() {
