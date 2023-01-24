@@ -136,9 +136,10 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 	
 	$lang = include_books($lang);
 
-	$norefs_posts_val = get_post_meta($post->ID, 'norefs', true);
-	if ($norefs_posts_val || in_category( 'norefs' ) || has_tag( 'norefs' )) return $txt;
-	
+	if (!empty($post)) {
+		$norefs_posts_val = get_post_meta($post->ID, 'norefs', true);
+		if ($norefs_posts_val || in_category( 'norefs' ) || has_tag( 'norefs' )) return $txt;
+	}
     if ($bg_bibrefs_option['strip_space']) $txt = bg_bibrefs_strip_space($txt);
 
 // Ищем все вхождения ссылок <a ...</a>, заголовков <h. ... </h.> и шорт-кодов [norefs]...[/norefs] и [bible]...[/bible]
