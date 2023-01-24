@@ -115,6 +115,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 
 == Changelog ==
 
+= 3.18.6 =
+
+* Fixed bug.
+
 = 3.18.5 =
 
 * Hosting the plugin on GitHub: https://github.com/VBog/Bg-Bible-References
