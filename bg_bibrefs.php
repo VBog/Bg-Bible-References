@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.18.6
+    Version: 3.18.7
     Author: VBog
     Author URI: http://bogaiskov.ru 
 	License:     GPL2
@@ -39,7 +39,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.18.6');
+define('BG_BIBREFS_VERSION', '3.18.7');
 //define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 define('BG_BIBREFS_SOURCE_URL', "https://github.com//VBog/Bible/raw/main/");
 
@@ -301,13 +301,13 @@ function bg_bibrefs_qoutes( $atts, $content=null ) {
 function bg_bibrefs_bible( $ref='', $book='', $ch='1-999', $type='verses', $lang='', $prll='', $content=null ) {
 // Если $ref задано значение "get", то получаем $book и $ch из ссылки	
 	if ($ref == "get") {
-		$ref = $_GET["bs"];
-		$book = $_GET["book"];
-		$ch = $_GET["ch"];
+		$ref = $_GET["bs"] ?? "";
+		$book = $_GET["book"] ?? "";
+		$ch = $_GET["ch"] ?? "";
 		if ($ch == "") $ch = "1-999";
-		$l = $_GET["lang"];
+		$l = $_GET["lang"] ?? "";
 		if ($l != "") $lang = $l;
-		$p = $_GET["prll"];
+		$p = $_GET["prll"] ?? "";
 		if ($p != "") $prll = $p;
 	}
 // это и все нововведения для версии 3.7
