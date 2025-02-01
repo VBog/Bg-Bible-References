@@ -140,6 +140,7 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 		$norefs_posts_val = get_post_meta($post->ID, 'norefs', true);
 		if ($norefs_posts_val || in_category( 'norefs' ) || has_tag( 'norefs' )) return $txt;
 	}
+	
     if ($bg_bibrefs_option['strip_space']) $txt = bg_bibrefs_strip_space($txt);
 
 // Ищем все вхождения ссылок <a ...</a>, заголовков <h. ... </h.> и шорт-кодов [norefs]...[/norefs] и [bible]...[/bible]
@@ -257,30 +258,30 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 				// В книгах с одной главой, допускается указывать только номер стиха
 				if ($chapters==1 && strpos($chapter, '1:')!==0 && strpos($chapter, ':')===false ) $chapter = "1:".$chapter;
  
-				if (intval($chapter) <= $chapters) {	// Номер главы не больше максимального
-					// Проверяем, не примеяется ли западная нотация?
-					if (isWesternNotation ($chapter, $chapters)) {
-						// Заменяем запятую на двоеточие, оставляя запятые как разделители глав
+				if (bg_bibrefs_check_tag($hdr_a, $matches[0][$i][1]) 
+					&& (($bg_bibrefs_option['headers']=='on') || bg_bibrefs_check_tag($hdr_h, $matches[0][$i][1])) 
+					&&  bg_bibrefs_check_tag($hdr_norefs, $matches[0][$i][1])
+					&&  bg_bibrefs_check_tag($hdr_bible, $matches[0][$i][1])) {
+					if (intval($chapter) <= $chapters) {	// Номер главы не больше максимального
+						// Проверяем, не примеяется ли западная нотация?
+						if (isWesternNotation ($chapter, $chapters)) {
+							// Заменяем запятую на двоеточие, оставляя запятые как разделители глав
 
-						$chapter = preg_replace_callback ("/(\d+)([-:,\.;])/", function ($match) {
-							static $prevDelimeter=',', $prevDigit = 999;
-							$mt = $match[2];
-							if (($mt == ',') && 
-								($prevDigit>=$match[1]) &&
-								($prevDelimeter == ',' || $prevDelimeter == ';' || $prevDelimeter == '.' || $prevDelimeter == '-')) $mt = ':';
-							$prevDelimeter = $mt;
-							$prevDigit = $match[1];
-							return $match[1].$mt;
-						}, $chapter);		
-					}
-					
-					$chapter = preg_replace("/\./u", ',', $chapter);	// Заменяем точку на запятую
-					$chapter = preg_replace("/;/u", ',', $chapter);		// Заменяем точку с запятой на запятую
+							$chapter = preg_replace_callback ("/(\d+)([-:,\.;])/", function ($match) {
+								static $prevDelimeter=',', $prevDigit = 999;
+								$mt = $match[2];
+								if (($mt == ',') && 
+									($prevDigit>=$match[1]) &&
+									($prevDelimeter == ',' || $prevDelimeter == ';' || $prevDelimeter == '.' || $prevDelimeter == '-')) $mt = ':';
+								$prevDelimeter = $mt;
+								$prevDigit = $match[1];
+								return $match[1].$mt;
+							}, $chapter);		
+						}
+						
+						$chapter = preg_replace("/\./u", ',', $chapter);	// Заменяем точку на запятую
+						$chapter = preg_replace("/;/u", ',', $chapter);		// Заменяем точку с запятой на запятую
 
-					if (bg_bibrefs_check_tag($hdr_a, $matches[0][$i][1]) 
-						&& (($bg_bibrefs_option['headers']=='on') || bg_bibrefs_check_tag($hdr_h, $matches[0][$i][1])) 
-						&&  bg_bibrefs_check_tag($hdr_norefs, $matches[0][$i][1])
-						&&  bg_bibrefs_check_tag($hdr_bible, $matches[0][$i][1])) {
 						if ($type == '' || $type == 'link') {
 							$book = bg_bibrefs_getshortTitle($title);					// Короткое наименование книги
 							if ($bg_bibrefs_option['norm_refs']) {						// Преобразовать ссылку к нормализованному виду
@@ -302,8 +303,8 @@ function bg_bibrefs_bible_proc($txt, $type='', $lang='', $prll='') {
 						} else {
 							$newmt = bg_bibrefs_getQuotes($title, $chapter, $type, $lang, $prll );
 						}
-					} else $newmt = $matches[0][$i][0];
-				}else $newmt = "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='' title='' style='border-bottom: 2px dotted red;'><span class='bg_data_tooltip'></span>".$matches[0][$i][0]."</span>";
+					} else $newmt = "<span class='bg_data_title ".$bg_bibrefs_option['class']."' data-title='' title='' style='border-bottom: 2px dotted red;'><span class='bg_data_tooltip'></span>".$matches[0][$i][0]."</span>";
+				} else $newmt = $matches[0][$i][0];
 				$text = $text.substr($txt, $start, $matches[0][$i][1]-$start).str_replace($ref, $newmt, $matches[0][$i][0]);
 				$start = $matches[0][$i][1] + strlen($matches[0][$i][0]);
 			}

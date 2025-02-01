@@ -3,7 +3,7 @@
     Plugin Name: Bg Bible References 
     Plugin URI: http://wp-bible.info
     Description: The plugin will highlight the Bible references with hyperlinks to the Bible text and interpretation by the Holy Fathers.
-    Version: 3.18.7
+    Version: 3.18.10
     Author: VBog
     Author URI: http://bogaiskov.ru 
 	License:     GPL2
@@ -12,7 +12,7 @@
 	GitHub Plugin URI: https://github.com/VBog/Bg-Bible-References
 */
 
-/*  Copyright 2013-2023  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
+/*  Copyright 2013-2025  Vadim Bogaiskov  (email: vadim.bogaiskov@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ if ( !defined('ABSPATH') ) {
 	die( 'Sorry, you are not allowed to access this page directly.' ); 
 }
 
-define('BG_BIBREFS_VERSION', '3.18.7');
+define('BG_BIBREFS_VERSION', '3.18.10');
 //define('BG_BIBREFS_SOURCE_URL', "http://plugins.svn.wordpress.org/bg-biblie-references/bible/");
 define('BG_BIBREFS_SOURCE_URL', "https://github.com//VBog/Bible/raw/main/");
 
@@ -64,8 +64,14 @@ function bg_enqueue_frontend_scripts () {
 	$content=get_option( "bg_bibrefs_content" );
     $ajaxurl = trim(get_option( 'bg_bibrefs_ajaxurl' ));
 	if (!$ajaxurl) $ajaxurl=admin_url('admin-ajax.php');
-	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs.js', __FILE__ ), false, BG_BIBREFS_VERSION, true );
-	wp_localize_script( 'bg_bibrefs_proc', 'bg_bibrefs', array( 'ajaxurl' => $ajaxurl, 'content' => $content, 'preq' => $preq ) );
+	wp_enqueue_script( 'bg_bibrefs_proc', plugins_url( 'js/bg_bibrefs_loader.js', __FILE__ ), false, BG_BIBREFS_VERSION, true );
+	wp_localize_script( 'bg_bibrefs_proc', 'bg_bibrefs', 
+		[ 	
+			'main_script'=> plugins_url( 'js/bg_bibrefs.js', __FILE__ ),
+			'ajaxurl' => $ajaxurl, 
+			'content' => $content, 
+			'preq' => $preq 
+		] );
 }	 
 if ( !is_admin() ) {
 	add_action( 'wp_enqueue_scripts' , 'bg_enqueue_frontend_scripts' ); 

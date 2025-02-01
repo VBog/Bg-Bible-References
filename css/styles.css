@@ -57,7 +57,6 @@ p.bg_bibrefs_close {
 ******************************************/
 .bg_data_title {
     position: static; /* Относительное позиционирование */
-	white-space: nowrap;/* Запрет переноса строк ссылки */
 	cursor: pointer;	/* Курсор - указатель */
 }
 .bg_data_tooltip {

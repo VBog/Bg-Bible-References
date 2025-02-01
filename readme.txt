@@ -5,7 +5,7 @@ Donate link: http://bogaiskov.ru/about-me/donate/
 Tags: bible, orthodoxy, Christianity, Библия, православие, христианство, Священное Писание, Завет, ορθοδοξία, χριστιανισμός, Αγία Γραφή
 Requires PHP: 5.6
 Requires at least: 3.0.1
-Tested up to: 6.1.1
+Tested up to: 6.7.1
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,7 +28,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * You can add and delete folders with Bible books on your site.
 * To customize the appearance of reference  links, use class bg_bibrefs.
 
-### Bible in 6 languages: 
+### Bible in 7 languages: 
 * Church Slavic (Elizabeth Bible) 
 * Russian (Synodal translation by Russian Orthodox Church) 
 * Ukrainian (translation by I.I.Ogienko) 
@@ -65,7 +65,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Вы можете добавлять и удалять папки с книгами Библии на вашем сайте.
 * Для настройки вида ссылок используйте класс bg_bibrefs.
 
-### Текст Библии на 6 языках: 
+### Текст Библии на 7 языках: 
 * церковно-славянский (Елизаветинская Библия)
 * русский (Синодальный перевод)
 * украинский (перевод И.И.Огиенко)
@@ -114,6 +114,10 @@ Any references to Bible verses on your page will be replaced by hyperlink.
 5. Search in the Bible
 
 == Changelog ==
+
+= 3.18.7-10 =
+
+* Fixed bugs.
 
 = 3.18.6 =
 
