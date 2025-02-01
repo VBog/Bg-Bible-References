@@ -20,7 +20,11 @@ jQuery(document).ready(function(){
 
 	jQuery('span.bg_data_title').each (function(){
 		var el = jQuery(this);
-		var tooltip = el.children('span.bg_data_tooltip');	
+		var tooltip = el.children('span.bg_data_tooltip');
+		if(!tooltip.length){
+			tooltip = jQuery('<span class="bg_data_tooltip"></span>');
+			el.append(tooltip);
+		}
 		if (tooltip.css('position')=='fixed') return;
 		if (el.attr('data-title') != "") {						// Книга задана
 			jQuery.ajax({
@@ -55,12 +59,16 @@ jQuery(document).ready(function(){
    При наведении мыши на ссылку, если подсказка не пуста, 
    отображает подсказку на экране
 *******************************************************************************/  
-var bg_bibrefs_intervalID;
+var bg_bibrefs_intervalID, bg_bibrefs_count = 0, bg_bibrefs_timeout = [];
 
 jQuery('span.bg_data_title')
 	.mouseenter(function(e){
 		var el = jQuery(this);
 		var tooltip = el.children('span.bg_data_tooltip');	
+		if(!tooltip.length){
+			tooltip = jQuery('<span class="bg_data_tooltip"></span>');
+			el.append(tooltip);
+		}
 		if (tooltip.css('position')=='fixed') return;
 
 		if (el.attr('data-title') != "" && bg_bibrefs.preq == '0') {	// Книга задана
@@ -108,7 +116,10 @@ jQuery('span.bg_data_title')
 		clearInterval(bg_bibrefs_intervalID);
 		var tooltip = jQuery(this).children('span.bg_data_tooltip');
 		if (tooltip.css('position')=='fixed') return;
-		tooltip.css('display', "none");
+		
+		let id = tooltip.attr('data-id');
+		clearTimeout(bg_bibrefs_timeout[id]);
+		bg_bibrefs_timeout[id] = setTimeout(()=>tooltip.hide(), 1000);
 	});
 
 /*******************************************************************************
@@ -116,6 +127,15 @@ jQuery('span.bg_data_title')
 *******************************************************************************/  
 function tooltip_mini(tooltip, el, e) {	
 	if (!tooltip.html()) return;
+	
+	// Отменяем исчезновение
+	let id = tooltip.attr('data-id');
+	if(id) 
+		clearTimeout(bg_bibrefs_timeout[id]);
+	
+	if(tooltip.css('display')!=='none')
+		return; //уже показана
+	
 	// Восстанавливаем заданные значения ширины, максимальной высоты и вертикального положения подсказки 
 	tooltip.css({
 		'width': bg_bibrefs_tipWidth+"px",		// Восстанавливаем заданную ширину подсказки
@@ -133,9 +153,17 @@ function tooltip_mini(tooltip, el, e) {
 	});
 
 	var padding = parseInt(tooltip.css('paddingLeft'))+parseInt(tooltip.css('paddingRight'))+parseInt(tooltip.css('border-Left-Width'))+parseInt(tooltip.css('border-Right-Width'));
+	
 	// Координаты контейнера, внутри которого будут отображаться подсказки. Например для <div id="content">, это "#content"
 	var content = jQuery(bg_bibrefs.content);
 	if (content.length < 1) content = jQuery('body');	// Если тема не содержит, указанный контейнер, то определяем положение body
+	
+	//Учёт id
+	bg_bibrefs_count++;
+	let current = bg_bibrefs_count;
+	el.attr('data-id', current);
+	tooltip.attr('data-id', current);
+	
 	var c_left = content.position().left+parseInt(content.css('paddingLeft'))+parseInt(content.css('marginLeft'))+parseInt(content.css('border-Left-Width'));
 	var c_right =c_left+content.width();
 //	alert(c_left+" "+c_right);
